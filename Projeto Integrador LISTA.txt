@@ -1,0 +1,84 @@
+
+------------------------------------------------
+
+ [ Imagem ]
+
+
+ARmas = OK
+
+Torres ???
+
+Personagem ???
+
+Zombies ???
+
+
+Predios ????
+
+
+Obestaculos ????
+
+Efeitos: 
+ 	- Explosao ???
+
+	- Sangue  ???
+
+	- Animacao fogo ????
+
+
+Cenario ???
+
+
+------------------------------------------------
+
+
+
+
+	Personagem  
+
+	TECLAS
+	Movimentacao 1
+
+	W: anda para -Y
+	S: anda para +Y 
+	A: anda para -X
+	D: anda para +X	
+	Movimentacao 2
+
+	W: anda para prafrente
+	S: anda para pra traz 
+	A: anda para pra esquerda
+	D: anda para pra direita
+
+	Acao
+	Mouse1: Atira
+	
+	
+	Q: Troca Para Arma Anterior Selecionada
+
+
+
+
+
+
+DUVIDAS  a TIRAR <<<<<<<<<<<<<<<<<<<<<<<<<
+
+
+
+PARA A IA DE "MENOR DISTANCIA" EM CONUNTO COM UM MAPA QUE SEJA MENOR QUE O MUNDO
+(ESTILO TILESET MAS NAO PENSO EM USAR MAPA TILE, USAR ENTAO DIRETO UM MUNDO MAIOR E SO 
+PLOTAR UM TAMANHO NA TELA SEM FUNCAO DE TILE)  ############# DENNIS
+
+
+vISAO DE CIMA 100 % OU VISAO ESTILO 45 GRAUS. (VISAO DE CIMA A PRINCIPIO....)
+
+
+COMO FAZER O MOUSE DAR INTENSIDADE NA CAMINHADA ## DENNIS
+
+--------------------------------------------------
+
+
+IDEIAS
+
+JOGO FRENETICO, TELAS DE COMBO E DE  ZOACOES COMO "WTF? kill all !!!!" "MAssive KILL) efeito combinando com musica estilo " love island fatboyslim "
+
