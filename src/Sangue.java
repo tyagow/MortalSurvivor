@@ -23,7 +23,8 @@ public class Sangue extends Particula {
 		this.tempototal = 0;
 		
 		this.cor = cor;
-	
+		sizeX=GamePanel.rnd.nextInt(5)+3;
+		sizeY=GamePanel.rnd.nextInt(5)+3;
 		
 		r = cor.getRed();
 		g = cor.getGreen();
@@ -37,11 +38,14 @@ public class Sangue extends Particula {
 		X+=velx*DiffTime/1000.0f;
 		Y+=vely*DiffTime/1000.0f;
 		
+		alfa = (int)((1.0f - (tempototal/(float)tempodevida))*255);
+
 		if(tempototal>=tempodevida){
 			vivo = false;
+			alfa = GamePanel.rnd.nextInt(130)+125;
+			sizeX=GamePanel.rnd.nextInt(Constantes.SANGUE_SIZE_X)+2;
+			sizeY=GamePanel.rnd.nextInt(Constantes.SANGUE_SIZE_Y)+2;
 		}
-		
-		alfa = (int)((1.0f - (tempototal/(float)tempodevida))*255);
 		
 	}
 
@@ -49,7 +53,7 @@ public class Sangue extends Particula {
 	public void DesenhaSe(Graphics2D dbg, int XMundo, int YMundo) {
 		// TODO Auto-generated method stub
 		dbg.setColor(new Color(r,g,b,alfa));
-
-		dbg.fillRect((int)(X-XMundo),(int)Y-YMundo, 3, 1);
+		
+		dbg.fillOval((int)X-XMundo,(int)Y-YMundo, sizeX, sizeY);
 	}
 }

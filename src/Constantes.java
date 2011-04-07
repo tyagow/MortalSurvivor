@@ -6,33 +6,41 @@ import javax.imageio.ImageIO;
 
 public class Constantes {
 	
-	//TIRO
-	public static final int TEMPO_TIRO = 500;
-	
-	//METEORO 
-	public static final int METEORO_GIGANTE = 1;
-	public static final int METEORO_GRANDE = 2;
-	public static final int METEORO_MEDIO = 3;
-	public static final int METEORO_PEQUENO = 4;
-	public static final int METEORO_MICRO = 5;
-	public static final int METEORO_LOL = 6;
 
-	public static final int TEMPO_TIRO_INIMIGO1 = 2000;
 
-	public static final double AGILIDADE_INIMIGO1 = Math.PI/2; // 45graus /s quantidade de gruas por segundo
+	public static final int MAXIMO_PARTICULAS_ESTATICAS = 1000;
 
-	public static final int DANO_TIRO = 10;
-
-	public static final int NAVE_ACELERADOR_X = -52 ;
-	public static final int NAVE_ACELERADOR_Y = -112;
-	public static final int NAVE_ACELERADOR_SIZEX = 20;
-	public static final int NAVE_ACELERADOR_SIZEY = 100;
-
-	public static final int PERSONAGEM_TEMPO_TIRO = 200;
+	public static final int PERSONAGEM_TEMPO_TIRO = 100;
 	
 	public static BufferedImage mira1 ;
 
-	
+
+
+	public static final ThreadSom ak=new ThreadSom("/ak47.wav");
+
+	public static final int PISTOLA_mag = 3;
+	public static final int PISTOLA_dano=66;
+	public static final int PISTOLA_peso=10;
+	public static final int PISTOLA_round=6;
+	public static final int PISTOLA_tempoEntreTiros=100;
+	public static final int PISTOLA_tempoRecarrega=3000;
+	public static final int PISTOLA_valor=10;
+
+	public static final int SANGUE_SIZE_X = 15;
+
+	public static final int SANGUE_SIZE_Y = 15;
+
+	public static final int FACA_dano = 70;
+
+	public static final int FACA_peso = 0;
+
+	public static final int FACA_round = 5;
+
+	public static final int FACA_valor = 50;
+
+	public static final int FACA_tempoAtaque = 200;
+
+	public static final int FACA_tempoEntreTiros = 400;
 	
 	public static BufferedImage LoadImage(String filename){
 		BufferedImage image = null;
@@ -40,7 +48,7 @@ public class Constantes {
 		
 		BufferedImage imgtmp;
 		try {
-			imgtmp = ImageIO.read( GamePanel.instance.getClass().getResource(filename));
+			imgtmp = ImageIO.read( GamePanel.instance.getClass().getResourceAsStream(filename));
 			image = new BufferedImage(imgtmp.getWidth(), imgtmp.getHeight(), BufferedImage.TYPE_INT_ARGB);
 			image.getGraphics().drawImage(imgtmp, 0, 0, null);
 		} catch (IOException e) {
@@ -50,6 +58,7 @@ public class Constantes {
 
 		return image;
 	}
+
 	public static boolean colidecircular(double X1,double Y1,double R1,double X2,double Y2,double R2){
 		
 		double dx = X1-X2;
@@ -63,5 +72,7 @@ public class Constantes {
 		
 		return false;
 	}
+	
+
 
 }

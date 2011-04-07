@@ -43,12 +43,15 @@ public class CanvasGame extends GCanvas {
 	BufferedImage fundo;
 
 	public static ArrayList<Projetil> projeteis = new ArrayList<Projetil>();
-//
-	public static LinkedList<Particula> particulas = new LinkedList<Particula>();
 
 	public static ArrayList<Objeto> objetos = new ArrayList<Objeto>();
-
 	
+	public static ArrayList<Inimigo> inimigos = new ArrayList<Inimigo>();
+
+
+	public static GerenciadorEfeitos gerenciadorEfeitos;
+	public static GerenciadorRespawn gerenciadorRespawn;
+
 
 	BufferedImage tileset;
 
@@ -74,6 +77,7 @@ public class CanvasGame extends GCanvas {
 //	
 	static double timer = 0;
 
+
 //	public static int Dinheiro=Constantes.DINHEIRO_INICIAL;
 
 	Font fonte;
@@ -82,30 +86,38 @@ public class CanvasGame extends GCanvas {
 
 	Font fonte2;
 
-	public Personagem heroi;
+	public static Heroi heroi;
 
 	public int MundoY=0;
 
 	public int MundoX=0;
+	
+	public static TileMap MAPA;
 
 	
 	public CanvasGame() {
 		// TODO Auto-generated constructor stub
 		instance = this;
+		tileset = Constantes.LoadImage("Bridge.png");
 
 		Constantes.mira1= Constantes.LoadImage("mira1.png");		
 
-
+		gerenciadorEfeitos = new GerenciadorEfeitos();
+		gerenciadorRespawn= new GerenciadorRespawn();
+		
+		
+		MAPA = new TileMap(tileset, GamePanel.PWIDTH/16, GamePanel.PHEIGHT/16);
+		MAPA.AbreMapa("60x60.map");
+		
 		objetos.add(new Mira());
-		heroi=new Personagem(GamePanel.PWIDTH/2, GamePanel.PHEIGHT/2);
+		inimigos.add(new Inimigo());
+		heroi=new Heroi(GamePanel.PWIDTH/2, GamePanel.PHEIGHT/2);
 		
 
 		fonte = new Font("Courier", Font.BOLD, 12);
 		fonte2 = new Font("Courier", Font.BOLD, 13);
 		fonte3 = new Font("Courier", Font.BOLD, 16);
 
-
-		
 		
 	}
 
@@ -115,28 +127,37 @@ public class CanvasGame extends GCanvas {
 		dbg.setFont(fonte2);
 		dbg.setColor(Color.white);
 		dbg.fillRect(0,0,GamePanel.PWIDTH, GamePanel.PHEIGHT);
-		heroi.DesenhaSe(dbg, 0, 0);
+
+		//MAPA.DesenhaSe(dbg);
 		dbg.setColor(Color.black);
 		dbg.drawString(""+GamePanel.FPS, 10, 10);
+		
+		gerenciadorEfeitos.DesenhaSe(dbg, MAPA.MapX, MAPA.MapY);
+
+
 		for(int i = 0; i < projeteis.size();i++){
 			
 			Projetil proj = (Projetil) projeteis.get(i);
-			proj.DesenhaSe(dbg,0,0);
+			proj.DesenhaSe(dbg, MAPA.MapX, MAPA.MapY);
 			
 		}
-		for(int i = 0; i < particulas.size();i++){
-			
-			Particula proj = (Particula) particulas.get(i);
-			proj.DesenhaSe(dbg,0,0);
-			
-		}
-		
+
 		for(int i = 0; i < objetos.size();i++){
 			
 			Objeto proj = (Objeto)objetos.get(i);
-			proj.DesenhaSe(dbg,0,0);
+			proj.DesenhaSe(dbg, MAPA.MapX, MAPA.MapY);
 			
 		}
+		
+		for(int i = 0; i < inimigos.size();i++){
+			Inimigo inim = (Inimigo)inimigos.get(i);
+			inim.DesenhaSe(dbg, MAPA.MapX, MAPA.MapY);
+		}
+		
+		heroi.DesenhaSe(dbg, MAPA.MapX, MAPA.MapY);
+
+		gerenciadorRespawn.DesenhaSe(dbg, MAPA.MapX, MAPA.MapY);
+
 	}
 	
 	
@@ -145,7 +166,8 @@ public class CanvasGame extends GCanvas {
 	void SimulaSe(long DiffTime) {
 		
 
-		
+		MAPA.Posiciona((int)(heroi.X-(GamePanel.PWIDTH/2)), (int)heroi.Y-(GamePanel.PHEIGHT/2));
+
 		for(int i = 0; i < objetos.size();i++){
 			
 			Objeto proj = (Objeto)objetos.get(i);
@@ -162,16 +184,29 @@ public class CanvasGame extends GCanvas {
 			}
 			
 		}
-//		
-		Iterator<Particula> it = particulas.iterator();
-		while(it.hasNext()){
-			Particula part = it.next();
-			part.SimulaSe((int)DiffTime);
-			if(part.vivo==false){
-				it.remove();
+		for(int i = 0; i < inimigos.size();i++){
+			Inimigo inim = (Inimigo)inimigos.get(i);
+			inim.SimulaSe((int)DiffTime);
+			if (inim.life<=0) {
+				CanvasGame.gerenciadorEfeitos.ganhouXp(inimigos.get(i).X, inimigos.get(i).Y, 10);
+				inimigos.remove(i);
+				//inimigos.add(new Inimigo());
+				
+
 			}
 		}
-	
+//		
+//		Iterator<Particula> it = particulas.iterator();
+//		while(it.hasNext()){
+//			Particula part = it.next();
+//			part.SimulaSe((int)DiffTime);
+//			if(part.vivo==false){
+//				it.remove();
+//				particulasEstatica.add(part);
+//			}
+//		}
+		gerenciadorEfeitos.SimulaSe((int)DiffTime);
+		gerenciadorRespawn.SimulaSe((int)DiffTime);
 	}
 	
 	@Override
@@ -193,6 +228,12 @@ public class CanvasGame extends GCanvas {
 		}
 		if(keyCode == KeyEvent.VK_D){
 			heroi.RIGHT=true;
+		}
+		if(keyCode == KeyEvent.VK_1){
+			heroi.MELEE=true;
+		}
+		if(keyCode == KeyEvent.VK_2){
+			heroi.SECUNDARIA=true;
 		}
 		
 	
@@ -275,25 +316,25 @@ public class CanvasGame extends GCanvas {
 
 		
 	}
-	public static void main(String args[])
-	{
-		GamePanel ttPanel = new GamePanel();
-
-	  // create a JFrame to hold the timer test JPanel
-	  JFrame app = new JFrame("Swing Timer Test");
-	  app.getContentPane().add(ttPanel, BorderLayout.CENTER);
-	  app.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	  
-	  int[] pixels = new int[16 * 16];
-	    Image image = Toolkit.getDefaultToolkit().createImage(
-	        new MemoryImageSource(16, 16, pixels, 0, 16));
-	    Cursor transparentCursor = Toolkit.getDefaultToolkit().createCustomCursor(
-	        image, new Point(0, 0), "invisibleCursor");
-	    
-	  app.setCursor(transparentCursor);
-	  app.pack();
-	  app.setResizable(false);  
-	  app.setVisible(true);
-	} // end of main()
+//	public static void main(String args[])
+//	{
+//		GamePanel ttPanel = new GamePanel();
+//
+//	  // create a JFrame to hold the timer test JPanel
+//	  JFrame app = new JFrame("Swing Timer Test");
+//	  app.getContentPane().add(ttPanel, BorderLayout.CENTER);
+//	  app.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//	  
+//	  int[] pixels = new int[16 * 16];
+//	    Image image = Toolkit.getDefaultToolkit().createImage(
+//	        new MemoryImageSource(16, 16, pixels, 0, 16));
+//	    Cursor transparentCursor = Toolkit.getDefaultToolkit().createCustomCursor(
+//	        image, new Point(0, 0), "invisibleCursor");
+//	    
+//	  app.setCursor(transparentCursor);
+//	  app.pack();
+//	  app.setResizable(false);  
+//	  app.setVisible(true);
+//	} // end of main()
 
 }
