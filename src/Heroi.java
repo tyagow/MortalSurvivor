@@ -29,6 +29,7 @@ public class Heroi extends Objeto {
 	boolean SECUNDARIA=true;
 	boolean MELEE=false;
 	private boolean ARMA_ANTERIOR=false;
+	private int larguraMapa,alturaMapa;
 
 	
 	
@@ -40,7 +41,9 @@ public class Heroi extends Objeto {
 		sizeY=20;
 		life=100;
 		vivo=true;
-	
+		larguraMapa=CanvasGame.MAPA.Largura*16;
+		alturaMapa=CanvasGame.MAPA.Altura*16;
+
 		
 	}
 	@Override
@@ -56,16 +59,16 @@ public class Heroi extends Objeto {
 			X+=Math.cos(angMovimentacao)*vel*DiffTime/1000.0f; 
 			Y-=Math.sin(angMovimentacao)*vel*DiffTime/1000.0f; 	
 	 
-			
-			if (X+sizeX+1 >=GamePanel.PWIDTH || Y+sizeY+1>=GamePanel.PHEIGHT  || Y-1 <=0 || X-1<=0) {
+			if (X+sizeX/2+1 >=larguraMapa || Y+sizeY/2+1>=alturaMapa || Y-sizeY/2-1 <=0 || X-sizeX/2-1<=0) {
 				
 				X=oldx;
 				Y=oldy;
 			}
-			armaAtiva.definePosicaoArma(ang, X+sizeX/2, Y+sizeY/2);
+			armaAtiva.definePosicaoArma(ang, X, Y);
 			armaAtiva.SimulaSe(DiffTime);
 		}
-		
+//		System.out.println(X);
+//		System.out.println(Y);
 		
 	}
 
@@ -74,89 +77,130 @@ public class Heroi extends Objeto {
 		// TODO Auto-generated method stub
 		if (vivo) {
 
-		armaAtiva.DesenhaSe(dbg, XMundo, YMundo);
-			
-		dbg.setColor(cor);
-		dbg.fillOval((int)X,(int) Y, sizeX,sizeY);
-		
-		
-		
-		
-		///// VIDA TEMPORARIO ## FAZER HUD
-		dbg.drawRect((int)X-5, (int)Y-17, 30, 10);
-		dbg.setColor(Color.green);
-		dbg.fillRect((int)X-5+1, (int)Y-16, (int)(life*30/maximoVida)-1, 9);
+			armaAtiva.DesenhaSe(dbg, XMundo, YMundo);
+			dbg.setColor(cor);
+			int px =(int) (X-XMundo);
+			int py = (int)(Y-YMundo);
+			dbg.fillOval((int)px-sizeX/2,(int)py-sizeY/2, sizeX,sizeY);
+
+			///// VIDA TEMPORARIO ## FAZER HUD
+			dbg.drawRect((int)px-sizeX/2-5, (int)py-sizeY/2-17, 30, 10);
+			dbg.setColor(Color.green);
+			dbg.fillRect((int)px-sizeX/2-5+1, (int)py-16-sizeY/2, (int)(life*30/maximoVida)-1, 9);
 		}
 		
-		
+//		System.out.println(CanvasGame.MAPA.MapX + "   <- MAPX ");
+//		System.out.println(CanvasGame.MAPA.MapY + "   <- MAPY ");
+//
+//		System.out.println("1"+CanvasGame.MAPA.Altura*16);
+//		System.out.println("2"+CanvasGame.MAPA.Largura*16);
 	}
 	private void calculaIA(int DiffTime) {
 		// TODO Auto-generated method stub
 
 		if (life<0)
 			vivo =false;
-//		
-		//Timers
-		timertiro+=DiffTime;
+		
+		calculaAnguloVelocidade();
+		trataDirecaoMovimentacao();
+		
+		double difX =CanvasGame.mousex+CanvasGame.MAPA.MapX-X;
+		
+		double difY =CanvasGame.mousey+CanvasGame.MAPA.MapY-Y;
+		
+		ang = Math.atan2(difY, difX);
+			
+		trataTiroArma();	
+			
 		
 		
-		System.out.println("ang "+(int)Math.toDegrees(ang));
+	}
+
+	private void trataTiroArma() {
+		// TODO Auto-generated method stub
+		if (ATIRA) {
+			
+			armaAtiva.atirou();
+		}
+		else 
+			armaAtiva.naoAtirou();
+		
+		if (PRIMARIA) {
+			ultimaArma=armaAtiva;
+			armaAtiva=armaPrimaria;
+			PRIMARIA=false;
+		}
+		else if (SECUNDARIA)  {
+			ultimaArma=armaAtiva;
+			armaAtiva=armaSecundaria;
+			SECUNDARIA=false;
+		}
+		else if (MELEE) {
+			ultimaArma=armaAtiva;
+			armaAtiva=armaMelee;
+			MELEE=false;
+		}
+		else if (ARMA_ANTERIOR) 
+			armaAtiva=ultimaArma;
+			ARMA_ANTERIOR=false;
+		
+	}
+	private void calculaAnguloVelocidade() {
+		// TODO Auto-generated method stub
+		
 		int angAux = (int)Math.toDegrees(ang);
 		
+		System.out.println("ang: "+ang);
 		if(angAux<0){
-			angAux+=360;
+			angAux=Math.abs(180-angAux)-180;
+		}
+		else  {
+			angAux=Math.abs(180-angAux)+180;
 		}
 		
-
+		System.out.println("angAux :"+angAux);
 		int angMovtmp = (int)Math.toDegrees(angMovimentacao);
 		
 		if(angMovtmp<0){
 			angMovtmp+=360;
 		}
-		
-		System.out.println(" angAux "+angAux+" angMovtmp "+angMovtmp);
-		
-		int anguloDif = Math.abs(angAux - angMovtmp);
-
-		System.out.println(" anguloDif "+anguloDif);
-		
+		System.out.println("angMove:"+angMovtmp);
+	
+		int anguloDif = Math.abs(angAux - angMovtmp) ;
+				System.out.println(" angulo dif 1"+anguloDif);
 		if(anguloDif>180){
-			anguloDif=360-anguloDif;
+			anguloDif=Math.abs(anguloDif-360);
 		}
-		
-		System.out.println(" anguloDifFinal "+anguloDif);
-		
-		if(anguloDif<45){
-			vel = VelMaxFrente;
-			//System.out.println("VelMaxFrente");
-		}else if(anguloDif<90){
-			vel = VelMaxLado;
-			//System.out.println("VelMaxLado");
+		System.out.println(" angulo dif final"+anguloDif);
+
+		if(anguloDif<80){
+			vel = VelMaxFrente-armaAtiva.peso;
+		}else if(anguloDif<140){
+			vel = VelMaxLado-armaAtiva.peso;
 		}else{
-			vel = VelMaxTras;
-			//System.out.println("VelMaxTras");
+			vel = VelMaxTras-armaAtiva.peso;
 		}
-		
-//		if (angMovimentacao >= angAux)
-//			anguloDif=angMovimentacao-angAux;
-//		else
-//			anguloDif=angAux-angMovimentacao;
-//
-//		
-//		if (anguloDif<0)
-//			anguloDif*=-1;
-//
-//		if (anguloDif<=Math.PI/4) {
-//			vel = VelMaxFrente;
-//		}
-//		if (anguloDif>Math.PI/4 && anguloDif<=3*Math.PI/4) {
-//			vel = VelMaxLado;
-//		}
-//		if(anguloDif>3*Math.PI/4 ){
-//			vel = VelMaxTras;
-//		}
-		
-		if(UP){ 
+	}
+	
+	private void trataDirecaoMovimentacao() {
+		// TODO Auto-generated method stub
+		if (UP&&RIGHT) {
+			angMovimentacao=Math.toRadians(45);
+			
+		}
+		else if (UP&&LEFT) {
+			angMovimentacao=Math.toRadians(135);
+			
+		}
+		else if (DOWN&&LEFT) {
+			angMovimentacao=Math.toRadians(225);
+			
+		}else if (DOWN&&RIGHT) {
+			angMovimentacao=Math.toRadians(315);
+			
+		}
+			
+		else if(UP){ 
 			
 			angMovimentacao=Math.PI/2;
 			
@@ -169,52 +213,8 @@ public class Heroi extends Objeto {
 			angMovimentacao=0;
 		
 		}else vel = 0;
-		
-//		System.out.println("angaux "+angAux);
-//		System.out.println("angmov "+angMovimentacao);
-//		System.out.println("angdif "+anguloDif);
-
-//		System.out.println("vel "+vel);
-		//boolean c=false;
-		
-		// Angulo mouse
-
-			int px = (int)X-CanvasGame.mousex;
-			int py = (int)Y-CanvasGame.mousey;
-			ang = Math.atan2(py, px);
-			
-
-			
-			
-			if (ATIRA) {
-				
-				armaAtiva.atirou = true;
-			}
-			else 
-				armaAtiva.atirou = false;
-			
-			if (PRIMARIA) {
-				ultimaArma=armaAtiva;
-				armaAtiva=armaPrimaria;
-				PRIMARIA=false;
-			}
-			else if (SECUNDARIA)  {
-				ultimaArma=armaAtiva;
-				armaAtiva=armaSecundaria;
-				SECUNDARIA=false;
-			}
-			else if (MELEE) {
-				ultimaArma=armaAtiva;
-				armaAtiva=armaMelee;
-				MELEE=false;
-			}
-			else if (ARMA_ANTERIOR) 
-				armaAtiva=ultimaArma;
-				ARMA_ANTERIOR=false;
-		
-		
 	}
-
+	
 	public void respaw(int X,int Y) {
 		
 		this.X=X;

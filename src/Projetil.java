@@ -10,14 +10,22 @@ public class Projetil extends Objeto {
 	double ang;
 	int tipo;
 	Arma pai;
-	private double dano;
+	private int dano;
 	public Projetil(Arma pai,double ang,int tipo){
 		// TODO Auto-generated constructor stub
 		this.pai = pai;
-
-		this.X = pai.X;
-		this.Y = pai.Y;
 		this.ang = ang;
+		
+		if (tipo==1) {
+			this.X = pai.X;
+			this.Y = pai.Y;
+		}
+		if (tipo==2) {// se for da torre tem que tratar pois ela vai estar
+					// atirando de qualquer lugar do mundo nao necessariamente na tela
+			this.X = pai.X;
+			this.Y = pai.Y;
+		}
+		
 		this.dano=pai.dano;
 		vivo = true;
 		sizeX=4;
@@ -32,7 +40,7 @@ public class Projetil extends Objeto {
 		X+=Math.cos(ang)*vel*DiffTime/1000.0f;
 		Y+=Math.sin(ang)*vel*DiffTime/1000.0f;
 		
-		if((int)X<0||(int)X>=(GamePanel.PWIDTH)|| (int)Y<0||(int)Y>=(GamePanel.PHEIGHT)) {
+		if((int)X<0||(int)X>=(CanvasGame.largura)|| (int)Y<0||(int)Y>=(CanvasGame.altura)) {
 			
 			X = oldx;
 			Y = oldy;
@@ -42,10 +50,13 @@ public class Projetil extends Objeto {
 		
 		for(int i = 0; i < CanvasGame.inimigos.size();i++){
 			Inimigo inim = CanvasGame.inimigos.get(i);
-			if (Constantes.colidecircular(X+sizeX/2, Y+sizeY/2,sizeX/2,inim.X+inim.sizeX/2,inim.Y+inim.sizeY/2,inim.sizeX/2)) {
+			if (Constantes.colidecircular(X, Y,sizeX/2,inim.X,inim.Y,inim.sizeX/2)) {
 				
-				CanvasGame.inimigos.get(i).life-=dano;
-				CanvasGame.gerenciadorEfeitos.ativaSangue(X,Y,ang,(int)dano);
+		
+			CanvasGame.inimigos.get(i).recebeuDano(dano,tipo);
+			CanvasGame.gerenciadorEfeitos.ativaSangue(X,Y,ang,(int)dano);
+				
+				
 				vivo=false;
 				
 				break;
@@ -61,7 +72,7 @@ public class Projetil extends Objeto {
 		dbg.setColor(Color.black);
 	
 		AffineTransform trans = dbg.getTransform();
-		dbg.translate(X+sizeX/2-1, Y+sizeY/2-1);
+		dbg.translate(X-XMundo, Y-YMundo);
 		dbg.rotate(ang);
 		dbg.fillOval(-sizeX/2,-sizeY/2, sizeX,sizeY);
 

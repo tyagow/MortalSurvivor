@@ -26,4 +26,6 @@ public abstract class Arma  {
 
 	public abstract void recarrega();
 
+	public abstract void atirou();
+	public abstract void naoAtirou() ;
 }

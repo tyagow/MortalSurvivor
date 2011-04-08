@@ -9,7 +9,7 @@ public class Main extends JApplet
 
    private GamePanel gp;
    
-   int mousecontext = 0;
+  // int mousecontext = 0;
 
    public static Main instance;
 

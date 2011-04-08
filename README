@@ -1,1 +1,19 @@
-Ola
+8/4    START => 2:00 AM   END => 7:30 
+
+  Feitos=>
+
+ 1) todos X de objetos sao o centro do objeto agora,
+ 2) sangue "morto" "derramado" é desenhado em um bufered image e so desenhase este bufered
+ 3) movimentacao do personagem arrumada !
+ 4) arrumado problema de Xmundo Ymundo nos desenhase
+ 5) torre posicionando correto
+ 6) recalculado todas funcoes de angulo....
+ 7) arrumado varios parametros que estavam sendo errados (pois o centro virou X agora)
+
+
+################################################################################################
+					 		
+	
+
+
+	

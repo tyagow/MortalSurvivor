@@ -5,7 +5,7 @@ public class Particula extends Objeto{
 
 	int velx = 0;
 	int vely = 0;
-	
+	int alpha=1;
 	int tempototal = 0;
 	int tempodevida = 0;
 
@@ -19,6 +19,9 @@ public class Particula extends Objeto{
 	public void DesenhaSe(Graphics2D dbg, int XMundo, int YMundo) {
 		// TODO Auto-generated method stub
 		
+	}
+	public int getAlpha() {
+		return alpha;
 	}
 	
 }

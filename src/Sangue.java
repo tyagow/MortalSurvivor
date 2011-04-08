@@ -8,7 +8,7 @@ public class Sangue extends Particula {
 	
 	int r,g,b;
 	
-	int alfa = 0;
+
 	
 	public Sangue(double X,double Y,double pvx,double pvy,int tvida,Color cor) {
 		// TODO Auto-generated constructor stu
@@ -38,21 +38,24 @@ public class Sangue extends Particula {
 		X+=velx*DiffTime/1000.0f;
 		Y+=vely*DiffTime/1000.0f;
 		
-		alfa = (int)((1.0f - (tempototal/(float)tempodevida))*255);
+		alpha = (int)((1.0f - (tempototal/(float)tempodevida))*255);
 
 		if(tempototal>=tempodevida){
 			vivo = false;
-			alfa = GamePanel.rnd.nextInt(130)+125;
+			alpha = GamePanel.rnd.nextInt(70)+185;
 			sizeX=GamePanel.rnd.nextInt(Constantes.SANGUE_SIZE_X)+2;
 			sizeY=GamePanel.rnd.nextInt(Constantes.SANGUE_SIZE_Y)+2;
 		}
 		
 	}
-
+	public int getAlpha() {
+		
+		return alpha;
+	}
 	@Override
 	public void DesenhaSe(Graphics2D dbg, int XMundo, int YMundo) {
 		// TODO Auto-generated method stub
-		dbg.setColor(new Color(r,g,b,alfa));
+		dbg.setColor(new Color(r,g,b,alpha));
 		
 		dbg.fillOval((int)X-XMundo,(int)Y-YMundo, sizeX, sizeY);
 	}

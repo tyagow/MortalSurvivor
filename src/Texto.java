@@ -85,11 +85,11 @@ public class Texto extends Objeto {
 				dbg.setColor(Color.black);
 				
 			    dbg.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
-				dbg.drawString("+"+xp+" XP ", (int)X, (int)Y);
+				dbg.drawString("+"+xp+" XP ", (int)X-XMundo, (int)Y-YMundo);
 							
 				dbg.setColor(Color.yellow);
 		
-				dbg.drawString("+"+xp+" XP ", (int)X-2, (int)Y-2);
+				dbg.drawString("+"+xp+" XP ", (int)X-2-XMundo, (int)Y-2-YMundo);
 			    dbg.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
 				
 			}

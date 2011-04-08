@@ -9,15 +9,22 @@ public class Inimigo extends Objeto {
 	private int tempoEntreAtaque;
 	private int maximoVida=100;
 	private int maxVel=100;
+	public int tipoAssasino;
+	private int larguraMapa;
+	private int alturaMapa;
+	
 	
 	public Inimigo() {
-		X = GamePanel.rnd.nextInt(GamePanel.PWIDTH);
-		Y = GamePanel.rnd.nextInt(GamePanel.PHEIGHT);
+		larguraMapa=CanvasGame.MAPA.Largura*16;
+		alturaMapa=CanvasGame.MAPA.Altura*16;
+		X = GamePanel.rnd.nextInt(alturaMapa);
+		Y = GamePanel.rnd.nextInt(larguraMapa);
 		sizeX = 30;
 		sizeY = 30;
 		dano = 10;
 		vel=100;
 		life=100;
+
 		// TODO Auto-generated constructor stub
 	}
 
@@ -42,11 +49,12 @@ public class Inimigo extends Objeto {
 	@Override
 	public void DesenhaSe(Graphics2D dbg, int XMundo, int YMundo) {
 		// TODO Auto-generated method stub
-		dbg.drawOval((int)X,(int)Y,(int)sizeX,(int)sizeY);
-		
-		dbg.drawRect((int)X-5, (int)Y-17, 30, 10);
+		dbg.drawOval((int)X-sizeX/2-XMundo,(int)Y-sizeY/2-YMundo,(int)sizeX,(int)sizeY);
+//		System.out.println("INIMIGO"+X);
+//		System.out.println("INIMIGO"+Y);
+		dbg.drawRect((int)X-5-sizeX/2-XMundo, (int)Y-17-sizeY/2-YMundo, 30, 10);
 		dbg.setColor(Color.green);
-		dbg.fillRect((int)X-5+1, (int)Y-16, (int)(life*30/maximoVida)-1, 9);
+		dbg.fillRect((int)X-5+1-sizeX/2-XMundo, (int)Y-16-sizeX/2-YMundo, (int)(life*30/maximoVida)-1, 9);
 		
 	}
 	
@@ -55,7 +63,7 @@ public class Inimigo extends Objeto {
 		
 		tempoEntreAtaque+=DiffTime;
 		
-		if(Constantes.colidecircular(X+sizeX/2, Y+sizeY/2,sizeX/2,CanvasGame.heroi.X+CanvasGame.heroi.sizeX/2,CanvasGame.heroi.Y+CanvasGame.heroi.sizeY/2,CanvasGame.heroi.sizeX/2)){
+		if(Constantes.colidecircular(X, Y,sizeX/2,CanvasGame.heroi.X,CanvasGame.heroi.Y,CanvasGame.heroi.sizeX/2)){
 			if (tempoEntreAtaque>500) {
 				CanvasGame.heroi.life-=dano;
 				tempoEntreAtaque=0;
@@ -69,4 +77,25 @@ public class Inimigo extends Objeto {
 		
 	}
 
+	public void recebeuDano(int dano,int tipo) {
+		// TODO Auto-generated method stub
+		if (life-dano<=0) {
+			morreu(tipo);
+		}else  {
+			life-=dano;
+		}
+				
+	}
+
+	public void morreu(int tipo) {
+		// TODO Auto-generated method stub
+		
+		life=0;	
+		tipoAssasino=tipo;
+			vivo=false;
+			
+	}
+		
+	
 }
+

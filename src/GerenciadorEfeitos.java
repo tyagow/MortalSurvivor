@@ -1,5 +1,7 @@
+import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -12,21 +14,66 @@ public class GerenciadorEfeitos extends Objeto {
 	
 	public static LinkedList<Objeto> efeitos = new LinkedList<Objeto>();
 	
+	private static BufferedImage manchasSangue;
+	private static Graphics2D manchas;
 	public GerenciadorEfeitos() {
 		// TODO Auto-generated constructor stub
 	
+		manchasSangue= new BufferedImage(CanvasGame.MAPA.Largura*16, CanvasGame.MAPA.Altura*16, BufferedImage.TYPE_INT_ARGB);
+		manchas = manchasSangue.createGraphics();
+		
+//		new Thread(){
+//			 @Override
+//			public void run() {
+//				// TODO Auto-generated method stub
+//				//super.run();
+//				
+//				 
+//				 GerenciadorEfeitos.verificaParticulas();
+//				 
+//				 
+//			 }
+//
+//			
+//		 }.start();
 		
 		
 	}
+
+	
+	
+
+	public static void verificaParticulas() {
+		// TODO Auto-generated method stub
+		if (particulas.size()!=0) {
+			
+		
+//				Iterator<Particula> it = particulas.iterator();
+//				
+//				while(it.hasNext()){
+//					Particula part = it.next();
+					for (int i=0;i<=particulas.size();i++) {
+						Particula part = particulas.get(i);
+						if (part.vivo==false) {
+	//						it.remove();
+							particulas.remove(i);
+							GerenciadorEfeitos.desenhaSangue(part);
+						}
+				}
+			}
+		
+	}
+
+
 
 	@Override
 	public void SimulaSe(int DiffTime) {
 		// TODO Auto-generated method stub
 		
-			while(particulasEstatica.size()>Constantes.MAXIMO_PARTICULAS_ESTATICAS){
-				particulasEstatica.removeFirst();
-				
-			}
+//			while(particulasEstatica.size()>Constantes.MAXIMO_PARTICULAS_ESTATICAS){
+//				particulasEstatica.removeFirst();
+//				
+//			}
 			
 			for(int i = 0; i < efeitos.size();i++){
 				Objeto part =  efeitos.get(i);
@@ -43,19 +90,30 @@ public class GerenciadorEfeitos extends Objeto {
 			part.SimulaSe((int)DiffTime);
 			if(part.vivo==false) {
 				it.remove();
-				if (GamePanel.rnd.nextBoolean())
-					if (GamePanel.rnd.nextBoolean())
-					particulasEstatica.add(part);
+				desenhaSangue(part);
 			}
 		}
 		
 
 	}
 
+	private static void desenhaSangue(Particula part) {
+		// TODO Auto-generated method stub
+		
+		
+		manchas.setColor(new Color(255,0,0,part.getAlpha()-50));
+		manchas.fillOval((int)part.X,(int) part.Y, part.sizeX, part.sizeY);
+
+		
+	}
+
 	@Override
 	public void DesenhaSe(Graphics2D dbg, int XMundo, int YMundo) {
 		// TODO Auto-generated method stub
 
+
+		dbg.drawImage(manchasSangue, -XMundo,-YMundo, manchasSangue.getWidth()-XMundo, manchasSangue.getHeight()-YMundo, 0, 0, CanvasGame.largura, CanvasGame.altura, null);
+		
 		for(int i = 0; i < particulas.size();i++){
 			
 			Particula proj = (Particula) particulas.get(i);
@@ -63,12 +121,6 @@ public class GerenciadorEfeitos extends Objeto {
 
 		}
 
-		for(int i = 0; i < particulasEstatica.size();i++){
-				
-				Particula proj = (Particula) particulasEstatica.get(i);
-				proj.DesenhaSe(dbg,XMundo,YMundo);
-				
-			}
 		for(int i = 0; i < efeitos.size();i++){
 			
 			Objeto proj = (Objeto) efeitos.get(i);
@@ -111,7 +163,7 @@ public class GerenciadorEfeitos extends Objeto {
 					cor = Color.red;
 				}
 			
-				Particula part = (Particula)new Sangue(x+CanvasGame.MAPA.MapX,y+CanvasGame.MAPA.MapY,pvx,pvy,GamePanel.rnd.nextInt(400)+200,cor);
+				Particula part = (Particula)new Sangue(x,y,pvx,pvy,GamePanel.rnd.nextInt(400)+200,cor);
 				
 				particulas.add(part);
 			}

@@ -47,7 +47,8 @@ public class CanvasGame extends GCanvas {
 	public static ArrayList<Objeto> objetos = new ArrayList<Objeto>();
 	
 	public static ArrayList<Inimigo> inimigos = new ArrayList<Inimigo>();
-
+	
+	public static ArrayList<Torre> torres = new ArrayList<Torre>();
 
 	public static GerenciadorEfeitos gerenciadorEfeitos;
 	public static GerenciadorRespawn gerenciadorRespawn;
@@ -94,6 +95,9 @@ public class CanvasGame extends GCanvas {
 	
 	public static TileMap MAPA;
 
+	public static int altura;
+	public static int largura;
+
 	
 	public CanvasGame() {
 		// TODO Auto-generated constructor stub
@@ -101,13 +105,14 @@ public class CanvasGame extends GCanvas {
 		tileset = Constantes.LoadImage("Bridge.png");
 
 		Constantes.mira1= Constantes.LoadImage("mira1.png");		
-
-		gerenciadorEfeitos = new GerenciadorEfeitos();
-		gerenciadorRespawn= new GerenciadorRespawn();
-		
-		
 		MAPA = new TileMap(tileset, GamePanel.PWIDTH/16, GamePanel.PHEIGHT/16);
 		MAPA.AbreMapa("60x60.map");
+		
+		gerenciadorEfeitos = new GerenciadorEfeitos();
+		gerenciadorRespawn= new GerenciadorRespawn();
+		largura = MAPA.Largura*16;
+		altura = MAPA.Altura*16;
+
 		
 		objetos.add(new Mira());
 		inimigos.add(new Inimigo());
@@ -128,7 +133,7 @@ public class CanvasGame extends GCanvas {
 		dbg.setColor(Color.white);
 		dbg.fillRect(0,0,GamePanel.PWIDTH, GamePanel.PHEIGHT);
 
-		//MAPA.DesenhaSe(dbg);
+//		MAPA.DesenhaSe(dbg);
 		dbg.setColor(Color.black);
 		dbg.drawString(""+GamePanel.FPS, 10, 10);
 		
@@ -138,6 +143,12 @@ public class CanvasGame extends GCanvas {
 		for(int i = 0; i < projeteis.size();i++){
 			
 			Projetil proj = (Projetil) projeteis.get(i);
+			proj.DesenhaSe(dbg, MAPA.MapX, MAPA.MapY);
+			
+		}		
+		for(int i = 0; i < torres.size();i++){
+			
+			Torre proj = (Torre) torres.get(i);
 			proj.DesenhaSe(dbg, MAPA.MapX, MAPA.MapY);
 			
 		}
@@ -183,14 +194,23 @@ public class CanvasGame extends GCanvas {
 				projeteis.remove(i);
 			}
 			
+		}	
+		for(int i = 0; i < torres.size();i++){
+			
+			Torre proj = (Torre)torres.get(i);
+			proj.SimulaSe((int)DiffTime);
+			if(proj.vivo==false){
+				torres.remove(i);
+			}
+			
 		}
 		for(int i = 0; i < inimigos.size();i++){
 			Inimigo inim = (Inimigo)inimigos.get(i);
 			inim.SimulaSe((int)DiffTime);
 			if (inim.life<=0) {
-				CanvasGame.gerenciadorEfeitos.ganhouXp(inimigos.get(i).X, inimigos.get(i).Y, 10);
+				gerenciadorEfeitos.ganhouXp(inimigos.get(i).X, inimigos.get(i).Y, 10);
 				inimigos.remove(i);
-				//inimigos.add(new Inimigo());
+				//
 				
 
 			}
@@ -235,7 +255,12 @@ public class CanvasGame extends GCanvas {
 		if(keyCode == KeyEvent.VK_2){
 			heroi.SECUNDARIA=true;
 		}
-		
+		if(keyCode == KeyEvent.VK_3){
+			torres.add(new Torre(new ArmaUmTorre()) );
+		}	
+		if(keyCode == KeyEvent.VK_4){
+			inimigos.add(new Inimigo());
+		}
 	
 	}
 

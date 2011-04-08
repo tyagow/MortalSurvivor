@@ -42,7 +42,7 @@ public class Faca extends Arma {
 		// TODO Auto-generated method stub
 			dbg.setColor(Color.black);
 			AffineTransform trans = dbg.getTransform();
-			dbg.translate(X, Y);
+			dbg.translate(X-XMundo, Y-YMundo);
 			if(estado==1)
 				dbg.rotate(oldAng);
 			else 
@@ -137,6 +137,24 @@ public class Faca extends Arma {
 	@Override
 	public void recarrega() {
 		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void atirou() {
+		// TODO Auto-generated method stub
+
+			atirou=true;
+			
+		
+	}
+
+
+
+	@Override
+	public void naoAtirou() {
+		// TODO Auto-generated method stub
+		atirou=false;
 
 	}
 

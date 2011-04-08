@@ -3,7 +3,7 @@ import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 
 
-public class Pistola extends Arma {
+public class ArmaUmTorre extends Arma {
 
 	
 	private boolean soltouTiro=true;
@@ -11,19 +11,19 @@ public class Pistola extends Arma {
 
 		
 	public int estado=0;
-	public Pistola() {
+	public ArmaUmTorre() {
 		
 		atirou=false;
-		dano=Constantes.PISTOLA_dano;
-		mag=Constantes.PISTOLA_mag;
-		peso=Constantes.PISTOLA_peso;
-		round=Constantes.PISTOLA_round;
+		soltouTiro=true;
+		dano=Constantes.TORRE_ARMA_UM_dano;
+		mag=Constantes.TORRE_ARMA_UM_mag;
+		round=Constantes.TORRE_ARMA_UM_round;
 		tempoEntreTiros=0;
 		tempoRecarrega=0;
-		valor=Constantes.PISTOLA_valor;
+		valor=Constantes.TORRE_ARMA_UM_valor;
 		sizeX=20;
 		sizeY=5;
-		
+		estado=0;
 		
 	}
 	
@@ -48,8 +48,8 @@ public class Pistola extends Arma {
 			dbg.drawRect(GamePanel.PWIDTH/2-51, GamePanel.PHEIGHT/2-206, 103, 21);
 		}
 		
-		dbg.drawString("Round: "+round,5 , 20);
-		dbg.drawString("mag: "+mag,5 , 30);
+		dbg.drawString("Round: "+round,5 , 60);
+		dbg.drawString("mag: "+mag,5 , 70);
 		
 	}
 	
@@ -60,7 +60,8 @@ public class Pistola extends Arma {
 		// TODO Auto-generated method stub
 		
 		calculaIA(DiffTime);
-		
+	
+
 		
 		
 	}
@@ -75,18 +76,14 @@ public class Pistola extends Arma {
 		else estado=1;
 			
 		if (estado==0) {
-		
-			if (tempoEntreTiros>=Constantes.PISTOLA_tempoEntreTiros) {
-				
-				if (atirou&&soltouTiro) {	
-					soltouTiro=false;
+	
+
+			if (tempoEntreTiros>=Constantes.TORRE_ARMA_UM_tempoEntreTiros) {
+				if (atirou) {	
 					atira();
 					tempoEntreTiros=0;
 					
 				}
-				
-				if (!atirou)
-					soltouTiro=true;
 			}
 		}
 		
@@ -99,11 +96,11 @@ public class Pistola extends Arma {
 			if (mag<1)
 				estado=2;
 				
-			if (tempoRecarrega>=Constantes.PISTOLA_tempoRecarrega) {
+			if (tempoRecarrega>=Constantes.TORRE_ARMA_UM_tempoRecarrega) {
 				
 				if (mag >=1) {
 					tempoRecarrega=0;
-					round=Constantes.PISTOLA_round;
+					round=Constantes.TORRE_ARMA_UM_round;
 					mag--;
 					estado=0;
 				}
@@ -132,37 +129,26 @@ public class Pistola extends Arma {
 	
 	@Override
 	public void recarrega() {
-		mag=Constantes.PISTOLA_mag;
-		round=Constantes.PISTOLA_round;
+		mag=Constantes.TORRE_ARMA_UM_mag;
+		round=Constantes.TORRE_ARMA_UM_round;
 	}
 
 	
 	private void atira() {
-		
+//		System.out.println("atira");
 		// TODO Auto-generated method stub
 		
-		if (temMunicao()) {
+//		if (temMunicao()) {
 			round--;
-			CanvasGame.projeteis.add( new Projetil (this,angulo,1 ));
-			Constantes.ak.run();
-		}
-		
-	}
-
-
-	private boolean temMunicao() {
-		// TODO Auto-generated method stub
-		
-		if (round<1) {
-			semMunicao=true;
-			return false;
 			
-		}else 
-			semMunicao=false;
+			CanvasGame.projeteis.add( new Projetil (this,angulo,2 ));
+			Constantes.ak.run();
+			
+//		}
 		
-		
-		return true;
 	}
+
+
 
 	@Override
 	public void atirou() {
@@ -181,6 +167,22 @@ public class Pistola extends Arma {
 		atirou=false;
 
 	}
+
+
+//	private boolean temMunicao() {
+//		// TODO Auto-generated method stub
+//		
+//		if (round<1) {
+//			semMunicao=true;
+//			return false;
+//			
+//		}else 
+//			semMunicao=false;
+//		
+//		
+//		return true;
+//	}
+
 
 
 }

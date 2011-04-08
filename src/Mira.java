@@ -18,14 +18,15 @@ public class Mira extends Objeto {
 	public void SimulaSe(int DiffTime) {
 		// TODO Auto-generated method stub
 		
-		X=CanvasGame.mousex+9;
-		Y=CanvasGame.mousey+9;
+		X=CanvasGame.mousex;
+		Y=CanvasGame.mousey;
 	
 	}
 
 	@Override
 	public void DesenhaSe(Graphics2D dbg, int XMundo, int YMundo) {
 		// TODO Auto-generated method stub
+		
 		dbg.setColor(Color.black);
 		dbg.drawOval((int)X-sizeX/2, (int)Y-sizeY/2, sizeX, sizeY);
 		dbg.drawLine((int)X, (int)Y-sizeY/2-4, (int)X,(int)Y-sizeY/4); 
