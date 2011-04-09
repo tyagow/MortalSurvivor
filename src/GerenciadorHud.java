@@ -8,6 +8,7 @@ public class GerenciadorHud extends Objeto {
 	private Font fontXp = Constantes.big;
 	private static int xpHud;
 	Torre torreAtivaHud;
+	private boolean rangeAtivo=false;
 	public GerenciadorHud() {
 		
 		
@@ -40,7 +41,6 @@ public class GerenciadorHud extends Objeto {
 		// TODO Auto-generated method stub
 		if (torreAtivaHud!=null) {
 			desenhaHudTorre(dbg,XMundo,YMundo);
-	
 			
 		}
 		
@@ -64,10 +64,11 @@ public class GerenciadorHud extends Objeto {
 			dbg.setColor(Color.blue);
 			dbg.drawRect((int)torreAtivaHud.X-Constantes.HUD_TORRE_STARTX-xMundo,(int)torreAtivaHud.Y-Constantes.HUD_TORRE_STARTY-yMundo, Constantes.HUD_TORRE_SIZEX, Constantes.HUD_TORRE_SIZEY);
 		
-			dbg.setColor(Color.red);
-			dbg.drawOval((int)torreAtivaHud.X-torreAtivaHud.getRange()/2-xMundo, (int)torreAtivaHud.Y-torreAtivaHud.getRange()/2-yMundo, torreAtivaHud.getRange(), torreAtivaHud.getRange());
+			if(rangeAtivo) {
+				dbg.setColor(Color.red);
+				dbg.drawOval((int)torreAtivaHud.X-torreAtivaHud.getRange()/2-xMundo, (int)torreAtivaHud.Y-torreAtivaHud.getRange()/2-yMundo, torreAtivaHud.getRange(), torreAtivaHud.getRange());
 
-
+			}
 		
 		
 	}

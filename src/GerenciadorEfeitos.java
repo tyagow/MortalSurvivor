@@ -168,9 +168,9 @@ public class GerenciadorEfeitos extends Objeto {
 				
 				int pvx = 0;
 				int pvy = 0;
-				if(GamePanel.rnd.nextInt(3)==0){
-					pvx = (velx + modv)/-2;
-					pvy = (vely - modv)/-2;
+				if(GamePanel.rnd.nextInt(4)==0){
+					pvx = (velx + modv)/-1;
+					pvy = (vely - modv)/-1;
 				}else{
 					pvx = velx + modv;
 					pvy = vely - modv;

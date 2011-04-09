@@ -104,7 +104,10 @@ public class Faca extends Arma {
 				
 				for (int i = 0; i < CanvasGame.inimigos.size(); i++) {
 					if (Constantes.colidecircular(getX(), getY(), alcanceAtaque, CanvasGame.inimigos.get(i).X, CanvasGame.inimigos.get(i).Y, CanvasGame.inimigos.get(i).sizeX/2)) {
-						CanvasGame.inimigos.get(i).life-=getDano();
+						
+						CanvasGame.inimigos.get(i).recebeuDano(getDano(),1);
+						CanvasGame.gerenciadorEfeitos.ativaSangue(getX(),getY(),getAngulo() ,(int)getDano());
+							
 						
 					}
 		
