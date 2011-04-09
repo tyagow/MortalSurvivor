@@ -14,15 +14,15 @@ public class Pistola extends Arma {
 	public Pistola() {
 		
 		atirou=false;
-		dano=Constantes.PISTOLA_dano;
-		mag=Constantes.PISTOLA_mag;
-		peso=Constantes.PISTOLA_peso;
-		round=Constantes.PISTOLA_round;
-		tempoEntreTiros=0;
-		tempoRecarrega=0;
-		valor=Constantes.PISTOLA_valor;
-		sizeX=20;
-		sizeY=5;
+		setDano(Constantes.PISTOLA_dano);
+		setMag(Constantes.PISTOLA_mag);
+		setPeso(Constantes.PISTOLA_peso);
+		setRound(Constantes.PISTOLA_round);
+		setTempoEntreTiros(0);
+		setTempoRecarrega(0);
+		setValor(Constantes.PISTOLA_valor);
+		setSizeX(20);
+		setSizeY(5);
 		
 		
 	}
@@ -34,22 +34,22 @@ public class Pistola extends Arma {
 		// TODO Auto-generated method stub
 		dbg.setColor(Color.black);
 		AffineTransform trans = dbg.getTransform();
-		dbg.translate(X-XMundo, Y-YMundo);
-		dbg.rotate(angulo);
-		dbg.drawLine(0, 0, sizeX, 0);
+		dbg.translate(getX()-XMundo, getY()-YMundo);
+		dbg.rotate(getAngulo());
+		dbg.drawLine(0, 0, getSizeX(), 0);
 
 		dbg.setTransform(trans);
 		
 		if (estado==1) {
 			dbg.setColor(Color.LIGHT_GRAY);
-			dbg.fillRect(GamePanel.PWIDTH/2-50, GamePanel.PHEIGHT/2-205,(int)(tempoRecarrega*100/Constantes.PISTOLA_tempoRecarrega) , 20);
+			dbg.fillRect(GamePanel.PWIDTH/2-50, GamePanel.PHEIGHT/2-205,(int)(getTempoRecarrega()*100/Constantes.PISTOLA_tempoRecarrega) , 20);
 
 			dbg.setColor(Color.black);
 			dbg.drawRect(GamePanel.PWIDTH/2-51, GamePanel.PHEIGHT/2-206, 103, 21);
 		}
 		
-		dbg.drawString("Round: "+round,5 , 20);
-		dbg.drawString("mag: "+mag,5 , 30);
+		dbg.drawString("Round: "+getRound(),5 , 20);
+		dbg.drawString("mag: "+getMag(),5 , 30);
 		
 	}
 	
@@ -67,21 +67,21 @@ public class Pistola extends Arma {
 	
 	private void calculaIA(int DiffTime) {
 		// TODO Auto-generated method stub
-		tempoEntreTiros+=DiffTime;
+		setTempoEntreTiros(getTempoEntreTiros() + DiffTime);
 	
 		
-		if (round>0) 
+		if (getRound()>0) 
 			estado=0;
 		else estado=1;
 			
 		if (estado==0) {
 		
-			if (tempoEntreTiros>=Constantes.PISTOLA_tempoEntreTiros) {
+			if (getTempoEntreTiros()>=Constantes.PISTOLA_tempoEntreTiros) {
 				
 				if (atirou&&soltouTiro) {	
 					soltouTiro=false;
 					atira();
-					tempoEntreTiros=0;
+					setTempoEntreTiros(0);
 					
 				}
 				
@@ -93,18 +93,18 @@ public class Pistola extends Arma {
 		if (estado==1) {
 			
 			
-			tempoRecarrega+=DiffTime;
+			setTempoRecarrega(getTempoRecarrega() + DiffTime);
 			
 			
-			if (mag<1)
+			if (getMag()<1)
 				estado=2;
 				
-			if (tempoRecarrega>=Constantes.PISTOLA_tempoRecarrega) {
+			if (getTempoRecarrega()>=Constantes.PISTOLA_tempoRecarrega) {
 				
-				if (mag >=1) {
-					tempoRecarrega=0;
-					round=Constantes.PISTOLA_round;
-					mag--;
+				if (getMag() >=1) {
+					setTempoRecarrega(0);
+					setRound(Constantes.PISTOLA_round);
+					setMag(getMag() - 1);
 					estado=0;
 				}
 			}
@@ -112,7 +112,7 @@ public class Pistola extends Arma {
 		}
 		if (estado==2) {
 			
-			if (round>0) 
+			if (getRound()>0) 
 				estado=0;
 			
 			
@@ -124,16 +124,16 @@ public class Pistola extends Arma {
 	@Override
 	public void definePosicaoArma(double ang,double startX,double startY) {
 		// TODO Auto-generated method stub
-		angulo=ang;
-		X=startX;
-		Y=startY;
+		setAngulo(ang);
+		setX(startX);
+		setY(startY);
 
 	}
 	
 	@Override
 	public void recarrega() {
-		mag=Constantes.PISTOLA_mag;
-		round=Constantes.PISTOLA_round;
+		setMag(Constantes.PISTOLA_mag);
+		setRound(Constantes.PISTOLA_round);
 	}
 
 	
@@ -142,8 +142,8 @@ public class Pistola extends Arma {
 		// TODO Auto-generated method stub
 		
 		if (temMunicao()) {
-			round--;
-			CanvasGame.projeteis.add( new Projetil (this,angulo,1 ));
+			setRound(getRound() - 1);
+			CanvasGame.projeteis.add( new Projetil (this,getAngulo(),Constantes.TIPO_ASSASINO_PLAYER ));
 			Constantes.ak.run();
 		}
 		
@@ -153,7 +153,7 @@ public class Pistola extends Arma {
 	private boolean temMunicao() {
 		// TODO Auto-generated method stub
 		
-		if (round<1) {
+		if (getRound()<1) {
 			semMunicao=true;
 			return false;
 			

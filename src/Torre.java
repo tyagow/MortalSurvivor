@@ -3,6 +3,7 @@ import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /* A FAZER
  * 
@@ -17,10 +18,10 @@ public class Torre extends Objeto{
 //	int timeranimacao;
 //	int animacao;
 //	int tempoentreframes;
-
+	private int timerContruindo;
 	public boolean select=false;
-	int range;
-	double ang = 0;
+	private int range;
+	private double ang = 0;
 
 	int sizeX = 20;
 	int sizeY = 20;
@@ -28,32 +29,33 @@ public class Torre extends Objeto{
 	int pmy;
 	int pmx;
 	
-	Arma armaAtiva;
+	private	Arma armaAtiva;
 	
-	double oldx;
-	double oldy; 
+	private double oldx;
+	private double oldy; 
 
 
 //	public boolean click = false;
 
 	Color cor;
+	boolean contruindo;
 
-	public Torre(/*BufferedImage _AnimeSet,*/ Arma arma){ 
+	private int timerSelect;
+	public Torre(/*BufferedImage _AnimeSet,*/ Arma arma,int x,int y){ 
 		// TODO Auto-generated constructor stub
-		
+	
+		contruindo=true;
 		armaAtiva=arma;
-		cor = Color.black;
-		range=200;
+		cor = Color.cyan;
+		setRange(200);
 		ang=0;
 		//AnimeSet = _AnimeSet;
 		//frame = 0;
-	//	animacao = 0;
+		//animacao = 0;
 		//timeranimacao = 0;
 
-		int _x=((CanvasGame.mousex+4)/16)*16; 
-		X=_x+CanvasGame.MAPA.MapX;
-		int _y=((CanvasGame.mousey-5)/16)*16; 
-		Y=_y+CanvasGame.MAPA.MapY;		
+		X=x;
+		Y=y;		
 
 		vivo = true;
 
@@ -73,14 +75,19 @@ public class Torre extends Objeto{
 		dbg.setColor(cor);
 
 		
-		dbg.drawOval(-sizeX/2,-sizeY/2, (int)sizeX,(int)sizeY);
 	//	dbg.drawImage(AnimeSet,-14,-18,sizeX-10,sizeY-14,sizeX*frame+start,startY,(sizeX*frame)+sizeX+start,(startY)+sizeY,null);
 
-//		if(select&&CanvasGame.Torre==0) {
-//			dbg.setColor(Color.blue);
-			dbg.drawOval((int)-range/2, (int)-range/2, range, range);
+		
+		if (contruindo) {
+			
+//			dbg.drawRect(-sizeX/2, sizeY/2, (int)(timerContruindo*30/Constantes.TEMPO_TORRE_CONSTRUINDO), (int)(timerContruindo*30/Constantes.TEMPO_TORRE_CONSTRUINDO)); //(int)(life*30/maximoVida)
+			dbg.drawRect((int)-sizeX/2-5, (int)-sizeY/2-17, 30, 10);
+			dbg.setColor(Color.lightGray);
+			dbg.fillRect((int)-sizeX/2-5+1, (int)-16-sizeY/2, (int)(timerContruindo*30/Constantes.TEMPO_TORRE_CONSTRUCAO), 9);		
+		}//else 
+			dbg.fillOval(-sizeX/2,-sizeY/2, (int)sizeX,(int)sizeY);
 
-//		}
+
 
 		dbg.setTransform(trans);
 		
@@ -89,13 +96,56 @@ public class Torre extends Objeto{
 	@Override
 	public void SimulaSe(int DiffTime) {
 		// TODO Auto-generated method stub	
-		
-		boolean at=false;
-		for (int i = 0;i<CanvasGame.inimigos.size();i++) {
+		calculaIA(DiffTime);
+
+		if (!contruindo)	{		
+			procuraInimigos();
+			 
+			armaAtiva.definePosicaoArma(ang,X, Y);
+			armaAtiva.SimulaSe((int)DiffTime);	
 			
+	
+		}	
+	}
+
+
+	private void calculaIA(int DiffTime) {
+		// TODO Auto-generated method stub
+		timerSelect+=DiffTime;
+		timerContruindo+=(int)DiffTime;
 		
-			Inimigo in = CanvasGame.inimigos.get(i);
-				if (Constantes.colidecircular(in.X, in.Y, in.sizeX/2, X, Y, range/2)) {
+		if (timerContruindo>=Constantes.TEMPO_TORRE_CONSTRUCAO) {
+			timerContruindo=0;
+			contruindo=false;
+		}
+		
+		if (select&&timerSelect>=Constantes.TEMPO_TORRE_SELECIONADA)
+			select=false;
+	}
+	
+	public void seleciona() {
+
+		if (select){
+			select =false;
+			CanvasGame.gerenciadorHud.desativaHudTorre();
+		}
+		else {
+			
+			CanvasGame.gerenciadorHud.ativaHudTorre(this);
+			select=true;
+			timerSelect=0;
+		}
+	}
+
+	private void procuraInimigos() {
+		// TODO Auto-generated method stub
+		boolean at=false;
+		
+		Iterator<Inimigo> it = CanvasGame.inimigos.iterator();
+		while (it.hasNext()){
+			
+			Inimigo in = it.next();
+				if (Constantes.colidecircular(in.X, in.Y, in.sizeX/2, X, Y, getRange()/2)) {
 					
 					int difX=(int) (X-in.X);
 					int difY=(int) (Y-in.Y);
@@ -112,9 +162,23 @@ public class Torre extends Objeto{
 		
 		 if (at==false) 
 			 armaAtiva.naoAtirou();
-		 
-		armaAtiva.definePosicaoArma(ang,X, Y);
-		armaAtiva.SimulaSe((int)DiffTime);	
-
 	}
+
+
+	public void setRange(int range) {
+		this.range = range;
+	}
+
+
+	public int getRange() {
+		return range;
+	}
+
+
+	public void resetTimerSelect() {
+		// TODO Auto-generated method stub
+		timerSelect=0;
+		
+	}
+
 }

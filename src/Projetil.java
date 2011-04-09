@@ -15,18 +15,12 @@ public class Projetil extends Objeto {
 		// TODO Auto-generated constructor stub
 		this.pai = pai;
 		this.ang = ang;
-		
-		if (tipo==1) {
-			this.X = pai.X;
-			this.Y = pai.Y;
-		}
-		if (tipo==2) {// se for da torre tem que tratar pois ela vai estar
-					// atirando de qualquer lugar do mundo nao necessariamente na tela
-			this.X = pai.X;
-			this.Y = pai.Y;
-		}
-		
-		this.dano=pai.dano;
+
+		this.X = pai.getX();
+		this.Y = pai.getY();
+
+		this.tipo=tipo;
+		this.dano=pai.getDano();
 		vivo = true;
 		sizeX=4;
 		sizeY=2;

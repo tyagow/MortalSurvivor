@@ -7,15 +7,14 @@ public class Heroi extends Objeto {
 	Color cor;
 	boolean LEFT,RIGHT,UP,DOWN;
 	double ang;
-	private int VelMaxFrente=200;
-	private double VelMaxTras=80;
-	private double VelMaxLado=130;
+	private int VelMaxFrente=350;
+	private double VelMaxTras=200;
+	private double VelMaxLado=270;
 	
 	
 	private double vel;
 	private double angMovimentacao;
-	public boolean ATIRA=false;
-	private int timertiro=0;
+	private boolean Atira=false;
 	private double maximoVida=100;
 	
 	private Arma armaMelee=new Faca();
@@ -25,10 +24,10 @@ public class Heroi extends Objeto {
 	private Arma armaAtiva=armaSecundaria;
 	
 	
-	private boolean PRIMARIA=false;
+	boolean PRIMARIA=false;
 	boolean SECUNDARIA=true;
 	boolean MELEE=false;
-	private boolean ARMA_ANTERIOR=false;
+	boolean ARMA_ANTERIOR=false;
 	private int larguraMapa,alturaMapa;
 
 	
@@ -118,7 +117,7 @@ public class Heroi extends Objeto {
 
 	private void trataTiroArma() {
 		// TODO Auto-generated method stub
-		if (ATIRA) {
+		if (Atira) {
 			
 			armaAtiva.atirou();
 		}
@@ -140,9 +139,13 @@ public class Heroi extends Objeto {
 			armaAtiva=armaMelee;
 			MELEE=false;
 		}
-		else if (ARMA_ANTERIOR) 
+		else if (ARMA_ANTERIOR)  {
+			Arma temp = armaAtiva;
 			armaAtiva=ultimaArma;
+			ultimaArma=temp;
+			
 			ARMA_ANTERIOR=false;
+		}
 		
 	}
 	private void calculaAnguloVelocidade() {
@@ -150,7 +153,7 @@ public class Heroi extends Objeto {
 		
 		int angAux = (int)Math.toDegrees(ang);
 		
-		System.out.println("ang: "+ang);
+//		System.out.println("ang: "+ang);
 		if(angAux<0){
 			angAux=Math.abs(180-angAux)-180;
 		}
@@ -158,27 +161,27 @@ public class Heroi extends Objeto {
 			angAux=Math.abs(180-angAux)+180;
 		}
 		
-		System.out.println("angAux :"+angAux);
+//		System.out.println("angAux :"+angAux);
 		int angMovtmp = (int)Math.toDegrees(angMovimentacao);
 		
 		if(angMovtmp<0){
 			angMovtmp+=360;
 		}
-		System.out.println("angMove:"+angMovtmp);
+//		System.out.println("angMove:"+angMovtmp);
 	
 		int anguloDif = Math.abs(angAux - angMovtmp) ;
-				System.out.println(" angulo dif 1"+anguloDif);
+//				System.out.println(" angulo dif 1"+anguloDif);
 		if(anguloDif>180){
 			anguloDif=Math.abs(anguloDif-360);
 		}
-		System.out.println(" angulo dif final"+anguloDif);
+//		System.out.println(" angulo dif final"+anguloDif);
 
 		if(anguloDif<80){
-			vel = VelMaxFrente-armaAtiva.peso;
+			vel = VelMaxFrente-armaAtiva.getPeso();
 		}else if(anguloDif<140){
-			vel = VelMaxLado-armaAtiva.peso;
+			vel = VelMaxLado-armaAtiva.getPeso();
 		}else{
-			vel = VelMaxTras-armaAtiva.peso;
+			vel = VelMaxTras-armaAtiva.getPeso();
 		}
 	}
 	
@@ -222,6 +225,13 @@ public class Heroi extends Objeto {
 		vivo=true;	
 		life=maximoVida;
 		armaAtiva.recarrega();
+		
+	}
+	public void trataClick() {
+		// TODO Auto-generated method stub
+		if (Atira)
+			Atira=false;
+		else Atira=true;
 		
 	}
 

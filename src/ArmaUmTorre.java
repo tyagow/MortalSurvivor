@@ -15,14 +15,14 @@ public class ArmaUmTorre extends Arma {
 		
 		atirou=false;
 		soltouTiro=true;
-		dano=Constantes.TORRE_ARMA_UM_dano;
-		mag=Constantes.TORRE_ARMA_UM_mag;
-		round=Constantes.TORRE_ARMA_UM_round;
-		tempoEntreTiros=0;
-		tempoRecarrega=0;
-		valor=Constantes.TORRE_ARMA_UM_valor;
-		sizeX=20;
-		sizeY=5;
+		setDano(Constantes.TORRE_ARMA_UM_dano);
+		setMag(Constantes.TORRE_ARMA_UM_mag);
+		setRound(Constantes.TORRE_ARMA_UM_round);
+		setTempoEntreTiros(0);
+		setTempoRecarrega(0);
+		setValor(Constantes.TORRE_ARMA_UM_valor);
+		setSizeX(20);
+		setSizeY(5);
 		estado=0;
 		
 	}
@@ -34,22 +34,22 @@ public class ArmaUmTorre extends Arma {
 		// TODO Auto-generated method stub
 		dbg.setColor(Color.black);
 		AffineTransform trans = dbg.getTransform();
-		dbg.translate(X-XMundo, Y-YMundo);
-		dbg.rotate(angulo);
-		dbg.drawLine(0, 0, sizeX, 0);
+		dbg.translate(getX()-XMundo, getY()-YMundo);
+		dbg.rotate(getAngulo());
+		dbg.drawLine(0, 0, getSizeX(), 0);
 
 		dbg.setTransform(trans);
 		
 		if (estado==1) {
 			dbg.setColor(Color.LIGHT_GRAY);
-			dbg.fillRect(GamePanel.PWIDTH/2-50, GamePanel.PHEIGHT/2-205,(int)(tempoRecarrega*100/Constantes.PISTOLA_tempoRecarrega) , 20);
+			dbg.fillRect(GamePanel.PWIDTH/2-50, GamePanel.PHEIGHT/2-205,(int)(getTempoRecarrega()*100/Constantes.PISTOLA_tempoRecarrega) , 20);
 
 			dbg.setColor(Color.black);
 			dbg.drawRect(GamePanel.PWIDTH/2-51, GamePanel.PHEIGHT/2-206, 103, 21);
 		}
 		
-		dbg.drawString("Round: "+round,5 , 60);
-		dbg.drawString("mag: "+mag,5 , 70);
+		dbg.drawString("Round: "+getRound(),5 , 60);
+		dbg.drawString("mag: "+getMag(),5 , 70);
 		
 	}
 	
@@ -68,20 +68,20 @@ public class ArmaUmTorre extends Arma {
 	
 	private void calculaIA(int DiffTime) {
 		// TODO Auto-generated method stub
-		tempoEntreTiros+=DiffTime;
+		setTempoEntreTiros(getTempoEntreTiros() + DiffTime);
 	
 		
-		if (round>0) 
+		if (getRound()>0) 
 			estado=0;
 		else estado=1;
 			
 		if (estado==0) {
 	
 
-			if (tempoEntreTiros>=Constantes.TORRE_ARMA_UM_tempoEntreTiros) {
+			if (getTempoEntreTiros()>=Constantes.TORRE_ARMA_UM_tempoEntreTiros) {
 				if (atirou) {	
 					atira();
-					tempoEntreTiros=0;
+					setTempoEntreTiros(0);
 					
 				}
 			}
@@ -90,18 +90,18 @@ public class ArmaUmTorre extends Arma {
 		if (estado==1) {
 			
 			
-			tempoRecarrega+=DiffTime;
+			setTempoRecarrega(getTempoRecarrega() + DiffTime);
 			
 			
-			if (mag<1)
+			if (getMag()<1)
 				estado=2;
 				
-			if (tempoRecarrega>=Constantes.TORRE_ARMA_UM_tempoRecarrega) {
+			if (getTempoRecarrega()>=Constantes.TORRE_ARMA_UM_tempoRecarrega) {
 				
-				if (mag >=1) {
-					tempoRecarrega=0;
-					round=Constantes.TORRE_ARMA_UM_round;
-					mag--;
+				if (getMag() >=1) {
+					setTempoRecarrega(0);
+					setRound(Constantes.TORRE_ARMA_UM_round);
+					setMag(getMag() - 1);
 					estado=0;
 				}
 			}
@@ -109,7 +109,7 @@ public class ArmaUmTorre extends Arma {
 		}
 		if (estado==2) {
 			
-			if (round>0) 
+			if (getRound()>0) 
 				estado=0;
 			
 			
@@ -121,16 +121,16 @@ public class ArmaUmTorre extends Arma {
 	@Override
 	public void definePosicaoArma(double ang,double startX,double startY) {
 		// TODO Auto-generated method stub
-		angulo=ang;
-		X=startX;
-		Y=startY;
+		setAngulo(ang);
+		setX(startX);
+		setY(startY);
 
 	}
 	
 	@Override
 	public void recarrega() {
-		mag=Constantes.TORRE_ARMA_UM_mag;
-		round=Constantes.TORRE_ARMA_UM_round;
+		setMag(Constantes.TORRE_ARMA_UM_mag);
+		setRound(Constantes.TORRE_ARMA_UM_round);
 	}
 
 	
@@ -139,9 +139,9 @@ public class ArmaUmTorre extends Arma {
 		// TODO Auto-generated method stub
 		
 //		if (temMunicao()) {
-			round--;
+			setRound(getRound() - 1);
 			
-			CanvasGame.projeteis.add( new Projetil (this,angulo,2 ));
+			CanvasGame.projeteis.add( new Projetil (this,getAngulo(),2 ));
 			Constantes.ak.run();
 			
 //		}

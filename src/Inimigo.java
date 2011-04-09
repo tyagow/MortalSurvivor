@@ -9,7 +9,7 @@ public class Inimigo extends Objeto {
 	private int tempoEntreAtaque;
 	private int maximoVida=100;
 	private int maxVel=100;
-	public int tipoAssasino;
+	private int tipoAssasino;
 	private int larguraMapa;
 	private int alturaMapa;
 	
@@ -24,6 +24,7 @@ public class Inimigo extends Objeto {
 		dano = 10;
 		vel=100;
 		life=100;
+		vivo=true;
 
 		// TODO Auto-generated constructor stub
 	}
@@ -42,6 +43,11 @@ public class Inimigo extends Objeto {
 			
 			X+=velx*DiffTime/1000.0f;
 			Y+=vely*DiffTime/1000.0f;
+			
+			if (life<0) {
+				vivo=false;
+				
+			}				
 
 	}
 
@@ -69,7 +75,7 @@ public class Inimigo extends Objeto {
 				tempoEntreAtaque=0;
 			}
 			
-			vel=0;
+			vel=0; /// variavel para o inimigo nao atravessar o player....
 			
 			}
 		else vel=maxVel;
@@ -91,9 +97,17 @@ public class Inimigo extends Objeto {
 		// TODO Auto-generated method stub
 		
 		life=0;	
-		tipoAssasino=tipo;
-			vivo=false;
+		setTipoAssasino(tipo);
+		vivo=false;
 			
+	}
+
+	public void setTipoAssasino(int tipoAssasino) {
+		this.tipoAssasino = tipoAssasino;
+	}
+
+	public int getTipoAssasino() {
+		return tipoAssasino;
 	}
 		
 	

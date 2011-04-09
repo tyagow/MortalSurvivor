@@ -14,14 +14,14 @@ public class Faca extends Arma {
 
 	public Faca() {
 		atirou=false;
-		dano=Constantes.FACA_dano;
-		peso=Constantes.FACA_peso;
-		round=Constantes.FACA_round;
-		tempoEntreTiros=0;
-		tempoRecarrega=0;
-		valor=Constantes.FACA_valor;
-		sizeX=50;
-		sizeY=5;
+		setDano(Constantes.FACA_dano);
+		setPeso(Constantes.FACA_peso);
+		setRound(Constantes.FACA_round);
+		setTempoEntreTiros(0);
+		setTempoRecarrega(0);
+		setValor(Constantes.FACA_valor);
+		setSizeX(50);
+		setSizeY(5);
 		
 		
 	}
@@ -30,10 +30,10 @@ public class Faca extends Arma {
 	public void definePosicaoArma(double ang,double startX,double startY) {
 		// TODO Auto-generated method stub
 		
-		angulo=ang;
+		setAngulo(ang);
 		oldAng=ang;
-		X=startX;
-		Y=startY;
+		setX(startX);
+		setY(startY);
 
 	}
 
@@ -42,11 +42,11 @@ public class Faca extends Arma {
 		// TODO Auto-generated method stub
 			dbg.setColor(Color.black);
 			AffineTransform trans = dbg.getTransform();
-			dbg.translate(X-XMundo, Y-YMundo);
+			dbg.translate(getX()-XMundo, getY()-YMundo);
 			if(estado==1)
 				dbg.rotate(oldAng);
 			else 
-				dbg.rotate(angulo);
+				dbg.rotate(getAngulo());
 			
 			dbg.drawLine(0, 0, (int)alcanceAtaque/2, 0);
 
@@ -57,7 +57,7 @@ public class Faca extends Arma {
 //				dbg.fillRect(GamePanel.PWIDTH/2-50, GamePanel.PHEIGHT/2-205,(int)(tempoRecarrega*100/Constantes.PISTOLA_tempoRecarrega) , 20);
 
 				dbg.setColor(Color.black);
-				dbg.drawOval((int)(X-alcanceAtaque/2), (int)(Y-alcanceAtaque/2), (int)alcanceAtaque,(int)alcanceAtaque);
+				dbg.drawOval((int)(getX()-alcanceAtaque/2), (int)(getY()-alcanceAtaque/2), (int)alcanceAtaque,(int)alcanceAtaque);
 				
 			}
 //			
@@ -73,20 +73,20 @@ public class Faca extends Arma {
 		// TODO Auto-generated method stub
 		
 		
-		tempoEntreTiros+=Difftime;
-		tempoRecarrega+=Difftime;
+		setTempoEntreTiros(getTempoEntreTiros() + Difftime);
+		setTempoRecarrega(getTempoRecarrega() + Difftime);
 		
 
 			
 		if (estado==0) {
-			oldAng=angulo;
+			oldAng=getAngulo();
 		
-			if (tempoEntreTiros>=Constantes.FACA_tempoEntreTiros) {
+			if (getTempoEntreTiros()>=Constantes.FACA_tempoEntreTiros) {
 				
 				if (atirou&&soltouTiro) {	
 					soltouTiro=false;
 					atira();
-					tempoEntreTiros=0;
+					setTempoEntreTiros(0);
 					atacou=false;
 					
 				}
@@ -103,15 +103,15 @@ public class Faca extends Arma {
 			oldAng+=Math.PI*Difftime/Constantes.FACA_tempoAtaque;
 				
 				for (int i = 0; i < CanvasGame.inimigos.size(); i++) {
-					if (Constantes.colidecircular(X, Y, alcanceAtaque, CanvasGame.inimigos.get(i).X, CanvasGame.inimigos.get(i).Y, CanvasGame.inimigos.get(i).sizeX/2)) {
-						CanvasGame.inimigos.get(i).life-=dano;
+					if (Constantes.colidecircular(getX(), getY(), alcanceAtaque, CanvasGame.inimigos.get(i).X, CanvasGame.inimigos.get(i).Y, CanvasGame.inimigos.get(i).sizeX/2)) {
+						CanvasGame.inimigos.get(i).life-=getDano();
 						
 					}
 		
 				}
 				
-			if (tempoRecarrega>=Constantes.FACA_tempoAtaque) {
-				tempoRecarrega=0;
+			if (getTempoRecarrega()>=Constantes.FACA_tempoAtaque) {
+				setTempoRecarrega(0);
 				estado=0;	
 			}
 				
@@ -130,7 +130,7 @@ public class Faca extends Arma {
 	}
 	private void atira() {
 		// TODO Auto-generated method stub
-		angulo-=Math.PI/2;
+		setAngulo(getAngulo() - (Math.PI/2));
 		estado=1;
 	}
 

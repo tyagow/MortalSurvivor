@@ -13,7 +13,7 @@ public class Texto extends Objeto {
 	private int tempoVida;
 	public String text;
 	public float alpha = 1.0f;
-	
+	Font big;
 	public Texto(int xp,double x,double y){
 		
 		this.X=x;
@@ -23,6 +23,7 @@ public class Texto extends Objeto {
 		tipo=1;
 		tempoVida=200;
 		VelocidadeAumenta=20;
+		big= new Font("SansSerif", Font.BOLD, (int) size);
 		
 	}
 	public Texto(){
@@ -33,6 +34,8 @@ public class Texto extends Objeto {
 		tipo=2;
 		tempoVida=300;
 		VelocidadeAumenta=70;
+		big= new Font("SansSerif", Font.BOLD, (int) size);
+
 	}
 
 	public Texto(double x, double y, double life) {
@@ -66,6 +69,7 @@ public class Texto extends Objeto {
 			vivo=false;
 			
 		}
+		big= new Font("SansSerif", Font.BOLD, (int) size);
 		
 			
 	}
@@ -75,11 +79,10 @@ public class Texto extends Objeto {
 		// TODO Auto-generated method stub
 		
 			Font oldfont =dbg.getFont();
-			Font big = new Font("SansSerif", Font.BOLD, (int) size);
+	
 	
 			
 			dbg.setFont(big);
-			//Color.
 			if (tipo==1) {
 				dbg.setFont(big);
 				dbg.setColor(Color.black);

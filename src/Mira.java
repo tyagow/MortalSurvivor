@@ -9,9 +9,9 @@ public class Mira extends Objeto {
 	BufferedImage mira;
 	public Mira() {
 		
-		sizeX=50;
-		sizeY=50;
-		
+		sizeX=40;
+		sizeY=40;
+		vivo=true;
 		mira = Constantes.mira1;
 	}
 	@Override

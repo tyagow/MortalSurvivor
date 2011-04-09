@@ -273,8 +273,8 @@ import java.applet.*;
 
 public class GamePanel extends Canvas implements Runnable
 {
-static final int PWIDTH = 640;
-static final int PHEIGHT = 480;
+static final int PWIDTH = 800;
+static final int PHEIGHT = 600;
 private Thread animator;
 private boolean running = false;
 private boolean gameOver = false; 
@@ -323,7 +323,16 @@ public GamePanel()
 
 	// create game components
 	setFocusable(true);
-
+	
+	int[] pixels = new int[16 * 16];
+	Image image = Toolkit.getDefaultToolkit().createImage(
+	        new MemoryImageSource(16, 16, pixels, 0, 16));
+	Cursor transparentCursor =
+	        Toolkit.getDefaultToolkit().createCustomCursor
+	             (image, new Point(0, 0), "invisibleCursor");
+	setCursor(transparentCursor);
+	
+	
 	requestFocus(); // JPanel now receives key events	
 	
 
@@ -349,6 +358,7 @@ addMouseMotionListener(new MouseMotionListener() {
 	
 	public void mouseMoved(MouseEvent e) {
 		// TODO Auto-generated method stub
+
 		if(CanvasAtivo!=null){
 			CanvasAtivo.mouseMoved(e);
 		}
@@ -364,10 +374,11 @@ addMouseMotionListener(new MouseMotionListener() {
 	
 addMouseListener(new MouseListener() {
 
-
+		
 		@Override
 		public void mouseReleased(MouseEvent e) {
 			// TODO Auto-generated method stub
+
 			if(CanvasAtivo!=null){
 				CanvasAtivo.mouseReleased(e);
 			}

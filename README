@@ -15,5 +15,20 @@
 					 		
 	
 
+9/4    START => 1:30 AM   END => 5:30 
 
-	
+
+Duvidas 
+=> o menu de torres ira parar o jogo ou nao ? novo canvas?
+
+Feitos =>
+
+1)menu de torre que nao para o jogo e ativa quando clica com o mouse2 em cima da torre, 
+se ficar em cima do menu ele nao some mas se tirar o mouse depois de X tempo (definido na classe constantes)
+o menu some.... ficou legal falta dar um alpha quando for sumir.... eh so fazer a funcao do alpha em relacao ao timerSelect
+2) gerenciador de hud comecou a ser escrito !
+3) gerenciador de torres escrito ... torres nao sao criadas umas em cima das outras
+4)torre tem um tempo de "construcao" definido na classe constantes
+5) varios gets e sets feitos e varias variaveis viraram private agora ! aleluia!
+6)sistema de XP comecando a ser implementado, ja esta sendo desenhado na tela o xp, ele eh um static da classe gerenciador de efeitos
+e esta tambem na classe gerenciadorhud, e o gerenciador de hud desenha na tela o xp

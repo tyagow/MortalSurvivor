@@ -1,5 +1,6 @@
 import java.awt.Canvas;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.Iterator;
@@ -11,32 +12,20 @@ public class GerenciadorEfeitos extends Objeto {
 	
 	public static LinkedList<Particula> particulas = new LinkedList<Particula>();
 	public static LinkedList<Particula> particulasEstatica = new LinkedList<Particula>();
-	
 	public static LinkedList<Objeto> efeitos = new LinkedList<Objeto>();
-	
+	private static int xp;
 	private static BufferedImage manchasSangue;
 	private static Graphics2D manchas;
+	
+	
+	
 	public GerenciadorEfeitos() {
 		// TODO Auto-generated constructor stub
 	
 		manchasSangue= new BufferedImage(CanvasGame.MAPA.Largura*16, CanvasGame.MAPA.Altura*16, BufferedImage.TYPE_INT_ARGB);
 		manchas = manchasSangue.createGraphics();
 		
-//		new Thread(){
-//			 @Override
-//			public void run() {
-//				// TODO Auto-generated method stub
-//				//super.run();
-//				
-//				 
-//				 GerenciadorEfeitos.verificaParticulas();
-//				 
-//				 
-//			 }
-//
-//			
-//		 }.start();
-		
+
 		
 	}
 
@@ -46,22 +35,21 @@ public class GerenciadorEfeitos extends Objeto {
 	public static void verificaParticulas() {
 		// TODO Auto-generated method stub
 		if (particulas.size()!=0) {
-			
-		
-//				Iterator<Particula> it = particulas.iterator();
-//				
-//				while(it.hasNext()){
-//					Particula part = it.next();
-					for (int i=0;i<=particulas.size();i++) {
-						Particula part = particulas.get(i);
+
+				Iterator<Particula> it = particulas.iterator();
+				
+				while(it.hasNext()){
+					Particula part = it.next();
+//					for (int i=0;i<=particulas.size();i++) {
+//						Particula part = particulas.get(i);
 						if (part.vivo==false) {
-	//						it.remove();
-							particulas.remove(i);
+//							it.remove();
+							it.remove();
 							GerenciadorEfeitos.desenhaSangue(part);
+							}
 						}
 				}
-			}
-		
+//		}
 	}
 
 
@@ -88,15 +76,33 @@ public class GerenciadorEfeitos extends Objeto {
 		while(it.hasNext()){
 			Particula part = it.next();
 			part.SimulaSe((int)DiffTime);
+			
 			if(part.vivo==false) {
 				it.remove();
 				desenhaSangue(part);
 			}
 		}
-		
+//		chamaThreadParticulas();
 
 	}
 
+	private static void chamaThreadParticulas() {
+		
+		new Thread(){
+			 @Override
+			public void run() {
+				// TODO Auto-generated method stub
+				//super.run();
+				
+				 
+				 GerenciadorEfeitos.verificaParticulas();
+				 
+				 
+			 }
+
+			
+		 }.start();
+	}
 	private static void desenhaSangue(Particula part) {
 		// TODO Auto-generated method stub
 		
@@ -127,11 +133,27 @@ public class GerenciadorEfeitos extends Objeto {
 			proj.DesenhaSe(dbg,XMundo,YMundo);
 	
 		}
+		
+	
 	}
 	
-	public void ganhouXp(double x,double y,int _xp) {
+	public void ganhouXp(double x,double y,int tipoAssasino) {
+		int _xp;
+		
+		if (tipoAssasino==Constantes.TIPO_ASSASINO_PLAYER) {
+			_xp=10;
+		}else {
+			_xp=+5;
+		}
+			
+		xp+=_xp;
+		GerenciadorHud.setXpHud(xp);
 		
 		efeitos.add(new Texto(_xp,x,y) );
+		
+
+	
+		
 		
 	}
 	
@@ -146,7 +168,7 @@ public class GerenciadorEfeitos extends Objeto {
 				
 				int pvx = 0;
 				int pvy = 0;
-				if(GamePanel.rnd.nextInt(4)==0){
+				if(GamePanel.rnd.nextInt(3)==0){
 					pvx = (velx + modv)/-2;
 					pvy = (vely - modv)/-2;
 				}else{
@@ -157,15 +179,11 @@ public class GerenciadorEfeitos extends Objeto {
 				pvx = (int)(pvx*(0.01+0.25*GamePanel.rnd.nextFloat()));
 				pvy = (int)(pvy*(0.01+0.25*GamePanel.rnd.nextFloat()));
 				
-				if(GamePanel.rnd.nextBoolean()){
+	
 					cor = Color.red;
-				}else{
-					cor = Color.red;
-				}
-			
-				Particula part = (Particula)new Sangue(x,y,pvx,pvy,GamePanel.rnd.nextInt(400)+200,cor);
+	
 				
-				particulas.add(part);
+				particulas.add((Particula)new Sangue(x,y,pvx,pvy,GamePanel.rnd.nextInt(400)+200,cor));
 			}
 //			int modv = GamePanel.rnd.nextInt(300);
 //			
@@ -217,5 +235,24 @@ public class GerenciadorEfeitos extends Objeto {
 //			
 		
 	}
+
+
+
+
+	public static void setXp(int xp) {
+		GerenciadorEfeitos.xp = xp;
+	}
+
+
+
+
+	public static int getXp() {
+		return xp;
+	}
+
+
+
+
+
 
 }

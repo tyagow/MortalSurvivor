@@ -1,3 +1,4 @@
+import java.awt.Font;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -8,9 +9,9 @@ public class Constantes {
 	
 
 
-	public static final int MAXIMO_PARTICULAS_ESTATICAS = 1000;
+	//public static final int MAXIMO_PARTICULAS_ESTATICAS = 1000;
 
-	public static final int PERSONAGEM_TEMPO_TIRO = 100;
+	//public static final int PERSONAGEM_TEMPO_TIRO = 100;
 	
 	public static BufferedImage mira1 ;
 
@@ -23,11 +24,11 @@ public class Constantes {
 	public static final int PISTOLA_peso=30;
 	public static final int PISTOLA_round=6;
 	public static final int PISTOLA_tempoEntreTiros=100;
-	public static final int PISTOLA_tempoRecarrega=3000;
+	public static final int PISTOLA_tempoRecarrega=1000;
 	public static final int PISTOLA_valor=10;
 
-	public static final int SANGUE_SIZE_X = 15;
-	public static final int SANGUE_SIZE_Y = 15;
+	public static final int SANGUE_SIZE_X = 5;
+	public static final int SANGUE_SIZE_Y = 5;
 
 	public static final int FACA_dano = 70;
 	public static final int FACA_peso = 0;
@@ -43,6 +44,25 @@ public class Constantes {
 	public static final int TORRE_ARMA_UM_valor=200;
 	public static final int TORRE_ARMA_UM_tempoEntreTiros = 400;
 	public static final int TORRE_ARMA_UM_tempoRecarrega=1000; 
+	
+	public static final Font big = new Font("SansSerif", Font.BOLD, (int) 24);
+
+
+
+	public static final int TIPO_ASSASINO_PLAYER = 1;
+	
+	public static final int TEMPO_ENTRE_ADD_TORRES = 500;
+	public static final int TEMPO_TORRE_CONSTRUCAO = 2000;
+	public static final int TEMPO_TORRE_SELECIONADA = 2000;
+
+
+
+	public static final int HUD_TORRE_STARTX = 40;
+	public static final int HUD_TORRE_STARTY = 100;
+	public static final int HUD_TORRE_SIZEX = 80;
+	public static final int HUD_TORRE_SIZEY = 80;
+
+	
 
 	public static BufferedImage LoadImage(String filename){
 		BufferedImage image = null;
