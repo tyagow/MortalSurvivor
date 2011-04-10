@@ -15,8 +15,10 @@ public class Constantes {
 	
 	public static BufferedImage mira1 ;
 
-
-
+	public static final int BASE_SIZEX_1 = 80;
+	public static final int BASE_SIZEY_1 = 80;
+	public static final int BASE_LIFE_1 = 1000;
+	
 	public static final ThreadSom ak=new ThreadSom("/ak47.wav");
 	//Pistola
 	public static final int PISTOLA_mag = 3;
@@ -73,6 +75,8 @@ public class Constantes {
 	// Mouse
 	public static final int MOUSE_SIZEY = 40;
 	public static final int MOUSE_SIZEX = 40;
+
+	public static final double INIMIGO_CAMPO_VISAO1 = 200;
 
 	
 
