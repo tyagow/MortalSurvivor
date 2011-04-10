@@ -16,42 +16,43 @@ public class Projetil extends Objeto {
 		this.pai = pai;
 		this.ang = ang;
 
-		this.X = pai.getX();
-		this.Y = pai.getY();
+		this.setX(pai.getX());
+		this.setY(pai.getY());
 
 		this.tipo=tipo;
 		this.dano=pai.getDano();
-		vivo = true;
-		sizeX=4;
-		sizeY=2;
+		setVivo(true);
+		setSizeX(4);
+		setSizeY(2);
 	}
 	
 	@Override
 	public void SimulaSe(int DiffTime) {
 		// TODO Auto-generated method stub
-		oldx=X;
-		oldy=Y;
-		X+=Math.cos(ang)*vel*DiffTime/1000.0f;
-		Y+=Math.sin(ang)*vel*DiffTime/1000.0f;
+		setOldx((int)getX());
+		setOldy((int)getY());
 		
-		if((int)X<0||(int)X>=(CanvasGame.largura)|| (int)Y<0||(int)Y>=(CanvasGame.altura)) {
+		setX(getX() + (Math.cos(ang)*vel*DiffTime/1000.0f));
+		setY(getY() + (Math.sin(ang)*vel*DiffTime/1000.0f));
+		
+		if((int)getX()<0||(int)getX()>=(CanvasGame.largura)|| (int)getY()<0||(int)getY()>=(CanvasGame.altura)) {
 			
-			X = oldx;
-			Y = oldy;
-			vivo = false;
+			setX(getOldx());
+			setY(getOldy());
+			setVivo(false);
 			
 		}
 		
 		for(int i = 0; i < CanvasGame.inimigos.size();i++){
 			Inimigo inim = CanvasGame.inimigos.get(i);
-			if (Constantes.colidecircular(X, Y,sizeX/2,inim.X,inim.Y,inim.sizeX/2)) {
+			if (Constantes.colidecircular(getX(), getY(),getSizeX()/2,inim.getX(),inim.getY(),inim.getSizeX()/2)) {
 				
 		
 			CanvasGame.inimigos.get(i).recebeuDano(dano,tipo);
-			CanvasGame.gerenciadorEfeitos.ativaSangue(X,Y,ang,(int)dano);
+			CanvasGame.gerenciadorEfeitos.ativaSangue(getX(),getY(),ang,(int)dano);
 				
 				
-				vivo=false;
+				setVivo(false);
 				
 				break;
 				}
@@ -66,9 +67,9 @@ public class Projetil extends Objeto {
 		dbg.setColor(Color.black);
 	
 		AffineTransform trans = dbg.getTransform();
-		dbg.translate(X-XMundo, Y-YMundo);
+		dbg.translate(getX()-XMundo, getY()-YMundo);
 		dbg.rotate(ang);
-		dbg.fillOval(-sizeX/2,-sizeY/2, sizeX,sizeY);
+		dbg.fillOval(-getSizeX()/2,-getSizeY()/2, getSizeX(),getSizeY());
 
 		dbg.setTransform(trans);		
 		

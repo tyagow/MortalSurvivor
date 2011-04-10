@@ -42,7 +42,7 @@ public class GerenciadorEfeitos extends Objeto {
 					Particula part = it.next();
 //					for (int i=0;i<=particulas.size();i++) {
 //						Particula part = particulas.get(i);
-						if (part.vivo==false) {
+						if (part.isVivo()==false) {
 //							it.remove();
 							it.remove();
 							GerenciadorEfeitos.desenhaSangue(part);
@@ -66,7 +66,7 @@ public class GerenciadorEfeitos extends Objeto {
 			for(int i = 0; i < efeitos.size();i++){
 				Objeto part =  efeitos.get(i);
 				part.SimulaSe((int)DiffTime);
-				if(part.vivo==false) {
+				if(part.isVivo()==false) {
 					efeitos.remove();
 				}
 			}
@@ -77,7 +77,7 @@ public class GerenciadorEfeitos extends Objeto {
 			Particula part = it.next();
 			part.SimulaSe((int)DiffTime);
 			
-			if(part.vivo==false) {
+			if(part.isVivo()==false) {
 				it.remove();
 				desenhaSangue(part);
 			}
@@ -107,8 +107,8 @@ public class GerenciadorEfeitos extends Objeto {
 		// TODO Auto-generated method stub
 		
 		
-		manchas.setColor(new Color(255,0,0,part.getAlpha()-50));
-		manchas.fillOval((int)part.X,(int) part.Y, part.sizeX, part.sizeY);
+		manchas.setColor(new Color(255,0,0,part.getAlpha()-40));
+		manchas.fillOval((int)part.getX(),(int) part.getY(), part.getSizeX(), part.getSizeY());
 
 		
 	}
@@ -141,9 +141,9 @@ public class GerenciadorEfeitos extends Objeto {
 		int _xp;
 		
 		if (tipoAssasino==Constantes.TIPO_ASSASINO_PLAYER) {
-			_xp=10;
+			_xp=Constantes.GANHO_XP_PLAYER;
 		}else {
-			_xp=+5;
+			_xp=+Constantes.GANHO_XP_TORRE;
 		}
 			
 		xp+=_xp;
@@ -159,31 +159,75 @@ public class GerenciadorEfeitos extends Objeto {
 	
 	public void ativaSangue (double x, double y, double ang, int dano) {
 		Color cor;
-		int velx =(int) Math.cos(ang)*800;
-		int vely=(int) Math.sin(ang)*800;
+		int velx =(int) (Math.cos(ang)*500);
+		int vely=(int) (Math.sin(ang)*500);
 
-			int totalParticulas= dano+20;
+			int totalParticulas= dano+60;
 			for(int B = 0; B < totalParticulas;B++){
-				int modv = GamePanel.rnd.nextInt(600)-200;
+				int modv = GamePanel.rnd.nextInt(300)-100;
 				
 				int pvx = 0;
 				int pvy = 0;
-				if(GamePanel.rnd.nextInt(4)==0){
-					pvx = (velx + modv)/-1;
-					pvy = (vely - modv)/-1;
-				}else{
-					pvx = velx + modv;
-					pvy = vely - modv;
+				
+				switch (GamePanel.rnd.nextInt(12)) {
+				case	0:
+					pvx = (velx + modv);
+					pvy = (vely - modv);
+					break;
+				case	1:
+					pvx = (velx - modv);
+					pvy = (vely - modv);
+					break;
+				case	2:
+					pvx = (velx + modv);
+					pvy = (vely - modv);
+					break;
+				case	3:
+					pvx = (velx - modv);
+					pvy = (vely + modv);
+					break;
+				case	4:
+					pvx = (velx + modv)/-2;
+					pvy = (vely - modv)/-2;
+					break;
+				case	5:
+					pvx = (velx - modv)/-2;
+					pvy = (vely - modv)/-2;
+					break;
+				case	6:
+					pvx = (velx + modv)/-2;
+					pvy = (vely - modv)/-2;
+					break;
+				case	7:
+					pvx = (velx - modv)/-2;
+					pvy = (vely + modv)/-2;
+					break;
 				}
+
 				
 				pvx = (int)(pvx*(0.01+0.25*GamePanel.rnd.nextFloat()));
 				pvy = (int)(pvy*(0.01+0.25*GamePanel.rnd.nextFloat()));
 				
 	
 					cor = Color.red;
-	
+					
+				switch (GamePanel.rnd.nextInt(8)) {
+					case 0:
+						pvx = -pvx;
+						break;
+					
+					case 1:
+						pvy=-pvy;
+						break;
+						
+					case 2:
+						pvy=-pvy;
+						pvx=-pvy;
+					   break;
+					   
+				}
 				
-				particulas.add((Particula)new Sangue(x,y,pvx,pvy,GamePanel.rnd.nextInt(400)+200,cor));
+				particulas.add((Particula)new Sangue(x,y,-pvx,-pvy,GamePanel.rnd.nextInt(400)+200,cor));
 			}
 //			int modv = GamePanel.rnd.nextInt(300);
 //			

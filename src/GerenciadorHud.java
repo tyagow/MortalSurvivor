@@ -1,6 +1,7 @@
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
+import java.util.LinkedList;
 
 public class GerenciadorHud extends Objeto {
 
@@ -9,6 +10,9 @@ public class GerenciadorHud extends Objeto {
 	private static int xpHud;
 	Torre torreAtivaHud;
 	private boolean rangeAtivo=false;
+	
+	private static LinkedList<Botao> botoes=new LinkedList<Botao>();
+	
 	public GerenciadorHud() {
 		
 		
@@ -16,21 +20,22 @@ public class GerenciadorHud extends Objeto {
 	@Override
 	public void SimulaSe(int DiffTime) {
 		// TODO Auto-generated method stub
-		if (torreAtivaHud!=null) {
-			
-			if (torreAtivaHud.select==false)
-				torreAtivaHud=null;
-			else {
-				if (Constantes.colidecircular(CanvasGame.mousex+CanvasGame.MAPA.MapX, CanvasGame.mousey+CanvasGame.MAPA.MapY, 10,torreAtivaHud.X- Constantes.HUD_TORRE_STARTX+Constantes.HUD_TORRE_SIZEX/2, torreAtivaHud.Y- Constantes.HUD_TORRE_STARTY+Constantes.HUD_TORRE_SIZEY/2, Constantes.HUD_TORRE_SIZEY/2)) {
-					
-					torreAtivaHud.resetTimerSelect();
-				}
-			}
-			
-			
-			
-			}
-		  
+//		if (torreAtivaHud!=null) {
+//			
+//			if (torreAtivaHud.select==false)
+//				torreAtivaHud=null;
+//			
+//			else {
+//				if (Constantes.colidecircular(CanvasGame.mousex+CanvasGame.MAPA.MapX, CanvasGame.mousey+CanvasGame.MAPA.MapY, 10,torreAtivaHud.getX()- Constantes.HUD_TORRE_STARTX+Constantes.HUD_TORRE_SIZEX/2, torreAtivaHud.getY()- Constantes.HUD_TORRE_STARTY+Constantes.HUD_TORRE_SIZEY/2, Constantes.HUD_TORRE_SIZEY/2)) {
+//					
+//					torreAtivaHud.setTimerSelect();
+//				}
+//			}
+//			
+//			
+//			
+//			}
+//		  
 		
 		
 	}
@@ -39,10 +44,10 @@ public class GerenciadorHud extends Objeto {
 	@Override
 	public void DesenhaSe(Graphics2D dbg, int XMundo, int YMundo) {
 		// TODO Auto-generated method stub
-		if (torreAtivaHud!=null) {
-			desenhaHudTorre(dbg,XMundo,YMundo);
-			
-		}
+//		if (torreAtivaHud!=null) {
+//			desenhaHudTorre(dbg,XMundo,YMundo);
+//			
+//		}
 		
 		
 		
@@ -58,20 +63,34 @@ public class GerenciadorHud extends Objeto {
 		
 		
 	}
-	private void desenhaHudTorre(Graphics2D dbg, int xMundo, int yMundo) {
-		// TODO Auto-generated method stub
-
-			dbg.setColor(Color.blue);
-			dbg.drawRect((int)torreAtivaHud.X-Constantes.HUD_TORRE_STARTX-xMundo,(int)torreAtivaHud.Y-Constantes.HUD_TORRE_STARTY-yMundo, Constantes.HUD_TORRE_SIZEX, Constantes.HUD_TORRE_SIZEY);
-		
-			if(rangeAtivo) {
-				dbg.setColor(Color.red);
-				dbg.drawOval((int)torreAtivaHud.X-torreAtivaHud.getRange()/2-xMundo, (int)torreAtivaHud.Y-torreAtivaHud.getRange()/2-yMundo, torreAtivaHud.getRange(), torreAtivaHud.getRange());
-
-			}
-		
-		
-	}
+//	private void desenhaHudTorre(Graphics2D dbg, int xMundo, int yMundo) {
+//		// TODO Auto-generated method stub
+//
+//			dbg.setColor(Color.blue);
+//			dbg.drawRect((int)torreAtivaHud.getX()-Constantes.HUD_TORRE_STARTX-xMundo,(int)torreAtivaHud.getY()-Constantes.HUD_TORRE_STARTY-yMundo, Constantes.HUD_TORRE_SIZEX, Constantes.HUD_TORRE_SIZEY);
+//		
+//			desenhaBotaoHud(dbg, xMundo, yMundo);
+//			
+//			
+//			if(rangeAtivo) {
+//				dbg.setColor(Color.red);
+//				dbg.drawOval((int)torreAtivaHud.getX()-torreAtivaHud.getRange()/2-xMundo, (int)torreAtivaHud.getY()-torreAtivaHud.getRange()/2-yMundo, torreAtivaHud.getRange(), torreAtivaHud.getRange());
+//
+//			}
+//		
+//		
+//	}
+//	private void desenhaBotaoHud(Graphics2D dbg, int xMundo, int yMundo) {
+//		// TODO Auto-generated method stub
+//		
+//		//botao 1
+//		dbg.drawOval((int)torreAtivaHud.getX()-Constantes.HUD_TORRE_STARTX-xMundo+5,(int)torreAtivaHud.getY()-Constantes.HUD_TORRE_STARTY-yMundo+8, 20, 10);
+//		//botao 2
+//		dbg.drawOval((int)torreAtivaHud.getX()-Constantes.HUD_TORRE_STARTX-xMundo+5,(int)torreAtivaHud.getY()-Constantes.HUD_TORRE_STARTY-yMundo+30, 20, 10);
+//		//botao 3
+//		dbg.drawOval((int)torreAtivaHud.getX()-Constantes.HUD_TORRE_STARTX-xMundo+5,(int)torreAtivaHud.getY()-Constantes.HUD_TORRE_STARTY-yMundo+55, 20, 10);
+//		
+//	}
 	public static void setXpHud(int _xpHud) {
 		xpHud = _xpHud;
 	}
@@ -79,16 +98,16 @@ public class GerenciadorHud extends Objeto {
 		return xpHud;
 	}
 	
-	public void desativaHudTorre() {
-		// TODO Auto-generated method stub
-		torreAtivaHud=null;
-	}
-	
-	public void ativaHudTorre(Torre torre) {
-		// TODO Auto-generated method stub
-		torreAtivaHud=torre;
-		
-		
-	}
+//	public void desativaHudTorre() {
+//		// TODO Auto-generated method stub
+//		torreAtivaHud=null;
+//	}
+//	
+//	public void ativaHudTorre(Torre torre) {
+//		// TODO Auto-generated method stub
+//		torreAtivaHud=torre;
+//		
+//		
+//	}
 
 }

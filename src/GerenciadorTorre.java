@@ -18,24 +18,24 @@ public class GerenciadorTorre extends Objeto {
 	public void SimulaSe(int DiffTime) {
 		// TODO Auto-generated method stub
 		
-			Iterator<Torre> it = torres.iterator();
-			while(it.hasNext()){
-				Torre torre = it.next();
-				torre.SimulaSe((int)DiffTime);
-				if(torre.vivo==false){
-					it.remove();
-					}
-			}
-		
-//		for(int i = 0; i < torres.size();i++){
-//			
-//			Torre proj = (Torre)torres.get(i);
-//			proj.SimulaSe((int)DiffTime);
-//			if(proj.vivo==false){
-//				torres.remove(i);
+//			Iterator<Torre> it = torres.iterator();
+//			while(it.hasNext()){
+//				Torre torre = it.next();
+//				torre.SimulaSe((int)DiffTime);
+//				if(torre.isVivo()==false){
+//					it.remove();
+//					}
 //			}
-//			
-//		}
+		
+		for(int i = 0; i < torres.size();i++){
+			
+			Torre proj = (Torre)torres.get(i);
+			proj.SimulaSe((int)DiffTime);
+			if(!proj.isVivo()){
+				torres.remove(i);
+			}
+			
+		}
 	}
 
 	@Override
@@ -52,16 +52,16 @@ public class GerenciadorTorre extends Objeto {
 	public void click(int mousex, int mousey) {
 		// TODO Auto-generated method stub
 		
-		System.out.println(mousex);
-
-		System.out.println(mousey);
+//		System.out.println(mousex);
+//
+//		System.out.println(mousey);
 		boolean aux=true;
 		Iterator<Torre> it = torres.iterator();
-		while(it.hasNext()&&aux){
+		while(it.hasNext()){
 			Torre torre = it.next();
-			if (Constantes.colidecircular(mousex, mousey,rangeMouse/2,torre.X,torre.Y,torre.sizeX/2)) {
-				aux=false;
+			if (Constantes.colidecircular(mousex, mousey,rangeMouse/2,torre.getX(),torre.getY(),torre.getSizeX()/2)) {
 				torre.seleciona();
+				break;
 			}	
 		
 		}
@@ -89,7 +89,7 @@ public class GerenciadorTorre extends Objeto {
 		while(it.hasNext()&&aux){
 			Torre torre = it.next();
 			
-			if (Constantes.colidecircular(x, y,rangeMouse/2,torre.X,torre.Y,torre.sizeX/2)) {
+			if (Constantes.colidecircular(x, y,rangeMouse/2,torre.getX(),torre.getY(),torre.getSizeX())) {
 				return false;
 				}
 			}

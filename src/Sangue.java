@@ -12,19 +12,19 @@ public class Sangue extends Particula {
 	
 	public Sangue(double X,double Y,double pvx,double pvy,int tvida,Color cor) {
 		// TODO Auto-generated constructor stu
-		this.X = X;
-		this.Y = Y;
+		this.setX(X);
+		this.setY(Y);
 		this.velx = (int) pvx;
 		this.vely = (int) pvy;
 		
 		this.tempodevida = tvida;
 		
-		this.vivo = true;
+		this.setVivo(true);
 		this.tempototal = 0;
 		
 		this.cor = cor;
-		sizeX=GamePanel.rnd.nextInt(5)+3;
-		sizeY=GamePanel.rnd.nextInt(5)+3;
+		setSizeX(GamePanel.rnd.nextInt(5)+3);
+		setSizeY(GamePanel.rnd.nextInt(5)+3);
 		
 		r = cor.getRed();
 		g = cor.getGreen();
@@ -35,16 +35,16 @@ public class Sangue extends Particula {
 	public void SimulaSe(int DiffTime) {
 		tempototal+=DiffTime;
 		
-		X+=velx*DiffTime/1000.0f;
-		Y+=vely*DiffTime/1000.0f;
+		setX(getX() + (velx*DiffTime/1000.0f));
+		setY(getY() + (vely*DiffTime/1000.0f));
 		
 		alpha = (int)((1.0f - (tempototal/(float)tempodevida))*255);
 
 		if(tempototal>=tempodevida){
-			vivo = false;
+			setVivo(false);
 			alpha = GamePanel.rnd.nextInt(20)+185;
-			sizeX=GamePanel.rnd.nextInt(Constantes.SANGUE_SIZE_X)+2;
-			sizeY=GamePanel.rnd.nextInt(Constantes.SANGUE_SIZE_Y)+2;
+			setSizeX(GamePanel.rnd.nextInt(Constantes.SANGUE_SIZE_X)+2);
+			setSizeY(GamePanel.rnd.nextInt(Constantes.SANGUE_SIZE_Y)+2);
 		}
 		
 	}
@@ -57,6 +57,6 @@ public class Sangue extends Particula {
 		// TODO Auto-generated method stub
 		dbg.setColor(new Color(r,g,b,alpha));
 		
-		dbg.fillOval((int)X-XMundo,(int)Y-YMundo, sizeX, sizeY);
+		dbg.fillOval((int)getX()-XMundo,(int)getY()-YMundo, getSizeX(), getSizeY());
 	}
 }

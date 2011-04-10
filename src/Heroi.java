@@ -15,7 +15,7 @@ public class Heroi extends Objeto {
 	private double vel;
 	private double angMovimentacao;
 	private boolean Atira=false;
-	private double maximoVida=100;
+	private int maximoVida=100;
 	
 	private Arma armaMelee=new Faca();
 	private Arma armaPrimaria;
@@ -34,12 +34,12 @@ public class Heroi extends Objeto {
 	
 	public Heroi(int x,int y) {
 		cor=Color.black;
-		this.X=x;
-		this.Y=y;
-		sizeX=20;
-		sizeY=20;
-		life=100;
-		vivo=true;
+		this.setX(x);
+		this.setY(y);
+		setSizeX(20);
+		setSizeY(20);
+		setLife(100);
+		setVivo(true);
 		larguraMapa=CanvasGame.MAPA.Largura*16;
 		alturaMapa=CanvasGame.MAPA.Altura*16;
 
@@ -49,21 +49,21 @@ public class Heroi extends Objeto {
 	public void SimulaSe(int DiffTime) {
 		// TODO Auto-generated method stub
 
-		if (vivo) {
+		if (isVivo()) {
 	
 			calculaIA(DiffTime);
-			oldx=X;
-			oldy=Y;
+			setOldx((int) getX());
+			setOldy((int) getY());
 			
-			X+=Math.cos(angMovimentacao)*vel*DiffTime/1000.0f; 
-			Y-=Math.sin(angMovimentacao)*vel*DiffTime/1000.0f; 	
+			setX(getX() + (Math.cos(angMovimentacao)*vel*DiffTime/1000.0f)); 
+			setY(getY() - (Math.sin(angMovimentacao)*vel*DiffTime/1000.0f)); 	
 	 
-			if (X+sizeX/2+1 >=larguraMapa || Y+sizeY/2+1>=alturaMapa || Y-sizeY/2-1 <=0 || X-sizeX/2-1<=0) {
+			if (getX()+getSizeX()/2+1 >=larguraMapa || getY()+getSizeY()/2+1>=alturaMapa || getY()-getSizeY()/2-1 <=0 || getX()-getSizeX()/2-1<=0) {
 				
-				X=oldx;
-				Y=oldy;
+				setX(getOldx());
+				setY(getOldy());
 			}
-			armaAtiva.definePosicaoArma(ang, X, Y);
+			armaAtiva.definePosicaoArma(ang, getX(), getY());
 			armaAtiva.SimulaSe(DiffTime);
 		}
 //		System.out.println(X);
@@ -74,18 +74,18 @@ public class Heroi extends Objeto {
 	@Override
 	public void DesenhaSe(Graphics2D dbg, int XMundo, int YMundo) {
 		// TODO Auto-generated method stub
-		if (vivo) {
+		if (isVivo()) {
 
 			armaAtiva.DesenhaSe(dbg, XMundo, YMundo);
 			dbg.setColor(cor);
-			int px =(int) (X-XMundo);
-			int py = (int)(Y-YMundo);
-			dbg.fillOval((int)px-sizeX/2,(int)py-sizeY/2, sizeX,sizeY);
+			int px =(int) (getX()-XMundo);
+			int py = (int)(getY()-YMundo);
+			dbg.fillOval((int)px-getSizeX()/2,(int)py-getSizeY()/2, getSizeX(),getSizeY());
 
 			///// VIDA TEMPORARIO ## FAZER HUD
-			dbg.drawRect((int)px-sizeX/2-5, (int)py-sizeY/2-17, 30, 10);
+			dbg.drawRect((int)px-getSizeX()/2-5, (int)py-getSizeY()/2-17, 30, 10);
 			dbg.setColor(Color.green);
-			dbg.fillRect((int)px-sizeX/2-5+1, (int)py-16-sizeY/2, (int)(life*30/maximoVida)-1, 9);
+			dbg.fillRect((int)px-getSizeX()/2-5+1, (int)py-16-getSizeY()/2, (int)(getLife()*30/maximoVida)-1, 9);
 		}
 		
 //		System.out.println(CanvasGame.MAPA.MapX + "   <- MAPX ");
@@ -97,15 +97,15 @@ public class Heroi extends Objeto {
 	private void calculaIA(int DiffTime) {
 		// TODO Auto-generated method stub
 
-		if (life<0)
-			vivo =false;
+		if (getLife()<0)
+			setVivo(false);
 		
 		calculaAnguloVelocidade();
 		trataDirecaoMovimentacao();
 		
-		double difX =CanvasGame.mousex+CanvasGame.MAPA.MapX-X;
+		double difX =CanvasGame.mousex+CanvasGame.MAPA.MapX-getX();
 		
-		double difY =CanvasGame.mousey+CanvasGame.MAPA.MapY-Y;
+		double difY =CanvasGame.mousey+CanvasGame.MAPA.MapY-getY();
 		
 		ang = Math.atan2(difY, difX);
 			
@@ -220,10 +220,10 @@ public class Heroi extends Objeto {
 	
 	public void respaw(int X,int Y) {
 		
-		this.X=X;
-		this.Y=Y;
-		vivo=true;	
-		life=maximoVida;
+		this.setX(X);
+		this.setY(Y);
+		setVivo(true);	
+		setLife(maximoVida);
 		armaAtiva.recarrega();
 		
 	}

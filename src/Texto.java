@@ -5,7 +5,7 @@ import java.awt.Graphics2D;
 
 
 public class Texto extends Objeto {
-	public int xp;
+	private int xp;
 	double size=8;
 	private int time;
 	private int tipo;
@@ -16,10 +16,10 @@ public class Texto extends Objeto {
 	Font big;
 	public Texto(int xp,double x,double y){
 		
-		this.X=x;
-		this.Y=y;
+		setX(x);
+		setY(y);
 		this.xp=xp;
-		vivo=true;
+		setVivo(true);
 		tipo=1;
 		tempoVida=200;
 		VelocidadeAumenta=20;
@@ -28,9 +28,9 @@ public class Texto extends Objeto {
 	}
 	public Texto(){
 		
-		X=GamePanel.PWIDTH/2;
-		Y=GamePanel.PHEIGHT/2;
-		vivo=true;
+		setX(GamePanel.PWIDTH/2);
+		setY(GamePanel.PHEIGHT/2);
+		setVivo(true);
 		tipo=2;
 		tempoVida=300;
 		VelocidadeAumenta=70;
@@ -40,14 +40,14 @@ public class Texto extends Objeto {
 
 	public Texto(double x, double y, double life) {
 		// TODO Auto-generated constructor stub
-		this.X=x;
-		this.Y=y;
+		this.setX(x);
+		this.setY(y);
 		this.xp=xp;
-		vivo=true;
+		setVivo(true);
 		tipo=3;
 		tempoVida=200;
 		VelocidadeAumenta=20;
-		this.life=life;
+		this.setLife((int) life);
 		
 	}
 	@Override
@@ -62,11 +62,11 @@ public class Texto extends Objeto {
 		
 		size+=VelocidadeAumenta*DiffTime/1000.0f;
 		time+=DiffTime;
-		X-=VelocidadeAumenta*DiffTime/1000.0f;
-		Y-=VelocidadeAumenta*DiffTime/1000.0f;
+		setX(getX() - (VelocidadeAumenta*DiffTime/1000.0f));
+		setY(getY() - (VelocidadeAumenta*DiffTime/1000.0f));
 		
 		if (time/tempoVida>3){
-			vivo=false;
+			setVivo(false);
 			
 		}
 		big= new Font("SansSerif", Font.BOLD, (int) size);
@@ -88,11 +88,11 @@ public class Texto extends Objeto {
 				dbg.setColor(Color.black);
 				
 			    dbg.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
-				dbg.drawString("+"+xp+" XP ", (int)X-XMundo, (int)Y-YMundo);
+				dbg.drawString("+"+xp+" XP ", (int)getX()-XMundo, (int)getY()-YMundo);
 							
 				dbg.setColor(Color.yellow);
 		
-				dbg.drawString("+"+xp+" XP ", (int)X-2-XMundo, (int)Y-2-YMundo);
+				dbg.drawString("+"+xp+" XP ", (int)getX()-2-XMundo, (int)getY()-2-YMundo);
 			    dbg.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
 				
 			}
@@ -118,11 +118,11 @@ public class Texto extends Objeto {
 			dbg.setColor(Color.DARK_GRAY);
 			
 		    dbg.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
-			dbg.drawString("+"+(int)life+" life ", (int)X, (int)Y);
+			dbg.drawString("+"+(int)getLife()+" life ", (int)getX(), (int)getY());
 						
 			dbg.setColor(Color.green);
 	
-			dbg.drawString("+"+(int)life+" life ", (int)X-3, (int)Y-3);
+			dbg.drawString("+"+(int)getLife()+" life ", (int)getX()-3, (int)getY()-3);
 		    dbg.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
 		    System.out.println(alpha);
 		}

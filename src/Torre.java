@@ -4,6 +4,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
 
 /* A FAZER
  * 
@@ -23,53 +24,66 @@ public class Torre extends Objeto{
 	private int range;
 	private double ang = 0;
 
-	int sizeX = 20;
-	int sizeY = 20;
+
 
 	int pmy;
 	int pmx;
 	
 	private	Arma armaAtiva;
-	
-	private double oldx;
-	private double oldy; 
-
-
-//	public boolean click = false;
-
+	private MenuTorre menuAtivo; //mudei para menu torre mas o certo eh menu somente ... resolver depois
+	private MenuTorre menuStatusTorre;
 	Color cor;
-	boolean contruindo;
+	private boolean contruindo;
+
 
 	private int timerSelect;
 	public Torre(/*BufferedImage _AnimeSet,*/ Arma arma,int x,int y){ 
 		// TODO Auto-generated constructor stub
-	
+		
+		
+		setSizeX(20);
+		setSizeY(20);
+		setX(x);
+		setY(y);	
 		contruindo=true;
 		armaAtiva=arma;
 		cor = Color.cyan;
 		setRange(200);
 		ang=0;
+		menuAtivo=null;
+	
+		
+		menuStatusTorre=new MenuTorre(x, y, Constantes.HUD_TORRE_SIZEX, Constantes.HUD_TORRE_SIZEY, (Color.LIGHT_GRAY), 2000, this);
 		//AnimeSet = _AnimeSet;
 		//frame = 0;
 		//animacao = 0;
 		//timeranimacao = 0;
 
-		X=x;
-		Y=y;		
+		
 
-		vivo = true;
+		setVivo(true);
 
 		
 		
 	}
 	
 	
+
+
 	public void DesenhaSe(Graphics2D dbg,int XMundo,int YMundo) {
 		// TODO Auto-generated method stub
 		armaAtiva.DesenhaSe(dbg, XMundo, YMundo);
+		
+		if (menuAtivo!=null) {
+			dbg.setColor(Color.red);
+			dbg.drawOval((int)getX()-getRange()/2-XMundo, (int)getY()-getRange()/2-YMundo, getRange(), getRange());
+			menuAtivo.DesenhaSe(dbg, XMundo, YMundo);
+			dbg.setColor(Color.blue);
+			dbg.drawRect((int)getX()-getSizeX()/2-5-XMundo,(int)getY()-getSizeY()/2-YMundo-5,getSizeX()+10,getSizeY()+10 );
 
+		}
 		AffineTransform trans = dbg.getTransform();
-		dbg.translate(X-XMundo, Y-YMundo);
+		dbg.translate(getX()-XMundo, getY()-YMundo);
 		dbg.rotate(ang);
 
 		dbg.setColor(cor);
@@ -81,11 +95,11 @@ public class Torre extends Objeto{
 		if (contruindo) {
 			
 //			dbg.drawRect(-sizeX/2, sizeY/2, (int)(timerContruindo*30/Constantes.TEMPO_TORRE_CONSTRUINDO), (int)(timerContruindo*30/Constantes.TEMPO_TORRE_CONSTRUINDO)); //(int)(life*30/maximoVida)
-			dbg.drawRect((int)-sizeX/2-5, (int)-sizeY/2-17, 30, 10);
+			dbg.drawRect((int)-getSizeX()/2-5, (int)-getSizeY()/2-17, 30, 10);
 			dbg.setColor(Color.lightGray);
-			dbg.fillRect((int)-sizeX/2-5+1, (int)-16-sizeY/2, (int)(timerContruindo*30/Constantes.TEMPO_TORRE_CONSTRUCAO), 9);		
+			dbg.fillRect((int)-getSizeX()/2-5+1, (int)-16-getSizeY()/2, (int)(timerContruindo*30/Constantes.TEMPO_TORRE_CONSTRUCAO), 9);		
 		}//else 
-			dbg.fillOval(-sizeX/2,-sizeY/2, (int)sizeX,(int)sizeY);
+			dbg.fillOval(-getSizeX()/2,-getSizeY()/2, (int)getSizeX(),(int)getSizeY());
 
 
 
@@ -101,9 +115,20 @@ public class Torre extends Objeto{
 		if (!contruindo)	{		
 			procuraInimigos();
 			 
-			armaAtiva.definePosicaoArma(ang,X, Y);
+			armaAtiva.definePosicaoArma(ang,getX(), getY());
 			armaAtiva.SimulaSe((int)DiffTime);	
 			
+			if (menuAtivo!=null) {
+				menuAtivo.SimulaSe((int)DiffTime);	
+				if (menuAtivo.getEvoluiRange()) {
+					System.out.println("aAAA");
+					range+=10;
+					menuAtivo.tratouBotaoRange();
+				}
+				
+				if (!menuAtivo.isVivo())
+					menuAtivo= null;
+			}
 	
 		}	
 	}
@@ -119,22 +144,39 @@ public class Torre extends Objeto{
 			contruindo=false;
 		}
 		
-		if (select&&timerSelect>=Constantes.TEMPO_TORRE_SELECIONADA)
-			select=false;
+//		if (select&&timerSelect>=Constantes.TEMPO_TORRE_SELECIONADA)
+//			select=false;
 	}
 	
-	public void seleciona() {
 
-		if (select){
+	
+	
+	public void seleciona() {
+		
+		if (menuAtivo!=null&&menuAtivo.isVivo()){
 			select =false;
-			CanvasGame.gerenciadorHud.desativaHudTorre();
+			menuAtivo.setVivo(false);
 		}
-		else {
-			
-			CanvasGame.gerenciadorHud.ativaHudTorre(this);
-			select=true;
-			timerSelect=0;
-		}
+		
+	 if (menuAtivo==null) {
+		
+		menuAtivo=menuStatusTorre;	
+		menuAtivo.setVivo(true);
+		select=true;
+		timerSelect=0;
+	}
+		
+//
+//		if (select){
+//			select =false;
+//			menuAtivo=null;
+//		}
+//		else {
+//			
+//			menuAtivo=menuStatusTorre;			
+//			select=true;
+//			timerSelect=0;
+//		}
 	}
 
 	private void procuraInimigos() {
@@ -145,12 +187,12 @@ public class Torre extends Objeto{
 		while (it.hasNext()){
 			
 			Inimigo in = it.next();
-				if (Constantes.colidecircular(in.X, in.Y, in.sizeX/2, X, Y, getRange()/2)) {
+				if (Constantes.colidecircular(in.getX(), in.getY(), in.getSizeX()/2, getX(), getY(), getRange()/2)) {
 					
-					int difX=(int) (X-in.X);
-					int difY=(int) (Y-in.Y);
+					int difX=(int) (getX()-in.getX());
+					int difY=(int) (getY()-in.getY());
 					ang=Math.atan2(difY,difX)+Math.PI;
-					armaAtiva.definePosicaoArma(ang,X, Y);
+					armaAtiva.definePosicaoArma(ang,getX(), getY());
 
 					armaAtiva.atirou();
 					at=true;

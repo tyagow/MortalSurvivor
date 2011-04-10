@@ -11,7 +11,7 @@ public class GerenciadorRespawn extends Objeto {
 	@Override
 	public void SimulaSe(int DiffTime) {
 		// TODO Auto-generated method stub
-		if (CanvasGame.heroi.vivo==false) {
+		if (CanvasGame.heroi.isVivo()==false) {
 			respawn=true;
 			timerRespawn+=DiffTime;
 			

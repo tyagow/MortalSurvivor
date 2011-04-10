@@ -99,7 +99,8 @@ public class CanvasGame extends GCanvas {
 
 	public static int altura;
 	public static int largura;
-
+	private static  Mira miraAtiva;
+	private static Mira miraUm;
 	
 	public CanvasGame() {
 		// TODO Auto-generated constructor stub
@@ -118,8 +119,10 @@ public class CanvasGame extends GCanvas {
 		largura = MAPA.Largura*16;
 		altura = MAPA.Altura*16;
 
+		setMiraAtiva(new Mira());
+		//objetos.add(miraAtiva);
 		
-		objetos.add(new Mira());
+		
 		inimigos.add(new Inimigo());
 		heroi=new Heroi(GamePanel.PWIDTH/2, GamePanel.PHEIGHT/2);
 		
@@ -169,7 +172,11 @@ public class CanvasGame extends GCanvas {
 		heroi.DesenhaSe(dbg, MAPA.MapX, MAPA.MapY);
 
 		gerenciadorHud.DesenhaSe(dbg, MAPA.MapX, MAPA.MapY);
+		
+		getMiraAtiva().DesenhaSe(dbg, MAPA.MapX, MAPA.MapY);
+		
 		gerenciadorRespawn.DesenhaSe(dbg, MAPA.MapX, MAPA.MapY);
+		
 		
 	}
 	
@@ -178,14 +185,15 @@ public class CanvasGame extends GCanvas {
 	
 	void SimulaSe(long DiffTime) {
 		
+		getMiraAtiva().SimulaSe((int)DiffTime);
 
-		MAPA.Posiciona((int)(heroi.X-(GamePanel.PWIDTH/2)), (int)heroi.Y-(GamePanel.PHEIGHT/2));
+		MAPA.Posiciona((int)(heroi.getX()-(GamePanel.PWIDTH/2)), (int)heroi.getY()-(GamePanel.PHEIGHT/2));
 
 		Iterator<Objeto> itO = objetos.iterator();
 		while(itO.hasNext()){
 			Objeto inim = itO.next();
 			inim.SimulaSe((int)DiffTime);
-			if(inim.vivo==false){
+			if(inim.isVivo()==false){
 				itO.remove();
 				}
 		}
@@ -196,7 +204,7 @@ public class CanvasGame extends GCanvas {
 		while(itP.hasNext()){
 			Projetil inim = itP.next();
 			inim.SimulaSe((int)DiffTime);
-			if(inim.vivo==false){
+			if(inim.isVivo()==false){
 				itP.remove();
 				
 				}		
@@ -206,9 +214,9 @@ public class CanvasGame extends GCanvas {
 		while(it.hasNext()){
 			Inimigo inim = it.next();
 			inim.SimulaSe((int)DiffTime);
-			if(inim.vivo==false){
+			if(inim.isVivo()==false){
 				it.remove();
-				gerenciadorEfeitos.ganhouXp(inim.X, inim.Y,inim.getTipoAssasino() );
+				gerenciadorEfeitos.ganhouXp(inim.getX(), inim.getY(),inim.getTipoAssasino() );
 				}
 		}
 
@@ -293,11 +301,14 @@ public class CanvasGame extends GCanvas {
 	void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
 		int button = e.getButton();
-
+		getMiraAtiva().released();
 		if (button == MouseEvent.BUTTON1) {
 			
-			heroi.trataClick();
-			}
+		
+			getMiraAtiva().trataClickMouse1();
+
+			
+		}
 
 
 
@@ -307,14 +318,15 @@ public class CanvasGame extends GCanvas {
 	void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
 		int button = e.getButton();
-
+		getMiraAtiva().pressed(button);
 		if (button == MouseEvent.BUTTON1) {
+			getMiraAtiva().trataClickMouse1();
 			
-			heroi.trataClick();
 			
 			}
 		else if (button == MouseEvent.BUTTON3) {
-				gerenciadorTorre.click(mousex+MAPA.MapX,mousey+MAPA.MapY);
+			getMiraAtiva().trataClickMouse2();
+
 
 		
 }
@@ -361,5 +373,13 @@ public class CanvasGame extends GCanvas {
 //	  app.setResizable(false);  
 //	  app.setVisible(true);
 //	} // end of main()
+
+	public static void setMiraAtiva(Mira miraAtiva) {
+		CanvasGame.miraAtiva = miraAtiva;
+	}
+
+	public static Mira getMiraAtiva() {
+		return miraAtiva;
+	}
 
 }
