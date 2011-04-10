@@ -12,6 +12,9 @@ public class Inimigo extends Objeto {
 	private int tipoAssasino;
 	private int larguraMapa;
 	private int alturaMapa;
+	private int estado;
+	private double ang;
+	private double campoDeVisao;
 	
 	
 	public Inimigo() {
@@ -25,6 +28,8 @@ public class Inimigo extends Objeto {
 		vel=100;
 		setLife(100);
 		setVivo(true);
+		estado=0;
+		campoDeVisao=Constantes.INIMIGO_CAMPO_VISAO1;
 
 		// TODO Auto-generated constructor stub
 	}
@@ -33,11 +38,7 @@ public class Inimigo extends Objeto {
 		// TODO Auto-generated method stub	
 			
 			calculaIA(DiffTime);
-			
-			double difX = CanvasGame.heroi.getX() - getX();
-			double difY = CanvasGame.heroi.getY() - getY();
-			double ang =  Math.atan2(difY, difX);
-
+		
 			double velx=(int) (Math.cos(ang)*vel);
 			double vely=(int) (Math.sin(ang)*vel);
 			
@@ -47,8 +48,10 @@ public class Inimigo extends Objeto {
 			if (getLife()<0) {
 				setVivo(false);
 				
-			}				
-
+			}			
+			
+			setOldx((int)getX());
+			setOldy((int)getY());
 	}
 
 
@@ -69,18 +72,27 @@ public class Inimigo extends Objeto {
 		
 		tempoEntreAtaque+=DiffTime;
 		
-		if(Constantes.colidecircular(getX(), getY(),getSizeX()/2,CanvasGame.heroi.getX(),CanvasGame.heroi.getY(),CanvasGame.heroi.getSizeX()/2)){
-			if (tempoEntreAtaque>500) {
-				CanvasGame.heroi.setLife(CanvasGame.heroi.getLife() - dano);
-				tempoEntreAtaque=0;
-			}
-			
-			vel=0; /// variavel para o inimigo nao atravessar o player....
-			
-			}
-		else vel=maxVel;
+		System.out.println(estado);
 		
+		if (estado ==0) {
+				if(!Constantes.colidecircular(getX(), getY(),campoDeVisao,CanvasGame.heroi.getX(),CanvasGame.heroi.getY(),CanvasGame.heroi.getSizeX()/2)){
+					irAtrasDaBase();
+				} else {
+					estado = 1;
+				}
+		}
 		
+		if (estado ==1) {
+			if(!GerenciadorRespawn.isRespawn()){
+				if(Constantes.colidecircular(getX(), getY(),campoDeVisao,CanvasGame.heroi.getX(),CanvasGame.heroi.getY(),CanvasGame.heroi.getSizeX()/2)){
+					irAtrasDoHeroi();
+				} else {
+					estado = 0;
+				}
+			} else {
+				estado = 0;
+			}
+		}
 	}
 
 	public void recebeuDano(int dano,int tipo) {
@@ -110,6 +122,39 @@ public class Inimigo extends Objeto {
 		return tipoAssasino;
 	}
 		
-	
-}
+	private void irAtrasDaBase(){
+		double difX = CanvasGame.base.getX() - getX();
+		double difY = CanvasGame.base.getY() - getY();
+		 ang =  Math.atan2(difY, difX);
+		 
+		if(Constantes.colidecircular(getX(), getY(),getSizeX()/2,CanvasGame.base.getX(),CanvasGame.base.getY(),CanvasGame.base.getSizeX()/2)){
+			if (tempoEntreAtaque>500) {
+				CanvasGame.base.setLife(CanvasGame.base.getLife() - dano);
+				tempoEntreAtaque=0;
+			}
+			setX(getOldx());
+			setY(getOldy());
+			vel=0; /// variavel para o inimigo nao atravessar o player....
+			
+			}
+		else vel=maxVel;
+	}
 
+
+private void irAtrasDoHeroi(){
+		double difX = CanvasGame.heroi.getX() - getX();
+		double difY = CanvasGame.heroi.getY() - getY();
+		 ang =  Math.atan2(difY, difX);
+
+		if(Constantes.colidecircular(getX(), getY(),getSizeX()/2,CanvasGame.heroi.getX(),CanvasGame.heroi.getY(),CanvasGame.heroi.getSizeX()/2)){
+			if (tempoEntreAtaque>500) {
+				CanvasGame.heroi.setLife(CanvasGame.heroi.getLife() - dano);
+				tempoEntreAtaque=0;
+			}
+			
+			vel=0; /// variavel para o inimigo nao atravessar o player....
+			
+			}
+		else vel=maxVel;
+}
+}

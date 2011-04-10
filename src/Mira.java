@@ -51,8 +51,8 @@ public class Mira extends Objeto {
 
 	    dbg.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
 
-		System.out.println("pressed"+isPressed());
-		System.out.println(isReleased());
+//		System.out.println("pressed"+isPressed());
+	//	System.out.println(isReleased());
 
 		//dbg.drawImage(mira,(int)X,(int)Y,(int)X+sizeX,(int)Y+sizeY,0,0,(int)mira.getWidth(),(int)mira.getHeight(),null);
 
@@ -61,7 +61,6 @@ public class Mira extends Objeto {
 	public void pressed(int button) {
 	
 		this.button=button;
-		
 		if (!isPressed()) {
 			setReleased(false);
 			setPressed(true);

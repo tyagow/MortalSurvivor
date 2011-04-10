@@ -42,6 +42,8 @@ public class CanvasGame extends GCanvas {
 	
 	BufferedImage fundo;
 
+	public static Base base;
+	
 	public static ArrayList<Projetil> projeteis = new ArrayList<Projetil>();
 
 	public static ArrayList<Objeto> objetos = new ArrayList<Objeto>();
@@ -110,7 +112,7 @@ public class CanvasGame extends GCanvas {
 		Constantes.mira1= Constantes.LoadImage("mira1.png");		
 		MAPA = new TileMap(tileset, GamePanel.PWIDTH/16, GamePanel.PHEIGHT/16);
 		MAPA.AbreMapa("60x60.map");
-		
+				
 		gerenciadorTorre = new GerenciadorTorre();
 		gerenciadorEfeitos = new GerenciadorEfeitos();
 		gerenciadorRespawn= new GerenciadorRespawn();
@@ -119,6 +121,8 @@ public class CanvasGame extends GCanvas {
 		largura = MAPA.Largura*16;
 		altura = MAPA.Altura*16;
 
+		base = new Base(largura/2, altura/2);
+		
 		setMiraAtiva(new Mira());
 		//objetos.add(miraAtiva);
 		
@@ -145,6 +149,8 @@ public class CanvasGame extends GCanvas {
 //		MAPA.DesenhaSe(dbg);
 		dbg.setColor(Color.black);
 		dbg.drawString(""+GamePanel.FPS, 10, 10);
+		
+		base.DesenhaSe(dbg, MAPA.MapX, MAPA.MapY);
 		
 		gerenciadorEfeitos.DesenhaSe(dbg, MAPA.MapX, MAPA.MapY);
 
@@ -187,8 +193,10 @@ public class CanvasGame extends GCanvas {
 		
 		getMiraAtiva().SimulaSe((int)DiffTime);
 
-		MAPA.Posiciona((int)(heroi.getX()-(GamePanel.PWIDTH/2)), (int)heroi.getY()-(GamePanel.PHEIGHT/2));
-
+		if(!GerenciadorRespawn.isRespawn()){
+			MAPA.Posiciona((int)(heroi.getX()-(GamePanel.PWIDTH/2)), (int)heroi.getY()-(GamePanel.PHEIGHT/2));
+		}
+		
 		Iterator<Objeto> itO = objetos.iterator();
 		while(itO.hasNext()){
 			Objeto inim = itO.next();
