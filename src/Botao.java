@@ -9,6 +9,8 @@ public class Botao extends Objeto {
 	private boolean selecionado;
 	private boolean click;
 	private String name;
+	
+	private boolean oldIsMousePressed;
 
 
 	public Botao(/*BufferedImage img,*/String name, int _x,int _y) {
@@ -32,8 +34,10 @@ public class Botao extends Objeto {
 		System.out.println("botao ativo?"+isAtivo());
 		// TODO Auto-generated method stub
 			int raioMedio=(getSizeX()/2+getSizeY()/2)/2;
-			if (isAtivo()) 
-				setAtivo(false);
+//			if (isAtivo()) 
+//				setAtivo(false);
+			
+			
 			
 				if (Constantes.colidecircular(getX(), getY(), raioMedio, CanvasGame.getMiraAtiva().getXMundo(),CanvasGame.getMiraAtiva().getYMundo() ,3 )) {
 					if (!isAtivo()) {
@@ -47,7 +51,7 @@ public class Botao extends Objeto {
 					selecionado = false;
 				}
 
-		
+		oldIsMousePressed = CanvasGame.getMiraAtiva().isPressed();
 	}
 
 	
@@ -55,6 +59,7 @@ public class Botao extends Objeto {
 	private void trataClickBotao() {
 		// TODO Auto-generated method stub
 	   //  if (CanvasGame.getMiraAtiva().isReleased()) {
+		if(!oldIsMousePressed)
 			ativaBotao();	
 	     //}
 	
