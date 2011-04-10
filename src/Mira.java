@@ -61,6 +61,7 @@ public class Mira extends Objeto {
 	public void pressed(int button) {
 	
 		this.button=button;
+		
 		if (!isPressed()) {
 			setReleased(false);
 			setPressed(true);
