@@ -4,7 +4,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 
-public class Mira extends Objeto {
+public class  Mira extends Objeto {
 
 	BufferedImage mira;
 	private boolean pressed;

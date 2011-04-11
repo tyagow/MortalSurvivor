@@ -25,7 +25,7 @@ public class Inimigo extends Objeto {
 		setSizeX(30);
 		setSizeY(30);
 		dano = 10;
-		vel=100;
+		setVel(100);
 		setLife(100);
 		setVivo(true);
 		estado=0;
@@ -39,8 +39,8 @@ public class Inimigo extends Objeto {
 			
 			calculaIA(DiffTime);
 		
-			double velx=(int) (Math.cos(ang)*vel);
-			double vely=(int) (Math.sin(ang)*vel);
+			double velx=(int) (Math.cos(ang)*getVel());
+			double vely=(int) (Math.sin(ang)*getVel());
 			
 			setX(getX() + (velx*DiffTime/1000.0f));
 			setY(getY() + (vely*DiffTime/1000.0f));
@@ -134,10 +134,10 @@ public class Inimigo extends Objeto {
 			}
 			setX(getOldx());
 			setY(getOldy());
-			vel=0; /// variavel para o inimigo nao atravessar o player....
+			setVel(0); /// variavel para o inimigo nao atravessar o player....
 			
 			}
-		else vel=maxVel;
+		else setVel(maxVel);
 	}
 
 
@@ -152,9 +152,17 @@ private void irAtrasDoHeroi(){
 				tempoEntreAtaque=0;
 			}
 			
-			vel=0; /// variavel para o inimigo nao atravessar o player....
+			setVel(0); /// variavel para o inimigo nao atravessar o player....
 			
 			}
-		else vel=maxVel;
+		else setVel(maxVel);
+}
+
+public void setVel(double vel) {
+	this.vel = vel;
+}
+
+public double getVel() {
+	return vel;
 }
 }

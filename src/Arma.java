@@ -11,12 +11,14 @@ public abstract class Arma  {
 	private int peso;
 	private int valor;
 	private int round,mag;
+	private boolean recarregando;
 	boolean atirou;
 	private double angulo;
 	private double X,Y;
 	private int sizeX,sizeY;
 	
-	BufferedImage sprite;
+	
+	BufferedImage imagem;
 
 	public abstract void definePosicaoArma(double ang,double x2,double y2);
 
@@ -123,5 +125,13 @@ public abstract class Arma  {
 
 	public int getValor() {
 		return valor;
+	}
+
+	public void setRecarregando(boolean recarregando) {
+		this.recarregando = recarregando;
+	}
+
+	public boolean isRecarregando() {
+		return recarregando;
 	}
 }

@@ -37,7 +37,8 @@ public class CanvasGame extends GCanvas {
 	static boolean click;
 	public static int Health = 20;
 	
-	
+	private static boolean endGame=false;
+
 	
 	
 	BufferedImage fundo;
@@ -128,7 +129,7 @@ public class CanvasGame extends GCanvas {
 		
 		
 		inimigos.add(new Inimigo());
-		heroi=new Heroi(GamePanel.PWIDTH/2, GamePanel.PHEIGHT/2);
+		heroi=new Heroi(GamePanel.PWIDTH/2, GamePanel.PHEIGHT/2,Constantes.LoadImage("t1.png"));
 		
 
 		
@@ -397,6 +398,14 @@ public class CanvasGame extends GCanvas {
 
 	public static Mira getMiraAtiva() {
 		return miraAtiva;
+	}
+
+	public static void setEndGame(boolean endGame) {
+		CanvasGame.endGame = endGame;
+	}
+
+	public static boolean isEndGame() {
+		return endGame;
 	}
 
 }

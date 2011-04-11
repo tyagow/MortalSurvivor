@@ -2,9 +2,12 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
 
 
 public class Heroi extends Objeto {
+	private static final int ARMA_MELEE = 0;
+	private static final int ARMA_SECUNDARIA = 1;
 	Color cor;
 	boolean LEFT,RIGHT,UP,DOWN;
 	double ang;
@@ -30,19 +33,25 @@ public class Heroi extends Objeto {
 	boolean MELEE=false;
 	boolean ARMA_ANTERIOR=false;
 	private int larguraMapa,alturaMapa;
-
+	
+	private BufferedImage imagem;
+	private int frameX=1;
+	private int frameY=0;
+	private int arma;
 	
 	
-	public Heroi(int x,int y) {
+	public Heroi(int x,int y,BufferedImage img) {
+		this.imagem= img ;
 		cor=Color.black;
 		this.setX(x);
 		this.setY(y);
-		setSizeX(20);
-		setSizeY(20);
+		setSizeX(imagem.getWidth()/2);
+		setSizeY(imagem.getHeight()/3);
 		setLife(100);
 		setVivo(true);
 		larguraMapa=CanvasGame.MAPA.Largura*16;
 		alturaMapa=CanvasGame.MAPA.Altura*16;
+	
 
 		
 	}
@@ -85,13 +94,24 @@ public class Heroi extends Objeto {
 	public void DesenhaSe(Graphics2D dbg, int XMundo, int YMundo) {
 		// TODO Auto-generated method stub
 		if (isVivo()) {
-
+			System.out.println(imagem.getTransparency());
 			armaAtiva.DesenhaSe(dbg, XMundo, YMundo);
 			dbg.setColor(cor);
 			int px =(int) (getX()-XMundo);
 			int py = (int)(getY()-YMundo);
-			dbg.fillOval((int)px-getSizeX()/2,(int)py-getSizeY()/2, getSizeX(),getSizeY());
+			
+			AffineTransform trans = dbg.getTransform();
+			dbg.translate(px, py);
+			dbg.rotate(ang+Math.PI/2);
+			dbg.drawImage(imagem, -getSizeX()/2,-getSizeX()/2,getSizeX()/2,getSizeY()/2,getSizeX()*frameX,getSizeY()*frameY,getSizeX()*frameX+getSizeX(),getSizeY()*frameY+getSizeY(),null);
+//		dbg.drawImage(AnimeSet,-14,-18,sizeX-10,sizeY-14,sizeX*frame+start,startY,(sizeX*frame)+sizeX+start,(startY)+sizeY,null);
 
+			dbg.setTransform(trans);
+			//dbg.fillOval((int)px-getSizeX()/2,(int)py-getSizeY()/2, getSizeX(),getSizeY());
+			
+	
+			
+			
 			///// VIDA TEMPORARIO ## FAZER HUD
 			dbg.drawRect((int)px-getSizeX()/2-5, (int)py-getSizeY()/2-17, 30, 10);
 			dbg.setColor(Color.green);
@@ -112,9 +132,63 @@ public class Heroi extends Objeto {
 		
 		trataMiraDoPersonagem();
 			
-		trataTiroArma();	
+		trataTiroArma();
+		trataTrocaArma();
+		calculaAnimacao();
 			
 		
+		
+	}
+	private void trataTrocaArma() {
+		// TODO Auto-generated method stub
+		if (PRIMARIA) {
+			ultimaArma=armaAtiva;
+			armaAtiva=armaPrimaria;
+		
+			PRIMARIA=false;
+		}
+		else if (SECUNDARIA)  {
+			ultimaArma=armaAtiva;
+			armaAtiva=armaSecundaria;
+			SECUNDARIA=false;
+			arma=ARMA_SECUNDARIA;
+		}
+		else if (MELEE) {
+			ultimaArma=armaAtiva;
+			armaAtiva=armaMelee;
+			MELEE=false;
+			arma=ARMA_MELEE;
+		}
+		else if (ARMA_ANTERIOR)  {
+			Arma temp = armaAtiva;
+			armaAtiva=ultimaArma;
+			ultimaArma=temp;
+			
+			ARMA_ANTERIOR=false;
+		}
+	}
+	private void calculaAnimacao() {
+		// TODO Auto-generated method stub
+		
+		switch (arma) {
+		case ARMA_MELEE:
+			frameX=0;
+			frameY=2;
+			break;	
+			
+		case ARMA_SECUNDARIA:
+			frameX=1;
+			frameY=1;
+			break;
+
+		default:
+			break;
+		}
+		
+		if (armaAtiva.isRecarregando()) {
+			frameY=0;
+			
+		}
 		
 	}
 	private void trataMovimentacao(int DiffTime) {
@@ -130,8 +204,8 @@ public class Heroi extends Objeto {
 	private void trataMiraDoPersonagem() {
 		// TODO Auto-generated method stub
 		
-		double difX =CanvasGame.mousex+CanvasGame.MAPA.MapX-getX();
-		double difY =CanvasGame.mousey+CanvasGame.MAPA.MapY-getY();
+		double difX =CanvasGame.getMiraAtiva().getXMundo()-getX();
+		double difY =CanvasGame.getMiraAtiva().getYMundo()-getY();
 		
 		ang = Math.atan2(difY, difX);
 	}
@@ -170,28 +244,7 @@ public class Heroi extends Objeto {
 		else 
 			armaAtiva.naoAtirou();
 		
-		if (PRIMARIA) {
-			ultimaArma=armaAtiva;
-			armaAtiva=armaPrimaria;
-			PRIMARIA=false;
-		}
-		else if (SECUNDARIA)  {
-			ultimaArma=armaAtiva;
-			armaAtiva=armaSecundaria;
-			SECUNDARIA=false;
-		}
-		else if (MELEE) {
-			ultimaArma=armaAtiva;
-			armaAtiva=armaMelee;
-			MELEE=false;
-		}
-		else if (ARMA_ANTERIOR)  {
-			Arma temp = armaAtiva;
-			armaAtiva=ultimaArma;
-			ultimaArma=temp;
-			
-			ARMA_ANTERIOR=false;
-		}
+		
 		
 	}
 	private void calculaAnguloVelocidade() {

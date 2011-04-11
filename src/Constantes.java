@@ -15,6 +15,7 @@ public class Constantes {
 	
 	public static BufferedImage mira1 ;
 
+
 	public static final int BASE_SIZEX_1 = 80;
 	public static final int BASE_SIZEY_1 = 80;
 	public static final int BASE_LIFE_1 = 1000;
@@ -77,6 +78,9 @@ public class Constantes {
 	public static final int MOUSE_SIZEX = 40;
 
 	public static final double INIMIGO_CAMPO_VISAO1 = 200;
+
+
+	public static final double TEMPO_ENTRE_RAIDS = 5000;
 
 	
 

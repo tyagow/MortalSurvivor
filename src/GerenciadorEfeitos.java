@@ -30,28 +30,6 @@ public class GerenciadorEfeitos extends Objeto {
 	}
 
 	
-	
-
-	public static void verificaParticulas() {
-		// TODO Auto-generated method stub
-		if (particulas.size()!=0) {
-
-				Iterator<Particula> it = particulas.iterator();
-				
-				while(it.hasNext()){
-					Particula part = it.next();
-//					for (int i=0;i<=particulas.size();i++) {
-//						Particula part = particulas.get(i);
-						if (part.isVivo()==false) {
-//							it.remove();
-							it.remove();
-							GerenciadorEfeitos.desenhaSangue(part);
-							}
-						}
-				}
-//		}
-	}
-
 
 
 	@Override
@@ -86,6 +64,54 @@ public class GerenciadorEfeitos extends Objeto {
 
 	}
 
+
+	@Override
+	public void DesenhaSe(Graphics2D dbg, int XMundo, int YMundo) {
+		// TODO Auto-generated method stub
+
+
+		dbg.drawImage(manchasSangue, -XMundo,-YMundo, manchasSangue.getWidth()-XMundo, manchasSangue.getHeight()-YMundo, 0, 0, CanvasGame.largura, CanvasGame.altura, null);
+		
+		for(int i = 0; i < particulas.size();i++){
+			
+			Particula proj = (Particula) particulas.get(i);
+			proj.DesenhaSe(dbg,XMundo,YMundo);
+
+		}
+
+		for(int i = 0; i < efeitos.size();i++){
+			
+			Objeto proj = (Objeto) efeitos.get(i);
+			proj.DesenhaSe(dbg,XMundo,YMundo);
+	
+		}
+		
+	
+	}
+	
+	
+
+	public static void verificaParticulas() {
+		// TODO Auto-generated method stub
+		if (particulas.size()!=0) {
+
+				Iterator<Particula> it = particulas.iterator();
+				
+				while(it.hasNext()){
+					Particula part = it.next();
+//					for (int i=0;i<=particulas.size();i++) {
+//						Particula part = particulas.get(i);
+						if (part.isVivo()==false) {
+//							it.remove();
+							it.remove();
+							GerenciadorEfeitos.desenhaSangue(part);
+							}
+						}
+				}
+//		}
+	}
+
+
 	private static void chamaThreadParticulas() {
 		
 		new Thread(){
@@ -113,30 +139,6 @@ public class GerenciadorEfeitos extends Objeto {
 		
 	}
 
-	@Override
-	public void DesenhaSe(Graphics2D dbg, int XMundo, int YMundo) {
-		// TODO Auto-generated method stub
-
-
-		dbg.drawImage(manchasSangue, -XMundo,-YMundo, manchasSangue.getWidth()-XMundo, manchasSangue.getHeight()-YMundo, 0, 0, CanvasGame.largura, CanvasGame.altura, null);
-		
-		for(int i = 0; i < particulas.size();i++){
-			
-			Particula proj = (Particula) particulas.get(i);
-			proj.DesenhaSe(dbg,XMundo,YMundo);
-
-		}
-
-		for(int i = 0; i < efeitos.size();i++){
-			
-			Objeto proj = (Objeto) efeitos.get(i);
-			proj.DesenhaSe(dbg,XMundo,YMundo);
-	
-		}
-		
-	
-	}
-	
 	public void ganhouXp(double x,double y,int tipoAssasino) {
 		int _xp;
 		

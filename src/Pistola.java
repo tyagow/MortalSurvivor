@@ -8,7 +8,7 @@ public class Pistola extends Arma {
 	
 	private boolean soltouTiro=true;
 	private boolean semMunicao=false;
-
+	
 		
 	public int estado=0;
 	public Pistola() {
@@ -21,9 +21,11 @@ public class Pistola extends Arma {
 		setTempoEntreTiros(0);
 		setTempoRecarrega(0);
 		setValor(Constantes.PISTOLA_valor);
-		setSizeX(20);
-		setSizeY(5);
-		
+	
+		imagem=Constantes.LoadImage("deagle.png");
+			
+		setSizeX(imagem.getWidth());
+		setSizeY(imagem.getHeight());
 		
 	}
 	
@@ -35,9 +37,10 @@ public class Pistola extends Arma {
 		dbg.setColor(Color.black);
 		AffineTransform trans = dbg.getTransform();
 		dbg.translate(getX()-XMundo, getY()-YMundo);
-		dbg.rotate(getAngulo());
-		dbg.drawLine(0, 0, getSizeX(), 0);
+		dbg.rotate(getAngulo()-Math.PI/2);
+		//dbg.drawLine(0, 0, getSizeX(), 0);
 
+		dbg.drawImage(imagem, -getSizeX()/2-10, -getSizeY()/2-5, getSizeX()-2,getSizeY(),0,0,getSizeX(),getSizeY(),null);
 		dbg.setTransform(trans);
 		
 		if (estado==1) {
@@ -75,7 +78,8 @@ public class Pistola extends Arma {
 		else estado=1;
 			
 		if (estado==0) {
-		
+			setRecarregando(false);
+
 			if (getTempoEntreTiros()>=Constantes.PISTOLA_tempoEntreTiros) {
 				
 				if (atirou&&soltouTiro) {	
@@ -95,7 +99,7 @@ public class Pistola extends Arma {
 			
 			setTempoRecarrega(getTempoRecarrega() + DiffTime);
 			
-			
+			setRecarregando(true);
 			if (getMag()<1)
 				estado=2;
 				
@@ -114,7 +118,8 @@ public class Pistola extends Arma {
 			
 			if (getRound()>0) 
 				estado=0;
-			
+			setRecarregando(false);
+
 			
 		}
 	}
