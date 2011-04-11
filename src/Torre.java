@@ -41,8 +41,8 @@ public class Torre extends Objeto{
 		// TODO Auto-generated constructor stub
 		
 		
-		setSizeX(20);
-		setSizeY(20);
+		setSizeX(32);
+		setSizeY(32);
 		setX(x);
 		setY(y);	
 		contruindo=true;
@@ -79,7 +79,7 @@ public class Torre extends Objeto{
 			dbg.drawOval((int)getX()-getRange()/2-XMundo, (int)getY()-getRange()/2-YMundo, getRange(), getRange());
 			menuAtivo.DesenhaSe(dbg, XMundo, YMundo);
 			dbg.setColor(Color.blue);
-			dbg.drawRect((int)getX()-getSizeX()/2-5-XMundo,(int)getY()-getSizeY()/2-YMundo-5,getSizeX()+10,getSizeY()+10 );
+			dbg.drawRect((int)getX()-getSizeX()/2-XMundo,(int)getY()-getSizeY()/2-YMundo,getSizeX(),getSizeY() );
 
 		}
 		AffineTransform trans = dbg.getTransform();

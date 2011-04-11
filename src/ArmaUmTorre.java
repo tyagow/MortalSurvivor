@@ -6,7 +6,7 @@ import java.awt.geom.AffineTransform;
 public class ArmaUmTorre extends Arma {
 
 	
-	private boolean soltouTiro=true;
+
 	private boolean semMunicao=false;
 
 		
@@ -14,7 +14,7 @@ public class ArmaUmTorre extends Arma {
 	public ArmaUmTorre() {
 		
 		atirou=false;
-		soltouTiro=true;
+
 		setDano(Constantes.TORRE_ARMA_UM_dano);
 		setMag(Constantes.TORRE_ARMA_UM_mag);
 		setRound(Constantes.TORRE_ARMA_UM_round);

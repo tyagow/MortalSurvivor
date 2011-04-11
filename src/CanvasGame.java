@@ -150,7 +150,6 @@ public class CanvasGame extends GCanvas {
 		dbg.setColor(Color.black);
 		dbg.drawString(""+GamePanel.FPS, 10, 10);
 		
-		base.DesenhaSe(dbg, MAPA.MapX, MAPA.MapY);
 		
 		gerenciadorEfeitos.DesenhaSe(dbg, MAPA.MapX, MAPA.MapY);
 
@@ -178,6 +177,8 @@ public class CanvasGame extends GCanvas {
 		heroi.DesenhaSe(dbg, MAPA.MapX, MAPA.MapY);
 
 		gerenciadorHud.DesenhaSe(dbg, MAPA.MapX, MAPA.MapY);
+		base.DesenhaSe(dbg, MAPA.MapX, MAPA.MapY);
+
 		
 		getMiraAtiva().DesenhaSe(dbg, MAPA.MapX, MAPA.MapY);
 		
@@ -218,16 +219,24 @@ public class CanvasGame extends GCanvas {
 				}		
 		}	
 
-		Iterator<Inimigo> it = inimigos.iterator();
-		while(it.hasNext()){
-			Inimigo inim = it.next();
+		
+		for	(int i=0;i<inimigos.size();i++) {
+//		Iterator<Inimigo> it = inimigos.iterator();
+//		while(it.hasNext()){
+//			Inimigo inim = it.next();
+//			inim.SimulaSe((int)DiffTime);
+//			if(inim.isVivo()==false){
+//				it.remove();
+//				gerenciadorEfeitos.ganhouXp(inim.getX(), inim.getY(),inim.getTipoAssasino() );
+//				}
+			Inimigo inim = inimigos.get(i);
 			inim.SimulaSe((int)DiffTime);
 			if(inim.isVivo()==false){
-				it.remove();
+				inimigos.remove(i);
 				gerenciadorEfeitos.ganhouXp(inim.getX(), inim.getY(),inim.getTipoAssasino() );
 				}
+//		}
 		}
-
 		gerenciadorTorre.SimulaSe((int)DiffTime);
 		gerenciadorEfeitos.SimulaSe((int)DiffTime);
 		gerenciadorRespawn.SimulaSe((int)DiffTime);
@@ -357,7 +366,7 @@ public class CanvasGame extends GCanvas {
 	@Override
 	void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-		int button = e.getButton();
+		//int button = e.getButton();
 
 		
 	}

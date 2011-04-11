@@ -31,7 +31,7 @@ public class Botao extends Objeto {
 	
 	@Override
 	public void SimulaSe(int DiffTime) {
-		System.out.println("botao ativo?"+isAtivo());
+		//System.out.println("botao ativo?"+isAtivo());
 		// TODO Auto-generated method stub
 			int raioMedio=(getSizeX()/2+getSizeY()/2)/2;
 //			if (isAtivo()) 

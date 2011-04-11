@@ -1,3 +1,4 @@
+import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
@@ -48,17 +49,27 @@ public class Heroi extends Objeto {
 	@Override
 	public void SimulaSe(int DiffTime) {
 		// TODO Auto-generated method stub
-
+		//int test =(int) getX();
+		
+//		
+//		if (sizeX%16>) {
+//			setSizeX(sizeX>>4);
+//				
+//		}else {
+//			
+//		}
+//		
+	//	System.out.println(getSizeX()%16);
+		
+		
+		
 		if (isVivo()) {
-	
 			calculaIA(DiffTime);
-			setOldx((int) getX());
-			setOldy((int) getY());
+
 			
-			setX(getX() + (Math.cos(angMovimentacao)*vel*DiffTime/1000.0f)); 
-			setY(getY() - (Math.sin(angMovimentacao)*vel*DiffTime/1000.0f)); 	
-	 
-			if (getX()+getSizeX()/2+1 >=larguraMapa || getY()+getSizeY()/2+1>=alturaMapa || getY()-getSizeY()/2-1 <=0 || getX()-getSizeX()/2-1<=0) {
+			trataMovimentacao(DiffTime);
+
+			if (getX()+getSizeX()/2 >=larguraMapa || getY()+getSizeY()/2+1>=alturaMapa || getY()-getSizeY()/2-1 <=0 || getX()-getSizeX()/2-1<=0||colisaoBase(DiffTime)) {
 				
 				setX(getOldx());
 				setY(getOldy());
@@ -66,10 +77,9 @@ public class Heroi extends Objeto {
 			armaAtiva.definePosicaoArma(ang, getX(), getY());
 			armaAtiva.SimulaSe(DiffTime);
 		}
-//		System.out.println(X);
-//		System.out.println(Y);
-		
+
 	}
+
 
 	@Override
 	public void DesenhaSe(Graphics2D dbg, int XMundo, int YMundo) {
@@ -87,12 +97,7 @@ public class Heroi extends Objeto {
 			dbg.setColor(Color.green);
 			dbg.fillRect((int)px-getSizeX()/2-5+1, (int)py-16-getSizeY()/2, (int)(getLife()*30/maximoVida)-1, 9);
 		}
-		
-//		System.out.println(CanvasGame.MAPA.MapX + "   <- MAPX ");
-//		System.out.println(CanvasGame.MAPA.MapY + "   <- MAPY ");
-//
-//		System.out.println("1"+CanvasGame.MAPA.Altura*16);
-//		System.out.println("2"+CanvasGame.MAPA.Largura*16);
+
 	}
 	private void calculaIA(int DiffTime) {
 		// TODO Auto-generated method stub
@@ -103,18 +108,59 @@ public class Heroi extends Objeto {
 		calculaAnguloVelocidade();
 		trataDirecaoMovimentacao();
 		
-		double difX =CanvasGame.mousex+CanvasGame.MAPA.MapX-getX();
 		
-		double difY =CanvasGame.mousey+CanvasGame.MAPA.MapY-getY();
 		
-		ang = Math.atan2(difY, difX);
+		trataMiraDoPersonagem();
 			
 		trataTiroArma();	
 			
 		
 		
 	}
+	private void trataMovimentacao(int DiffTime) {
+		// TODO Auto-generated method stub
+		setOldx((int) getX());
+		setOldy((int) getY());
+		
+			setX(getX() + (Math.cos(angMovimentacao)*vel*DiffTime/1000.0f)); 
+			setY(getY() - (Math.sin(angMovimentacao)*vel*DiffTime/1000.0f)); 	
 
+		
+	}
+	private void trataMiraDoPersonagem() {
+		// TODO Auto-generated method stub
+		
+		double difX =CanvasGame.mousex+CanvasGame.MAPA.MapX-getX();
+		double difY =CanvasGame.mousey+CanvasGame.MAPA.MapY-getY();
+		
+		ang = Math.atan2(difY, difX);
+	}
+	
+	private boolean colisaoBase(int DiffTime) {
+		
+		if (Constantes.colidecircular(getX(), getY(), getSizeX()/2, CanvasGame.base.getX(), CanvasGame.base.getY(), CanvasGame.base.getSizeX()/2)) {	
+			
+			trataColisaoBase(DiffTime);
+			return true;
+			
+		}else{
+			
+			return false;
+			
+		}
+		
+	}
+	private void trataColisaoBase(int DiffTime) {
+		// TODO Auto-generated method stub
+		
+//		setX(getOldx());
+//		setY(getOldy());
+		//if (CanvasGame.base.
+		armaAtiva.recarrega();
+		
+		
+		
+	}
 	private void trataTiroArma() {
 		// TODO Auto-generated method stub
 		if (Atira) {
