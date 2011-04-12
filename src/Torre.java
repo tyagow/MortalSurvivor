@@ -40,18 +40,19 @@ public class Torre extends Objeto{
 	public Torre(/*BufferedImage _AnimeSet,*/ Arma arma,int x,int y){ 
 		// TODO Auto-generated constructor stub
 		
-		
-		setSizeX(32);
+	
+		setSizeX(48);
 		setSizeY(32);
-		setX(x);
-		setY(y);	
+		setX(x/16*16+getSizeX()/2);
+		setY(y/16*16+getSizeY()/2);	
 		contruindo=true;
 		armaAtiva=arma;
 		cor = Color.cyan;
 		setRange(200);
 		ang=0;
 		menuAtivo=null;
-	
+		
+		GerenciadorObstaculos.addObstaculos((int)getX(),(int)getY(),getSizeX(),getSizeY());
 		
 		menuStatusTorre=new MenuTorre(x, y, Constantes.HUD_TORRE_SIZEX, Constantes.HUD_TORRE_SIZEY, (Color.LIGHT_GRAY), 2000, this);
 		//AnimeSet = _AnimeSet;
@@ -183,10 +184,12 @@ public class Torre extends Objeto{
 		// TODO Auto-generated method stub
 		boolean at=false;
 		
-		Iterator<Inimigo> it = CanvasGame.inimigos.iterator();
-		while (it.hasNext()){
+		for (int i=0;i<CanvasGame.inimigos.size();i++)  {
+//		Iterator<Inimigo> it = CanvasGame.inimigos.iterator();
+//		while (it.hasNext()){
 			
-			Inimigo in = it.next();
+//			Inimigo in = it.next();
+			Inimigo in = CanvasGame.inimigos.get(i);
 				if (Constantes.colidecircular(in.getX(), in.getY(), in.getSizeX()/2, getX(), getY(), getRange()/2)) {
 					
 					int difX=(int) (getX()-in.getX());

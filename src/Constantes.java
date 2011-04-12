@@ -21,7 +21,13 @@ public class Constantes {
 	public static final int BASE_LIFE_1 = 1000;
 	
 	public static final ThreadSom ak=new ThreadSom("/ak47.wav");
-	//Pistola
+
+	public static final ThreadSom de=new ThreadSom("/de.wav");
+	
+	public static  BufferedImage logo ;
+
+	public static  BufferedImage inimigoUm ;
+//Pistola
 	public static final int PISTOLA_mag = 3;
 	public static final int PISTOLA_dano=66;
 	public static final int PISTOLA_peso=30;

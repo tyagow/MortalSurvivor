@@ -1,4 +1,28 @@
 
+
+
+BUGS:
+
+1) PLAYER QUANDO DA RESPAW SO RECARREGA A ARMA ATIVA - FAZER FUNCAO PARA RECARREGAR TODAS ARMAS QUANDO MORRE .... 
+
+2) Fazer tecla de recarregar
+
+3) fazer um limitador de som... para nao haver muito som....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ------------------------------------------------
 
  [ Imagem ]
@@ -6,7 +30,7 @@
 
 ARmas = OK
 
-Torres ???
+Torres 
 
 Personagem ???
 

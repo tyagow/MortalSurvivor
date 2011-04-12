@@ -13,11 +13,15 @@ public class CanvasMenu extends GCanvas{
 	private Font fonteLogo, fonteMenu, fonteAutores;
 	
 	boolean instrucao = false;
-
+	BufferedImage img;
 
 	public CanvasMenu() {
 		// TODO Auto-generated constructor stub
-		imagemlogo = Constantes.LoadImage("/zombie.png");
+		
+		
+		//Constantes.logo=
+		
+		Constantes.logo=Constantes.LoadImage("logo.png");
 		
 		fonteLogo = new Font("Courier", Font.BOLD, 60);
 		
@@ -37,7 +41,7 @@ public class CanvasMenu extends GCanvas{
 			dbg.setColor(Color.black);
 			dbg.fillRect(0, 0, GamePanel.PWIDTH, GamePanel.PHEIGHT);
 			
-			dbg.drawImage(imagemlogo, 0, 0,imagemlogo.getWidth(),imagemlogo.getHeight(),null);
+			dbg.drawImage(Constantes.logo, 0, 0,Constantes.logo.getWidth(),Constantes.logo.getHeight(),null);
 //			
 //			dbg.setColor(Color.yellow);
 //			dbg.drawString("TD", 525, 75);

@@ -97,6 +97,8 @@ public class CanvasGame extends GCanvas {
 	public int MundoY=0;
 
 	public int MundoX=0;
+
+	public static GerenciadorObstaculos gerenciadorObstaculos;
 	
 	public static TileMap MAPA;
 
@@ -104,13 +106,15 @@ public class CanvasGame extends GCanvas {
 	public static int largura;
 	private static  Mira miraAtiva;
 	private static Mira miraUm;
+
+	public static boolean testeGradeColisao=false;
 	
 	public CanvasGame() {
 		// TODO Auto-generated constructor stub
 		instance = this;
-		tileset = Constantes.LoadImage("Bridge.png");
 
-		Constantes.mira1= Constantes.LoadImage("mira1.png");		
+		carregaImagens();
+		
 		MAPA = new TileMap(tileset, GamePanel.PWIDTH/16, GamePanel.PHEIGHT/16);
 		MAPA.AbreMapa("60x60.map");
 				
@@ -118,26 +122,43 @@ public class CanvasGame extends GCanvas {
 		gerenciadorEfeitos = new GerenciadorEfeitos();
 		gerenciadorRespawn= new GerenciadorRespawn();
 		gerenciadorHud=new GerenciadorHud();
+		gerenciadorObstaculos=new GerenciadorObstaculos();
+		
 		
 		largura = MAPA.Largura*16;
 		altura = MAPA.Altura*16;
-
-		base = new Base(largura/2, altura/2);
+	
+		base = new Base(largura/2, altura/2,Constantes.BASE_SIZEX_1,Constantes.BASE_SIZEY_1);
 		
 		setMiraAtiva(new Mira());
 		//objetos.add(miraAtiva);
 		
 		
-		inimigos.add(new Inimigo());
+		inimigos.add(new Inimigo(Constantes.inimigoUm));
 		heroi=new Heroi(GamePanel.PWIDTH/2, GamePanel.PHEIGHT/2,Constantes.LoadImage("t1.png"));
 		
 
+carregaFontes();
+
+		
+	}
+
+	private void carregaFontes() {
+		// TODO Auto-generated method stub
 		
 		fonte = new Font("Courier", Font.BOLD, 12);
 		fonte2 = new Font("Courier", Font.BOLD, 13);
 		fonte3 = new Font("Courier", Font.BOLD, 16);
+	}
 
+	private void carregaImagens() {
+		// TODO Auto-generated method stub
+		Constantes.inimigoUm =Constantes.LoadImage("zombie.png");	
 		
+		tileset = Constantes.LoadImage("Bridge.png");
+
+		Constantes.mira1= Constantes.LoadImage("mira1.png");		
+
 	}
 
 	@Override
@@ -154,7 +175,7 @@ public class CanvasGame extends GCanvas {
 		
 		gerenciadorEfeitos.DesenhaSe(dbg, MAPA.MapX, MAPA.MapY);
 
-
+		
 		for(int i = 0; i < projeteis.size();i++){
 			
 			Projetil proj = (Projetil) projeteis.get(i);
@@ -185,6 +206,7 @@ public class CanvasGame extends GCanvas {
 		
 		gerenciadorRespawn.DesenhaSe(dbg, MAPA.MapX, MAPA.MapY);
 		
+		gerenciadorObstaculos.DesenhaSe(dbg, MAPA.MapX, MAPA.MapY);
 		
 	}
 	
@@ -194,7 +216,6 @@ public class CanvasGame extends GCanvas {
 	void SimulaSe(long DiffTime) {
 		
 		getMiraAtiva().SimulaSe((int)DiffTime);
-
 		if(!GerenciadorRespawn.isRespawn()){
 			MAPA.Posiciona((int)(heroi.getX()-(GamePanel.PWIDTH/2)), (int)heroi.getY()-(GamePanel.PHEIGHT/2));
 		}
@@ -207,7 +228,7 @@ public class CanvasGame extends GCanvas {
 				itO.remove();
 				}
 		}
-		
+		base.SimulaSe((int)DiffTime);
 		heroi.SimulaSe((int)DiffTime);
 		
 		Iterator<Projetil> itP = projeteis.iterator();
@@ -219,6 +240,8 @@ public class CanvasGame extends GCanvas {
 				
 				}		
 		}	
+
+		gerenciadorObstaculos.SimulaSe((int) DiffTime);
 
 		
 		for	(int i=0;i<inimigos.size();i++) {
@@ -248,7 +271,9 @@ public class CanvasGame extends GCanvas {
 	void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
 		int keyCode = e.getKeyCode();
-				
+		if(keyCode == KeyEvent.VK_0){
+			testeGradeColisao=true;
+	}		
 		if(keyCode == KeyEvent.VK_ESCAPE){
 			GamePanel.CanvasAtivo = new CanvasMenu();
 		}
@@ -277,7 +302,7 @@ public class CanvasGame extends GCanvas {
 			GerenciadorTorre.adicionaTorre(mousex+MAPA.MapX,mousey+MAPA.MapY);
 		}	
 		if(keyCode == KeyEvent.VK_4){
-			inimigos.add(new Inimigo());
+			inimigos.add(new Inimigo(Constantes.inimigoUm));
 		}
 		
 	
@@ -286,6 +311,9 @@ public class CanvasGame extends GCanvas {
 	@Override
 	public void keyReleased(KeyEvent e ) {
 		int keyCode = e.getKeyCode();
+		if(keyCode == KeyEvent.VK_0){
+			testeGradeColisao=false;
+	}	
 		if(keyCode == KeyEvent.VK_W){
 			heroi.UP=false;
 		}

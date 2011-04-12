@@ -94,7 +94,7 @@ public class Heroi extends Objeto {
 	public void DesenhaSe(Graphics2D dbg, int XMundo, int YMundo) {
 		// TODO Auto-generated method stub
 		if (isVivo()) {
-			System.out.println(imagem.getTransparency());
+			//System.out.println(imagem.getTransparency());
 			armaAtiva.DesenhaSe(dbg, XMundo, YMundo);
 			dbg.setColor(cor);
 			int px =(int) (getX()-XMundo);

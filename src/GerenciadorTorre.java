@@ -52,7 +52,7 @@ public class GerenciadorTorre extends Objeto {
 	public void click(int mousex, int mousey) {
 		// TODO Auto-generated method stub
 		
-//		System.out.println(mousex);
+		//System.out.println(mousex);
 //
 //		System.out.println(mousey);
 		boolean aux=true;
@@ -90,10 +90,17 @@ public class GerenciadorTorre extends Objeto {
 			Torre torre = it.next();
 			
 			if (Constantes.colidecircular(x, y,rangeMouse/2,torre.getX(),torre.getY(),torre.getSizeX())) {
-				return false;
+				aux= false;
 				}
+		
 			}
-		return true;
+		if (GerenciadorObstaculos.colidiuObstaculo(x,y)) {
+			aux=false;
+		}
+	
+		
+
+		return aux;
 
 	}
 	

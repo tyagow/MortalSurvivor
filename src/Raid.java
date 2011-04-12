@@ -35,7 +35,7 @@ public class Raid {
 					int iv = Integer.parseInt(strs[4]);
 					int ilife = Integer.parseInt(strs[5]);
 					
-					Inimigo inim = new Inimigo();//, CanvasGame.controladordedirecao);
+					Inimigo inim = new Inimigo(Constantes.inimigoUm);//, CanvasGame.controladordedirecao);
 					
 					inim.setX(ix);
 					inim.setY(iy);

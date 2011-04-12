@@ -4,20 +4,25 @@ import java.awt.Graphics2D;
 
 public class Base extends Objeto{
 
-	public Base(int _x, int _y){
-		setX(_x);
-		setY(_y);
-		setSizeX(Constantes.BASE_SIZEX_1);
-		setSizeY(Constantes.BASE_SIZEY_1);
+	public Base(int _x, int _y, int sizeX, int sizeY){
+//		setX(_x);
+//		setY(_y);
+		setSizeX(sizeX);
+		setSizeY(sizeY);
+		setX(_x/16*16+getSizeX()/2);
+		setY(_y/16*16+getSizeY()/2);	
+	
+
 		setVivo(true);
 		setLife(Constantes.BASE_LIFE_1);
-
+		GerenciadorObstaculos.addObstaculos((int)getX(),(int)getY(),getSizeX(),getSizeY() );
 	}
 	
 	@Override
 	public void SimulaSe(int DiffTime) {
 		// TODO Auto-generated method stub
-	
+		//System.out.println((getSizeX()>>4)+"  "+(getSizeY()>>4));
+
 	}
 
 	@Override

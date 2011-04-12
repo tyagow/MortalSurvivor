@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 
 public class Inimigo extends Objeto {
@@ -15,15 +16,18 @@ public class Inimigo extends Objeto {
 	private int estado;
 	private double ang;
 	private double campoDeVisao;
-	
-	
-	public Inimigo() {
+	private int frameX=0;
+	private int frameY=1;
+	BufferedImage img;
+	public Inimigo(BufferedImage img) {
+		
+		this.img=img;
 		larguraMapa=CanvasGame.MAPA.Largura*16;
 		alturaMapa=CanvasGame.MAPA.Altura*16;
 		setX(GamePanel.rnd.nextInt(alturaMapa));
 		setY(GamePanel.rnd.nextInt(larguraMapa));
-		setSizeX(30);
-		setSizeY(30);
+		setSizeX(img.getWidth()/2);
+		setSizeY(img.getHeight()/3);
 		dano = 10;
 		setVel(100);
 		setLife(100);
@@ -58,13 +62,22 @@ public class Inimigo extends Objeto {
 	@Override
 	public void DesenhaSe(Graphics2D dbg, int XMundo, int YMundo) {
 		// TODO Auto-generated method stub
-		dbg.drawOval((int)getX()-getSizeX()/2-XMundo,(int)getY()-getSizeY()/2-YMundo,(int)getSizeX(),(int)getSizeY());
+		//dbg.drawOval((int)getX()-getSizeX()/2-XMundo,(int)getY()-getSizeY()/2-YMundo,(int)getSizeX(),(int)getSizeY());
 //		System.out.println("INIMIGO"+X);
 //		System.out.println("INIMIGO"+Y);
 		dbg.drawRect((int)getX()-5-getSizeX()/2-XMundo, (int)getY()-17-getSizeY()/2-YMundo, 30, 10);
 		dbg.setColor(Color.green);
-		dbg.fillRect((int)getX()-5+1-getSizeX()/2-XMundo, (int)getY()-16-getSizeX()/2-YMundo, (int)(getLife()*30/maximoVida)-1, 9);
-		
+		int px =(int) (getX()-XMundo);
+		int py = (int)(getY()-YMundo);
+		AffineTransform trans = dbg.getTransform();
+		dbg.translate(px, py);
+		dbg.rotate(ang+Math.PI/2);
+		dbg.drawImage(img, -getSizeX()/2,-getSizeX()/2,getSizeX()/2,getSizeY()/2,getSizeX()*frameX,getSizeY()*frameY,getSizeX()*frameX+getSizeX(),getSizeY()*frameY+getSizeY(),null);
+		dbg.setTransform(trans);
+		dbg.setColor(Color.black);
+		dbg.drawRect((int)px-getSizeX()/2-5, (int)py-getSizeY()/2-17, 30, 10);
+		dbg.setColor(Color.green);
+		dbg.fillRect((int)px-getSizeX()/2-5+1, (int)py-16-getSizeY()/2, (int)(getLife()*30/maximoVida)-1, 9);
 	}
 	
 	private void calculaIA(int DiffTime) {
@@ -72,7 +85,7 @@ public class Inimigo extends Objeto {
 		
 		tempoEntreAtaque+=DiffTime;
 		
-		System.out.println(estado);
+		//System.out.println(estado);
 		
 		if (estado ==0) {
 				if(!Constantes.colidecircular(getX(), getY(),campoDeVisao,CanvasGame.heroi.getX(),CanvasGame.heroi.getY(),CanvasGame.heroi.getSizeX()/2)){

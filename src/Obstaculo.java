@@ -5,12 +5,21 @@ import java.awt.Graphics2D;
 public class Obstaculo extends Objeto {
 
 	
-	public Obstaculo(int _x, int _y,int sizeX,int sizeY) {
+	public Obstaculo(int _x, int _y) {
+//		
+//		setX((_x/16*16)>>4);
+//		setY((_y/16*16)>>4);
+//		
 		
-		setX(_x>>4);
-		setY(_y>>4);
+		setX(_x);
+		setY(_y);
+		setSizeX(16);
+		setSizeY(16);
+
+//		defineDimensaoEmTiles(sizeX,sizeY);
+		setVivo(true);
 		
-		defineLarguraEmTiles(sizeX,sizeY);
+//		System.out.println(getSizeX()+"  "+getSizeY());
 		
 	}
 	
@@ -28,20 +37,20 @@ public class Obstaculo extends Objeto {
 	}
 	
 	
-	private void defineLarguraEmTiles(int sizeX, int sizeY) {
+	private void defineDimensaoEmTiles(int sizeX, int sizeY) {
 		// TODO Auto-generated method stub
-		if (sizeX%16<4) {
-			setSizeX(sizeX>>4);
+//		if (sizeX%16<4) {
+			setSizeX(sizeX);
+//				
+//		}else {
+//			setSizeX(sizeX>>4+1);
+//		}
+//		if (sizeY%16<4) {
+			setSizeY(sizeY);
 				
-		}else {
-			setSizeX(sizeX>>4+1);
-		}
-		if (sizeY%16<4) {
-			setSizeY(sizeY>>4);
-				
-		}else {
-			setSizeY(sizeY>>4+1);
-		}
+//		}else {
+//			setSizeY(sizeY>>4+1);
+//		}
 		
 	}
 	
