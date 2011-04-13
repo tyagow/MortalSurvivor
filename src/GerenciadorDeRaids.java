@@ -7,13 +7,14 @@ public class GerenciadorDeRaids {
 	public static ArrayList<Raid> raids = new ArrayList<Raid>();
 	
 	int numRaid = 1;
-
+	public static int tempoEntreRaids;
 	public boolean fim=false;
 	
 	public GerenciadorDeRaids(){
 		Raid raid1 = new Raid("raid1.csv");
 		raid1.ativo = true;
 		raids.add(raid1);
+		tempoEntreRaids=0;
 	}
 	
 	public void DesenhaSe(Graphics2D dbg, int XMundo, int YMundo){
@@ -25,8 +26,9 @@ public class GerenciadorDeRaids {
 	}
 	
 	public void SimulaSe(int DiffTime){
-		
-		if (CanvasGame.timer > Constantes.TEMPO_ENTRE_RAIDS&&!CanvasGame.isEndGame()){
+		tempoEntreRaids+=DiffTime;
+		//System.out.println("oi");
+		if (tempoEntreRaids > Constantes.TEMPO_ENTRE_RAIDS&&!CanvasGame.isEndGame()){
 			
 				switch(numRaid){
 					
@@ -156,7 +158,7 @@ public class GerenciadorDeRaids {
 					
 				}
 				
-				CanvasGame.timer = 0;
+				tempoEntreRaids=0;
 				
 			
 			

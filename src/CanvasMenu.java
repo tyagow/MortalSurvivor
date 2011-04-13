@@ -43,13 +43,27 @@ public class CanvasMenu extends GCanvas{
 			
 			dbg.drawImage(Constantes.logo, 0, 0,Constantes.logo.getWidth(),Constantes.logo.getHeight(),null);
 //			
-//			dbg.setColor(Color.yellow);
+			dbg.setColor(Color.yellow);
 //			dbg.drawString("TD", 525, 75);
 //			
-//			dbg.setFont(fonteMenu);
+			dbg.setFont(fonteAutores);
 //					
-//			dbg.drawString("<Enter> Start/Continue", 10, 200);
-//			dbg.drawString("<F1> Instruções", 10, 300);
+			dbg.drawString("<Enter> Start/Continue", 380, 50);
+			dbg.drawString("<W> Frente", 410, 100);
+			dbg.drawString("<S> Traz", 410, 130);
+			dbg.drawString("<A> Esquerda", 410, 160);
+			dbg.drawString("<D> Direita", 410, 190);
+			
+			dbg.drawString("<1> Faca", 410, 220);
+			dbg.drawString("<2> Secundaria", 410, 250);
+			dbg.drawString("<3> Cria Torre na Mira", 410, 280);
+			dbg.drawString("<Mouse2> Arma Primaria / Edit Torre", 410, 350);
+			dbg.drawString("<Mouse1> Atira", 410, 380);
+
+			
+			
+			
+
 //			
 //			dbg.setColor(Color.white);
 //			

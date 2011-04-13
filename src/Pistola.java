@@ -13,6 +13,7 @@ public class Pistola extends Arma {
 	public int estado=0;
 	public Pistola() {
 		
+		setTipo(1);
 		atirou=false;
 		setDano(Constantes.PISTOLA_dano);
 		setMag(Constantes.PISTOLA_mag);

@@ -57,6 +57,7 @@ public class CanvasGame extends GCanvas {
 	public static GerenciadorEfeitos gerenciadorEfeitos;
 	public static GerenciadorRespawn gerenciadorRespawn;
 	public static GerenciadorHud gerenciadorHud;
+	public static GerenciadorDeRaids gerenciadorDeRaids;
 
 
 	BufferedImage tileset;
@@ -123,7 +124,7 @@ public class CanvasGame extends GCanvas {
 		gerenciadorRespawn= new GerenciadorRespawn();
 		gerenciadorHud=new GerenciadorHud();
 		gerenciadorObstaculos=new GerenciadorObstaculos();
-		
+		gerenciadorDeRaids= new GerenciadorDeRaids();
 		
 		largura = MAPA.Largura*16;
 		altura = MAPA.Altura*16;
@@ -157,7 +158,8 @@ carregaFontes();
 		
 		tileset = Constantes.LoadImage("Bridge.png");
 
-		Constantes.mira1= Constantes.LoadImage("mira1.png");		
+		Constantes.mira1= Constantes.LoadImage("mira1.png");	
+		Constantes.torreUm = Constantes.LoadImage("torre.png");
 
 	}
 
@@ -168,7 +170,7 @@ carregaFontes();
 		dbg.setColor(Color.white);
 		dbg.fillRect(0,0,GamePanel.PWIDTH, GamePanel.PHEIGHT);
 
-//		MAPA.DesenhaSe(dbg);
+		//MAPA.DesenhaSe(dbg);
 		dbg.setColor(Color.black);
 		dbg.drawString(""+GamePanel.FPS, 10, 10);
 		
@@ -191,11 +193,12 @@ carregaFontes();
 			
 		}
 		
-		for(int i = 0; i < inimigos.size();i++){
-			Inimigo inim = (Inimigo)inimigos.get(i);
-			inim.DesenhaSe(dbg, MAPA.MapX, MAPA.MapY);
-		}
-		
+//		for(int i = 0; i < inimigos.size();i++){
+//			Inimigo inim = (Inimigo)inimigos.get(i);
+//			inim.DesenhaSe(dbg, MAPA.MapX, MAPA.MapY);
+//		}
+//		
+		gerenciadorDeRaids.DesenhaSe(dbg, MAPA.MapX, MAPA.MapY);
 		heroi.DesenhaSe(dbg, MAPA.MapX, MAPA.MapY);
 
 		gerenciadorHud.DesenhaSe(dbg, MAPA.MapX, MAPA.MapY);
@@ -220,6 +223,9 @@ carregaFontes();
 			MAPA.Posiciona((int)(heroi.getX()-(GamePanel.PWIDTH/2)), (int)heroi.getY()-(GamePanel.PHEIGHT/2));
 		}
 		
+		//MAPA.Posiciona((int)(mousex-(GamePanel.PWIDTH/2)), (int)mousey-(GamePanel.PHEIGHT/2));
+		
+		
 		Iterator<Objeto> itO = objetos.iterator();
 		while(itO.hasNext()){
 			Objeto inim = itO.next();
@@ -243,28 +249,35 @@ carregaFontes();
 
 		gerenciadorObstaculos.SimulaSe((int) DiffTime);
 
+		gerenciadorDeRaids.SimulaSe((int)DiffTime);
 		
-		for	(int i=0;i<inimigos.size();i++) {
-//		Iterator<Inimigo> it = inimigos.iterator();
-//		while(it.hasNext()){
-//			Inimigo inim = it.next();
+//		for	(int i=0;i<inimigos.size();i++) {
+////		Iterator<Inimigo> it = inimigos.iterator();
+////		while(it.hasNext()){
+////			Inimigo inim = it.next();
+////			inim.SimulaSe((int)DiffTime);
+////			if(inim.isVivo()==false){
+////				it.remove();
+////				gerenciadorEfeitos.ganhouXp(inim.getX(), inim.getY(),inim.getTipoAssasino() );
+////				}
+//			Inimigo inim = inimigos.get(i);
 //			inim.SimulaSe((int)DiffTime);
 //			if(inim.isVivo()==false){
-//				it.remove();
+//				inimigos.remove(i);
+//				
+//				inimigos.add(new Inimigo(Constantes.inimigoUm));
+//				inimigos.add(new Inimigo(Constantes.inimigoUm));
+//				
+//				
 //				gerenciadorEfeitos.ganhouXp(inim.getX(), inim.getY(),inim.getTipoAssasino() );
 //				}
-			Inimigo inim = inimigos.get(i);
-			inim.SimulaSe((int)DiffTime);
-			if(inim.isVivo()==false){
-				inimigos.remove(i);
-				gerenciadorEfeitos.ganhouXp(inim.getX(), inim.getY(),inim.getTipoAssasino() );
-				}
+////		}
 //		}
-		}
 		gerenciadorTorre.SimulaSe((int)DiffTime);
 		gerenciadorEfeitos.SimulaSe((int)DiffTime);
 		gerenciadorRespawn.SimulaSe((int)DiffTime);
 		gerenciadorHud.SimulaSe((int)DiffTime);
+		
 	}
 	
 	@Override
@@ -355,7 +368,10 @@ carregaFontes();
 
 			
 		}
+		if (button == MouseEvent.BUTTON3) {
 
+			heroi.PRIMARIA=false;
+		}
 
 
 	}
@@ -365,6 +381,7 @@ carregaFontes();
 		// TODO Auto-generated method stub
 		int button = e.getButton();
 		getMiraAtiva().pressed(button);
+		;
 		if (button == MouseEvent.BUTTON1) {
 			getMiraAtiva().trataClickMouse1();
 			
@@ -372,7 +389,7 @@ carregaFontes();
 			}
 		else if (button == MouseEvent.BUTTON3) {
 			getMiraAtiva().trataClickMouse2();
-
+			heroi.PRIMARIA=true;
 
 		
 }

@@ -5,7 +5,8 @@ import java.awt.image.BufferedImage;
 
 public abstract class Arma  {
 	
-	private int tempoEntreTiros;
+	public static int penetration=1;
+	private int timerTempoEntreTiros;
 	private int dano;
 	private int tempoRecarrega;
 	private int peso;
@@ -19,6 +20,7 @@ public abstract class Arma  {
 	
 	
 	BufferedImage imagem;
+	private int tipo;
 
 	public abstract void definePosicaoArma(double ang,double x2,double y2);
 
@@ -32,11 +34,11 @@ public abstract class Arma  {
 	public abstract void naoAtirou() ;
 
 	public void setTempoEntreTiros(int tempoEntreTiros) {
-		this.tempoEntreTiros = tempoEntreTiros;
+		this.timerTempoEntreTiros = tempoEntreTiros;
 	}
 
 	public int getTempoEntreTiros() {
-		return tempoEntreTiros;
+		return timerTempoEntreTiros;
 	}
 
 	public void setDano(int dano) {
@@ -133,5 +135,13 @@ public abstract class Arma  {
 
 	public boolean isRecarregando() {
 		return recarregando;
+	}
+
+	public void setTipo(int tipo) {
+		this.tipo = tipo;
+	}
+
+	public int getTipo() {
+		return tipo;
 	}
 }

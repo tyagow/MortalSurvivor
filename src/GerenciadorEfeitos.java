@@ -55,12 +55,12 @@ public class GerenciadorEfeitos extends Objeto {
 			Particula part = it.next();
 			part.SimulaSe((int)DiffTime);
 			
-			if(part.isVivo()==false) {
-				it.remove();
-				desenhaSangue(part);
-			}
+//			if(part.isVivo()==false) {
+//				it.remove();
+//				desenhaSangue(part);
+//			}
 		}
-//		chamaThreadParticulas();
+		chamaThreadParticulas();
 
 	}
 
@@ -93,23 +93,38 @@ public class GerenciadorEfeitos extends Objeto {
 
 	public static void verificaParticulas() {
 		// TODO Auto-generated method stub
-		if (particulas.size()!=0) {
-
-				Iterator<Particula> it = particulas.iterator();
-				
-				while(it.hasNext()){
-					Particula part = it.next();
-//					for (int i=0;i<=particulas.size();i++) {
-//						Particula part = particulas.get(i);
-						if (part.isVivo()==false) {
-//							it.remove();
-							it.remove();
-							GerenciadorEfeitos.desenhaSangue(part);
-							}
-						}
-				}
-//		}
+		Iterator<Particula> it = particulas.iterator();
+		while(it.hasNext()){
+			Particula part = it.next();
+			
+			if(part.isVivo()==false) {
+				it.remove();
+//				desenhaSangue(part);
+				chamaThreadDesenhaSangue(part);
+			}
+		}
 	}
+
+
+	private static void chamaThreadDesenhaSangue(final Particula part) {
+		// TODO Auto-generated method stub
+		new Thread(){
+			 @Override
+			public void run() {
+				// TODO Auto-generated method stub
+				//super.run();
+				
+				 
+				 desenhaSangue(part);
+				 
+				 
+			 }
+
+			
+		 }.start();
+	}
+
+
 
 
 	private static void chamaThreadParticulas() {
@@ -139,7 +154,7 @@ public class GerenciadorEfeitos extends Objeto {
 		
 	}
 
-	public void ganhouXp(double x,double y,int tipoAssasino) {
+	public static void ganhouXp(double x,double y,int tipoAssasino) {
 		int _xp;
 		
 		if (tipoAssasino==Constantes.TIPO_ASSASINO_PLAYER) {
@@ -164,7 +179,7 @@ public class GerenciadorEfeitos extends Objeto {
 		int velx =(int) (Math.cos(ang)*500);
 		int vely=(int) (Math.sin(ang)*500);
 
-			int totalParticulas= dano+60;
+			int totalParticulas= dano+10;
 			for(int B = 0; B < totalParticulas;B++){
 				int modv = GamePanel.rnd.nextInt(300)-100;
 				

@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 public class Heroi extends Objeto {
 	private static final int ARMA_MELEE = 0;
 	private static final int ARMA_SECUNDARIA = 1;
+	private static final int ARMA_PRIMARIA = 2;
 	Color cor;
 	boolean LEFT,RIGHT,UP,DOWN;
 	double ang;
@@ -22,7 +23,7 @@ public class Heroi extends Objeto {
 	private int maximoVida=100;
 	
 	private Arma armaMelee=new Faca();
-	private Arma armaPrimaria;
+	private Arma armaPrimaria=new Metralhadora();
 	private Arma armaSecundaria=new Pistola();
 	private Arma ultimaArma;
 	private Arma armaAtiva=armaSecundaria;
@@ -144,7 +145,7 @@ public class Heroi extends Objeto {
 		if (PRIMARIA) {
 			ultimaArma=armaAtiva;
 			armaAtiva=armaPrimaria;
-		
+			arma=ARMA_PRIMARIA;
 			PRIMARIA=false;
 		}
 		else if (SECUNDARIA)  {
@@ -164,6 +165,8 @@ public class Heroi extends Objeto {
 			armaAtiva=ultimaArma;
 			ultimaArma=temp;
 			
+			arma = armaAtiva.getTipo();
+			
 			ARMA_ANTERIOR=false;
 		}
 	}
@@ -180,6 +183,11 @@ public class Heroi extends Objeto {
 			frameX=1;
 			frameY=1;
 			break;
+		case ARMA_PRIMARIA:
+			frameX=1;
+			frameY=2;
+			break;
+			
 
 		default:
 			break;

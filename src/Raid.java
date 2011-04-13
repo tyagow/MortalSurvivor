@@ -22,6 +22,9 @@ public class Raid {
 		
 		String str = "";
 		
+		Inimigo inim2 = new Inimigo(Constantes.inimigoUm);
+		inimigos.add(inim2);
+		ativo=true;
 		
 		try {
 			while((str = bf.readLine())!=null){
@@ -37,15 +40,15 @@ public class Raid {
 					
 					Inimigo inim = new Inimigo(Constantes.inimigoUm);//, CanvasGame.controladordedirecao);
 					
-					inim.setX(ix);
-					inim.setY(iy);
-
-					inim.setVel(iv);
-					
-					inim.setLife(ilife);
-
-					inim.setLife(ilife);
-					inim.setTipoAssasino(tipo);
+//					inim.setX(ix);
+//					inim.setY(iy);
+//
+//					inim.setVel(iv);
+//					
+//					inim.setLife(ilife);
+//
+//					inim.setLife(ilife);
+//					inim.setTipoAssasino(tipo);
 					
 					inimigos.add(inim);
 				}
@@ -60,17 +63,24 @@ public class Raid {
 	public void DesenhaSe(Graphics2D dbg, int XMundo, int YMundo) {
 		for(int i = 0; i < inimigos.size();i++){
 			inimigos.get(i).DesenhaSe(dbg, CanvasGame.MAPA.MapX, CanvasGame.MAPA.MapY);
+
+			
 		}
 	}
 	
 	public void SimulaSe(int DiffTime){
+		
+		System.out.println(inimigos.size());
+		
+		
 		for(int i = 0; i < inimigos.size();i++){
 			Inimigo inim = inimigos.get(i);
 			
 			inim.SimulaSe((int)DiffTime);
 			
-			if(inim.isVivo()){
+			if(!inim.isVivo()){
 				inimigos.remove(i);
+				GerenciadorEfeitos.ganhouXp(inim.getX(), inim.getY(),inim.getTipoAssasino() );
 			}
 			if(inimigos.size() == 0)
 				this.ativo = false;

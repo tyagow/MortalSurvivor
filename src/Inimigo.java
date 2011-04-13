@@ -40,7 +40,6 @@ public class Inimigo extends Objeto {
 
 	public void SimulaSe(int DiffTime) {
 		// TODO Auto-generated method stub	
-			
 			calculaIA(DiffTime);
 		
 			double velx=(int) (Math.cos(ang)*getVel());
@@ -56,8 +55,23 @@ public class Inimigo extends Objeto {
 			
 			setOldx((int)getX());
 			setOldy((int)getY());
+			
+			//verificaColisaoTiros();
 	}
 
+
+	private void verificaColisaoTiros() {
+		// TODO Auto-generated method stub
+
+//		for (int i=0;i<CanvasGame.projeteis.size();i++) {
+//			Projetil proj= CanvasGame.projeteis.get(i);
+//			if (Constantes.colidecircular(getX(), getY(),getSizeX()/2,proj.getX(),proj.getY(),proj.getSizeX()/2)) {
+//				CanvasGame.projeteis.get(i).setVivo(false);
+//				recebeuDano(proj.getDano(),proj.tipo);
+//				CanvasGame.gerenciadorEfeitos.ativaSangue(getX(),getY(),ang,(int)proj.getDano());
+//			}
+//		}
+	}
 
 	@Override
 	public void DesenhaSe(Graphics2D dbg, int XMundo, int YMundo) {

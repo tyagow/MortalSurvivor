@@ -77,7 +77,7 @@ public class GerenciadorTorre extends Objeto {
 			if (System.currentTimeMillis()-tempoUltimaTorre >Constantes.TEMPO_ENTRE_ADD_TORRES) {
 				tempoUltimaTorre=System.currentTimeMillis();
 				
-				torres.add(new Torre(new ArmaUmTorre(),x,y) );
+				torres.add(new Torre(Constantes.torreUm,new ArmaUmTorre(Constantes.torreUm),x,y) );
 			}
 	
 	}

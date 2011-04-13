@@ -2,6 +2,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.util.Iterator;
+import java.util.List;
 
 
 public class Projetil extends Objeto {
@@ -11,6 +12,8 @@ public class Projetil extends Objeto {
 	int tipo;
 	Arma pai;
 	private int dano;
+	private int penetration;
+	
 	public Projetil(Arma pai,double ang,int tipo){
 		// TODO Auto-generated constructor stub
 		this.pai = pai;
@@ -18,9 +21,9 @@ public class Projetil extends Objeto {
 
 		this.setX(pai.getX());
 		this.setY(pai.getY());
-
+		penetration=Arma.penetration;
 		this.tipo=tipo;
-		this.dano=pai.getDano();
+		this.setDano(pai.getDano());
 		setVivo(true);
 		setSizeX(4);
 		setSizeY(2);
@@ -42,23 +45,33 @@ public class Projetil extends Objeto {
 			setVivo(false);
 			
 		}
+		for (int i = 0;i<GerenciadorDeRaids.raids.size();i++) {
+			Raid ra = GerenciadorDeRaids.raids.get(i);
 		
-		for(int i = 0; i < CanvasGame.inimigos.size();i++){
-			Inimigo inim = CanvasGame.inimigos.get(i);
-			if (Constantes.colidecircular(getX(), getY(),getSizeX()/2,inim.getX(),inim.getY(),inim.getSizeX()/2)) {
+			for (int j = 0;j<ra.inimigos.size();j++) {
+				Inimigo in = ra.inimigos.get(j);
 				
-		
-			CanvasGame.inimigos.get(i).recebeuDano(dano,tipo);
-			CanvasGame.gerenciadorEfeitos.ativaSangue(getX(),getY(),ang,(int)dano);
+				if (Constantes.colidecircular(getX(), getY(),getSizeX()/2,in.getX(),in.getY(),in.getSizeX()/2)) {
 				
+					penetration--;
+					GerenciadorDeRaids.raids.get(i).inimigos.get(j).recebeuDano(dano,tipo);
+					CanvasGame.gerenciadorEfeitos.ativaSangue(getX(),getY(),ang,(int)dano);
 				
-				setVivo(false);
-				
-				break;
+					if (penetration<=0) {
+						setVivo(false);
+						break;
+					}
+					
+					
 				}
 			}
 			
 		}
+	}
+//
+//	private List<Inimigo> extracted() {
+//		return ((List<Inimigo>) CanvasGame.gerenciadorDeRaids);
+//	}
 
 	@Override
 	public void DesenhaSe(Graphics2D dbg, int XMundo, int YMundo) {
@@ -106,6 +119,14 @@ public class Projetil extends Objeto {
 //		}
 //
 //	}
+
+	public void setDano(int dano) {
+		this.dano = dano;
+	}
+
+	public int getDano() {
+		return dano;
+	}
 
 
 

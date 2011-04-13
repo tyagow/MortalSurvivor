@@ -1,6 +1,7 @@
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
 
 
 public class ArmaUmTorre extends Arma {
@@ -9,24 +10,29 @@ public class ArmaUmTorre extends Arma {
 
 	private boolean semMunicao=false;
 
-		
+	BufferedImage AnimeSet;
 	public int estado=0;
-	public ArmaUmTorre() {
+	public ArmaUmTorre(BufferedImage img) {
 		
 		atirou=false;
-
+		AnimeSet=img;
 		setDano(Constantes.TORRE_ARMA_UM_dano);
 		setMag(Constantes.TORRE_ARMA_UM_mag);
 		setRound(Constantes.TORRE_ARMA_UM_round);
 		setTempoEntreTiros(0);
 		setTempoRecarrega(0);
 		setValor(Constantes.TORRE_ARMA_UM_valor);
-		setSizeX(20);
-		setSizeY(5);
+		setSizeX(AnimeSet.getWidth());
+		setSizeY(AnimeSet.getHeight());
 		estado=0;
 		
 	}
 	
+
+
+		// TODO Auto-generated constructor stub
+	
+
 
 
 	@Override
@@ -35,14 +41,15 @@ public class ArmaUmTorre extends Arma {
 		dbg.setColor(Color.black);
 		AffineTransform trans = dbg.getTransform();
 		dbg.translate(getX()-XMundo, getY()-YMundo);
-		dbg.rotate(getAngulo());
-		dbg.drawLine(0, 0, getSizeX(), 0);
+		dbg.rotate(getAngulo()+Math.PI/2);
+		//dbg.drawLine(0, 0, getSizeX(), 0);
+		dbg.drawImage(AnimeSet,-getSizeX()/2,-getSizeY()/2,getSizeX()/2,getSizeY()/2,0,0,getSizeX(),getSizeY(),null);
 
 		dbg.setTransform(trans);
 		
 		if (estado==1) {
 			dbg.setColor(Color.LIGHT_GRAY);
-			dbg.fillRect(GamePanel.PWIDTH/2-50, GamePanel.PHEIGHT/2-205,(int)(getTempoRecarrega()*100/Constantes.PISTOLA_tempoRecarrega) , 20);
+			dbg.fillRect(GamePanel.PWIDTH/2-50, GamePanel.PHEIGHT/2-205,(int)(getTempoRecarrega()*100/Constantes.TORRE_ARMA_UM_tempoRecarrega) , 20);
 
 			dbg.setColor(Color.black);
 			dbg.drawRect(GamePanel.PWIDTH/2-51, GamePanel.PHEIGHT/2-206, 103, 21);

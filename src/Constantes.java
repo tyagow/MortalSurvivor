@@ -21,13 +21,17 @@ public class Constantes {
 	public static final int BASE_LIFE_1 = 1000;
 	
 	public static final ThreadSom ak=new ThreadSom("/ak47.wav");
+	public static final ThreadSom m4a=new ThreadSom("/m4a.wav");
 
 	public static final ThreadSom de=new ThreadSom("/de.wav");
 	
 	public static  BufferedImage logo ;
 
 	public static  BufferedImage inimigoUm ;
-//Pistola
+
+
+	public static BufferedImage torreUm;
+	//Pistola
 	public static final int PISTOLA_mag = 3;
 	public static final int PISTOLA_dano=66;
 	public static final int PISTOLA_peso=30;
@@ -35,6 +39,15 @@ public class Constantes {
 	public static final int PISTOLA_tempoEntreTiros=100;
 	public static final int PISTOLA_tempoRecarrega=1000;
 	public static final int PISTOLA_valor=10;
+	
+	//metralhadora
+	public static final int METRALHADORA_mag = 3;
+	public static final int METRALHADORA_dano=33;
+	public static final int METRALHADORA_peso=60;
+	public static final int METRALHADORA_round=30;
+	public static final int METRALHADORA_tempoEntreTiros=100;
+	public static final int METRALHADORA_tempoRecarrega=1500;
+	public static final int METRALHADORA_valor=50;
 
 	//Faca
 	public static final int FACA_dano = 70;
@@ -87,6 +100,9 @@ public class Constantes {
 
 
 	public static final double TEMPO_ENTRE_RAIDS = 5000;
+
+
+
 
 	
 

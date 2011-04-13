@@ -14,6 +14,14 @@ public class GerenciadorObstaculos extends Objeto {
 	private static int largura;
 
 	private static int altura;
+
+	private static boolean xMaiorQueUm;
+
+	private static boolean yMaiorQueUm;
+
+	private static boolean xIgualUm;
+
+	private static boolean yIgualUm;
 	public GerenciadorObstaculos() {
 		// TODO Auto-generated constructor stub
 		
@@ -89,6 +97,7 @@ public class GerenciadorObstaculos extends Objeto {
 	public static void setObstaculos(ArrayList<Obstaculo> obstaculos) {
 		GerenciadorObstaculos.obstaculos = obstaculos;
 	}
+	
 	public static void recarregaGrade(){
 		
 		resetaGradeColisao();
@@ -109,35 +118,73 @@ public class GerenciadorObstaculos extends Objeto {
 		int y = _y>>4;
 		int sizeX = _sizeX>>4;
 		int sizeY = _sizeY>>4;
-			int d =0;
-			int e=0;
 		
-		Obstaculo obs;
-		for (int i=0;i<sizeX;i++) {
-			for (int j=0;j<sizeY;j++) {
-				if (i==0&&j==0) {
-					obs = new Obstaculo(x, _y); 
-				}else { 
-					if (i%2==0) {
-						d++;
-						obs =new Obstaculo(x+d,y);
-						
-						}
-					else /*(i%2!=0)*/ {
-						e++;
-						obs =new Obstaculo(x-e,y);
-						
-						}
-					obstaculos.add(obs);	
-				}
+		System.out.println(sizeX+"  opa");
+
+		if (sizeX>1){
+			x=x-sizeX/2;
+			xIgualUm=false;
+		}
+		else xIgualUm=true;
+		
+		if (sizeY>1){
+			y=y-sizeY/2;
+			yIgualUm=false;
+		}
+		else yIgualUm=true;
+		
+
+		
+		for (int i = 0;i<=sizeY-1;i++) {
+			for (int j = 0;j<=sizeX-1;j++) {
+			
+				obstaculos.add(new Obstaculo(x+j, y+i));
+				gradeColisao[x+j][y+i]=1;
+			}
+		
+			
+		}
+		
 				
-				
-				}
+
 			
 		}
 		
 		
-	}
+		
+			
+		
+		
+		
+//			int d =0;
+//			int e=0;
+//		
+//		Obstaculo obs;
+//		for (int i=0;i<sizeX;i++) {
+//			for (int j=0;j<sizeY;j++) {
+//				if (i==0&&j==0) {
+//					obs = new Obstaculo(x, _y); 
+//				}else { 
+//					if (i%2==0) {
+//						d++;
+//						obs =new Obstaculo(x+d,y);
+//						
+//						}
+//					else /*(i%2!=0)*/ {
+//						e++;
+//						obs =new Obstaculo(x-e,y);
+//						
+//						}
+//					obstaculos.add(obs);	
+//				}
+//				
+//				
+//				}
+//			
+//		}
+		
+		
+	
 
 
 	public static boolean colidiuObstaculo(int mousex, int mousey) {

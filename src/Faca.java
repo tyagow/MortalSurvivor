@@ -13,6 +13,7 @@ public class Faca extends Arma {
 	private boolean atacou;
 
 	public Faca() {
+		setTipo(0);
 		atirou=false;
 		setDano(Constantes.FACA_dano);
 		setPeso(Constantes.FACA_peso);
@@ -20,8 +21,10 @@ public class Faca extends Arma {
 		setTempoEntreTiros(0);
 		setTempoRecarrega(0);
 		setValor(Constantes.FACA_valor);
-		setSizeX(50);
-		setSizeY(5);
+	
+		imagem=Constantes.LoadImage("knife.png");
+		setSizeX(imagem.getWidth());
+		setSizeY(imagem.getHeight());
 		
 		
 	}
@@ -48,8 +51,11 @@ public class Faca extends Arma {
 			else 
 				dbg.rotate(getAngulo());
 			
-			dbg.drawLine(0, 0, (int)alcanceAtaque/2, 0);
+			dbg.drawImage(imagem, -getSizeX()/2+8, -getSizeY()/2, getSizeX()-2,getSizeY(),getSizeX(),getSizeY(),0,0,null);
 
+			//dbg.drawLine(0, 0, (int)alcanceAtaque/2, 0);
+			//dbg.drawOval(0/*(int)Math.cos(getAngulo())*50*/,-25/*(int) Math.sin(getAngulo())*50*/,(int) alcanceAtaque,(int)alcanceAtaque);
+//			
 			dbg.setTransform(trans);
 			
 			if (estado==1) {
@@ -60,7 +66,7 @@ public class Faca extends Arma {
 				dbg.drawOval((int)(getX()-alcanceAtaque/2), (int)(getY()-alcanceAtaque/2), (int)alcanceAtaque,(int)alcanceAtaque);
 				
 			}
-//			
+			
 //			dbg.drawString("Round: "+round,5 , 20);
 //			dbg.drawString("mag: "+mag,5 , 30);
 			
@@ -101,18 +107,20 @@ public class Faca extends Arma {
 			
 			
 			oldAng+=Math.PI*Difftime/Constantes.FACA_tempoAtaque;
+//				
+//				for (int i = 0; i < CanvasGame.inimigos.size(); i++) {
+//					if (Constantes.colidecircular(getX(), getY(), alcanceAtaque, CanvasGame.inimigos.get(i).getX(), CanvasGame.inimigos.get(i).getY(), CanvasGame.inimigos.get(i).getSizeX()/2)) {
+//						
+//						CanvasGame.inimigos.get(i).recebeuDano(getDano(),1);
+//						CanvasGame.gerenciadorEfeitos.ativaSangue( CanvasGame.inimigos.get(i).getX(), CanvasGame.inimigos.get(i).getY(),getAngulo() ,(int)getDano());
+//							
+//						break;
+//					}
+//		
+//				}
 				
-				for (int i = 0; i < CanvasGame.inimigos.size(); i++) {
-					if (Constantes.colidecircular(getX(), getY(), alcanceAtaque, CanvasGame.inimigos.get(i).getX(), CanvasGame.inimigos.get(i).getY(), CanvasGame.inimigos.get(i).getSizeX()/2)) {
-						
-						CanvasGame.inimigos.get(i).recebeuDano(getDano(),1);
-						CanvasGame.gerenciadorEfeitos.ativaSangue(getX(),getY(),getAngulo() ,(int)getDano());
-							
-						break;
-					}
-		
-				}
-				
+			procuraInimigos();
+			
 			if (getTempoRecarrega()>=Constantes.FACA_tempoAtaque) {
 				setTempoRecarrega(0);
 				estado=0;	
@@ -131,6 +139,28 @@ public class Faca extends Arma {
 	
 		
 	}
+	private void procuraInimigos() {
+		// TODO Auto-generated method stub
+		for (int i = 0;i<GerenciadorDeRaids.raids.size();i++) {
+			Raid ra = GerenciadorDeRaids.raids.get(i);
+		
+			for (int j = 0;j<ra.inimigos.size();j++) {
+				Inimigo in = ra.inimigos.get(j);
+				
+				if (Constantes.colidecircular(getX(), getY(),alcanceAtaque,in.getX(),in.getY(),in.getSizeX()/2)) {
+				
+					penetration--;
+					GerenciadorDeRaids.raids.get(i).inimigos.get(j).recebeuDano(getDano(),1);
+					CanvasGame.gerenciadorEfeitos.ativaSangue(getX(),getY(),getAngulo(),(int)getDano());
+				
+				
+						break;
+					}
+			}
+			
+		}
+	}
+
 	private void atira() {
 		// TODO Auto-generated method stub
 		setAngulo(getAngulo() - (Math.PI/2));

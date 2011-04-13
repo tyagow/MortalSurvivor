@@ -37,12 +37,12 @@ public class Torre extends Objeto{
 
 
 	private int timerSelect;
-	public Torre(/*BufferedImage _AnimeSet,*/ Arma arma,int x,int y){ 
+	public Torre(BufferedImage _AnimeSet, Arma arma,int x,int y){ 
 		// TODO Auto-generated constructor stub
 		
-	
-		setSizeX(48);
-		setSizeY(32);
+		AnimeSet=_AnimeSet;
+		setSizeX(16);
+		setSizeY(16);
 		setX(x/16*16+getSizeX()/2);
 		setY(y/16*16+getSizeY()/2);	
 		contruindo=true;
@@ -90,7 +90,7 @@ public class Torre extends Objeto{
 		dbg.setColor(cor);
 
 		
-	//	dbg.drawImage(AnimeSet,-14,-18,sizeX-10,sizeY-14,sizeX*frame+start,startY,(sizeX*frame)+sizeX+start,(startY)+sizeY,null);
+//		dbg.drawImage(AnimeSet,-getSizeX()/2,-getSizeY()/2,getSizeX()/2,getSizeY()/2,0,0,getSizeX(),getSizeY(),null);
 
 		
 		if (contruindo) {
@@ -100,7 +100,7 @@ public class Torre extends Objeto{
 			dbg.setColor(Color.lightGray);
 			dbg.fillRect((int)-getSizeX()/2-5+1, (int)-16-getSizeY()/2, (int)(timerContruindo*30/Constantes.TEMPO_TORRE_CONSTRUCAO), 9);		
 		}//else 
-			dbg.fillOval(-getSizeX()/2,-getSizeY()/2, (int)getSizeX(),(int)getSizeY());
+		//	dbg.fillOval(-getSizeX()/2,-getSizeY()/2, (int)getSizeX(),(int)getSizeY());
 
 
 
@@ -184,12 +184,18 @@ public class Torre extends Objeto{
 		// TODO Auto-generated method stub
 		boolean at=false;
 		
-		for (int i=0;i<CanvasGame.inimigos.size();i++)  {
-//		Iterator<Inimigo> it = CanvasGame.inimigos.iterator();
-//		while (it.hasNext()){
-			
-//			Inimigo in = it.next();
-			Inimigo in = CanvasGame.inimigos.get(i);
+//		for (int i=0;i<CanvasGame.inimigos.size();i++)  {
+////		Iterator<Inimigo> it = CanvasGame.inimigos.iterator();
+////		while (it.hasNext()){
+//			
+////			Inimigo in = it.next();
+//			Inimigo in = CanvasGame.inimigos.get(i);
+		for (int i = 0;i<GerenciadorDeRaids.raids.size();i++) {
+			Raid ra = GerenciadorDeRaids.raids.get(i);
+		
+			for (int j = 0;j<ra.inimigos.size();j++) {
+				Inimigo in = ra.inimigos.get(j);
+				
 				if (Constantes.colidecircular(in.getX(), in.getY(), in.getSizeX()/2, getX(), getY(), getRange()/2)) {
 					
 					int difX=(int) (getX()-in.getX());
@@ -204,7 +210,7 @@ public class Torre extends Objeto{
 				}			
 			}
 
-		
+		}
 		 if (at==false) 
 			 armaAtiva.naoAtirou();
 	}
