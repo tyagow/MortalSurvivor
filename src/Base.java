@@ -22,7 +22,8 @@ public class Base extends Objeto{
 	public void SimulaSe(int DiffTime) {
 		// TODO Auto-generated method stub
 		//System.out.println((getSizeX()>>4)+"  "+(getSizeY()>>4));
-
+		if (getLife() <0)
+			setLife(0);
 	}
 
 	@Override
