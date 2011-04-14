@@ -6,6 +6,8 @@ import java.awt.image.BufferedImage;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+import com.sun.servicetag.SystemEnvironment;
+
 
 public class GerenciadorEfeitos extends Objeto {
 	
@@ -17,7 +19,7 @@ public class GerenciadorEfeitos extends Objeto {
 	private static BufferedImage manchasSangue;
 	private static Graphics2D manchas;
 	
-	
+		private int timer=0;
 	
 	public GerenciadorEfeitos() {
 		// TODO Auto-generated constructor stub
@@ -35,7 +37,7 @@ public class GerenciadorEfeitos extends Objeto {
 	@Override
 	public void SimulaSe(int DiffTime) {
 		// TODO Auto-generated method stub
-		
+		timer+=DiffTime;
 //			while(particulasEstatica.size()>Constantes.MAXIMO_PARTICULAS_ESTATICAS){
 //				particulasEstatica.removeFirst();
 //				
@@ -50,17 +52,25 @@ public class GerenciadorEfeitos extends Objeto {
 			}
 		
 		
-		Iterator<Particula> it = particulas.iterator();
-		while(it.hasNext()){
-			Particula part = it.next();
-			part.SimulaSe((int)DiffTime);
+			for(int i = 0; i < particulas.size();i++){
+
+//		Iterator<Particula> it = particulas.iterator();
+//		while(it.hasNext()){
+//			Particula part = it.next();
+			Particula part = particulas.get(i);
+				
+				part.SimulaSe((int)DiffTime);
 			
 //			if(part.isVivo()==false) {
 //				it.remove();
 //				desenhaSangue(part);
 //			}
 		}
-		chamaThreadParticulas();
+		
+		if (timer/100>1) {
+			chamaThreadParticulas();
+		timer=0;
+		}
 
 	}
 
