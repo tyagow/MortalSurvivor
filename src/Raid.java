@@ -70,7 +70,7 @@ public class Raid {
 	
 	public void SimulaSe(int DiffTime){
 		
-		System.out.println(inimigos.size());
+//		System.out.println(inimigos.size());
 		
 		
 		for(int i = 0; i < inimigos.size();i++){

@@ -223,7 +223,11 @@ carregaFontes();
 			MAPA.Posiciona((int)(heroi.getX()-(GamePanel.PWIDTH/2)), (int)heroi.getY()-(GamePanel.PHEIGHT/2));
 		}
 		
+<<<<<<< HEAD
 //		MAPA.PosiWciona((int)(mousex-(GamePanel.PWIDTH/2)), (int)mousey-(GamePanel.PHEIGHT/2));
+=======
+//		MAPA.Posiciona((int)(mousex-(GamePanel.PWIDTH/2)), (int)mousey-(GamePanel.PHEIGHT/2));
+>>>>>>> 2f47a8d2b59dd9cc301e89326dc0af18cc87dc65
 		
 		
 		Iterator<Objeto> itO = objetos.iterator();

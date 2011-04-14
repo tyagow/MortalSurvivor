@@ -112,16 +112,30 @@ public class GerenciadorObstaculos extends Objeto {
 	public static void addObstaculos(int _x,int _y,int _sizeX,int _sizeY) {
 		// TODO Auto-generated method stub
 		//System.out.println(obstaculo.getY());
-
+		//System.out.println(_sizeY);
 
 		int x = _x>>4;
 		int y = _y>>4;
-		int sizeX = _sizeX>>4;
-		int sizeY = _sizeY>>4;
 		
+		
+		
+		int sizeX;
+		int sizeY;
+
+		if (_sizeX%16>0)
+			sizeX= _sizeX>>4+1;
+			else
+				sizeX= _sizeX>>4;
+				
+		if (_sizeY%16>0)
+			sizeY= _sizeY>>4+1;
+		else
+			sizeY= _sizeY>>4;
+						
+				
 		System.out.println(sizeX+"  opa");
 
-		if (sizeX>1){
+		if (sizeX>2){
 			x=x-sizeX/2;
 			xIgualUm=false;
 		}
@@ -133,10 +147,21 @@ public class GerenciadorObstaculos extends Objeto {
 		}
 		else yIgualUm=true;
 		
-
+		int indX;
+		if (_sizeX<33)
+			indX=0;
+		else 
+			indX=1;
 		
-		for (int i = 0;i<=sizeY-1;i++) {
-			for (int j = 0;j<=sizeX-1;j++) {
+		
+		int indY;
+		if (_sizeY<33)
+			indY=0;
+		else 
+			indY=1;
+		
+		for (int i = 0;i<=sizeY-indY;i++) {
+			for (int j = 0;j<=sizeX-indX;j++) {
 			
 				obstaculos.add(new Obstaculo(x+j, y+i));
 				gradeColisao[x+j][y+i]=1;

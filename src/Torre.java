@@ -41,8 +41,26 @@ public class Torre extends Objeto{
 		// TODO Auto-generated constructor stub
 		
 		AnimeSet=_AnimeSet;
-		setSizeX(16);
-		setSizeY(16);
+		if (AnimeSet.getWidth() <16)
+			setSizeX(16);
+		else
+			setSizeX(AnimeSet.getWidth());
+//		System.out.println("largura"+getSizeX());
+
+
+		if (AnimeSet.getHeight() <16) {
+			setSizeY(16);
+		}
+		else
+			setSizeY(AnimeSet.getHeight());
+		
+//		setSizeX(Math.max(getSizeX(), getSizeY()));
+//		setSizeY(Math.max(getSizeX(), getSizeY()));
+		
+//		setSizeY(AnimeSet.getHeight());
+//		System.out.println("altura"+getSizeY());
+
+		
 		setX(x/16*16+getSizeX()/2);
 		setY(y/16*16+getSizeY()/2);	
 		contruindo=true;
