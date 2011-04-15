@@ -59,7 +59,7 @@ public class CanvasGame extends GCanvas {
 	public static GerenciadorHud gerenciadorHud;
 	public static GerenciadorDeRaids gerenciadorDeRaids;
 
-
+public static Minimap minimap;
 	BufferedImage tileset;
 
 //	private boolean menu;
@@ -113,7 +113,6 @@ public class CanvasGame extends GCanvas {
 	public CanvasGame() {
 		// TODO Auto-generated constructor stub
 		instance = this;
-
 		carregaImagens();
 		
 		MAPA = new TileMap(tileset, GamePanel.PWIDTH/16, GamePanel.PHEIGHT/16);
@@ -138,8 +137,9 @@ public class CanvasGame extends GCanvas {
 		inimigos.add(new Inimigo(Constantes.inimigoUm));
 		heroi=new Heroi(GamePanel.PWIDTH/2, GamePanel.PHEIGHT/2,Constantes.LoadImage("t1.png"));
 		
+		minimap=new Minimap();
 
-carregaFontes();
+		carregaFontes();
 
 		
 	}
@@ -205,11 +205,13 @@ carregaFontes();
 		base.DesenhaSe(dbg, MAPA.MapX, MAPA.MapY);
 
 		
+		minimap.DesenhaSe(dbg, MAPA.MapX, MAPA.MapY);
 		getMiraAtiva().DesenhaSe(dbg, MAPA.MapX, MAPA.MapY);
 		
 		gerenciadorRespawn.DesenhaSe(dbg, MAPA.MapX, MAPA.MapY);
 		
 		gerenciadorObstaculos.DesenhaSe(dbg, MAPA.MapX, MAPA.MapY);
+		
 		
 	}
 	

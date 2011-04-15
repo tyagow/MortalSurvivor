@@ -141,8 +141,8 @@ public class Faca extends Arma {
 	}
 	private void procuraInimigos() {
 		// TODO Auto-generated method stub
-		for (int i = 0;i<GerenciadorDeRaids.raids.size();i++) {
-			Raid ra = GerenciadorDeRaids.raids.get(i);
+		for (int i = 0;i<GerenciadorDeRaids.getRaids().size();i++) {
+			Raid ra = GerenciadorDeRaids.getRaids().get(i);
 		
 			for (int j = 0;j<ra.inimigos.size();j++) {
 				Inimigo in = ra.inimigos.get(j);
@@ -150,7 +150,7 @@ public class Faca extends Arma {
 				if (Constantes.colidecircular(getX(), getY(),alcanceAtaque,in.getX(),in.getY(),in.getSizeX()/2)) {
 				
 					penetration--;
-					GerenciadorDeRaids.raids.get(i).inimigos.get(j).recebeuDano(getDano(),1);
+					GerenciadorDeRaids.getRaids().get(i).inimigos.get(j).recebeuDano(getDano(),1);
 					CanvasGame.gerenciadorEfeitos.ativaSangue(getX(),getY(),getAngulo(),(int)getDano());
 				
 				

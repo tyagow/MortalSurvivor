@@ -45,8 +45,8 @@ public class Projetil extends Objeto {
 			setVivo(false);
 			
 		}
-		for (int i = 0;i<GerenciadorDeRaids.raids.size();i++) {
-			Raid ra = GerenciadorDeRaids.raids.get(i);
+		for (int i = 0;i<GerenciadorDeRaids.getRaids().size();i++) {
+			Raid ra = GerenciadorDeRaids.getRaids().get(i);
 		
 			for (int j = 0;j<ra.inimigos.size();j++) {
 				Inimigo in = ra.inimigos.get(j);
@@ -54,7 +54,7 @@ public class Projetil extends Objeto {
 				if (Constantes.colidecircular(getX(), getY(),getSizeX()/2,in.getX(),in.getY(),in.getSizeX()/2)) {
 				
 					penetration--;
-					GerenciadorDeRaids.raids.get(i).inimigos.get(j).recebeuDano(dano,tipo);
+					GerenciadorDeRaids.getRaids().get(i).inimigos.get(j).recebeuDano(dano,tipo);
 					CanvasGame.gerenciadorEfeitos.ativaSangue(getX(),getY(),ang,(int)dano);
 				
 					if (penetration<=0) {

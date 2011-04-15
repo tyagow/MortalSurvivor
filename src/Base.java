@@ -9,8 +9,8 @@ public class Base extends Objeto{
 //		setY(_y);
 		setSizeX(sizeX);
 		setSizeY(sizeY);
-		setX(_x/16*16+getSizeX()/2);
-		setY(_y/16*16+getSizeY()/2);	
+		setX(_x/16*16);
+		setY(_y/16*16);	
 	
 
 		setVivo(true);

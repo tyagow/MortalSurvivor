@@ -208,8 +208,8 @@ public class Torre extends Objeto{
 //			
 ////			Inimigo in = it.next();
 //			Inimigo in = CanvasGame.inimigos.get(i);
-		for (int i = 0;i<GerenciadorDeRaids.raids.size();i++) {
-			Raid ra = GerenciadorDeRaids.raids.get(i);
+		for (int i = 0;i<GerenciadorDeRaids.getRaids().size();i++) {
+			Raid ra = GerenciadorDeRaids.getRaids().get(i);
 		
 			for (int j = 0;j<ra.inimigos.size();j++) {
 				Inimigo in = ra.inimigos.get(j);

@@ -102,6 +102,12 @@ public class Constantes {
 	public static final double TEMPO_ENTRE_RAIDS = 5000;
 
 
+	public static final double MINIMAP_X = 50;
+	public static final double MINIMAP_Y = 50;
+	public static final double MINIMAP_LARGURA = 100;
+	public static final double MINIMAP_ALTURA = 100;
+
+
 
 
 	
