@@ -33,7 +33,7 @@ public class GerenciadorObstaculos extends Objeto {
 	public void SimulaSe(int DiffTime) {
 		// TODO Auto-generated method stub
 		//System.out.println(obstaculos.size());
-		Iterator<Obstaculo> it = obstaculos.iterator();
+		Iterator<Obstaculo> it = getObstaculos().iterator();
 		while(it.hasNext()){
 			Obstaculo part = it.next();
 			part.SimulaSe((int)DiffTime);
@@ -101,7 +101,7 @@ public class GerenciadorObstaculos extends Objeto {
 	public static void recarregaGrade(){
 		
 		resetaGradeColisao();
-		Iterator<Obstaculo> it = obstaculos.iterator();
+		Iterator<Obstaculo> it = getObstaculos().iterator();
 		while(it.hasNext()){
 			Obstaculo part = it.next();
 			gradeColisao[(int)part.getX()][(int)part.getY()]=1;
@@ -163,7 +163,7 @@ public class GerenciadorObstaculos extends Objeto {
 		for (int i = 0;i<=sizeY-indY;i++) {
 			for (int j = 0;j<=sizeX-indX;j++) {
 			
-				obstaculos.add(new Obstaculo(x+j, y+i));
+				getObstaculos().add(new Obstaculo(x+j, y+i));
 				gradeColisao[x+j][y+i]=1;
 			}
 		
@@ -221,6 +221,11 @@ public class GerenciadorObstaculos extends Objeto {
 		
 		
 		
+	}
+
+
+	public static ArrayList<Obstaculo> getObstaculos() {
+		return obstaculos;
 	}
 
 

@@ -1,4 +1,5 @@
 import java.awt.AlphaComposite;
+import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
@@ -18,8 +19,8 @@ public class Minimap extends Objeto{
 	@Override
 	public void SimulaSe(int DiffTime) {
 		// TODO Auto-generated method stub
-		System.out.println();
-	}
+	System.out.println(GerenciadorObstaculos.getObstaculos().size());
+	}  
 
 	@Override
 	public void DesenhaSe(Graphics2D dbg, int XMundo, int YMundo) {
@@ -47,6 +48,20 @@ public class Minimap extends Objeto{
 				}
 			}
 		}
+		System.out.println(GerenciadorObstaculos.getObstaculos().size());
+		for (int k=0;k<GerenciadorObstaculos.getObstaculos().size();k++)
+		{
+			Obstaculo inim = GerenciadorObstaculos.getObstaculos().get(k);
+			int xM = (int) (inim.getX()*16/tamanhoMiniMap + this.getX());
+			int yM = (int) (inim.getY()*16/tamanhoMiniMap + this.getY());
+			int lM = inim.getSizeX()/tamanhoMiniMap;
+			int aM = inim.getSizeY()/tamanhoMiniMap;
+			dbg.fillOval(xM-2, yM-2, 4, 4);
+
+///			dbg.fillRect((int)inim.getX()*16/tamanhoMiniMap+ this.getX(), (int)inim.getY()*16/tamanhoMiniMap+ this.getY(), inim.getSizeX()/tamanhoMiniMap, inim.getSizeY()/tamanhoMiniMap);
+			
+		}
+			
 		dbg.setColor(Color.white);
 		dbg.fillOval(((int)CanvasGame.heroi.getX()-CanvasGame.heroi.getSizeX()/2)/6,((int)CanvasGame.heroi.getY()-CanvasGame.heroi.getSizeY()/2)/6,(int)CanvasGame.heroi.getSizeX()/6,CanvasGame.heroi.getSizeY()/6);
 		
