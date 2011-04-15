@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Projetil extends Objeto {
 	
-	int vel=800;
+	int vel=1000;
 	double ang;
 	int tipo;
 	Arma pai;

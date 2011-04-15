@@ -49,7 +49,7 @@ public class CanvasGame extends GCanvas {
 
 	public static ArrayList<Objeto> objetos = new ArrayList<Objeto>();
 	
-	public static ArrayList<Inimigo> inimigos = new ArrayList<Inimigo>();
+	//public static ArrayList<Inimigo> inimigos = new ArrayList<Inimigo>();
 	
 	public static ArrayList<Torre> torres = new ArrayList<Torre>();
 	
@@ -136,7 +136,7 @@ public static Minimap minimap;
 		//objetos.add(miraAtiva);
 		
 		
-		inimigos.add(new Inimigo(Constantes.inimigoUm));
+		//inimigos.add(new Inimigo(Constantes.inimigoUm));
 		heroi=new Heroi(GamePanel.PWIDTH/2, GamePanel.PHEIGHT/2,Constantes.LoadImage("t1.png"));
 		
 		minimap=new Minimap();
@@ -323,7 +323,7 @@ public static Minimap minimap;
 			GerenciadorTorre.adicionaTorre(mousex+MAPA.MapX,mousey+MAPA.MapY);
 		}	
 		if(keyCode == KeyEvent.VK_4){
-			inimigos.add(new Inimigo(Constantes.inimigoUm));
+			//inimigos.add(new Inimigo(Constantes.inimigoUm));
 		}
 		
 	

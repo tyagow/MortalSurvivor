@@ -76,10 +76,10 @@ diffTimeParticulas=0;
 		dbg.drawImage(manchasSangue, -XMundo,-YMundo, manchasSangue.getWidth()-XMundo, manchasSangue.getHeight()-YMundo, 0, 0, CanvasGame.largura, CanvasGame.altura, null);
 		
 		for(int i = 0; i < particulas.size();i++){
-			
-			Particula proj = (Particula) particulas.get(i);
-			proj.DesenhaSe(dbg,XMundo,YMundo);
-
+			if (particulas.get(i)!=null) {
+				Particula proj = (Particula) particulas.get(i);
+				proj.DesenhaSe(dbg,XMundo,YMundo);
+			}
 		}
 
 		for(int i = 0; i < efeitos.size();i++){
