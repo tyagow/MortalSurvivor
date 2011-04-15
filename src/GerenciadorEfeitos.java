@@ -18,12 +18,13 @@ public class GerenciadorEfeitos extends Objeto {
 	private static int xp;
 	private static BufferedImage manchasSangue;
 	private static Graphics2D manchas;
+	private static long diffTimeParticulas;
 	
 		private int timer=0;
 	
 	public GerenciadorEfeitos() {
 		// TODO Auto-generated constructor stub
-	
+diffTimeParticulas=0;
 		manchasSangue= new BufferedImage(CanvasGame.MAPA.Largura*16, CanvasGame.MAPA.Altura*16, BufferedImage.TYPE_INT_ARGB);
 		manchas = manchasSangue.createGraphics();
 		
@@ -38,6 +39,7 @@ public class GerenciadorEfeitos extends Objeto {
 	public void SimulaSe(int DiffTime) {
 		// TODO Auto-generated method stub
 		timer+=DiffTime;
+		diffTimeParticulas+=DiffTime;
 //			while(particulasEstatica.size()>Constantes.MAXIMO_PARTICULAS_ESTATICAS){
 //				particulasEstatica.removeFirst();
 //				
@@ -47,27 +49,18 @@ public class GerenciadorEfeitos extends Objeto {
 				Objeto part =  efeitos.get(i);
 				part.SimulaSe((int)DiffTime);
 				if(part.isVivo()==false) {
-					efeitos.remove();
+					efeitos.remove(i);
 				}
 			}
-		
-		
 			for(int i = 0; i < particulas.size();i++){
-
-//		Iterator<Particula> it = particulas.iterator();
-//		while(it.hasNext()){
-//			Particula part = it.next();
-			Particula part = particulas.get(i);
-				
+				Particula part =  particulas.get(i);
 				part.SimulaSe((int)DiffTime);
 			
-//			if(part.isVivo()==false) {
-//				it.remove();
-//				desenhaSangue(part);
-//			}
-		}
+			}
 		
-		if (timer/100>1) {
+	
+		
+		if (timer>100) {
 			chamaThreadParticulas();
 		timer=0;
 		}
@@ -103,14 +96,25 @@ public class GerenciadorEfeitos extends Objeto {
 
 	public static void verificaParticulas() {
 		// TODO Auto-generated method stub
-		Iterator<Particula> it = particulas.iterator();
-		while(it.hasNext()){
-			Particula part = it.next();
+		System.out.println("oi");
+//		Iterator<Particula> it = particulas.iterator();
+//		while(it.hasNext()){
+		for(int i = 0; i < particulas.size();i++){
+			Particula part =  particulas.get(i);
+//			part.SimulaSe((int)DiffTime);
+//			if(part.isVivo()==false) {
+//				efeitos.remove();
+//			}
+//		}
+//			Particula part = it.next();
 			
+//			part.SimulaSe((int)(diffTimeParticulas-System.currentTimeMillis()));
+	System.out.println(diffTimeParticulas+ "   ");
 			if(part.isVivo()==false) {
-				it.remove();
-//				desenhaSangue(part);
-				chamaThreadDesenhaSangue(part);
+				
+				particulas.remove(i);
+				desenhaSangue(part);
+//				//chamaThreadDesenhaSangue(part);
 			}
 		}
 	}
@@ -124,7 +128,7 @@ public class GerenciadorEfeitos extends Objeto {
 				// TODO Auto-generated method stub
 				//super.run();
 				
-				 
+				
 				 desenhaSangue(part);
 				 
 				 
@@ -144,14 +148,14 @@ public class GerenciadorEfeitos extends Objeto {
 			public void run() {
 				// TODO Auto-generated method stub
 				//super.run();
-				
+//				while (CanvasGame.ContiuaJogo) 
 				 
 				 GerenciadorEfeitos.verificaParticulas();
 				 
 				 
-			 }
+//			 }
 
-			
+			 }
 		 }.start();
 	}
 	private static void desenhaSangue(Particula part) {

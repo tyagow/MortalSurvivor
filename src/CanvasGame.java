@@ -109,6 +109,8 @@ public static Minimap minimap;
 	private static Mira miraUm;
 
 	public static boolean testeGradeColisao=false;
+
+	protected static boolean ContiuaJogo;
 	
 	public CanvasGame() {
 		// TODO Auto-generated constructor stub
@@ -140,7 +142,7 @@ public static Minimap minimap;
 		minimap=new Minimap();
 
 		carregaFontes();
-
+		ContiuaJogo=true;
 		
 	}
 
