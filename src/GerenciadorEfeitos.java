@@ -76,10 +76,9 @@ diffTimeParticulas=0;
 		dbg.drawImage(manchasSangue, -XMundo,-YMundo, manchasSangue.getWidth()-XMundo, manchasSangue.getHeight()-YMundo, 0, 0, CanvasGame.largura, CanvasGame.altura, null);
 		
 		for(int i = 0; i < particulas.size();i++){
-			if (particulas.get(i)!=null) {
 				Particula proj = (Particula) particulas.get(i);
 				proj.DesenhaSe(dbg,XMundo,YMundo);
-			}
+			
 		}
 
 		for(int i = 0; i < efeitos.size();i++){
@@ -96,7 +95,7 @@ diffTimeParticulas=0;
 
 	public static void verificaParticulas() {
 		// TODO Auto-generated method stub
-		System.out.println("oi");
+		//System.out.println("oi");
 //		Iterator<Particula> it = particulas.iterator();
 //		while(it.hasNext()){
 		for(int i = 0; i < particulas.size();i++){
@@ -109,7 +108,7 @@ diffTimeParticulas=0;
 //			Particula part = it.next();
 			
 //			part.SimulaSe((int)(diffTimeParticulas-System.currentTimeMillis()));
-	System.out.println(diffTimeParticulas+ "   ");
+			//System.out.println(diffTimeParticulas+ "   ");
 			if(part.isVivo()==false) {
 				
 				particulas.remove(i);
