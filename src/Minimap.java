@@ -11,7 +11,7 @@ public class Minimap extends Objeto{
 
 	public Minimap(){
 		setX(0);
-		setY(0);
+		setY(GamePanel.PHEIGHT-(int)CanvasGame.altura/tamanhoMiniMap);
 		setSizeX((int) CanvasGame.largura/tamanhoMiniMap);
 		setSizeY((int)CanvasGame.altura/tamanhoMiniMap);
 	}
@@ -48,7 +48,8 @@ public class Minimap extends Objeto{
 				}
 			}
 		}
-		System.out.println(GerenciadorObstaculos.getObstaculos().size());
+			
+			dbg.setColor(Color.yellow);
 		for (int k=0;k<GerenciadorObstaculos.getObstaculos().size();k++)
 		{
 			Obstaculo inim = GerenciadorObstaculos.getObstaculos().get(k);
@@ -62,8 +63,24 @@ public class Minimap extends Objeto{
 			
 		}
 			
-		dbg.setColor(Color.white);
-		dbg.fillOval(((int)CanvasGame.heroi.getX()-CanvasGame.heroi.getSizeX()/2)/6,((int)CanvasGame.heroi.getY()-CanvasGame.heroi.getSizeY()/2)/6,(int)CanvasGame.heroi.getSizeX()/6,CanvasGame.heroi.getSizeY()/6);
+		dbg.setColor(Color.red);
+//		dbg.fillOval(((int)CanvasGame.heroi.getX()-CanvasGame.heroi.getSizeX()/2)/6,((int)CanvasGame.heroi.getY()-CanvasGame.heroi.getSizeY()/2)/6,(int)CanvasGame.heroi.getSizeX()/6,CanvasGame.heroi.getSizeY()/6);
+		int x[] = new int[4];
+		int y[] = new int[4];
+		
+		x[0]=(int) ((int)(CanvasGame.heroi.getX()-CanvasGame.heroi.getSizeX()/2)/6 +getX());
+		x[1]=(int) ((int)(CanvasGame.heroi.getX()-CanvasGame.heroi.getSizeX()/2)/6+getX());
+		x[2]=(int) (((int)CanvasGame.heroi.getX()+CanvasGame.heroi.getSizeX()/2)/6+getX());
+		x[3]=(int) (((int)CanvasGame.heroi.getX()+CanvasGame.heroi.getSizeX()/2)/6+getX());
+		
+		y[0]=(int) (((int)CanvasGame.heroi.getY()-CanvasGame.heroi.getSizeY()/2)/6+getY());
+		y[1]=(int) (((int)CanvasGame.heroi.getY()+CanvasGame.heroi.getSizeY()/2)/6+getY());
+		y[2]=(int) (((int)CanvasGame.heroi.getY()+CanvasGame.heroi.getSizeY()/2)/6+getY());
+		y[3]=(int) (((int)CanvasGame.heroi.getY()-CanvasGame.heroi.getSizeY()/2)/6+getY());
+		
+		
+		
+		dbg.fillPolygon(x,y,4);
 		
 
 	}

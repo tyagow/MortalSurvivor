@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 import com.sun.servicetag.SystemEnvironment;
+import com.sun.swing.internal.plaf.synth.resources.synth;
 
 
 public class GerenciadorEfeitos extends Objeto {
@@ -60,7 +61,7 @@ diffTimeParticulas=0;
 		
 	
 		
-		if (timer>100) {
+		if (timer>50) {
 			chamaThreadParticulas();
 		timer=0;
 		}
@@ -100,7 +101,7 @@ diffTimeParticulas=0;
 //		while(it.hasNext()){
 		for(int i = 0; i < particulas.size();i++){
 			Particula part =  particulas.get(i);
-//			part.SimulaSe((int)DiffTime);
+//			part.SimulaSe(50/*(int)DiffTime*/);
 //			if(part.isVivo()==false) {
 //				efeitos.remove();
 //			}
@@ -140,7 +141,7 @@ diffTimeParticulas=0;
 
 
 
-	private static void chamaThreadParticulas() {
+	private synchronized static void chamaThreadParticulas() {
 		
 		new Thread(){
 			 @Override
