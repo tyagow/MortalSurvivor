@@ -1,7 +1,9 @@
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -10,9 +12,9 @@ import com.sun.servicetag.SystemEnvironment;
 import com.sun.swing.internal.plaf.synth.resources.synth;
 
 
-public class GerenciadorEfeitos extends Objeto {
+public class GerenciadorEfeitos extends Objeto implements Runnable {
 	
-	
+	private Thread tPart;
 	public static LinkedList<Particula> particulas = new LinkedList<Particula>();
 	public static LinkedList<Particula> particulasEstatica = new LinkedList<Particula>();
 	public static LinkedList<Objeto> efeitos = new LinkedList<Objeto>();
@@ -21,16 +23,29 @@ public class GerenciadorEfeitos extends Objeto {
 	private static Graphics2D manchas;
 	private static long diffTimeParticulas;
 	
+	private boolean running=false;
 		private int timer=0;
+	private long DiffTime;
+	private long TempoAnterior;
+	private int segundo;
+	
+	
+
+	long tempoinicial = 0;
+	long tempototal = 0;
+
+	static int FPS;
+	int SFPS;
+	int fpscount;
 	
 	public GerenciadorEfeitos() {
 		// TODO Auto-generated constructor stub
-diffTimeParticulas=0;
+		diffTimeParticulas=0;
 		manchasSangue= new BufferedImage(CanvasGame.MAPA.Largura*16, CanvasGame.MAPA.Altura*16, BufferedImage.TYPE_INT_ARGB);
 		manchas = manchasSangue.createGraphics();
 		
 
-		
+//		startGame();
 	}
 
 	
@@ -56,19 +71,74 @@ diffTimeParticulas=0;
 			for(int i = 0; i < particulas.size();i++){
 				Particula part =  particulas.get(i);
 				part.SimulaSe((int)DiffTime);
-			
+//				if(part.isVivo()==false) {
+//					
+//					particulas.remove(i);
+//					desenhaSangue(part);
+//				}
 			}
 		
 	
-		
+//		
 		if (timer>50) {
 			chamaThreadParticulas();
 		timer=0;
 		}
 
 	}
-
-
+	public void startGame()
+	// initialise and start the thread
+	{
+		if (tPart == null || !running) {
+			tPart = new Thread(this);
+			tPart.start();
+		}
+	} // end of startGame()
+	public void run()
+	/* Repeatedly update, render, sleep */
+	{
+		running = true;
+		segundo=0;
+		DiffTime=0;
+		
+		while(running) {
+		
+//			gameUpdate(DifTime); // game state is updated
+//			Graphics g = strategy.getDrawGraphics();
+//			gameRender((Graphics2D)g); // render to a buffer
+//			strategy.show();
+//		
+			for(int i = 0; i < particulas.size();i++){
+				Particula part =  particulas.get(i);
+				part.SimulaSe((int)DiffTime);
+				if(part.isVivo()==false) {
+					
+					particulas.remove(i);
+					desenhaSangue(part);
+				}
+			}
+			
+			try {
+				Thread.sleep(0); // sleep a bit
+			}	
+			catch(InterruptedException ex){}
+			
+			DiffTime = System.currentTimeMillis() - TempoAnterior;
+			TempoAnterior = System.currentTimeMillis();
+			
+			if(segundo!=((int)(TempoAnterior/1000))){
+				FPS = SFPS;
+				SFPS = 1;
+				segundo = ((int)(TempoAnterior/1000));
+			}else{
+				SFPS++;
+			}
+		
+		}
+	System.exit(0); // so enclosing JFrame/JApplet exits
+	} // end of run()
+	
+	
 	@Override
 	public void DesenhaSe(Graphics2D dbg, int XMundo, int YMundo) {
 		// TODO Auto-generated method stub
@@ -81,6 +151,8 @@ diffTimeParticulas=0;
 				proj.DesenhaSe(dbg,XMundo,YMundo);
 			
 		}
+		
+		dbg.drawString(""+FPS, 50, 10);
 
 		for(int i = 0; i < efeitos.size();i++){
 			
@@ -94,7 +166,7 @@ diffTimeParticulas=0;
 	
 	
 
-	public static void verificaParticulas() {
+	public synchronized static void verificaParticulas() {
 		// TODO Auto-generated method stub
 		//System.out.println("oi");
 //		Iterator<Particula> it = particulas.iterator();
@@ -141,7 +213,7 @@ diffTimeParticulas=0;
 
 
 
-	private synchronized static void chamaThreadParticulas() {
+	private  static void chamaThreadParticulas() {
 		
 		new Thread(){
 			 @Override
@@ -158,11 +230,14 @@ diffTimeParticulas=0;
 			 }
 		 }.start();
 	}
-	private static void desenhaSangue(Particula part) {
+	private  static void desenhaSangue(Particula part) {
 		// TODO Auto-generated method stub
+		int alpha;
+		if (part.getAlpha()-40<0)
+			alpha = 0;
+		else alpha= part.getAlpha()-40;
 		
-		
-		manchas.setColor(new Color(255,0,0,part.getAlpha()-40));
+		manchas.setColor(new Color(255,0,0,alpha));
 		manchas.fillOval((int)part.getX(),(int) part.getY(), part.getSizeX(), part.getSizeY());
 
 		

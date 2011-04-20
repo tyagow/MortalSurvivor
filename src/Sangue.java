@@ -38,8 +38,12 @@ public class Sangue extends Particula {
 		setX(getX() + (velx*DiffTime/1000.0f));
 		setY(getY() + (vely*DiffTime/1000.0f));
 		
-		alpha = (int)((1.0f - (tempototal/(float)tempodevida))*255);
-
+		if ((int)((1.0f - (tempototal/(float)tempodevida))*255) < 0) {
+			alpha=0;
+		}else {
+			alpha = (int)((1.0f - (tempototal/(float)tempodevida))*255);
+		}
+		
 		if(tempototal>=tempodevida){
 			setVivo(false);
 			alpha = GamePanel.rnd.nextInt(20)+185;
