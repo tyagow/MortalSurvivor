@@ -133,7 +133,8 @@ public class GerenciadorObstaculos extends Objeto {
 			sizeY= _sizeY>>4;
 						
 				
-		System.out.println(sizeX+"  opa");
+		//System.out.println(sizeX+"  opa");
+
 
 		if (sizeX>2){
 			x=x-sizeX/2;

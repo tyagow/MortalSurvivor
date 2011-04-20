@@ -53,7 +53,8 @@ public class Estrela {
 			
 		while(NC.pai!=null){
 
-			System.out.println("NC "+NC);
+			//System.out.println("NC "+NC);
+
 			Caminho.addFirst(NC);
 			NC = NC.pai;
 		}

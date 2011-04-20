@@ -52,9 +52,13 @@ public class MenuTorre extends Menu {
 		}
 		
 		
-		if (Constantes.colidecircular(getX()+getSizeX()/2, getY()+getSizeY()/2, (getSizeX()/4+getSizeY()/4)+20, CanvasGame.getMiraAtiva().getXMundo(), CanvasGame.getMiraAtiva().getYMundo(), CanvasGame.getMiraAtiva().getSizeX()/2)) {
-			timerSelecionado=0;			
-		}
+
+		if (Constantes.colideQuadrado((int)getX(),(int) getY(),(int) getSizeX(),getSizeY(), (int)CanvasGame.getMiraAtiva().getXMundo(),(int) CanvasGame.getMiraAtiva().getYMundo(),(int) CanvasGame.getMiraAtiva().getSizeX(),(int)CanvasGame.getMiraAtiva().getSizeY())) {
+			timerSelecionado=0;	
+			CanvasGame.setMiraMenu();
+		}else 
+			CanvasGame.setMiraJogo();
+		
 	}
 
 	@Override

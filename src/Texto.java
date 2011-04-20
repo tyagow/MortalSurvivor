@@ -124,7 +124,8 @@ public class Texto extends Objeto {
 	
 			dbg.drawString("+"+(int)getLife()+" life ", (int)getX()-3, (int)getY()-3);
 		    dbg.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
-		    System.out.println(alpha);
+		    //System.out.println(alpha);
+
 		}
 			
 			

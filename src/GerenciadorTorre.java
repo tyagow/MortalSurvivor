@@ -6,13 +6,16 @@ import java.util.Iterator;
 public class GerenciadorTorre extends Objeto {
 	
 	
-	
+	private static SelecionadorDeTorre selecionadorDeTorre;
 	public static ArrayList<Torre> torres = new ArrayList<Torre>();
+	
 	private static int rangeMouse=20;
 	private static long tempoUltimaTorre=0;
-	 public GerenciadorTorre() {
-		 
-	 }
+	
+	public GerenciadorTorre() {
+		 selecionadorDeTorre = new SelecionadorDeTorre();
+	}
+
 
 	@Override
 	public void SimulaSe(int DiffTime) {
@@ -36,6 +39,9 @@ public class GerenciadorTorre extends Objeto {
 			}
 			
 		}
+		
+		selecionadorDeTorre.SimulaSe(DiffTime);
+
 	}
 
 	@Override
@@ -47,6 +53,9 @@ public class GerenciadorTorre extends Objeto {
 			proj.DesenhaSe(dbg, CanvasGame.MAPA.MapX,CanvasGame.MAPA.MapY);
 			
 		}
+		
+		selecionadorDeTorre.DesenhaSe(dbg, XMundo, YMundo);
+
 	}
 
 	public void click(int mousex, int mousey) {
@@ -59,6 +68,7 @@ public class GerenciadorTorre extends Objeto {
 		Iterator<Torre> it = torres.iterator();
 		while(it.hasNext()){
 			Torre torre = it.next();
+
 			if (Constantes.colidecircular(mousex, mousey,rangeMouse/2,torre.getX(),torre.getY(),torre.getSizeX()/2)) {
 				torre.seleciona();
 				break;
@@ -77,7 +87,8 @@ public class GerenciadorTorre extends Objeto {
 			if (System.currentTimeMillis()-tempoUltimaTorre >Constantes.TEMPO_ENTRE_ADD_TORRES) {
 				tempoUltimaTorre=System.currentTimeMillis();
 				
-				torres.add(new Torre(Constantes.torreUm,new ArmaUmTorre(Constantes.torreUm),x,y) );
+				torres.add(new Torre(Constantes.TORRE_UM_ANIMESET,new ArmaUmTorre(Constantes.TORRE_UM_ANIMESET),x,y) );
+
 			}
 	
 	}
@@ -89,6 +100,7 @@ public class GerenciadorTorre extends Objeto {
 		while(it.hasNext()&&aux){
 			Torre torre = it.next();
 			
+
 			if (Constantes.colidecircular(x, y,rangeMouse/2,torre.getX(),torre.getY(),torre.getSizeX())) {
 				aux= false;
 				}

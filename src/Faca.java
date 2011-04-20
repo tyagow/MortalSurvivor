@@ -147,6 +147,7 @@ public class Faca extends Arma {
 			for (int j = 0;j<ra.inimigos.size();j++) {
 				Inimigo in = ra.inimigos.get(j);
 				
+
 				if (Constantes.colidecircular(getX(), getY(),alcanceAtaque,in.getX(),in.getY(),in.getSizeX()/2)) {
 				
 					penetration--;

@@ -4,7 +4,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 
-public class  Mira extends Objeto {
+public abstract class  Mira extends Objeto {
 
 	BufferedImage mira;
 	private boolean pressed;
@@ -13,12 +13,11 @@ public class  Mira extends Objeto {
 	//private boolean clicked;
 	public Mira() {
 		
-		setSizeX(Constantes.MOUSE_SIZEX);
-		setSizeY(Constantes.MOUSE_SIZEY);
+
 		setVivo(true);
-		mira = Constantes.mira1;
 		setPressed(false);
 		setReleased(true);
+
 		
 		 //SimulaSe(0);
 	}
@@ -37,19 +36,7 @@ public class  Mira extends Objeto {
 	public void DesenhaSe(Graphics2D dbg, int XMundo, int YMundo) {
 		// TODO Auto-generated method stub
 		
-		dbg.setColor(Color.black);
-		dbg.drawOval((int)getX()-getSizeX()/2, (int)getY()-getSizeY()/2, getSizeX(), getSizeY());
-		dbg.drawLine((int)getX(), (int)getY()-getSizeY()/2-4, (int)getX(),(int)getY()-getSizeY()/4); 
-		dbg.drawLine((int)getX(), (int)getY()+getSizeY()/2+4, (int)getX(),(int)getY()+getSizeY()/4);
-		dbg.drawLine((int)getX()-getSizeX()/2-4, (int)getY(), (int)getX()-getSizeX()/4,(int)getY());
-		dbg.drawLine((int)getX()+getSizeX()/2+4, (int)getY(), (int)getX()+getSizeX()/4,(int)getY());
-		
-	    dbg.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f));
-		dbg.drawLine((int)getX()-getSizeX()/4, (int)getY(), (int)getX()+getSizeX()/4,(int)getY());
-		dbg.drawLine((int)getX(), (int)getY()-getSizeY()/4, (int)getX(),(int)getY()+getSizeY()/4);
 
-
-	    dbg.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
 
 //		System.out.println("pressed"+isPressed());
 	//	System.out.println(isReleased());
@@ -75,21 +62,11 @@ public class  Mira extends Objeto {
 
 	}
 
-	public void trataClickMouse1() {
-		// TODO Auto-generated method stub
-		
-		CanvasGame.heroi.trataClick();
-		
+	public abstract void trataClickMouse1();
 
-	}
-
-	public void trataClickMouse2() {
-		// TODO Auto-generated method stub
-		CanvasGame.gerenciadorTorre.click((int)getXMundo(),(int)getYMundo());
-
-		
-	}
-
+	public abstract void trataClickMouse2() ;
+	
+	
 	public double getXMundo() {
 		// TODO Auto-generated method stub
 		

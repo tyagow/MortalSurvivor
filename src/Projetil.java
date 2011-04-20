@@ -51,6 +51,7 @@ public class Projetil extends Objeto {
 			for (int j = 0;j<ra.inimigos.size();j++) {
 				Inimigo in = ra.inimigos.get(j);
 				
+
 				if (Constantes.colidecircular(getX(), getY(),getSizeX()/2,in.getX(),in.getY(),in.getSizeX()/2)) {
 				
 					penetration--;

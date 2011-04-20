@@ -39,6 +39,7 @@ public class Botao extends Objeto {
 			
 			
 			
+
 				if (Constantes.colidecircular(getX(), getY(), raioMedio, CanvasGame.getMiraAtiva().getXMundo(),CanvasGame.getMiraAtiva().getYMundo() ,3 )) {
 					if (!isAtivo()) {
 						if (CanvasGame.getMiraAtiva().isPressed()) {

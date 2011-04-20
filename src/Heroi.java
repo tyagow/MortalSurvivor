@@ -220,6 +220,7 @@ public class Heroi extends Objeto {
 	
 	private boolean colisaoBase(int DiffTime) {
 		
+
 		if (Constantes.colidecircular(getX(), getY(), getSizeX()/2, CanvasGame.base.getX(), CanvasGame.base.getY(), CanvasGame.base.getSizeX()/2)) {	
 			
 			trataColisaoBase(DiffTime);

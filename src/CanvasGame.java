@@ -60,7 +60,7 @@ public class CanvasGame extends GCanvas {
 	public static GerenciadorDeRaids gerenciadorDeRaids;
 
 public static Minimap minimap;
-	BufferedImage tileset;
+	static BufferedImage tileset;
 
 //	private boolean menu;
 
@@ -105,17 +105,23 @@ public static Minimap minimap;
 
 	public static int altura;
 	public static int largura;
+
 	private static  Mira miraAtiva;
-	private static Mira miraUm;
+	private static Mira miraJogo;
 
 	public static boolean testeGradeColisao=false;
 
 	protected static boolean ContiuaJogo;
+
+	private static cursorMenuTorre miraMenu;
 	
+	static Imagem loadImagem;
 	public CanvasGame() {
 		// TODO Auto-generated constructor stub
 		instance = this;
 		carregaImagens();
+		
+		tileset = Imagem.tileset;
 		
 		MAPA = new TileMap(tileset, GamePanel.PWIDTH/16, GamePanel.PHEIGHT/16);
 		MAPA.AbreMapa("60x60.map");
@@ -132,7 +138,13 @@ public static Minimap minimap;
 	
 		base = new Base(largura/2, altura/2,Constantes.BASE_SIZEX_1,Constantes.BASE_SIZEY_1);
 		
-		setMiraAtiva(new Mira());
+		
+		miraJogo= new MiraRedonda();
+		setMiraAtiva(miraJogo);
+		
+		miraMenu=new cursorMenuTorre();
+		
+		
 		//objetos.add(miraAtiva);
 		
 		
@@ -142,6 +154,9 @@ public static Minimap minimap;
 		minimap=new Minimap();
 
 		carregaFontes();
+		
+		
+		
 		ContiuaJogo=true;
 		
 	}
@@ -156,12 +171,8 @@ public static Minimap minimap;
 
 	private void carregaImagens() {
 		// TODO Auto-generated method stub
-		Constantes.inimigoUm =Constantes.LoadImage("zombie.png");	
-		
-		tileset = Constantes.LoadImage("Bridge.png");
 
-		Constantes.mira1= Constantes.LoadImage("mira1.png");	
-		Constantes.torreUm = Constantes.LoadImage("torre.png");
+		loadImagem = new Imagem();
 
 	}
 
@@ -459,6 +470,17 @@ public static Minimap minimap;
 
 	public static boolean isEndGame() {
 		return endGame;
+	}
+
+	public static void setMiraMenu() {
+		// TODO Auto-generated method stub
+		setMiraAtiva(miraMenu);
+	}
+
+	public static void setMiraJogo() {
+		// TODO Auto-generated method stub
+		setMiraAtiva(miraJogo);
+
 	}
 
 }

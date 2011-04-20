@@ -17,8 +17,7 @@ public class RaidSkipper extends Objeto{
 		ativo = false;
 		select = false;
 		
-		
-		
+
 	}
 	
 	@Override
@@ -30,6 +29,7 @@ public class RaidSkipper extends Objeto{
 			ativo = false;
 		}
 		
+
 		if (Constantes.colidecircular(CanvasGame.getMiraAtiva().getX(), CanvasGame.getMiraAtiva().getX(), 12, getX(), getY(), 12)) {
 			select = true;
 		}else select = false;

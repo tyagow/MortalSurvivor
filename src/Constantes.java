@@ -30,7 +30,8 @@ public class Constantes {
 	public static  BufferedImage inimigoUm ;
 
 
-	public static BufferedImage torreUm;
+	public static BufferedImage TORRE_UM_ANIMESET;
+
 	//Pistola
 	public static final int PISTOLA_mag = 3;
 	public static final int PISTOLA_dano=66;
@@ -104,11 +105,28 @@ public class Constantes {
 
 	public static final double MINIMAP_X = 50;
 	public static final double MINIMAP_Y = 50;
-	public static final double MINIMAP_LARGURA = 100;
-	public static final double MINIMAP_ALTURA = 100;
+	public static final double MINIMAP_SIZEX = 100;
+	public static final double MINIMAP_SIZEY = 100;
 
 
+	public static final double SELECIONADOR_DE_TORRE_X = GamePanel.PWIDTH - 300;
+	public static final double SELECIONADOR_DE_TORRE_Y = GamePanel.PHEIGHT - 80;
+	public static final int SELECIONADOR_DE_TORRE_SIZEX = 250;
+	public static final int SELECIONADOR_DE_TORRE_SIZEY = 70;
 
+
+	public static final int SLOT_SIZEX = 50;
+	public static final int SLOT_SIZEY = 50;
+
+
+	public static final double SLOT_UM_X = SELECIONADOR_DE_TORRE_X + 10;
+	public static final double SLOT_UM_Y = SELECIONADOR_DE_TORRE_Y + 10;
+	public static final double SLOT_DOIS_X = SLOT_UM_X + SLOT_SIZEX + 10;
+	public static final double SLOT_DOIS_Y = SLOT_UM_Y;
+	public static final double SLOT_TRES_X = SLOT_DOIS_X + SLOT_SIZEX + 10;
+	public static final double SLOT_TRES_Y = SLOT_UM_Y;
+	public static final double SLOT_QUATRO_X = SLOT_TRES_X + SLOT_SIZEX + 10;
+	public static final double SLOT_QUATRO_Y = SLOT_UM_Y;
 
 	
 
@@ -129,6 +147,7 @@ public class Constantes {
 		return image;
 	}
 
+
 	public static boolean colidecircular(double X1,double Y1,double R1,double X2,double Y2,double R2){
 		
 		double dx = X1-X2;
@@ -143,6 +162,12 @@ public class Constantes {
 		return false;
 	}
 	
+	public static boolean colideQuadrado(int x1, int y1, int sizeX1, int sizeY1, int x2, int y2, int sizeX2, int sizeY2){
+		if(((x1+sizeX1<x2 || x1>x2+sizeX2)) || ((y1+sizeY1<y2 || y1>y2+sizeY2)))
+			return false;
+		return true;
+	}
+
 
 
 }

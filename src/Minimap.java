@@ -11,6 +11,7 @@ public class Minimap extends Objeto{
 
 	public Minimap(){
 		setX(0);
+
 		setY(GamePanel.PHEIGHT-(int)CanvasGame.altura/tamanhoMiniMap);
 		setSizeX((int) CanvasGame.largura/tamanhoMiniMap);
 		setSizeY((int)CanvasGame.altura/tamanhoMiniMap);
@@ -19,7 +20,8 @@ public class Minimap extends Objeto{
 	@Override
 	public void SimulaSe(int DiffTime) {
 		// TODO Auto-generated method stub
-	System.out.println(GerenciadorObstaculos.getObstaculos().size());
+	//System.out.println(GerenciadorObstaculos.getObstaculos().size());
+
 	}  
 
 	@Override
@@ -48,6 +50,7 @@ public class Minimap extends Objeto{
 				}
 			}
 		}
+
 			
 			dbg.setColor(Color.yellow);
 		for (int k=0;k<GerenciadorObstaculos.getObstaculos().size();k++)
@@ -63,6 +66,7 @@ public class Minimap extends Objeto{
 			
 		}
 			
+
 		dbg.setColor(Color.red);
 //		dbg.fillOval(((int)CanvasGame.heroi.getX()-CanvasGame.heroi.getSizeX()/2)/6,((int)CanvasGame.heroi.getY()-CanvasGame.heroi.getSizeY()/2)/6,(int)CanvasGame.heroi.getSizeX()/6,CanvasGame.heroi.getSizeY()/6);
 		int x[] = new int[4];

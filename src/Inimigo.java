@@ -102,6 +102,7 @@ public class Inimigo extends Objeto {
 		//System.out.println(estado);
 		
 		if (estado ==0) {
+
 				if(!Constantes.colidecircular(getX(), getY(),campoDeVisao,CanvasGame.heroi.getX(),CanvasGame.heroi.getY(),CanvasGame.heroi.getSizeX()/2)){
 					irAtrasDaBase();
 				} else {
@@ -111,6 +112,7 @@ public class Inimigo extends Objeto {
 		
 		if (estado ==1) {
 			if(!GerenciadorRespawn.isRespawn()){
+
 				if(Constantes.colidecircular(getX(), getY(),campoDeVisao,CanvasGame.heroi.getX(),CanvasGame.heroi.getY(),CanvasGame.heroi.getSizeX()/2)){
 					irAtrasDoHeroi();
 				} else {
@@ -154,6 +156,7 @@ public class Inimigo extends Objeto {
 		double difY = CanvasGame.base.getY() - getY();
 		 ang =  Math.atan2(difY, difX);
 		 
+
 		if(Constantes.colidecircular(getX(), getY(),getSizeX()/2,CanvasGame.base.getX(),CanvasGame.base.getY(),CanvasGame.base.getSizeX()/2)){
 			if (tempoEntreAtaque>500) {
 				CanvasGame.base.setLife(CanvasGame.base.getLife() - dano);
@@ -172,6 +175,7 @@ private void irAtrasDoHeroi(){
 		double difX = CanvasGame.heroi.getX() - getX();
 		double difY = CanvasGame.heroi.getY() - getY();
 		 ang =  Math.atan2(difY, difX);
+
 
 		if(Constantes.colidecircular(getX(), getY(),getSizeX()/2,CanvasGame.heroi.getX(),CanvasGame.heroi.getY(),CanvasGame.heroi.getSizeX()/2)){
 			if (tempoEntreAtaque>500) {

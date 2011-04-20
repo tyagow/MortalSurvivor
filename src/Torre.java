@@ -37,6 +37,8 @@ public class Torre extends Objeto{
 
 
 	private int timerSelect;
+
+	private boolean controleCursor;
 	public Torre(BufferedImage _AnimeSet, Arma arma,int x,int y){ 
 		// TODO Auto-generated constructor stub
 		
@@ -138,15 +140,26 @@ public class Torre extends Objeto{
 			armaAtiva.SimulaSe((int)DiffTime);	
 			
 			if (menuAtivo!=null) {
+//				CanvasGame.setMiraMenu();
 				menuAtivo.SimulaSe((int)DiffTime);	
 				if (menuAtivo.getEvoluiRange()) {
-					System.out.println("aAAA");
+					//System.out.println("aAAA");
+
 					range+=10;
 					menuAtivo.tratouBotaoRange();
 				}
 				
-				if (!menuAtivo.isVivo())
+				if (!menuAtivo.isVivo()) {
+					controleCursor=false;
 					menuAtivo= null;
+				}
+					
+			}
+			
+			if (menuAtivo==null&&!controleCursor) {
+				controleCursor=true;
+				CanvasGame.setMiraJogo();
+				
 			}
 	
 		}	
@@ -214,6 +227,7 @@ public class Torre extends Objeto{
 			for (int j = 0;j<ra.inimigos.size();j++) {
 				Inimigo in = ra.inimigos.get(j);
 				
+
 				if (Constantes.colidecircular(in.getX(), in.getY(), in.getSizeX()/2, getX(), getY(), getRange()/2)) {
 					
 					int difX=(int) (getX()-in.getX());
