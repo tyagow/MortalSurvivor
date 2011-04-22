@@ -92,6 +92,7 @@ public class GerenciadorEfeitos extends Objeto implements Runnable {
 		if (tPart == null || !running) {
 			tPart = new Thread(this);
 			tPart.start();
+			tPart.setPriority(Thread.MIN_PRIORITY);
 		}
 	} // end of startGame()
 	public void run()
