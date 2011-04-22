@@ -8,7 +8,7 @@ public class Imagem {
 	
 	public Imagem() {
 		
-		miraMenu= Constantes.LoadImage("miraMenu.png");
+			miraMenu= Constantes.LoadImage("miraMenu.png");
 			Constantes.inimigoUm =Constantes.LoadImage("zombie.png");	
 			
 			tileset = Constantes.LoadImage("Bridge.png");
