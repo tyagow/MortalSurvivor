@@ -8,32 +8,19 @@ public class SlotTorre extends Objeto{
 	private Arma armaAtiva;
 	private boolean ativo;
 	private boolean selecionado;
-	private boolean oldIsMousePressed;
 	
 	public SlotTorre() {
 		setSizeX(Constantes.SLOT_SIZEX);
 		setSizeY(Constantes.SLOT_SIZEY);
 		setVivo(true);
 		setAtivo(false);
+		setSelecionado(false);
 	}
 	
 	@Override
 	public void SimulaSe(int DiffTime) {
 		// TODO Auto-generated method stub
-		if (Constantes.colideQuadrado((int)getX(), (int)getY(), getSizeX(), getSizeY(), (int)CanvasGame.getMiraAtiva().getX(), (int)CanvasGame.getMiraAtiva().getY(), 1, 1 )) {
-			System.out.println("entrou");
-			if (!isAtivo()) {
-				if (CanvasGame.getMiraAtiva().isPressed()) {
-					if(!oldIsMousePressed)
-						setAtivo(true);
-				}
-			}
-			setSelecionado(true);
-		}else {
-			setSelecionado(false);
-		}
-		
-		oldIsMousePressed = CanvasGame.getMiraAtiva().isPressed();
+	
 	}
 
 	@Override
