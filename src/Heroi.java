@@ -95,7 +95,6 @@ public class Heroi extends Objeto {
 	public void DesenhaSe(Graphics2D dbg, int XMundo, int YMundo) {
 		// TODO Auto-generated method stub
 		if (isVivo()) {
-			//System.out.println(imagem.getTransparency());
 			armaAtiva.DesenhaSe(dbg, XMundo, YMundo);
 			dbg.setColor(cor);
 			int px =(int) (getX()-XMundo);
@@ -108,10 +107,7 @@ public class Heroi extends Objeto {
 //		dbg.drawImage(AnimeSet,-14,-18,sizeX-10,sizeY-14,sizeX*frame+start,startY,(sizeX*frame)+sizeX+start,(startY)+sizeY,null);
 
 			dbg.setTransform(trans);
-			//dbg.fillOval((int)px-getSizeX()/2,(int)py-getSizeY()/2, getSizeX(),getSizeY());
-			
-	
-			
+
 			
 			///// VIDA TEMPORARIO ## FAZER HUD
 			dbg.drawRect((int)px-getSizeX()/2-5, (int)py-getSizeY()/2-17, 30, 10);
@@ -239,7 +235,7 @@ public class Heroi extends Objeto {
 //		setX(getOldx());
 //		setY(getOldy());
 		//if (CanvasGame.base.
-		armaAtiva.recarrega();
+		recarregaArmas();
 		
 		
 		
@@ -332,7 +328,17 @@ public class Heroi extends Objeto {
 		this.setY(Y);
 		setVivo(true);	
 		setLife(maximoVida);
-		armaAtiva.recarrega();
+		
+		recarregaArmas();
+		
+		
+	}
+	private void recarregaArmas() {
+		// TODO Auto-generated method stub
+		
+		armaPrimaria.recarrega();
+		armaSecundaria.recarrega();
+
 		
 	}
 	public void trataClick() {

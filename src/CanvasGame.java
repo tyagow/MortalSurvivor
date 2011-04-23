@@ -60,7 +60,7 @@ public class CanvasGame extends GCanvas {
 	public static GerenciadorDeRaids gerenciadorDeRaids;
 
 public static Minimap minimap;
-	static BufferedImage tileset;
+	//static BufferedImage tileset;
 
 //	private boolean menu;
 
@@ -116,14 +116,14 @@ public static Minimap minimap;
 	private static cursorMenuTorre miraMenu;
 	
 	static Imagem loadImagem;
+
+	public static boolean miraDoJogoSelecionada;
 	public CanvasGame() {
 		// TODO Auto-generated constructor stub
 		instance = this;
-		carregaImagens();
-		
-		tileset = Imagem.tileset;
-		
-		MAPA = new TileMap(tileset, GamePanel.PWIDTH/16, GamePanel.PHEIGHT/16);
+		carregaFontes();
+
+		MAPA = new TileMap(Imagem.tileset, GamePanel.PWIDTH/16, GamePanel.PHEIGHT/16);
 		MAPA.AbreMapa("60x60.map");
 				
 		gerenciadorTorre = new GerenciadorTorre();
@@ -141,22 +141,11 @@ public static Minimap minimap;
 		
 		miraJogo= new MiraRedonda();
 		setMiraAtiva(miraJogo);
-		
 		miraMenu=new cursorMenuTorre();
 		
-		
-		//objetos.add(miraAtiva);
-		
-		
-		//inimigos.add(new Inimigo(Constantes.inimigoUm));
 		heroi=new Heroi(GamePanel.PWIDTH/2, GamePanel.PHEIGHT/2,Constantes.LoadImage("t1.png"));
 		
 		minimap=new Minimap();
-
-		carregaFontes();
-		
-		
-		
 		ContiuaJogo=true;
 		
 	}
@@ -172,7 +161,7 @@ public static Minimap minimap;
 	private void carregaImagens() {
 		// TODO Auto-generated method stub
 
-		loadImagem = new Imagem();
+	//	loadImagem = new Imagem();
 
 	}
 
@@ -183,7 +172,6 @@ public static Minimap minimap;
 		dbg.setColor(Color.white);
 		dbg.fillRect(0,0,GamePanel.PWIDTH, GamePanel.PHEIGHT);
 
-		//MAPA.DesenhaSe(dbg);
 		dbg.setColor(Color.black);
 		dbg.drawString(""+GamePanel.FPS, 10, 10);
 		
@@ -205,12 +193,7 @@ public static Minimap minimap;
 			proj.DesenhaSe(dbg, MAPA.MapX, MAPA.MapY);
 			
 		}
-		
-//		for(int i = 0; i < inimigos.size();i++){
-//			Inimigo inim = (Inimigo)inimigos.get(i);
-//			inim.DesenhaSe(dbg, MAPA.MapX, MAPA.MapY);
-//		}
-//		
+			
 		gerenciadorDeRaids.DesenhaSe(dbg, MAPA.MapX, MAPA.MapY);
 		heroi.DesenhaSe(dbg, MAPA.MapX, MAPA.MapY);
 
@@ -234,13 +217,12 @@ public static Minimap minimap;
 	void SimulaSe(long DiffTime) {
 		
 		getMiraAtiva().SimulaSe((int)DiffTime);
+		
 		if(!GerenciadorRespawn.isRespawn()){
 			MAPA.Posiciona((int)(heroi.getX()-(GamePanel.PWIDTH/2)), (int)heroi.getY()-(GamePanel.PHEIGHT/2));
 		}
 		
-//<<<<<<< HEAD
 //		MAPA.PosiWciona((int)(mousex-(GamePanel.PWIDTH/2)), (int)mousey-(GamePanel.PHEIGHT/2));
-//=======
 //		MAPA.Posiciona((int)(mousex-(GamePanel.PWIDTH/2)), (int)mousey-(GamePanel.PHEIGHT/2));
 
 		
@@ -267,31 +249,7 @@ public static Minimap minimap;
 		}	
 
 		gerenciadorObstaculos.SimulaSe((int) DiffTime);
-
 		gerenciadorDeRaids.SimulaSe((int)DiffTime);
-		
-//		for	(int i=0;i<inimigos.size();i++) {
-////		Iterator<Inimigo> it = inimigos.iterator();
-////		while(it.hasNext()){
-////			Inimigo inim = it.next();
-////			inim.SimulaSe((int)DiffTime);
-////			if(inim.isVivo()==false){
-////				it.remove();
-////				gerenciadorEfeitos.ganhouXp(inim.getX(), inim.getY(),inim.getTipoAssasino() );
-////				}
-//			Inimigo inim = inimigos.get(i);
-//			inim.SimulaSe((int)DiffTime);
-//			if(inim.isVivo()==false){
-//				inimigos.remove(i);
-//				
-//				inimigos.add(new Inimigo(Constantes.inimigoUm));
-//				inimigos.add(new Inimigo(Constantes.inimigoUm));
-//				
-//				
-//				gerenciadorEfeitos.ganhouXp(inim.getX(), inim.getY(),inim.getTipoAssasino() );
-//				}
-////		}
-//		}
 		gerenciadorTorre.SimulaSe((int)DiffTime);
 		gerenciadorEfeitos.SimulaSe((int)DiffTime);
 		gerenciadorRespawn.SimulaSe((int)DiffTime);
@@ -430,31 +388,8 @@ public static Minimap minimap;
 
 	@Override
 	void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-		//int button = e.getButton();
-
-		
+	
 	}
-//	public static void main(String args[])
-//	{
-//		GamePanel ttPanel = new GamePanel();
-//
-//	  // create a JFrame to hold the timer test JPanel
-//	  JFrame app = new JFrame("Swing Timer Test");
-//	  app.getContentPane().add(ttPanel, BorderLayout.CENTER);
-//	  app.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//	  
-//	  int[] pixels = new int[16 * 16];
-//	    Image image = Toolkit.getDefaultToolkit().createImage(
-//	        new MemoryImageSource(16, 16, pixels, 0, 16));
-//	    Cursor transparentCursor = Toolkit.getDefaultToolkit().createCustomCursor(
-//	        image, new Point(0, 0), "invisibleCursor");
-//	    
-//	  app.setCursor(transparentCursor);
-//	  app.pack();
-//	  app.setResizable(false);  
-//	  app.setVisible(true);
-//	} // end of main()
 
 	public static void setMiraAtiva(Mira miraAtiva) {
 		CanvasGame.miraAtiva = miraAtiva;
@@ -475,11 +410,13 @@ public static Minimap minimap;
 	public static void setMiraMenu() {
 		// TODO Auto-generated method stub
 		setMiraAtiva(miraMenu);
+		//miraDoJogoSelecionada=false;
 	}
 
 	public static void setMiraJogo() {
 		// TODO Auto-generated method stub
 		setMiraAtiva(miraJogo);
+		//miraDoJogoSelecionada=true;
 
 	}
 

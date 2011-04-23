@@ -43,12 +43,9 @@ public class MenuTorre extends Menu {
 					trataBotaoRange();
 					bt.setAtivo(false);
 				}
-				//System.out.println("MENU TORRE SIMULASE");
 			}
 				
-//			if(bt.isVivo()==false) {
-//				it.remove();
-//			}
+
 		}
 		
 		

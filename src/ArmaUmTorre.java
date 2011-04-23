@@ -3,6 +3,8 @@ import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane.MaximizeAction;
+
 
 public class ArmaUmTorre extends Arma {
 
@@ -14,6 +16,8 @@ public class ArmaUmTorre extends Arma {
 	public int estado=0;
 	public ArmaUmTorre(BufferedImage img) {
 		
+		
+		setMaxMag(Constantes.TORRE_ARMA_UM_mag);
 		atirou=false;
 		AnimeSet=img;
 		setDano(Constantes.TORRE_ARMA_UM_dano);
@@ -131,14 +135,10 @@ public class ArmaUmTorre extends Arma {
 		setAngulo(ang);
 		setX(startX);
 		setY(startY);
+		
 
 	}
 	
-	@Override
-	public void recarrega() {
-		setMag(Constantes.TORRE_ARMA_UM_mag);
-		setRound(Constantes.TORRE_ARMA_UM_round);
-	}
 
 	
 	private void atira() {
@@ -175,20 +175,6 @@ public class ArmaUmTorre extends Arma {
 
 	}
 
-
-//	private boolean temMunicao() {
-//		// TODO Auto-generated method stub
-//		
-//		if (round<1) {
-//			semMunicao=true;
-//			return false;
-//			
-//		}else 
-//			semMunicao=false;
-//		
-//		
-//		return true;
-//	}
 
 
 

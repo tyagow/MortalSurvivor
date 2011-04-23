@@ -12,6 +12,9 @@ public class Metralhadora extends Arma {
 		
 	public int estado=0;
 	public Metralhadora() {
+		
+		setMaxMag(Constantes.METRALHADORA_mag);
+
 		setTipo(2);
 		atirou=false;
 		setDano(Constantes.METRALHADORA_dano);
@@ -135,12 +138,6 @@ public class Metralhadora extends Arma {
 
 	}
 	
-	@Override
-	public void recarrega() {
-		setMag(Constantes.METRALHADORA_mag);
-		setRound(Constantes.METRALHADORA_round);
-	}
-
 	
 	private void atira() {
 		

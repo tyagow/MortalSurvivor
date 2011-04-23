@@ -14,15 +14,14 @@ public class CanvasMenu extends GCanvas{
 	
 	boolean instrucao = false;
 	BufferedImage img;
-
+	Imagem imgloader;
 	public CanvasMenu() {
 		// TODO Auto-generated constructor stub
 		
 		
 		//Constantes.logo=
 		
-		Constantes.logo=Constantes.LoadImage("logo.png");
-		
+		imgloader = new Imagem();
 		fonteLogo = new Font("Courier", Font.BOLD, 60);
 		
 		fonteMenu = new Font("Courier", Font.BOLD, 30);
@@ -41,7 +40,7 @@ public class CanvasMenu extends GCanvas{
 			dbg.setColor(Color.black);
 			dbg.fillRect(0, 0, GamePanel.PWIDTH, GamePanel.PHEIGHT);
 			
-			dbg.drawImage(Constantes.logo, 0, 0,Constantes.logo.getWidth(),Constantes.logo.getHeight(),null);
+			dbg.drawImage(Imagem.logo, 0, 0,Imagem.logo.getWidth(),Imagem.logo.getHeight(),null);
 //			
 			dbg.setColor(Color.yellow);
 //			dbg.drawString("TD", 525, 75);

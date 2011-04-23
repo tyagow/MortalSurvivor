@@ -12,6 +12,7 @@ public abstract class Arma  {
 	private int peso;
 	private int valor;
 	private int round,mag;
+	private int maxMag;
 	private boolean recarregando;
 	boolean atirou;
 	private double angulo;
@@ -28,10 +29,15 @@ public abstract class Arma  {
 	
 	public abstract void SimulaSe(int Difftime);
 
-	public abstract void recarrega();
 
 	public abstract void atirou();
 	public abstract void naoAtirou() ;
+	
+	public  void recarrega() {
+		
+		setMag(getMaxMag()+1);
+		
+	}
 
 	public void setTempoEntreTiros(int tempoEntreTiros) {
 		this.timerTempoEntreTiros = tempoEntreTiros;
@@ -143,5 +149,13 @@ public abstract class Arma  {
 
 	public int getTipo() {
 		return tipo;
+	}
+
+	public void setMaxMag(int maxMag) {
+		this.maxMag = maxMag;
+	}
+
+	public int getMaxMag() {
+		return maxMag;
 	}
 }

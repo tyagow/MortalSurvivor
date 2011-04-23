@@ -18,7 +18,7 @@ public class  MiraRedonda extends Mira {
 		setVivo(true);
 		setPressed(false);
 		setReleased(true);
-		mira = Constantes.mira1;
+		mira = Imagem.mira1;
 		
 		 //SimulaSe(0);
 	}

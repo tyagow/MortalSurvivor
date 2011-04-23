@@ -21,7 +21,6 @@ public class Base extends Objeto{
 	@Override
 	public void SimulaSe(int DiffTime) {
 		// TODO Auto-generated method stub
-		//System.out.println((getSizeX()>>4)+"  "+(getSizeY()>>4));
 		if (getLife() <0)
 			setLife(0);
 	}
@@ -29,6 +28,7 @@ public class Base extends Objeto{
 	@Override
 	public void DesenhaSe(Graphics2D dbg, int XMundo, int YMundo) {
 		// TODO Auto-generated method stub
+		
 		//LIFE
 		dbg.drawRect((int)getX()-getSizeX()/2-XMundo, (int)getY()-getSizeY()/2-17-YMundo, 30, 10);
 		dbg.setColor(Color.lightGray);
@@ -37,7 +37,6 @@ public class Base extends Objeto{
 		dbg.setColor(Color.ORANGE);
 		dbg.fillOval((int)getX()-getSizeX()/2-XMundo,(int) (getY()-getSizeY()/2-YMundo), getSizeX(),getSizeY());
 		
-		//dbg.drawRect((int)(getX()/16)*16-getSizeX()/2-XMundo,(int) ((getY())/16*16-getSizeY()/2-YMundo), getSizeX(),getSizeY());
 
 	}
 

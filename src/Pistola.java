@@ -12,7 +12,8 @@ public class Pistola extends Arma {
 		
 	public int estado=0;
 	public Pistola() {
-		
+		setMaxMag(Constantes.PISTOLA_mag);
+
 		setTipo(1);
 		atirou=false;
 		setDano(Constantes.PISTOLA_dano);
@@ -136,11 +137,11 @@ public class Pistola extends Arma {
 
 	}
 	
-	@Override
-	public void recarrega() {
-		setMag(Constantes.PISTOLA_mag);
-		setRound(Constantes.PISTOLA_round);
-	}
+//	@Override
+//	public void recarrega() {
+//		setMag(Constantes.PISTOLA_mag+1);
+//		//setRound(Constantes.PISTOLA_round);
+//	}
 
 	
 	private void atira() {

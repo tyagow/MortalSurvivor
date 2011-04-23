@@ -13,7 +13,7 @@ public class Constantes {
 
 	//public static final int PERSONAGEM_TEMPO_TIRO = 100;
 	
-	public static BufferedImage mira1 ;
+	//public static BufferedImage mira1 ;
 
 
 	public static final int BASE_SIZEX_1 = 80;
@@ -25,9 +25,8 @@ public class Constantes {
 
 	public static final ThreadSom de=new ThreadSom("/de.wav");
 	
-	public static  BufferedImage logo ;
 
-	public static  BufferedImage inimigoUm ;
+	//public static  BufferedImage inimigoUm ;
 
 
 	public static BufferedImage TORRE_UM_ANIMESET;

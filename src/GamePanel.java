@@ -417,10 +417,10 @@ addMouseListener(new MouseListener() {
 		}
 	
 	});
-	
-	canvasGame = new CanvasGame();
 
 	CanvasAtivo = new CanvasMenu();
+	canvasGame = new CanvasGame();
+
 	
 } // end of GamePanel()
 
