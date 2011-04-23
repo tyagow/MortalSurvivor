@@ -4,14 +4,14 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 
-public class  cursorMenuTorre extends Mira {
+public class  CursorMenuTorre extends Mira {
 
 	BufferedImage mira;
 	private boolean pressed;
 	private boolean released;
 	private int button;
 	//private boolean clicked;
-	public cursorMenuTorre() {
+	public CursorMenuTorre() {
 		
 	
 		setVivo(true);
@@ -29,6 +29,29 @@ public class  cursorMenuTorre extends Mira {
 		
 		setX(CanvasGame.mousex);
 		setY(CanvasGame.mousey);
+		
+		if (!Constantes.colideQuadrado((int)getX(),(int) getY(), 1, 1, (int) GerenciadorTorre.selecionadorDeTorre.getX(),(int) GerenciadorTorre.selecionadorDeTorre.getY(), GerenciadorTorre.selecionadorDeTorre.getSizeX(), GerenciadorTorre.selecionadorDeTorre.getSizeY())) {	
+				for(int i = 0; i < GerenciadorTorre.torres.size(); i++){
+					MenuTorre m = GerenciadorTorre.torres.get(i).getMenuAtivo();
+					if(m != null){
+						GerenciadorTorre.numeroMenuTorres++;
+						if (!Constantes.colideQuadrado((int)m.getX(),(int) m.getY(),(int) m.getSizeX(),(int) m.getSizeY(), (int)CanvasGame.getMiraAtiva().getXMundo(),(int) CanvasGame.getMiraAtiva().getYMundo(), 1, 1)) {
+							m.setTimerSelecionado(0);	
+							CanvasGame.setMiraJogo();
+						}
+					}
+				}		
+		}
+		
+		if(GerenciadorTorre.numeroMenuTorres == 0){
+			if (!Constantes.colideQuadrado((int)getX(),(int) getY(), 1, 1, (int) GerenciadorTorre.selecionadorDeTorre.getX(),(int) GerenciadorTorre.selecionadorDeTorre.getY(), GerenciadorTorre.selecionadorDeTorre.getSizeX(), GerenciadorTorre.selecionadorDeTorre.getSizeY())) {	
+				CanvasGame.setMiraJogo();
+			}
+		}
+		
+		GerenciadorTorre.numeroMenuTorres = 0; 
+
+
 		
 		
 	}

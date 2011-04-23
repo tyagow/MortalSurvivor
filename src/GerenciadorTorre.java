@@ -6,8 +6,9 @@ import java.util.Iterator;
 public class GerenciadorTorre extends Objeto {
 	
 	
-	private static SelecionadorDeTorre selecionadorDeTorre;
+	public static SelecionadorDeTorre selecionadorDeTorre;
 	public static ArrayList<Torre> torres = new ArrayList<Torre>();
+	public static int numeroMenuTorres = 0;
 	
 	private static int rangeMouse=20;
 	private static long tempoUltimaTorre=0;
@@ -31,15 +32,14 @@ public class GerenciadorTorre extends Objeto {
 //			}
 		
 		for(int i = 0; i < torres.size();i++){
-			
 			Torre proj = (Torre)torres.get(i);
 			proj.SimulaSe((int)DiffTime);
 			if(!proj.isVivo()){
 				torres.remove(i);
 			}
-			
 		}
 		
+		System.out.println(numeroMenuTorres);
 		selecionadorDeTorre.SimulaSe(DiffTime);
 
 	}

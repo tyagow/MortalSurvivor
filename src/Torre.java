@@ -31,6 +31,7 @@ public class Torre extends Objeto{
 	
 	private	Arma armaAtiva;
 	private MenuTorre menuAtivo; //mudei para menu torre mas o certo eh menu somente ... resolver depois
+
 	private MenuTorre menuStatusTorre;
 	Color cor;
 	private boolean contruindo;
@@ -156,11 +157,11 @@ public class Torre extends Objeto{
 					
 			}
 			
-			if (menuAtivo==null&&!controleCursor) {
-				controleCursor=true;
-				CanvasGame.setMiraJogo();
-				
-			}
+//			if (menuAtivo==null&&!controleCursor) {
+//				controleCursor=true;
+//				CanvasGame.setMiraJogo();
+//				
+//			}
 	
 		}	
 	}
@@ -264,4 +265,15 @@ public class Torre extends Objeto{
 		
 	}
 
+
+public MenuTorre getMenuAtivo() {
+	return menuAtivo;
+}
+
+
+
+
+public void setMenuAtivo(MenuTorre menuAtivo) {
+	this.menuAtivo = menuAtivo;
+}
 }

@@ -17,7 +17,7 @@ public class MenuTorre extends Menu {
 		setEvoluiRange(false);
 		setTorrePai(pai);
 		setRangeAtivo(false);
-		timerSelecionado=0;
+		setTimerSelecionado(0);
 		setTempoVida(_tempoVida);
 		setBotoes(criaBotoesStatusTorre());
 		
@@ -27,12 +27,12 @@ public class MenuTorre extends Menu {
 	@Override
 	public void SimulaSe(int DiffTime) {
 		// TODO Auto-generated method stub
-		timerSelecionado+=DiffTime;
+		setTimerSelecionado(getTimerSelecionado() + DiffTime);
 		
-		if (getTempoVida()!=-1&&timerSelecionado>= getTempoVida()) {
+		if (getTempoVida()!=-1&&getTimerSelecionado()>= getTempoVida()) {
 			
 			setVivo(false);
-			timerSelecionado=0;
+			setTimerSelecionado(0);
 		}
 		Iterator<Botao> it = getBotoes().iterator();
 		while(it.hasNext()){
@@ -47,14 +47,6 @@ public class MenuTorre extends Menu {
 				
 
 		}
-		
-		
-
-		if (Constantes.colideQuadrado((int)getX(),(int) getY(),(int) getSizeX(),getSizeY(), (int)CanvasGame.getMiraAtiva().getXMundo(),(int) CanvasGame.getMiraAtiva().getYMundo(),(int) CanvasGame.getMiraAtiva().getSizeX(),(int)CanvasGame.getMiraAtiva().getSizeY())) {
-			timerSelecionado=0;	
-			CanvasGame.setMiraMenu();
-		}else 
-			CanvasGame.setMiraJogo();
 		
 	}
 
@@ -133,6 +125,16 @@ public class MenuTorre extends Menu {
 
 	public Torre getTorrePai() {
 		return torrePai;
+	}
+
+
+	public void setTimerSelecionado(int timerSelecionado) {
+		this.timerSelecionado = timerSelecionado;
+	}
+
+
+	public int getTimerSelecionado() {
+		return timerSelecionado;
 	}
 
 

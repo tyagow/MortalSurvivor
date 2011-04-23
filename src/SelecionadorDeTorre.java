@@ -6,7 +6,6 @@ public class SelecionadorDeTorre extends Objeto {
 
 	private SlotTorre[] slotsTorre;
 	private boolean oldIsMousePressed;
-	private int timerSelecionado=0;
 
 	public SelecionadorDeTorre(){
 		setX(Constantes.SELECIONADOR_DE_TORRE_X);
@@ -46,7 +45,6 @@ public class SelecionadorDeTorre extends Objeto {
 	public void SimulaSe(int DiffTime) {
 		// TODO Auto-generated method stub
 		
-		timerSelecionado+=DiffTime;
 		for(int i = 0; i < 4; i++){
 			if (Constantes.colideQuadrado((int)slotsTorre[i].getX(), (int)slotsTorre[i].getY(), slotsTorre[i].getSizeX(), slotsTorre[i].getSizeY(), (int)CanvasGame.getMiraAtiva().getX(), (int)CanvasGame.getMiraAtiva().getY(), 1, 1 )) {
 				if (!slotsTorre[i].isAtivo()) {
@@ -65,14 +63,7 @@ public class SelecionadorDeTorre extends Objeto {
 			}
 			
 		}
-		if (Constantes.colideQuadrado((int)getX(),(int) getY(),(int) getSizeX(),getSizeY(), (int)CanvasGame.getMiraAtiva().getXMundo(),(int) CanvasGame.getMiraAtiva().getYMundo(),(int) CanvasGame.getMiraAtiva().getSizeX(),(int)CanvasGame.getMiraAtiva().getSizeY())) {
-			timerSelecionado=0;	
-	
-			CanvasGame.setMiraMenu();
-		
-		}else  {
-			CanvasGame.setMiraJogo();
-		}
+				
 		oldIsMousePressed = CanvasGame.getMiraAtiva().isPressed();		
 	}
 

@@ -106,18 +106,19 @@ public static Minimap minimap;
 	public static int altura;
 	public static int largura;
 
-	private static  Mira miraAtiva;
+	private static Mira miraAtiva;
 	private static Mira miraJogo;
 
 	public static boolean testeGradeColisao=false;
 
 	protected static boolean ContiuaJogo;
 
-	private static cursorMenuTorre miraMenu;
+	private static CursorMenuTorre miraMenu;
 	
 	static Imagem loadImagem;
 
 	public static boolean miraDoJogoSelecionada;
+	
 	public CanvasGame() {
 		// TODO Auto-generated constructor stub
 		instance = this;
@@ -141,7 +142,7 @@ public static Minimap minimap;
 		
 		miraJogo= new MiraRedonda();
 		setMiraAtiva(miraJogo);
-		miraMenu=new cursorMenuTorre();
+		miraMenu=new CursorMenuTorre();
 		
 		heroi=new Heroi(GamePanel.PWIDTH/2, GamePanel.PHEIGHT/2,Constantes.LoadImage("t1.png"));
 		
@@ -216,6 +217,7 @@ public static Minimap minimap;
 	
 	void SimulaSe(long DiffTime) {
 		
+	
 		getMiraAtiva().SimulaSe((int)DiffTime);
 		
 		if(!GerenciadorRespawn.isRespawn()){

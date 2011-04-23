@@ -28,7 +28,7 @@ public abstract class  Mira extends Objeto {
 		
 		setX(CanvasGame.mousex);
 		setY(CanvasGame.mousey);
-		
+	
 		
 	}
 
