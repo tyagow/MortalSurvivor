@@ -30,19 +30,18 @@ public class  MiraRedonda extends Mira {
 		setX(CanvasGame.mousex);
 		setY(CanvasGame.mousey);
 		
-		if (Constantes.colideQuadrado((int)getX(),(int) getY(), 1, 1, (int) GerenciadorTorre.selecionadorDeTorre.getX(),(int) GerenciadorTorre.selecionadorDeTorre.getY(), GerenciadorTorre.selecionadorDeTorre.getSizeX(), GerenciadorTorre.selecionadorDeTorre.getSizeY())) {	
-			CanvasGame.setMiraMenu();
-		}
+//		if (Constantes.colideQuadrado((int)getX(),(int) getY(), 1, 1, (int) GerenciadorTorre.selecionadorDeTorre.getX(),(int) GerenciadorTorre.selecionadorDeTorre.getY(), GerenciadorTorre.selecionadorDeTorre.getSizeX(), GerenciadorTorre.selecionadorDeTorre.getSizeY())) {	
+//			CanvasGame.setMiraMenu();
+//		}
 		
-		for(int i = 0; i < GerenciadorTorre.torres.size(); i++){
-			MenuTorre m = GerenciadorTorre.torres.get(i).getMenuAtivo();
-			if(m != null){
-				if (Constantes.colideQuadrado((int)m.getX(),(int) m.getY(),(int) m.getSizeX(),(int) m.getSizeY(), (int)CanvasGame.getMiraAtiva().getXMundo(),(int) CanvasGame.getMiraAtiva().getYMundo(), 1, 1)) {
-					m.setTimerSelecionado(0);	
-					CanvasGame.setMiraMenu();
-				}
-			}
-		}
+//		for(int i = 0; i < GerenciadorTorre.torres.size(); i++){
+//			MenuTorre m = GerenciadorTorre.torres.get(i).getMenuAtivo();
+//			if(m != null){
+//				if (Constantes.colideQuadrado((int)m.getX(),(int) m.getY(),(int) m.getSizeX(),(int) m.getSizeY(), (int)CanvasGame.getMiraAtiva().getXMundo(),(int) CanvasGame.getMiraAtiva().getYMundo(), 1, 1)) {
+//					CanvasGame.setMiraMenu();
+//				}
+//			}
+//		}
 	
 		
 		

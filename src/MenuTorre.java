@@ -29,7 +29,12 @@ public class MenuTorre extends Menu {
 		// TODO Auto-generated method stub
 		setTimerSelecionado(getTimerSelecionado() + DiffTime);
 		
-		if (getTempoVida()!=-1&&getTimerSelecionado()>= getTempoVida()) {
+		if (Constantes.colideQuadrado((int)getX(),(int) getY(), (int) getSizeX(), (int) getSizeY(), (int) CanvasGame.getMiraAtiva().getXMundo(),(int) CanvasGame.getMiraAtiva().getYMundo(), 1, 1)) {
+			setTimerSelecionado(0);
+			System.out.println("reset time");
+		}
+		
+		if (getTempoVida() != -1 && getTimerSelecionado() >= getTempoVida()) {
 			
 			setVivo(false);
 			setTimerSelecionado(0);
@@ -44,9 +49,9 @@ public class MenuTorre extends Menu {
 					bt.setAtivo(false);
 				}
 			}
-				
-
 		}
+		
+	
 		
 	}
 

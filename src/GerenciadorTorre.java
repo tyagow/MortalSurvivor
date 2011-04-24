@@ -8,7 +8,9 @@ public class GerenciadorTorre extends Objeto {
 	
 	public static SelecionadorDeTorre selecionadorDeTorre;
 	public static ArrayList<Torre> torres = new ArrayList<Torre>();
-	public static int numeroMenuTorres = 0;
+	
+	public static boolean hitMiraMenu = false;
+	public static boolean hitMiraSelecionador = false;
 	
 	private static int rangeMouse=20;
 	private static long tempoUltimaTorre=0;
@@ -39,10 +41,13 @@ public class GerenciadorTorre extends Objeto {
 			}
 		}
 		
-		System.out.println(numeroMenuTorres);
 		selecionadorDeTorre.SimulaSe(DiffTime);
-
+		
+		trataMouse();
 	}
+
+
+
 
 	@Override
 	public void DesenhaSe(Graphics2D dbg, int XMundo, int YMundo) {
@@ -116,4 +121,29 @@ public class GerenciadorTorre extends Objeto {
 
 	}
 	
+	private void trataMouse() {
+		// TODO Auto-generated method stub
+		if (Constantes.colideQuadrado((int) GerenciadorTorre.selecionadorDeTorre.getX(),(int) GerenciadorTorre.selecionadorDeTorre.getY(), GerenciadorTorre.selecionadorDeTorre.getSizeX(), GerenciadorTorre.selecionadorDeTorre.getSizeY(), (int) CanvasGame.getMiraAtiva().getX(),(int) CanvasGame.getMiraAtiva().getY(), 1, 1)) {
+			hitMiraSelecionador = true;
+		}else {
+			hitMiraSelecionador = false;
+		}
+		
+		for(int i = 0; i < torres.size(); i++){
+			MenuTorre m = torres.get(i).getMenuAtivo();
+			if(m != null){
+				if (Constantes.colideQuadrado((int)m.getX(),(int) m.getY(),(int) m.getSizeX(),(int) m.getSizeY(), (int)CanvasGame.getMiraAtiva().getXMundo(),(int) CanvasGame.getMiraAtiva().getYMundo(), 1, 1)) {
+					hitMiraMenu = true;
+					break;
+				}
+			}
+			hitMiraMenu = false;
+		}
+		
+		if(hitMiraMenu || hitMiraSelecionador){
+			CanvasGame.setMiraMenu();
+		}else {
+			CanvasGame.setMiraJogo();
+		}
+	}
 }
