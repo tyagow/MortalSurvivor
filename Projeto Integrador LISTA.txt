@@ -3,26 +3,21 @@
 
 BUGS:
 
-<<<<<<< HEAD
-1) PLAYER QUANDO DA RESPAW SO RECARREGA A ARMA ATIVA - FAZER FUNCAO PARA RECARREGAR TODAS ARMAS QUANDO MORRE .... 
-
-2) Fazer tecla de recarregar
-=======
-1) PLAYER QUANDO DA RESPAW SO RECARREGA A ARMA ATIVA 
- FAZER FUNCAO PARA RECARREGAR TODAS ARMAS QUANDO MORRE .... 
 
 2) Fazer tecla de R recarregar
->>>>>>> 38a811a111ab5a3a31175cd4828919e54faf5d5c
+
 
 3) fazer um limitador de som... para nao haver muito som....
 
+4) como fazer um som tocar em loop ?
+
+5) como fazer um som parar quando eu quero pois eh uma thread !
 
 
+6) arma continua atirando apos personagem trocar de mira com o botao de tiro pressionado...
 
 
-
-
-
+7) resolver como sera as particulas de sangue(thread ou direto ) 
 
 
 

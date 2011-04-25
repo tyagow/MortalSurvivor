@@ -217,7 +217,7 @@ public static Minimap minimap;
 	
 	void SimulaSe(long DiffTime) {
 		
-	
+		
 		getMiraAtiva().SimulaSe((int)DiffTime);
 		
 		if(!GerenciadorRespawn.isRespawn()){
@@ -412,13 +412,13 @@ public static Minimap minimap;
 	public static void setMiraMenu() {
 		// TODO Auto-generated method stub
 		setMiraAtiva(miraMenu);
-		//miraDoJogoSelecionada=false;
+		miraDoJogoSelecionada=false;
 	}
 
 	public static void setMiraJogo() {
 		// TODO Auto-generated method stub
 		setMiraAtiva(miraJogo);
-		//miraDoJogoSelecionada=true;
+		miraDoJogoSelecionada=true;
 
 	}
 

@@ -85,17 +85,18 @@ public class Metralhadora extends Arma {
 
 			if (getTempoEntreTiros()>=Constantes.METRALHADORA_tempoEntreTiros) {
 				
-				if (atirou/*&&soltouTiro*/) {	
-					//soltouTiro=false;
-					atira();
-					setTempoEntreTiros(0);
-					
+					if (atirou/*&&soltouTiro*/) {	
+						//soltouTiro=false;
+				
+							atira();
+							setTempoEntreTiros(0);
+					}
 				}
 				
 				if (!atirou)
 					soltouTiro=true;
 			}
-		}
+		
 		
 		if (estado==1) {
 			
@@ -146,7 +147,7 @@ public class Metralhadora extends Arma {
 		if (temMunicao()) {
 			setRound(getRound() - 1);
 			CanvasGame.projeteis.add( new Projetil (this,getAngulo(),Constantes.TIPO_ASSASINO_PLAYER ));
-			Constantes.m4a.run();
+			GerenciadorDeSom.m4a.run();
 		}
 		
 	}

@@ -19,12 +19,7 @@ public class Constantes {
 	public static final int BASE_SIZEX_1 = 80;
 	public static final int BASE_SIZEY_1 = 80;
 	public static final int BASE_LIFE_1 = 1000;
-	
-	public static final ThreadSom ak=new ThreadSom("/ak47.wav");
-	public static final ThreadSom m4a=new ThreadSom("/m4a.wav");
 
-	public static final ThreadSom de=new ThreadSom("/de.wav");
-	
 
 	//public static  BufferedImage inimigoUm ;
 

@@ -149,7 +149,7 @@ public class ArmaUmTorre extends Arma {
 			setRound(getRound() - 1);
 			
 			CanvasGame.projeteis.add( new Projetil (this,getAngulo(),2 ));
-			Constantes.ak.run();
+			GerenciadorDeSom.ak.run();
 			
 //		}
 		

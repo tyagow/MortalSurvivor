@@ -11,7 +11,7 @@ public class CanvasMenu extends GCanvas{
 	static BufferedImage imagemlogo;
 	
 	private Font fonteLogo, fonteMenu, fonteAutores;
-	
+	GerenciadorDeSom loader;
 	boolean instrucao = false;
 	BufferedImage img;
 	Imagem imgloader;
@@ -20,6 +20,10 @@ public class CanvasMenu extends GCanvas{
 		
 		
 		//Constantes.logo=
+		
+		loader = new GerenciadorDeSom();
+		
+		GerenciadorDeSom.fundo.start();
 		
 		imgloader = new Imagem();
 		fonteLogo = new Font("Courier", Font.BOLD, 60);
@@ -89,6 +93,7 @@ public class CanvasMenu extends GCanvas{
 		
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
@@ -96,6 +101,7 @@ public class CanvasMenu extends GCanvas{
 		
 		if(keyCode == KeyEvent.VK_ENTER && !instrucao){
 			GamePanel.CanvasAtivo = CanvasGame.instance;
+
 		}else if(keyCode == KeyEvent.VK_ESCAPE && !instrucao){
 			System.exit(0);
 		}

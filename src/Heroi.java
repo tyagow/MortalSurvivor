@@ -242,14 +242,20 @@ public class Heroi extends Objeto {
 	}
 	private void trataTiroArma() {
 		// TODO Auto-generated method stub
-		if (Atira) {
+		
+		if (CanvasGame.miraDoJogoSelecionada){
+			if (Atira) {
+				
+				armaAtiva.atirou();
+			}
+			else 
+				armaAtiva.naoAtirou();
 			
-			armaAtiva.atirou();
 		}
-		else 
+		else {
+			Atira=false;
 			armaAtiva.naoAtirou();
-		
-		
+		}
 		
 	}
 	private void calculaAnguloVelocidade() {

@@ -71,19 +71,19 @@ public class GerenciadorEfeitos extends Objeto implements Runnable {
 			for(int i = 0; i < particulas.size();i++){
 				Particula part =  particulas.get(i);
 				part.SimulaSe((int)DiffTime);
-//				if(part.isVivo()==false) {
-//					
-//					particulas.remove(i);
-//					desenhaSangue(part);
-//				}
+				if(part.isVivo()==false) {
+					
+					particulas.remove(i);
+					desenhaSangue(part);
+				}
 			}
 		
 	
 //		
-		if (timer>50) {
-			chamaThreadParticulas();
-		timer=0;
-		}
+//		if (timer>50) {
+//			chamaThreadParticulas();
+//		timer=0;
+//		}
 
 	}
 	public void startGame()
