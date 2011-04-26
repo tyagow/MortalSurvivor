@@ -65,8 +65,9 @@ public class Minimap extends Objeto{
 ///			dbg.fillRect((int)inim.getX()*16/tamanhoMiniMap+ this.getX(), (int)inim.getY()*16/tamanhoMiniMap+ this.getY(), inim.getSizeX()/tamanhoMiniMap, inim.getSizeY()/tamanhoMiniMap);
 			
 		}
-			
-
+		dbg.setColor(Color.black);
+	
+		dbg.drawOval((int)(CanvasGame.getMiraAtiva().getXMundo()/6+getX()), (int)(CanvasGame.getMiraAtiva().getYMundo()/6+getY()), 2, 2);
 		dbg.setColor(Color.red);
 //		dbg.fillOval(((int)CanvasGame.heroi.getX()-CanvasGame.heroi.getSizeX()/2)/6,((int)CanvasGame.heroi.getY()-CanvasGame.heroi.getSizeY()/2)/6,(int)CanvasGame.heroi.getSizeX()/6,CanvasGame.heroi.getSizeY()/6);
 		int x[] = new int[4];

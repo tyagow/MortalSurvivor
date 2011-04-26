@@ -360,7 +360,7 @@ public static Minimap minimap;
 		// TODO Auto-generated method stub
 		int button = e.getButton();
 		getMiraAtiva().pressed(button);
-		;
+		
 		if (button == MouseEvent.BUTTON1) {
 			getMiraAtiva().trataClickMouse1();
 			

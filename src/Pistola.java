@@ -151,7 +151,8 @@ public class Pistola extends Arma {
 		if (temMunicao()) {
 			setRound(getRound() - 1);
 			CanvasGame.projeteis.add( new Projetil (this,getAngulo(),Constantes.TIPO_ASSASINO_PLAYER ));
-			GerenciadorDeSom.de.run();
+//			GerenciadorDeSom.de.run();
+			Sound.music("de.wav",false);
 		}
 		
 	}
