@@ -187,6 +187,7 @@ public class Pistola extends Arma {
 	public void naoAtirou() {
 		// TODO Auto-generated method stub
 		atirou=false;
+		soltouTiro=true;
 
 	}
 

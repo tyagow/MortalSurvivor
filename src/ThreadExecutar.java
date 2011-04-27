@@ -13,4 +13,7 @@ public class ThreadExecutar extends Som {
             ex.printStackTrace();  
         }  
     }  
+    
+    
+
 }  

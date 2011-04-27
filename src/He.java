@@ -42,7 +42,7 @@ public class He extends Arma {
 		dbg.rotate(getAngulo()-Math.PI/2);
 		//dbg.drawLine(0, 0, getSizeX(), 0);
 
-		dbg.drawImage(imagem, -getSizeX()/2-10, -getSizeY()/2-5, getSizeX()-2,getSizeY(),0,0,getSizeX(),getSizeY(),null);
+		dbg.drawImage(imagem, -getSizeX()/2-10, -getSizeY()/2-5, getSizeX(),getSizeY(),0,0,getSizeX(),getSizeY(),null);
 		dbg.setTransform(trans);
 		
 		if (estado==1) {
@@ -150,7 +150,7 @@ public class He extends Arma {
 		
 		if (temMunicao()) {
 			setRound(getRound() - 1);
-			s
+			CanvasGame.projeteis.add( new ProjetilGranada(this, getAngulo(), 1, imagem));
 			//Constantes.de.run();
 		}
 		

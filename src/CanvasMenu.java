@@ -5,6 +5,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
+import sun.audio.AudioPlayer;
 
 public class CanvasMenu extends GCanvas{
 	
@@ -23,7 +24,13 @@ public class CanvasMenu extends GCanvas{
 		
 		loader = new GerenciadorDeSom();
 		
-		GerenciadorDeSom.fundo.start();
+		GerenciadorDeSom.fundo.run();
+		
+		
+		
+		
+//		Sound.music("mainMusic.wav",true);
+		
 		
 		imgloader = new Imagem();
 		fonteLogo = new Font("Courier", Font.BOLD, 60);
@@ -100,7 +107,11 @@ public class CanvasMenu extends GCanvas{
 		int keyCode = e.getKeyCode();
 		
 		if(keyCode == KeyEvent.VK_ENTER && !instrucao){
+			
 			GamePanel.CanvasAtivo = CanvasGame.instance;
+			//GerenciadorDeSom.fundo.;
+			
+//			AudioPlayer.player.interrupt();
 
 		}else if(keyCode == KeyEvent.VK_ESCAPE && !instrucao){
 			System.exit(0);

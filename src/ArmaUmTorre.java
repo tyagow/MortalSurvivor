@@ -86,7 +86,7 @@ public class ArmaUmTorre extends Arma {
 			estado=0;
 		else estado=1;
 			
-		if (estado==0) {
+		if (estado==0) {//atirando
 	
 
 			if (getTempoEntreTiros()>=Constantes.TORRE_ARMA_UM_tempoEntreTiros) {

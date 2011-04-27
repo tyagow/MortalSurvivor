@@ -55,8 +55,8 @@ public abstract class  Mira extends Objeto {
 		}
 		
 	}
-	public void released() {
-
+	public void released(int button) {
+		this.button=button;
 		setReleased(true);
 		setPressed(false);
 

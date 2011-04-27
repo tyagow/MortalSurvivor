@@ -81,8 +81,8 @@ public class  MiraRedonda extends Mira {
 		}
 		
 	}
-	public void released() {
-
+	public void released(int button) {
+		this.button=button;
 		setReleased(true);
 		setPressed(false);
 

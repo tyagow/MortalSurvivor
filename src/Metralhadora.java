@@ -82,19 +82,20 @@ public class Metralhadora extends Arma {
 			
 		if (estado==0) {
 			setRecarregando(false);
+			
 
+
+			
 			if (getTempoEntreTiros()>=Constantes.METRALHADORA_tempoEntreTiros) {
 				
-					if (atirou/*&&soltouTiro*/) {	
-						//soltouTiro=false;
-				
+					if (atirou) {	
 							atira();
 							setTempoEntreTiros(0);
 					}
 				}
 				
-				if (!atirou)
-					soltouTiro=true;
+//				if (!atirou)
+//					soltouTiro=true;
 			}
 		
 		
@@ -182,6 +183,7 @@ public class Metralhadora extends Arma {
 	public void naoAtirou() {
 		// TODO Auto-generated method stub
 		atirou=false;
+		
 
 	}
 

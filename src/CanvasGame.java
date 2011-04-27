@@ -272,6 +272,9 @@ public static Minimap minimap;
 		if(keyCode == KeyEvent.VK_Q){
 			heroi.ARMA_ANTERIOR=true;
 		}
+		if(keyCode == KeyEvent.VK_F){
+			heroi.ARMA_HE=true;
+		}
 		if(keyCode == KeyEvent.VK_W){
 			heroi.UP=true;
 		}
@@ -339,7 +342,7 @@ public static Minimap minimap;
 	void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
 		int button = e.getButton();
-		getMiraAtiva().released();
+		getMiraAtiva().released(button);
 		if (button == MouseEvent.BUTTON1) {
 			
 		
@@ -411,12 +414,15 @@ public static Minimap minimap;
 
 	public static void setMiraMenu() {
 		// TODO Auto-generated method stub
+		getMiraAtiva().setPressed(false);
 		setMiraAtiva(miraMenu);
 		miraDoJogoSelecionada=false;
 	}
 
 	public static void setMiraJogo() {
 		// TODO Auto-generated method stub
+		getMiraAtiva().setPressed(false);
+
 		setMiraAtiva(miraJogo);
 		miraDoJogoSelecionada=true;
 

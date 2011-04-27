@@ -7,11 +7,11 @@ import java.util.List;
 
 public class Projetil extends Objeto {
 	
-	int vel=1000;
+	int vel=1300;
 	double ang;
 	int tipo;
 	Arma pai;
-	private int dano;
+	protected int dano;
 	private int penetration;
 	
 	public Projetil(Arma pai,double ang,int tipo){

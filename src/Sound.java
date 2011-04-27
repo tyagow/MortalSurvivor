@@ -19,11 +19,11 @@ public class Sound {
 	static public int timeSom = 0;
 	static public boolean cont = false;
 
+	static AudioPlayer MGP = AudioPlayer.player;
 
 
 	public static void music(String som,boolean repete) {
 		
-		AudioPlayer MGP = AudioPlayer.player;
 		AudioStream BGM;
 		AudioData MD;
 		InputStream _Som = null;

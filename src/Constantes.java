@@ -51,10 +51,19 @@ public class Constantes {
 	public static final int FACA_valor = 50;
 	public static final int FACA_tempoAtaque = 200;
 	public static final int FACA_tempoEntreTiros = 400;
+	
+	//he
+	public static final int HE_mag = 10;
+	public static final int HE_dano=100;
+	public static final int HE_peso=10;
+	public static final int HE_round=1;
+	public static final int HE_tempoEntreTiros=100;
+	public static final int HE_tempoRecarrega=1500;
+	public static final int HE_valor=500;
 
 	//Sangue
-	public static final int SANGUE_SIZE_X = 5;
-	public static final int SANGUE_SIZE_Y = 5;
+	public static final int SANGUE_SIZE_X = 10;
+	public static final int SANGUE_SIZE_Y = 10;
 	
 	//Fonte
 	public static final Font big = new Font("SansSerif", Font.BOLD, (int) 24);

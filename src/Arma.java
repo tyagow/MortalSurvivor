@@ -38,7 +38,12 @@ public abstract class Arma  {
 		setMag(getMaxMag()+1);
 		
 	}
-
+	
+	public void reseta() {
+		atirou=false;
+		
+		
+	}
 	public void setTempoEntreTiros(int tempoEntreTiros) {
 		this.timerTempoEntreTiros = tempoEntreTiros;
 	}
@@ -50,7 +55,7 @@ public abstract class Arma  {
 	public void setDano(int dano) {
 		this.dano = dano;
 	}
-
+	
 	public int getDano() {
 		return dano;
 	}

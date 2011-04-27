@@ -23,8 +23,8 @@ public class Sangue extends Particula {
 		this.tempototal = 0;
 		
 		this.cor = cor;
-		setSizeX(GamePanel.rnd.nextInt(5)+3);
-		setSizeY(GamePanel.rnd.nextInt(5)+3);
+		setSizeX(GamePanel.rnd.nextInt(6)+3);
+		setSizeY(GamePanel.rnd.nextInt(6)+3);
 		
 		r = cor.getRed();
 		g = cor.getGreen();
@@ -47,7 +47,7 @@ public class Sangue extends Particula {
 		
 		if(tempototal>=tempodevida){
 			setVivo(false);
-			alpha = GamePanel.rnd.nextInt(20)+185;
+			alpha = GamePanel.rnd.nextInt(185)+20;
 			setSizeX(GamePanel.rnd.nextInt(Constantes.SANGUE_SIZE_X)+2);
 			setSizeY(GamePanel.rnd.nextInt(Constantes.SANGUE_SIZE_Y)+2);
 		}

@@ -1,5 +1,7 @@
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Stroke;
 import java.lang.reflect.Array;
 
 public class SelecionadorDeTorre extends Objeto {
@@ -71,12 +73,21 @@ public class SelecionadorDeTorre extends Objeto {
 	public void DesenhaSe(Graphics2D dbg, int XMundo, int YMundo) {
 		// TODO Auto-generated method stub
 		dbg.setColor(Color.black);
+		
+		 Stroke stk = dbg.getStroke();
+		    
+		    dbg.setStroke(new BasicStroke(1.5f));
+	
+		
+		
+		    
 		dbg.drawRect((int)getX(), (int)getY(), getSizeX(), getSizeY());
 		
 		for(int i = 0; i < 4; i++){
 			slotsTorre[i].DesenhaSe(dbg, XMundo, YMundo);
 		}
-		
+	    dbg.setStroke(stk);
+
 	}
 	
 	

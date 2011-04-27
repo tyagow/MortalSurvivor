@@ -28,7 +28,8 @@ public class Heroi extends Objeto {
 	private Arma ultimaArma;
 	private Arma armaAtiva=armaSecundaria;
 	
-	
+	boolean ARMA_HE=false;
+
 	boolean PRIMARIA=false;
 	boolean SECUNDARIA=true;
 	boolean MELEE=false;
@@ -138,33 +139,71 @@ public class Heroi extends Objeto {
 	}
 	private void trataTrocaArma() {
 		// TODO Auto-generated method stub
+		
+		
 		if (PRIMARIA) {
+			
+		if (armaAtiva!=null) {
+				
+				armaAtiva.reseta();
+			}
+			
 			ultimaArma=armaAtiva;
+			
+			
 			armaAtiva=armaPrimaria;
 			arma=ARMA_PRIMARIA;
 			PRIMARIA=false;
 		}
 		else if (SECUNDARIA)  {
+		if (armaAtiva!=null) {
+				
+				armaAtiva.reseta();
+			}
+			
 			ultimaArma=armaAtiva;
 			armaAtiva=armaSecundaria;
 			SECUNDARIA=false;
 			arma=ARMA_SECUNDARIA;
 		}
 		else if (MELEE) {
+		if (armaAtiva!=null) {
+				
+				armaAtiva.reseta();
+			}
+			
 			ultimaArma=armaAtiva;
 			armaAtiva=armaMelee;
 			MELEE=false;
 			arma=ARMA_MELEE;
 		}
 		else if (ARMA_ANTERIOR)  {
-			Arma temp = armaAtiva;
-			armaAtiva=ultimaArma;
-			ultimaArma=temp;
-			
-			arma = armaAtiva.getTipo();
-			
-			ARMA_ANTERIOR=false;
-		}
+			if (armaAtiva!=null) {
+					
+					armaAtiva.reseta();
+				}
+				
+				Arma temp = armaAtiva;
+				armaAtiva=ultimaArma;
+				ultimaArma=temp;
+				
+				arma = armaAtiva.getTipo();
+				
+				ARMA_ANTERIOR=false;
+			}
+		else if (ARMA_HE)  {
+				if (armaAtiva!=null) {
+					
+					armaAtiva.reseta();
+				}
+				
+				ultimaArma=armaAtiva;
+				armaAtiva=new He();
+				
+				arma = armaAtiva.getTipo();
+				
+				ARMA_HE=false;
+			}
 	}
 	private void calculaAnimacao() {
 		// TODO Auto-generated method stub
@@ -243,16 +282,26 @@ public class Heroi extends Objeto {
 	private void trataTiroArma() {
 		// TODO Auto-generated method stub
 		
+		
+//		System.out.println("pressed "+CanvasGame.getMiraAtiva().isPressed());
+//		System.out.println("released "+CanvasGame.getMiraAtiva().isReleased());
+		
+//		
+//		System.out.println(armaAtiva.atirou);
+//		
+//		System.out.println("miradojo "+CanvasGame.miraDoJogoSelecionada);
+		
 		if (CanvasGame.miraDoJogoSelecionada){
-			if (Atira) {
+			if (CanvasGame.getMiraAtiva().isPressed()) {
 				
 				armaAtiva.atirou();
 			}
-			else 
+			if (CanvasGame.getMiraAtiva().isReleased())
 				armaAtiva.naoAtirou();
 			
 		}
 		else {
+			
 			Atira=false;
 			armaAtiva.naoAtirou();
 		}
@@ -349,10 +398,10 @@ public class Heroi extends Objeto {
 	}
 	public void trataClick() {
 		// TODO Auto-generated method stub
-		if (Atira)
-			Atira=false;
-		else Atira=true;
-		
+//		if (Atira)
+//			Atira=false;
+//		else Atira=true;
+//		
 	}
 
 }

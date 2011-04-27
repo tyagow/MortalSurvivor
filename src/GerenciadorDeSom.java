@@ -15,7 +15,7 @@ public class GerenciadorDeSom extends Objeto {
 	
 		ak=new ThreadSom("/ak47.wav");
 		m4a=new ThreadSom("/m4a.wav");
-		de=new ThreadSom("/de.wav");
+		//de=new ThreadSom("/de.wav");
 		fundo =new ThreadSom("mainMusic.wav");
 		
 	}
