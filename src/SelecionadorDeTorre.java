@@ -8,6 +8,7 @@ public class SelecionadorDeTorre extends Objeto {
 
 	private SlotTorre[] slotsTorre;
 	private boolean oldIsMousePressed;
+	public Torre torreAtiva;
 
 	public SelecionadorDeTorre(){
 		setX(Constantes.SELECIONADOR_DE_TORRE_X);
@@ -16,52 +17,64 @@ public class SelecionadorDeTorre extends Objeto {
 		setSizeY(Constantes.SELECIONADOR_DE_TORRE_SIZEY);
 		setVivo(true);
 		
-		slotsTorre = new SlotTorre[4];
-		slotsTorre[0] = new SlotTorre();
-		slotsTorre[0].setX(Constantes.SLOT_UM_X);
-		slotsTorre[0].setY(Constantes.SLOT_UM_Y);
-		slotsTorre[0].setTorre(Imagem.TORRE_UM_ANIMESET, new ArmaUmTorre(Imagem.TORRE_UM_ANIMESET));
-		slotsTorre[0].setAtivo(true);
 		
-		slotsTorre[1] = new SlotTorre();
-		slotsTorre[1].setX(Constantes.SLOT_DOIS_X);
-		slotsTorre[1].setY(Constantes.SLOT_DOIS_Y);
-		slotsTorre[1].setTorre(Imagem.TORRE_UM_ANIMESET, new ArmaUmTorre(Imagem.TORRE_UM_ANIMESET));
-		slotsTorre[1].setAtivo(false);
+		
+		
+		setSlotsTorre(new SlotTorre[4]);
+		getSlotsTorre()[0] = new SlotTorre();
+		getSlotsTorre()[0].setX(Constantes.SLOT_UM_X);
+		getSlotsTorre()[0].setY(Constantes.SLOT_UM_Y);
+		getSlotsTorre()[0].setTorre(Imagem.TORRE_UM_ANIMESET, new ArmaUmTorre(Imagem.TORRE_UM_ANIMESET));
+		getSlotsTorre()[0].setAtivo(true);
+		
+		getSlotsTorre()[1] = new SlotTorre();
+		getSlotsTorre()[1].setX(Constantes.SLOT_DOIS_X);
+		getSlotsTorre()[1].setY(Constantes.SLOT_DOIS_Y);
+		getSlotsTorre()[1].setTorre(Imagem.TORRE_DOIS_ANIMESET, new ArmaDoisTorre(Imagem.TORRE_DOIS_ANIMESET));
+		getSlotsTorre()[1].setAtivo(false);
 
-		slotsTorre[2] = new SlotTorre();
-		slotsTorre[2].setX(Constantes.SLOT_TRES_X);
-		slotsTorre[2].setY(Constantes.SLOT_TRES_Y);
-		slotsTorre[2].setTorre(Imagem.TORRE_UM_ANIMESET, new ArmaUmTorre(Imagem.TORRE_UM_ANIMESET));
-		slotsTorre[2].setAtivo(false);
+		getSlotsTorre()[2] = new SlotTorre();
+		getSlotsTorre()[2].setX(Constantes.SLOT_TRES_X);
+		getSlotsTorre()[2].setY(Constantes.SLOT_TRES_Y);
+		getSlotsTorre()[2].setTorre(Imagem.TORRE_TRES_ANIMESET, new ArmaTresTorre(Imagem.TORRE_TRES_ANIMESET));
+		getSlotsTorre()[2].setAtivo(false);
 
-		slotsTorre[3] = new SlotTorre();
-		slotsTorre[3].setX(Constantes.SLOT_QUATRO_X);
-		slotsTorre[3].setY(Constantes.SLOT_QUATRO_Y);
-		slotsTorre[3].setTorre(Imagem.TORRE_UM_ANIMESET, new ArmaUmTorre(Imagem.TORRE_UM_ANIMESET));
-		slotsTorre[3].setAtivo(false);
-
+		getSlotsTorre()[3] = new SlotTorre();
+		getSlotsTorre()[3].setX(Constantes.SLOT_QUATRO_X);
+		getSlotsTorre()[3].setY(Constantes.SLOT_QUATRO_Y);
+		getSlotsTorre()[3].setTorre(Imagem.TORRE_UM_ANIMESET, new ArmaUmTorre(Imagem.TORRE_UM_ANIMESET));
+		getSlotsTorre()[3].setAtivo(false);
+		
+		
+	//	System.out.println(new Torre(slotsTorre[0].getAnimeSet(),slotsTorre[0].getArmaAtiva(),0,0));
 	}
 	
 	@Override
 	public void SimulaSe(int DiffTime) {
 		// TODO Auto-generated method stub
-		
+//		System.out.println(slotsTorre[0].isAtivo());
+
 		for(int i = 0; i < 4; i++){
-			if (Constantes.colideQuadrado((int)slotsTorre[i].getX(), (int)slotsTorre[i].getY(), slotsTorre[i].getSizeX(), slotsTorre[i].getSizeY(), (int)CanvasGame.getMiraAtiva().getX(), (int)CanvasGame.getMiraAtiva().getY(), 1, 1 )) {
-				if (!slotsTorre[i].isAtivo()) {
+			if (Constantes.colideQuadrado((int)getSlotsTorre()[i].getX(), (int)getSlotsTorre()[i].getY(), getSlotsTorre()[i].getSizeX(), getSlotsTorre()[i].getSizeY(), (int)CanvasGame.getMiraAtiva().getX(), (int)CanvasGame.getMiraAtiva().getY(), 1, 1 )) {
+				if (!getSlotsTorre()[i].isAtivo()) {
 					if (CanvasGame.getMiraAtiva().isPressed() && !oldIsMousePressed) {
-							slotsTorre[i].setAtivo(true);
+							getSlotsTorre()[i].setAtivo(true);
+							//torreAtiva=new Torre(getSlotsTorre()[i].getAnimeSet(),getSlotsTorre()[i].getArmaAtiva(),0,0);
+						
+							
+								//System.out.println(new Torre(slotsTorre[0].getAnimeSet(),slotsTorre[0].getArmaAtiva(),0,0));
+
+							//System.out.println(getSlotsTorre()[i].getArmaAtiva());
 							for(int j = 0; j < 4; j++){
 								if(i != j){
-									slotsTorre[j].setAtivo(false);
+									getSlotsTorre()[j].setAtivo(false);
 								}
 							}
 					}
 				}
-				slotsTorre[i].setSelecionado(true);
+				getSlotsTorre()[i].setSelecionado(true);
 			}else {
-				slotsTorre[i].setSelecionado(false);
+				getSlotsTorre()[i].setSelecionado(false);
 			}
 			
 		}
@@ -84,10 +97,18 @@ public class SelecionadorDeTorre extends Objeto {
 		dbg.drawRect((int)getX(), (int)getY(), getSizeX(), getSizeY());
 		
 		for(int i = 0; i < 4; i++){
-			slotsTorre[i].DesenhaSe(dbg, XMundo, YMundo);
+			getSlotsTorre()[i].DesenhaSe(dbg, XMundo, YMundo);
 		}
 	    dbg.setStroke(stk);
 
+	}
+
+	public void setSlotsTorre(SlotTorre[] slotsTorre) {
+		this.slotsTorre = slotsTorre;
+	}
+
+	public SlotTorre[] getSlotsTorre() {
+		return slotsTorre;
 	}
 	
 	

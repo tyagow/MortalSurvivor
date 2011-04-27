@@ -38,7 +38,7 @@ public class SlotTorre extends Objeto{
 		
 		dbg.drawRect((int)getX(), (int)getY(), getSizeX(), getSizeY());
 		
-		dbg.drawImage(AnimeSet, null, (int)getX() + getSizeX()/3, (int)getY() + getSizeY()/5);
+		dbg.drawImage(getAnimeSet(), null, (int)getX() + getSizeX()/3, (int)getY() + getSizeY()/5);
 	}
 	
 	public void setAtivo(boolean ativo) {
@@ -50,8 +50,8 @@ public class SlotTorre extends Objeto{
 	}
 
 	public void setTorre(BufferedImage _AnimeSet, Arma _armaAtiva){
-		AnimeSet = _AnimeSet;
-		armaAtiva = _armaAtiva;
+		setAnimeSet(_AnimeSet);
+		setArmaAtiva(_armaAtiva);
 	}
 
 	public void setSelecionado(boolean selecionado) {
@@ -60,5 +60,21 @@ public class SlotTorre extends Objeto{
 
 	public boolean isSelecionado() {
 		return selecionado;
+	}
+
+	public void setAnimeSet(BufferedImage animeSet) {
+		AnimeSet = animeSet;
+	}
+
+	public BufferedImage getAnimeSet() {
+		return AnimeSet;
+	}
+
+	public void setArmaAtiva(Arma armaAtiva) {
+		this.armaAtiva = armaAtiva;
+	}
+
+	public Arma getArmaAtiva() {
+		return armaAtiva;
 	}
 }

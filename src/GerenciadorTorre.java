@@ -92,11 +92,55 @@ public class GerenciadorTorre extends Objeto {
 			if (System.currentTimeMillis()-tempoUltimaTorre >Constantes.TEMPO_ENTRE_ADD_TORRES) {
 				tempoUltimaTorre=System.currentTimeMillis();
 				
-				torres.add(new Torre(Imagem.TORRE_UM_ANIMESET,new ArmaUmTorre(Imagem.TORRE_UM_ANIMESET),x,y) );
+				
+			//	selecionadorDeTorre.torreAtiva.setX(x);
+				//selecionadorDeTorre.torreAtiva.setY(y);
+				
+		
+				for (int i=0;i<4;i++) {
+				
+					if (selecionadorDeTorre.getSlotsTorre()[i].isAtivo()){
+						
+						switch (i) {
+						case 0: // torre um
+							
+							torres.add(new Torre(Imagem.TORRE_UM_ANIMESET,new ArmaUmTorre(Imagem.TORRE_UM_ANIMESET),x,y));
 
+								break;	
+						case 1: // torre dois
+									
+							torres.add(new Torre(Imagem.TORRE_DOIS_ANIMESET,new ArmaDoisTorre(Imagem.TORRE_DOIS_ANIMESET),x,y));
+
+						break;
+						case 2: // torre tres
+							
+							torres.add(new Torre(Imagem.TORRE_TRES_ANIMESET,new ArmaTresTorre(Imagem.TORRE_TRES_ANIMESET),x,y));
+
+								break;	
+						case 3: // torre um
+							
+							torres.add(new Torre(Imagem.TORRE_UM_ANIMESET,new ArmaUmTorre(Imagem.TORRE_UM_ANIMESET),x,y));
+
+								break;	
+
+						default:
+							break;
+						}
+						
+						
+						//Torre aux =  new Torre(selecionadorDeTorre.getSlotsTorre()[i].getAnimeSet(),selecionadorDeTorre.getSlotsTorre()[i].getArmaAtiva(),x,y);
+						
+						//torres.add(aux);
+					
+					}
+				}
+
+				
 			}
-	
+				//Imagem.TORRE_DOIS_ANIMESET
 	}
+	
+	
 
 	private static boolean posicaoValida(int x, int y) {
 		// TODO Auto-generated method stub

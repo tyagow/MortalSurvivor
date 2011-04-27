@@ -14,11 +14,7 @@ import java.util.LinkedList;
 public class Torre extends Objeto{
 
 	BufferedImage AnimeSet;
-	
-//	int frame;
-//	int timeranimacao;
-//	int animacao;
-//	int tempoentreframes;
+
 	private int timerContruindo;
 	public boolean select=false;
 	private int range;
@@ -48,22 +44,13 @@ public class Torre extends Objeto{
 			setSizeX(16);
 		else
 			setSizeX(AnimeSet.getWidth());
-//		System.out.println("largura"+getSizeX());
-
 
 		if (AnimeSet.getHeight() <16) {
 			setSizeY(16);
 		}
 		else
 			setSizeY(AnimeSet.getHeight());
-		
-//		setSizeX(Math.max(getSizeX(), getSizeY()));
-//		setSizeY(Math.max(getSizeX(), getSizeY()));
-		
-//		setSizeY(AnimeSet.getHeight());
-//		System.out.println("altura"+getSizeY());
 
-		
 		setX(x/16*16+getSizeX()/2);
 		setY(y/16*16+getSizeY()/2);	
 		contruindo=true;
@@ -76,21 +63,11 @@ public class Torre extends Objeto{
 		GerenciadorObstaculos.addObstaculos((int)getX(),(int)getY(),getSizeX(),getSizeY());
 		
 		menuStatusTorre=new MenuTorre(x, y, Constantes.HUD_TORRE_SIZEX, Constantes.HUD_TORRE_SIZEY, (Color.LIGHT_GRAY), 2000, this);
-		//AnimeSet = _AnimeSet;
-		//frame = 0;
-		//animacao = 0;
-		//timeranimacao = 0;
-
-		
 
 		setVivo(true);
-
-		
-		
+	
 	}
 	
-	
-
 
 	public void DesenhaSe(Graphics2D dbg,int XMundo,int YMundo) {
 		// TODO Auto-generated method stub
@@ -100,8 +77,6 @@ public class Torre extends Objeto{
 			dbg.setColor(Color.red);
 			dbg.drawOval((int)getX()-getRange()/2-XMundo, (int)getY()-getRange()/2-YMundo, getRange(), getRange());
 			menuAtivo.DesenhaSe(dbg, XMundo, YMundo);
-			dbg.setColor(Color.blue);
-			dbg.drawRect((int)getX()-getSizeX()/2-XMundo,(int)getY()-getSizeY()/2-YMundo,getSizeX(),getSizeY() );
 
 		}
 		AffineTransform trans = dbg.getTransform();
@@ -110,21 +85,14 @@ public class Torre extends Objeto{
 
 		dbg.setColor(cor);
 
-		
-//		dbg.drawImage(AnimeSet,-getSizeX()/2,-getSizeY()/2,getSizeX()/2,getSizeY()/2,0,0,getSizeX(),getSizeY(),null);
 
 		
 		if (contruindo) {
 			
-//			dbg.drawRect(-sizeX/2, sizeY/2, (int)(timerContruindo*30/Constantes.TEMPO_TORRE_CONSTRUINDO), (int)(timerContruindo*30/Constantes.TEMPO_TORRE_CONSTRUINDO)); //(int)(life*30/maximoVida)
 			dbg.drawRect((int)-getSizeX()/2-5, (int)-getSizeY()/2-17, 30, 10);
 			dbg.setColor(Color.lightGray);
 			dbg.fillRect((int)-getSizeX()/2-5+1, (int)-16-getSizeY()/2, (int)(timerContruindo*30/Constantes.TEMPO_TORRE_CONSTRUCAO), 9);		
-		}//else 
-		//	dbg.fillOval(-getSizeX()/2,-getSizeY()/2, (int)getSizeX(),(int)getSizeY());
-
-
-
+		}
 		dbg.setTransform(trans);
 		
 
@@ -141,10 +109,8 @@ public class Torre extends Objeto{
 			armaAtiva.SimulaSe((int)DiffTime);	
 			
 			if (menuAtivo!=null) {
-//				CanvasGame.setMiraMenu();
 				menuAtivo.SimulaSe((int)DiffTime);	
 				if (menuAtivo.getEvoluiRange()) {
-					//System.out.println("aAAA");
 
 					range+=10;
 					menuAtivo.tratouBotaoRange();
@@ -156,12 +122,6 @@ public class Torre extends Objeto{
 				}
 					
 			}
-			
-//			if (menuAtivo==null&&!controleCursor) {
-//				controleCursor=true;
-//				CanvasGame.setMiraJogo();
-//				
-//			}
 	
 		}	
 	}
@@ -176,9 +136,7 @@ public class Torre extends Objeto{
 			timerContruindo=0;
 			contruindo=false;
 		}
-		
-//		if (select&&timerSelect>=Constantes.TEMPO_TORRE_SELECIONADA)
-//			select=false;
+
 	}
 	
 
@@ -199,29 +157,13 @@ public class Torre extends Objeto{
 		timerSelect=0;
 	}
 		
-//
-//		if (select){
-//			select =false;
-//			menuAtivo=null;
-//		}
-//		else {
-//			
-//			menuAtivo=menuStatusTorre;			
-//			select=true;
-//			timerSelect=0;
-//		}
+
 	}
 
 	private void procuraInimigos() {
 		// TODO Auto-generated method stub
 		boolean at=false;
 		
-//		for (int i=0;i<CanvasGame.inimigos.size();i++)  {
-////		Iterator<Inimigo> it = CanvasGame.inimigos.iterator();
-////		while (it.hasNext()){
-//			
-////			Inimigo in = it.next();
-//			Inimigo in = CanvasGame.inimigos.get(i);
 		for (int i = 0;i<GerenciadorDeRaids.getRaids().size();i++) {
 			Raid ra = GerenciadorDeRaids.getRaids().get(i);
 		
@@ -269,8 +211,6 @@ public class Torre extends Objeto{
 public MenuTorre getMenuAtivo() {
 	return menuAtivo;
 }
-
-
 
 
 public void setMenuAtivo(MenuTorre menuAtivo) {

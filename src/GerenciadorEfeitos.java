@@ -153,7 +153,7 @@ public class GerenciadorEfeitos extends Objeto implements Runnable {
 			
 		}
 		
-		dbg.drawString(""+FPS, 50, 10);
+		//dbg.drawString(""+FPS, 50, 10);
 
 		for(int i = 0; i < efeitos.size();i++){
 			
@@ -266,8 +266,8 @@ public class GerenciadorEfeitos extends Objeto implements Runnable {
 	
 	public void ativaSangue (double x, double y, double ang, int dano) {
 		Color cor;
-		int velx =(int) (Math.cos(ang)*500);
-		int vely=(int) (Math.sin(ang)*500);
+		int velx =(int) (Math.cos(ang)*800);
+		int vely=(int) (Math.sin(ang)*800);
 
 			int totalParticulas= dano+10;
 			for(int B = 0; B < totalParticulas;B++){
@@ -334,7 +334,7 @@ public class GerenciadorEfeitos extends Objeto implements Runnable {
 					   
 				}
 				
-				particulas.add((Particula)new Sangue(x,y,-pvx,-pvy,GamePanel.rnd.nextInt(400)+200,cor));
+				particulas.add((Particula)new Sangue(x,y,-pvx,-pvy,GamePanel.rnd.nextInt(300)+100,cor));
 			}
 //			int modv = GamePanel.rnd.nextInt(300);
 //			

@@ -172,10 +172,10 @@ public static Minimap minimap;
 		dbg.setFont(fonte2);
 		dbg.setColor(Color.white);
 		dbg.fillRect(0,0,GamePanel.PWIDTH, GamePanel.PHEIGHT);
+	//	MAPA.DesenhaSe(dbg);
 
 		dbg.setColor(Color.black);
 		dbg.drawString(""+GamePanel.FPS, 10, 10);
-		
 		
 		gerenciadorEfeitos.DesenhaSe(dbg, MAPA.MapX, MAPA.MapY);
 

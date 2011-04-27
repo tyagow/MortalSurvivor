@@ -82,6 +82,23 @@ public class Constantes {
 	public static final int TORRE_ARMA_UM_valor=200;
 	public static final int TORRE_ARMA_UM_tempoEntreTiros = 400;
 	public static final int TORRE_ARMA_UM_tempoRecarrega=1000; 
+	
+	//torre arma 2
+	public static final int TORRE_ARMA_DOIS_dano = 34;
+	public static final int TORRE_ARMA_DOIS_mag = 5;
+	public static final int TORRE_ARMA_DOIS_peso = 0;
+	public static final int TORRE_ARMA_DOIS_round = 100;
+	public static final int TORRE_ARMA_DOIS_valor=200;
+	public static final int TORRE_ARMA_DOIS_tempoEntreTiros = 200;
+	public static final int TORRE_ARMA_DOIS_tempoRecarrega=1000; 
+	//torre arma 3
+	public static final int TORRE_ARMA_TRES_dano = 34;
+	public static final int TORRE_ARMA_TRES_mag = 5;
+	public static final int TORRE_ARMA_TRES_peso = 0;
+	public static final int TORRE_ARMA_TRES_round = 100;
+	public static final int TORRE_ARMA_TRES_valor=200;
+	public static final int TORRE_ARMA_TRES_tempoEntreTiros = 130;
+	public static final int TORRE_ARMA_TRES_tempoRecarrega=1000; 
 
 
 	// HUD Torre
