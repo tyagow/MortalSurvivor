@@ -130,8 +130,8 @@ public class Constantes {
 	public static final double MINIMAP_SIZEY = 100;
 
 
-	public static final double SELECIONADOR_DE_TORRE_X = GamePanel.PWIDTH - 300;
-	public static final double SELECIONADOR_DE_TORRE_Y = GamePanel.PHEIGHT - 80;
+	public static final double SELECIONADOR_DE_TORRE_X = GamePanel.PWIDTH - 260;
+	public static final double SELECIONADOR_DE_TORRE_Y = GamePanel.PHEIGHT - 70;
 	public static final int SELECIONADOR_DE_TORRE_SIZEX = 250;
 	public static final int SELECIONADOR_DE_TORRE_SIZEY = 70;
 

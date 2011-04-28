@@ -27,7 +27,7 @@ public class GerenciadorDeRaids {
 	
 	public void SimulaSe(int DiffTime){
 		tempoEntreRaids+=DiffTime;
-		//System.out.println("oi");
+		
 		if (tempoEntreRaids > Constantes.TEMPO_ENTRE_RAIDS&&!CanvasGame.isEndGame()){
 			
 				switch(numRaid){

@@ -22,8 +22,7 @@ public class Raid {
 		
 		String str = "";
 		
-		Inimigo inim2 = new Inimigo(Imagem.inimigoUm);
-		inimigos.add(inim2);
+	
 		ativo=true;
 		
 		try {
@@ -49,7 +48,9 @@ public class Raid {
 //
 //					inim.setLife(ilife);
 //					inim.setTipoAssasino(tipo);
-					
+					Inimigo inim2 = new Inimigo(Imagem.inimigoUm);
+					inimigos.add(inim2);
+				
 					inimigos.add(inim);
 				}
 			}

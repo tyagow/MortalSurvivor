@@ -13,7 +13,9 @@ public class Explosao extends Particula {
 	float alfa = 0;
 	float diametro = 0;
 	double ang ;
-	
+	int dano;
+
+	private boolean first=true;
 	
 	public Explosao(double X,double Y,int velx,int vely,int tvida,BufferedImage img,BufferedImage img1) {
 		// TODO Auto-generated constructor stu
@@ -27,7 +29,7 @@ public class Explosao extends Particula {
 		
 		setVivo(true) ;
 		this.tempototal = 0;
-		
+		dano = Constantes.HE_dano;
 		this.img = img;
 		//ang=GamePanel.rnd.nextInt(360)+1;
 	
@@ -47,6 +49,37 @@ public class Explosao extends Particula {
 		alfa = (1.0f - (tempototal/(float)tempodevida));
 		diametro =  1.0f-alfa;
 		
+		
+		if (first) {
+			verificaColisaInimigos();
+			
+		}
+		
+	}
+
+	private void verificaColisaInimigos() {
+		// TODO Auto-generated method stub
+		
+		for (int i = 0;i<GerenciadorDeRaids.getRaids().size();i++) {
+			Raid ra = GerenciadorDeRaids.getRaids().get(i);
+		
+			for (int j = 0;j<ra.inimigos.size();j++) {
+				Inimigo in = ra.inimigos.get(j);
+				
+				
+				if (Constantes.colidecircular(getX(), getY(),Constantes.HE_RANGE,in.getX(),in.getY(),in.getSizeX()/2)) {
+
+					
+					GerenciadorDeRaids.getRaids().get(i).inimigos.get(j).recebeuDano(dano,Constantes.TIPO_ASSASINO_PLAYER);
+					CanvasGame.gerenciadorEfeitos.ativaSangue(getX(),getY(), GamePanel.rnd.nextInt(360)*Math.PI/360,1);
+
+					
+				}
+			}
+
+		}
+		
+		first=false;
 	}
 
 	@Override

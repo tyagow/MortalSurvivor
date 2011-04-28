@@ -6,7 +6,7 @@ import java.awt.image.BufferedImage;
 
 public class ProjetilGranada extends Projetil {
 
-		int objX,objY;
+		double objX,objY;
 		int distancia;
 		BufferedImage imagem;
 		private double angDesenho;
@@ -18,6 +18,10 @@ public class ProjetilGranada extends Projetil {
        
 		 objX =(int)(CanvasGame.getMiraAtiva().getXMundo());
 		 objY=(int)( CanvasGame.getMiraAtiva().getYMundo());
+		 
+		 
+		 
+		 
 		vel=500;
 		setSizeX(img.getWidth());
 		setSizeY(img.getHeight());
@@ -33,7 +37,32 @@ public class ProjetilGranada extends Projetil {
 			setX(getX() + (Math.cos(ang)*vel*DiffTime/1000.0f));
 			setY(getY() + (Math.sin(ang)*vel*DiffTime/1000.0f));
 	
-			boolean chegouObjetivo = Constantes.colidecircular(getX(), getY(), 5, objX, objY, 5);
+			boolean chegouObjetivo;
+			
+			boolean oX;
+			boolean oY;
+			System.out.println("objX: "+ objX);
+			System.out.println("objY: "+ objY);
+			System.out.println("X: "+ getX());
+			System.out.println("Y: "+ getY());
+
+			if (objX >= getX()) {
+				   oX =(objX - getX() <= 1) ;
+			   }else {
+				   oX =( getX()-objX <= 1) ;
+			   }	
+			   
+			   if (objY >= getY()) {
+				   oY =(objY - getY() <= 1);
+ 
+			   }else {
+				   oY =(getY() -objY <= 1);
+			   }
+			//chegouObjetivo=oX&&oY;
+			
+			   
+			   chegouObjetivo=Constantes.colidecircular(getX(), getY(), 5, objX, objY, 5);
+			//Constantes.colidecircular(getX(), getY(), 5, objX, objY, 5);
 		
 			
 			vel-=DiffTime/1000.0f;
@@ -64,8 +93,6 @@ public class ProjetilGranada extends Projetil {
 			
 			if((int)getX()<0||(int)getX()>=(CanvasGame.largura)|| (int)getY()<0||(int)getY()>=(CanvasGame.altura) ||chegouObjetivo) {
 				
-//				setX(getOldx());
-//				setY(getOldy());
 				setVivo(false);
 				
 			}
@@ -75,22 +102,7 @@ public class ProjetilGranada extends Projetil {
 				Sound.music("sound/explode6.wav",false);
 			}
 			
-			for (int i = 0;i<GerenciadorDeRaids.getRaids().size();i++) {
-				Raid ra = GerenciadorDeRaids.getRaids().get(i);
-			
-				for (int j = 0;j<ra.inimigos.size();j++) {
-					Inimigo in = ra.inimigos.get(j);
-					
-					
-					if (Constantes.colidecircular(getX(), getY(),Constantes.HE_RANGE,in.getX(),in.getY(),in.getSizeX()/2)) {
-
-						
-						GerenciadorDeRaids.getRaids().get(i).inimigos.get(j).recebeuDano(dano,tipo);
-						
-				}
-			}
-	
-		}
+		
 	}
 	//
 //		private List<Inimigo> extracted() {
