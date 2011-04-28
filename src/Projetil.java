@@ -56,7 +56,6 @@ public class Projetil extends Objeto {
 				
 					penetration--;
 					GerenciadorDeRaids.getRaids().get(i).inimigos.get(j).recebeuDano(dano,tipo);
-					CanvasGame.gerenciadorEfeitos.ativaSangue(getX(),getY(),ang,(int)dano);
 				
 					if (penetration<=0) {
 						setVivo(false);

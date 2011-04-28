@@ -29,6 +29,7 @@ public class Pistola extends Arma {
 		setSizeX(imagem.getWidth());
 		setSizeY(imagem.getHeight());
 		
+		
 	}
 	
 

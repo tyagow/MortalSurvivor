@@ -71,7 +71,7 @@ public class Explosao extends Particula {
 
 					
 					GerenciadorDeRaids.getRaids().get(i).inimigos.get(j).recebeuDano(dano,Constantes.TIPO_ASSASINO_PLAYER);
-					CanvasGame.gerenciadorEfeitos.ativaSangue(getX(),getY(), GamePanel.rnd.nextInt(360)*Math.PI/360,1);
+					//CanvasGame.gerenciadorEfeitos.ativaSangue(getX(),getY(), GamePanel.rnd.nextInt(360)*Math.PI/360,1);
 
 					
 				}

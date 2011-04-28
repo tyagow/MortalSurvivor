@@ -9,6 +9,8 @@ public class Heroi extends Objeto {
 	private static final int ARMA_MELEE = 0;
 	private static final int ARMA_SECUNDARIA = 1;
 	private static final int ARMA_PRIMARIA = 2;
+	private static final int ARMA_GRANADA = 3;
+
 	Color cor;
 	boolean LEFT,RIGHT,UP,DOWN;
 	double ang;
@@ -27,10 +29,10 @@ public class Heroi extends Objeto {
 	private Arma armaSecundaria=new Pistola();
 	private Arma ultimaArma;
 	private Arma armaAtiva=armaSecundaria;
-	private Arma HE=new He();
+	private Arma armaGranada=new He();
 	
 	
-	boolean ARMA_HE=false;
+	boolean HE=false;
 
 	boolean PRIMARIA=false;
 	boolean SECUNDARIA=true;
@@ -193,18 +195,18 @@ public class Heroi extends Objeto {
 				
 				ARMA_ANTERIOR=false;
 			}
-		else if (ARMA_HE)  {
+		else if (HE)  {
 				if (armaAtiva!=null) {
 					
 					armaAtiva.reseta();
 				}
 				
 				ultimaArma=armaAtiva;
-				armaAtiva=HE;
+				armaAtiva=armaGranada;
 				
-				arma = armaAtiva.getTipo();
+				arma = ARMA_GRANADA;
 				
-				ARMA_HE=false;
+				HE=false;
 			}
 	}
 	private void calculaAnimacao() {
@@ -224,7 +226,10 @@ public class Heroi extends Objeto {
 			frameX=1;
 			frameY=2;
 			break;
-			
+		case ARMA_GRANADA: 
+			frameX=1;
+			frameY=2;
+			break;
 
 		default:
 			break;

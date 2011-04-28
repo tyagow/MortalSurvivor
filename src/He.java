@@ -29,6 +29,8 @@ public class He extends Arma {
 		setSizeX(imagem.getWidth());
 		setSizeY(imagem.getHeight());
 		
+
+		
 	}
 	
 
@@ -42,7 +44,12 @@ public class He extends Arma {
 		dbg.rotate(getAngulo()-Math.PI/2);
 		//dbg.drawLine(0, 0, getSizeX(), 0);
 
-		dbg.drawImage(imagem, -getSizeX()/2-10, -getSizeY()/2-5, getSizeX(),getSizeY(),0,0,getSizeX(),getSizeY(),null);
+		
+		if (!isRecarregando())
+			dbg.drawImage(imagem, 0, +6, getSizeX(),6+getSizeY(),getSizeX(),getSizeY(),0,0,null);
+		
+		
+		
 		dbg.setTransform(trans);
 		
 		if (estado==1) {

@@ -152,7 +152,7 @@ public class Faca extends Arma {
 				
 					penetration--;
 					GerenciadorDeRaids.getRaids().get(i).inimigos.get(j).recebeuDano(getDano(),1);
-					CanvasGame.gerenciadorEfeitos.ativaSangue(getX(),getY(),getAngulo(),(int)getDano());
+					//CanvasGame.gerenciadorEfeitos.ativaSangue(getX(),getY(),getAngulo(),(int)getDano());
 				
 				
 						break;

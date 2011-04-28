@@ -276,7 +276,7 @@ public static Minimap minimap;
 			heroi.ARMA_ANTERIOR=true;
 		}
 		if(keyCode == KeyEvent.VK_F){
-			heroi.ARMA_HE=true;
+			heroi.HE=true;
 		}
 		if(keyCode == KeyEvent.VK_W){
 			heroi.UP=true;

@@ -133,6 +133,11 @@ public class Inimigo extends Objeto {
 		}else  {
 			setLife(getLife() - dano);
 		}
+	
+		
+		
+		CanvasGame.gerenciadorEfeitos.ativaSangue(getX(),getY(),ang,(int)dano);
+
 				
 	}
 
