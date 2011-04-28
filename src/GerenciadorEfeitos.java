@@ -16,7 +16,9 @@ public class GerenciadorEfeitos extends Objeto implements Runnable {
 	
 	private Thread tPart;
 	public static LinkedList<Particula> particulas = new LinkedList<Particula>();
-	public static LinkedList<Particula> particulasEstatica = new LinkedList<Particula>();
+	public static LinkedList<Particula> particulasExplosao = new LinkedList<Particula>();
+
+	private  static LinkedList<Particula> particulasDesenha = new LinkedList<Particula>();
 	public static LinkedList<Objeto> efeitos = new LinkedList<Objeto>();
 	private static int xp;
 	private static BufferedImage manchasSangue;
@@ -37,6 +39,8 @@ public class GerenciadorEfeitos extends Objeto implements Runnable {
 	static int FPS;
 	int SFPS;
 	int fpscount;
+	//private LinkedList<Particula> particulasParaDesenhas;
+	//private  LinkedList<Particula> particulasParaDesenhas= new LinkedList<Particula>();
 	
 	public GerenciadorEfeitos() {
 		// TODO Auto-generated constructor stub
@@ -45,10 +49,15 @@ public class GerenciadorEfeitos extends Objeto implements Runnable {
 		manchas = manchasSangue.createGraphics();
 		
 
+		
 //		startGame();
 	}
 
-	
+	public synchronized void setParticulasDesenha(LinkedList<Particula> aux ) {
+		
+		particulasDesenha=aux;
+		
+	}
 
 
 	@Override
@@ -68,14 +77,31 @@ public class GerenciadorEfeitos extends Objeto implements Runnable {
 					efeitos.remove(i);
 				}
 			}
-			for(int i = 0; i < particulas.size();i++){
-				Particula part =  particulas.get(i);
+			
+			Iterator<Particula> itP = particulas.iterator();
+			while(itP.hasNext()){
+				Particula part= itP.next();
+			
 				part.SimulaSe((int)DiffTime);
-				if(part.isVivo()==false) {
-					
-					particulas.remove(i);
+				
+				if (!part.isVivo()) {
 					desenhaSangue(part);
+					itP.remove();
 				}
+		
+			}
+			
+			Iterator<Particula> itP2 = particulasExplosao.iterator();
+			while(itP2.hasNext()){
+				Particula part= itP2.next();
+			
+				part.SimulaSe((int)DiffTime);
+				
+				if (!part.isVivo()) {
+					//desenhaSangue(part);
+					itP2.remove();
+				}
+		
 			}
 		
 	
@@ -103,12 +129,7 @@ public class GerenciadorEfeitos extends Objeto implements Runnable {
 		DiffTime=0;
 		
 		while(running) {
-		
-//			gameUpdate(DifTime); // game state is updated
-//			Graphics g = strategy.getDrawGraphics();
-//			gameRender((Graphics2D)g); // render to a buffer
-//			strategy.show();
-//		
+				
 			for(int i = 0; i < particulas.size();i++){
 				Particula part =  particulas.get(i);
 				part.SimulaSe((int)DiffTime);
@@ -119,8 +140,11 @@ public class GerenciadorEfeitos extends Objeto implements Runnable {
 				}
 			}
 			
+			setParticulasDesenha(particulas);
+
+				
 			try {
-				Thread.sleep(0); // sleep a bit
+				Thread.sleep(10); // sleep a bit
 			}	
 			catch(InterruptedException ex){}
 			
@@ -147,13 +171,21 @@ public class GerenciadorEfeitos extends Objeto implements Runnable {
 
 		dbg.drawImage(manchasSangue, -XMundo,-YMundo, manchasSangue.getWidth()-XMundo, manchasSangue.getHeight()-YMundo, 0, 0, CanvasGame.largura, CanvasGame.altura, null);
 		
-		for(int i = 0; i < particulas.size();i++){
-				Particula proj = (Particula) particulas.get(i);
-				proj.DesenhaSe(dbg,XMundo,YMundo);
+		Iterator<Particula> itP = particulasDesenha.iterator();
+		while(itP.hasNext()){
+			Particula part= itP.next();
+			part.DesenhaSe(dbg,XMundo,YMundo);
+			
+		}	
+		
+		Iterator<Particula> itP2 = particulasExplosao.iterator();
+		while(itP2.hasNext()){
+			Particula part= itP2.next();
+			part.DesenhaSe(dbg,XMundo,YMundo);
 			
 		}
 		
-		//dbg.drawString(""+FPS, 50, 10);
+		dbg.drawString(""+FPS, 50, 10);
 
 		for(int i = 0; i < efeitos.size();i++){
 			
@@ -244,25 +276,25 @@ public class GerenciadorEfeitos extends Objeto implements Runnable {
 		
 	}
 
-	public static void ganhouXp(double x,double y,int tipoAssasino) {
-		int _xp;
-		
-		if (tipoAssasino==Constantes.TIPO_ASSASINO_PLAYER) {
-			_xp=Constantes.GANHO_XP_PLAYER;
-		}else {
-			_xp=+Constantes.GANHO_XP_TORRE;
-		}
-			
-		xp+=_xp;
-		GerenciadorHud.setXpHud(xp);
-		
-		efeitos.add(new Texto(_xp,x,y) );
-		
-
-	
-		
-		
-	}
+//	public static void ganhouXp(double x,double y,int tipoAssasino) {
+//		int _xp;
+//		
+//		if (tipoAssasino==Constantes.TIPO_ASSASINO_PLAYER) {
+//			_xp=Constantes.GANHO_XP_PLAYER;
+//		}else {
+//			_xp=+Constantes.GANHO_XP_TORRE;
+//		}
+//			
+//		xp+=_xp;
+//		GerenciadorHud.setXpHud(xp);
+//		
+//		efeitos.add(new Texto(_xp,x,y) );
+//		
+//
+//	
+//		
+//		
+//	}
 	
 	public void ativaSangue (double x, double y, double ang, int dano) {
 		Color cor;
@@ -402,8 +434,88 @@ public class GerenciadorEfeitos extends Objeto implements Runnable {
 	}
 
 
+public void explosao(double x, double y, int velx, int vely) {
+		
+
+			Particula part=null;
+			for(int B = 0; B < 50;B++){
+				int modv = GamePanel.rnd.nextInt(200)+50;
+
+				int pvx = 0;
+				int pvy = 0;
+			
+					int a =B%4;
+					switch (a) {
+					
+					case 0:
+						pvx = velx + modv;
+						pvy = vely - modv;
+						break;
+					case 1:
+						pvx = -velx - modv;
+						pvy = vely + modv;
+						break;
+					case 2:
+						pvx = velx + modv;
+						pvy = -vely + modv;
+						break;
+					case 3:
+						pvx = -velx - modv;
+						pvy = -vely - modv;
+						break;
+					
+					
+					}
+				
+				pvx = (int)(pvx*(0.1+0.25*GamePanel.rnd.nextFloat()));
+				pvy = (int)(pvy*(0.1+0.25*GamePanel.rnd.nextFloat()));
+				part = (Particula)new Explosao(x,y,pvx,pvy,GamePanel.rnd.nextInt(500)+200,Imagem.explosao,Imagem.explosao2);
+				
+			
+				particulasExplosao.add(part);
+
+//				switch (B%4) {
+//				case 0:
+//					part = (Particula)new Explosao(x+pvx/40,y+pvy/40,pvx/5,pvy/5,GamePanel.rnd.nextInt(600)+300,Constantes.explosao,Constantes.explosao2);
+	//
+//					break;	
+//				case 1:
+//					part = (Particula)new Explosao(x,y,-pvx/5,pvy/5,GamePanel.rnd.nextInt(600)+300,Constantes.explosao,Constantes.explosao2);
+	//
+//					break;
+//				case 2:
+//					part = (Particula)new Explosao(x,y,pvx/5,-pvy/5,GamePanel.rnd.nextInt(600)+300,Constantes.explosao,Constantes.explosao2);
+	//
+//					break;
+//				case 3:
+//					part = (Particula)new Explosao(x,y,-pvx/5,-pvy/5,GamePanel.rnd.nextInt(600)+300,Constantes.explosao,Constantes.explosao2);
+	//
+//					break;
+//				default:
+//					break;
+//				}
+//				if (B%4==0) {
+//					part = (Particula)new Explosao(x,y,pvx/5,pvy/5,GamePanel.rnd.nextInt(300)+300,Constantes.explosao,Constantes.explosao2);
+//				}
+//				if (B%4==1) {
+//					part = (Particula)new Explosao(x,y,-pvx/6,-pvy/6,GamePanel.rnd.nextInt(300)+300,Constantes.explosao,Constantes.explosao2);
+//				}
+//				if (B%4==2) {
+//					part = (Particula)new Explosao(x,y,-pvx/6,-pvy/6,GamePanel.rnd.nextInt(300)+300,Constantes.explosao,Constantes.explosao2);
+//				}
+			
+			}
+			
+		}
+		
+	}
 
 
 
 
-}
+
+
+
+
+
+

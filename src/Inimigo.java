@@ -8,7 +8,7 @@ public class Inimigo extends Objeto {
 	int dano;
 	private double vel;
 	private int tempoEntreAtaque;
-	private int maximoVida=100;
+	private int maximoVida=50;
 	private int maxVel=100;
 	private int tipoAssasino;
 	private int larguraMapa;
@@ -24,13 +24,15 @@ public class Inimigo extends Objeto {
 		this.img=img;
 		larguraMapa=CanvasGame.MAPA.Largura*16;
 		alturaMapa=CanvasGame.MAPA.Altura*16;
-		setX(GamePanel.rnd.nextInt(alturaMapa));
-		setY(GamePanel.rnd.nextInt(larguraMapa));
+		
+		setX(GamePanel.rnd.nextInt(alturaMapa*4));
+		setY(GamePanel.rnd.nextInt(larguraMapa*4));
+		
 		setSizeX(img.getWidth()/2);
 		setSizeY(img.getHeight()/3);
 		dano = 10;
 		setVel(100);
-		setLife(100);
+		setLife(maximoVida);
 		setVivo(true);
 		estado=0;
 		campoDeVisao=Constantes.INIMIGO_CAMPO_VISAO1;

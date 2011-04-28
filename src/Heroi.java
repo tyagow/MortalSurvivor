@@ -27,6 +27,8 @@ public class Heroi extends Objeto {
 	private Arma armaSecundaria=new Pistola();
 	private Arma ultimaArma;
 	private Arma armaAtiva=armaSecundaria;
+	private Arma HE=new He();
+	
 	
 	boolean ARMA_HE=false;
 
@@ -198,7 +200,7 @@ public class Heroi extends Objeto {
 				}
 				
 				ultimaArma=armaAtiva;
-				armaAtiva=new He();
+				armaAtiva=HE;
 				
 				arma = armaAtiva.getTipo();
 				

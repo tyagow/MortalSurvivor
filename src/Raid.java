@@ -80,7 +80,7 @@ public class Raid {
 			
 			if(!inim.isVivo()){
 				inimigos.remove(i);
-				GerenciadorEfeitos.ganhouXp(inim.getX(), inim.getY(),inim.getTipoAssasino() );
+				GerenciadorXP.ganhouXp(inim.getX(), inim.getY(),inim.getTipoAssasino() );
 			}
 			if(inimigos.size() == 0)
 				this.ativo = false;

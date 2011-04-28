@@ -99,6 +99,8 @@ public static Minimap minimap;
 
 	public int MundoX=0;
 
+	private GerenciadorXP gerenciadorXP;
+
 	public static GerenciadorObstaculos gerenciadorObstaculos;
 	
 	public static TileMap MAPA;
@@ -125,7 +127,7 @@ public static Minimap minimap;
 		carregaFontes();
 
 		MAPA = new TileMap(Imagem.tileset, GamePanel.PWIDTH/16, GamePanel.PHEIGHT/16);
-		MAPA.AbreMapa("60x60.map");
+		MAPA.AbreMapa("60x601.map");
 				
 		gerenciadorTorre = new GerenciadorTorre();
 		gerenciadorEfeitos = new GerenciadorEfeitos();
@@ -133,6 +135,7 @@ public static Minimap minimap;
 		gerenciadorHud=new GerenciadorHud();
 		gerenciadorObstaculos=new GerenciadorObstaculos();
 		gerenciadorDeRaids= new GerenciadorDeRaids();
+		gerenciadorXP=new GerenciadorXP();
 		
 		largura = MAPA.Largura*16;
 		altura = MAPA.Altura*16;
@@ -186,7 +189,6 @@ public static Minimap minimap;
 			proj.DesenhaSe(dbg, MAPA.MapX, MAPA.MapY);
 			
 		}		
-		gerenciadorTorre.DesenhaSe(dbg,  MAPA.MapX,  MAPA.MapY);
 
 		for(int i = 0; i < objetos.size();i++){
 			
@@ -197,11 +199,12 @@ public static Minimap minimap;
 			
 		gerenciadorDeRaids.DesenhaSe(dbg, MAPA.MapX, MAPA.MapY);
 		heroi.DesenhaSe(dbg, MAPA.MapX, MAPA.MapY);
+		gerenciadorTorre.DesenhaSe(dbg,  MAPA.MapX,  MAPA.MapY);
 
 		gerenciadorHud.DesenhaSe(dbg, MAPA.MapX, MAPA.MapY);
 		base.DesenhaSe(dbg, MAPA.MapX, MAPA.MapY);
 
-		
+		gerenciadorXP.DesenhaSe(dbg, MAPA.MapX, MAPA.MapY);
 		minimap.DesenhaSe(dbg, MAPA.MapX, MAPA.MapY);
 		getMiraAtiva().DesenhaSe(dbg, MAPA.MapX, MAPA.MapY);
 		
@@ -242,20 +245,20 @@ public static Minimap minimap;
 		
 		Iterator<Projetil> itP = projeteis.iterator();
 		while(itP.hasNext()){
-			Projetil inim = itP.next();
-			inim.SimulaSe((int)DiffTime);
-			if(inim.isVivo()==false){
+			Projetil proj = itP.next();
+			proj.SimulaSe((int)DiffTime);
+			if(proj.isVivo()==false){
 				itP.remove();
-				
 				}		
 		}	
 
 		gerenciadorObstaculos.SimulaSe((int) DiffTime);
 		gerenciadorDeRaids.SimulaSe((int)DiffTime);
-		gerenciadorTorre.SimulaSe((int)DiffTime);
 		gerenciadorEfeitos.SimulaSe((int)DiffTime);
+		gerenciadorTorre.SimulaSe((int)DiffTime);
 		gerenciadorRespawn.SimulaSe((int)DiffTime);
 		gerenciadorHud.SimulaSe((int)DiffTime);
+		gerenciadorXP.SimulaSe((int)DiffTime);
 		
 	}
 	

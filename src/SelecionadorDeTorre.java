@@ -85,7 +85,6 @@ public class SelecionadorDeTorre extends Objeto {
 	@Override
 	public void DesenhaSe(Graphics2D dbg, int XMundo, int YMundo) {
 		// TODO Auto-generated method stub
-		dbg.setColor(Color.black);
 		
 		 Stroke stk = dbg.getStroke();
 		    
@@ -93,9 +92,10 @@ public class SelecionadorDeTorre extends Objeto {
 	
 		
 		
-		    
-		dbg.drawRect((int)getX(), (int)getY(), getSizeX(), getSizeY());
-		
+		    dbg.setColor(new Color(1,1,1,150));
+		dbg.fillRect((int)getX(), (int)getY(), getSizeX(), getSizeY());
+		dbg.setColor(Color.black);
+
 		for(int i = 0; i < 4; i++){
 			getSlotsTorre()[i].DesenhaSe(dbg, XMundo, YMundo);
 		}

@@ -25,6 +25,7 @@ public class Constantes {
 
 
 	public static BufferedImage TORRE_UM_ANIMESET;
+	public static double HE_RANGE=40;
 
 	//Pistola
 	public static final int PISTOLA_mag = 3;
@@ -147,6 +148,10 @@ public class Constantes {
 	public static final double SLOT_TRES_Y = SLOT_UM_Y;
 	public static final double SLOT_QUATRO_X = SLOT_TRES_X + SLOT_SIZEX + 10;
 	public static final double SLOT_QUATRO_Y = SLOT_UM_Y;
+	
+//efeito triple XP	
+	public static final int QUANTIDADE_FAST_KILL = 10;
+	public static double tempoEntreKill=2500;
 
 	
 

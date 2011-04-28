@@ -9,18 +9,16 @@ public class ProjetilGranada extends Projetil {
 		int objX,objY;
 		int distancia;
 		BufferedImage imagem;
+		private double angDesenho;
 		
 	public ProjetilGranada(Arma pai, double ang, int tipo,BufferedImage img) {
 		super(pai, ang, tipo);
 		
 		imagem=img;
        
-		int objX =(int)(CanvasGame.getMiraAtiva().getXMundo());
-		int objY=(int)( CanvasGame.getMiraAtiva().getYMundo());
-		
-
-		
-		
+		 objX =(int)(CanvasGame.getMiraAtiva().getXMundo());
+		 objY=(int)( CanvasGame.getMiraAtiva().getYMundo());
+		vel=500;
 		setSizeX(img.getWidth());
 		setSizeY(img.getHeight());
 		// TODO Auto-generated constructor stub
@@ -32,23 +30,68 @@ public class ProjetilGranada extends Projetil {
 			// TODO Auto-generated method stub
 			setOldx((int)getX());
 			setOldy((int)getY());
-			
 			setX(getX() + (Math.cos(ang)*vel*DiffTime/1000.0f));
 			setY(getY() + (Math.sin(ang)*vel*DiffTime/1000.0f));
+	
+			boolean chegouObjetivo = Constantes.colidecircular(getX(), getY(), 5, objX, objY, 5);
+		
+			
+			vel-=DiffTime/1000.0f;
+			angDesenho += Math.PI*DiffTime/1000.0f;
 			
 			
+			for (int i = 0;i<GerenciadorDeRaids.getRaids().size();i++) {
+				Raid ra = GerenciadorDeRaids.getRaids().get(i);
 			
-			boolean chegouObjetivo = ((int)getX()==objX&&(int)getY()==objY);
-			System.out.println(chegouObjetivo);
+				for (int j = 0;j<ra.inimigos.size();j++) {
+					Inimigo in = ra.inimigos.get(j);
+					
+
+					if (Constantes.colidecircular(getX(), getY(),getSizeX()/2,in.getX(),in.getY(),in.getSizeX()/2)) {
+					
+			
+				
+						setVivo(false);
+						
+						
+						
+					}
+				}
+				
+			}
+
+		
+			
 			if((int)getX()<0||(int)getX()>=(CanvasGame.largura)|| (int)getY()<0||(int)getY()>=(CanvasGame.altura) ||chegouObjetivo) {
 				
-				setX(getOldx());
-				setY(getOldy());
+//				setX(getOldx());
+//				setY(getOldy());
 				setVivo(false);
 				
 			}
+			if (!isVivo()) {
+				CanvasGame.gerenciadorEfeitos.explosao(getX(),getY(),100,100);
+
+				Sound.music("sound/explode6.wav",false);
+			}
+			
+			for (int i = 0;i<GerenciadorDeRaids.getRaids().size();i++) {
+				Raid ra = GerenciadorDeRaids.getRaids().get(i);
+			
+				for (int j = 0;j<ra.inimigos.size();j++) {
+					Inimigo in = ra.inimigos.get(j);
+					
+					
+					if (Constantes.colidecircular(getX(), getY(),Constantes.HE_RANGE,in.getX(),in.getY(),in.getSizeX()/2)) {
+
+						
+						GerenciadorDeRaids.getRaids().get(i).inimigos.get(j).recebeuDano(dano,tipo);
+						
+				}
+			}
 	
 		}
+	}
 	//
 //		private List<Inimigo> extracted() {
 //			return ((List<Inimigo>) CanvasGame.gerenciadorDeRaids);
@@ -57,14 +100,12 @@ public class ProjetilGranada extends Projetil {
 		@Override
 		public void DesenhaSe(Graphics2D dbg, int XMundo, int YMundo) {
 			// TODO Auto-generated method stub
-			System.out.println((int)getX());
-			System.out.println(objX);
-			System.out.println("obj de verdade:"+(int) CanvasGame.getMiraAtiva().getX());
+
 			dbg.setColor(Color.black);
 		
 			AffineTransform trans = dbg.getTransform();
 			dbg.translate(getX()-XMundo, getY()-YMundo);
-			dbg.rotate(ang);
+			dbg.rotate(angDesenho);
 			//dbg.fillOval(-getSizeX()/2,-getSizeY()/2, getSizeX(),getSizeY());
 			
 						dbg.drawImage(imagem, -getSizeX()/2,-getSizeX()/2,getSizeX()/2,getSizeY()/2,0,0,getSizeX(),getSizeY(),null);
