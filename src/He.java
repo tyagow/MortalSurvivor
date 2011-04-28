@@ -25,7 +25,7 @@ public class He extends Arma {
 		setValor(Constantes.HE_valor);
 	
 		imagem=Imagem.he;
-			
+		imagem_hud=Imagem.he_hud;
 		setSizeX(imagem.getWidth());
 		setSizeY(imagem.getHeight());
 		

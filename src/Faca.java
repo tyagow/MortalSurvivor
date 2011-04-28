@@ -22,7 +22,7 @@ public class Faca extends Arma {
 		setTempoRecarrega(0);
 		setValor(Constantes.FACA_valor);
 	
-		imagem=Constantes.LoadImage("knife.png");
+		imagem=Imagem.faca;
 		setSizeX(imagem.getWidth());
 		setSizeY(imagem.getHeight());
 		

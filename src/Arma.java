@@ -21,6 +21,8 @@ public abstract class Arma  {
 	
 	
 	BufferedImage imagem;
+	BufferedImage imagem_hud;
+
 	private int tipo;
 
 	public abstract void definePosicaoArma(double ang,double x2,double y2);

@@ -24,10 +24,8 @@ public class Pistola extends Arma {
 		setTempoRecarrega(0);
 		setValor(Constantes.PISTOLA_valor);
 	
-		imagem=Constantes.LoadImage("deagle.png");
-			
-		setSizeX(imagem.getWidth());
-		setSizeY(imagem.getHeight());
+		//imagem=Constantes.LoadImage("deagle.png");
+
 		
 		
 	}

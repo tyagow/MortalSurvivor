@@ -38,7 +38,7 @@ public class SlotTorre extends Objeto{
 		
 		dbg.drawRect((int)getX(), (int)getY(), getSizeX(), getSizeY());
 		
-		dbg.drawImage(getAnimeSet(), null, (int)getX() + getSizeX()/3, (int)getY() + getSizeY()/5);
+		dbg.drawImage(getAnimeSet(), null, (int)getX() +getSizeX()/2-getAnimeSet().getWidth()/2, (int)getY()+getSizeY()/2-getAnimeSet().getHeight()/2+3 );
 	}
 	
 	public void setAtivo(boolean ativo) {

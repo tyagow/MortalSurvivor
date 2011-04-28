@@ -24,12 +24,12 @@ public class Heroi extends Objeto {
 	private boolean Atira=false;
 	private int maximoVida=100;
 	
-	private Arma armaMelee=new Faca();
-	private Arma armaPrimaria=new Metralhadora();
-	private Arma armaSecundaria=new Pistola();
-	private Arma ultimaArma;
-	private Arma armaAtiva=armaSecundaria;
-	private Arma armaGranada=new He();
+	private static Arma armaMelee=new Faca();
+	private static Arma armaPrimaria=new M4();
+	private static Arma armaSecundaria=new Deagle();
+	private static Arma ultimaArma;
+	private static Arma armaAtiva=getArmaSecundaria();
+	private static Arma armaGranada=new He();
 	
 	
 	boolean HE=false;
@@ -166,7 +166,7 @@ public class Heroi extends Objeto {
 			}
 			
 			ultimaArma=armaAtiva;
-			armaAtiva=armaSecundaria;
+			armaAtiva=getArmaSecundaria();
 			SECUNDARIA=false;
 			arma=ARMA_SECUNDARIA;
 		}
@@ -399,7 +399,7 @@ public class Heroi extends Objeto {
 		// TODO Auto-generated method stub
 		
 		armaPrimaria.recarrega();
-		armaSecundaria.recarrega();
+		getArmaSecundaria().recarrega();
 
 		
 	}
@@ -410,5 +410,26 @@ public class Heroi extends Objeto {
 //		else Atira=true;
 //		
 	}
-
+	public static void setArmaSecundaria(Arma armaSecundaria) {
+		Heroi.armaSecundaria = armaSecundaria;
+	}
+	public static Arma getArmaSecundaria() {
+		return armaSecundaria;
+	}	
+	public static void setArmaMelee(Arma armaMelee) {
+		Heroi.armaMelee = armaMelee;
+	}
+	public static Arma getArmaMelee() {
+		return armaMelee;
+	}
+	public static void setArmaPrimaria(Arma armaPrimaria) {
+		Heroi.armaPrimaria = armaPrimaria;
+	}
+	public static Arma getArmaPrimaria() {
+		return armaPrimaria;
+	}
+	public static Arma getArmaGranada() {
+		// TODO Auto-generated method stub
+		return armaGranada;
+	}	
 }

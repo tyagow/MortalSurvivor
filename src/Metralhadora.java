@@ -25,10 +25,7 @@ public class Metralhadora extends Arma {
 		setTempoRecarrega(0);
 		setValor(Constantes.METRALHADORA_valor);
 	
-		imagem=Constantes.LoadImage("m4a.png");
-			
-		setSizeX(imagem.getWidth());
-		setSizeY(imagem.getHeight());
+	
 		
 	}
 	

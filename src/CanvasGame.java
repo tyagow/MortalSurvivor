@@ -147,7 +147,7 @@ public static Minimap minimap;
 		setMiraAtiva(miraJogo);
 		miraMenu=new CursorMenuTorre();
 		
-		heroi=new Heroi(GamePanel.PWIDTH/2, GamePanel.PHEIGHT/2,Constantes.LoadImage("t1.png"));
+		heroi=new Heroi(GamePanel.PWIDTH/2, GamePanel.PHEIGHT/2,Imagem.heroiUm);
 		
 		minimap=new Minimap();
 		ContiuaJogo=true;

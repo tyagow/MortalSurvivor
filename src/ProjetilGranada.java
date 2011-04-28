@@ -41,10 +41,6 @@ public class ProjetilGranada extends Projetil {
 			
 			boolean oX;
 			boolean oY;
-			System.out.println("objX: "+ objX);
-			System.out.println("objY: "+ objY);
-			System.out.println("X: "+ getX());
-			System.out.println("Y: "+ getY());
 
 			if (objX >= getX()) {
 				   oX =(objX - getX() <= 1) ;
