@@ -65,11 +65,11 @@ public class TextoExtraXp extends Objeto {
 				dbg.setColor(Color.blue);
 				
 			    dbg.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
-				dbg.drawString("+"+xp+" XP Fast Kill ", (int)getX()-XMundo, (int)getY()-YMundo);
+				dbg.drawString("(x3) +"+xp+" XP Fast Kill ", (int)getX()-XMundo, (int)getY()-YMundo);
 							
 				dbg.setColor(Color.CYAN);
 		
-				dbg.drawString("+"+xp+" XP Fast Kill ", (int)getX()-2-XMundo, (int)getY()-2-YMundo);
+				dbg.drawString("(x3) +"+xp+" XP Fast Kill ", (int)getX()-2-XMundo, (int)getY()-2-YMundo);
 			    dbg.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
 				
 	

@@ -128,6 +128,10 @@ public class Inimigo extends Objeto {
 
 	public void recebeuDano(int dano,int tipo) {
 		// TODO Auto-generated method stub
+		
+		if (getLife()>0)
+			CanvasGame.gerenciadorEfeitos.ativaSangue(getX(),getY(),ang,(int)dano);
+
 		if (getLife()-dano<=0) {
 			morreu(tipo);
 		}else  {
@@ -136,7 +140,6 @@ public class Inimigo extends Objeto {
 	
 		
 		
-		CanvasGame.gerenciadorEfeitos.ativaSangue(getX(),getY(),ang,(int)dano);
 
 				
 	}
