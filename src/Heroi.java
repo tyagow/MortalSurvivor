@@ -265,7 +265,7 @@ public class Heroi extends Objeto {
 
 		if (Constantes.colidecircular(getX(), getY(), getSizeX()/2, CanvasGame.base.getX(), CanvasGame.base.getY(), CanvasGame.base.getSizeX()/2)) {	
 			
-			trataColisaoBase(DiffTime);
+			//trataColisaoBase(DiffTime);
 			return true;
 			
 		}else{
@@ -395,7 +395,7 @@ public class Heroi extends Objeto {
 		
 		
 	}
-	private void recarregaArmas() {
+	public void recarregaArmas() {
 		// TODO Auto-generated method stub
 		
 		armaPrimaria.recarrega();

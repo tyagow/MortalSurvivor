@@ -187,7 +187,12 @@ public class GerenciadorEfeitos extends Objeto implements Runnable {
 		
 		dbg.drawString(""+FPS, 50, 10);
 
+		for(int i = 0; i < efeitos.size();i++){
+			
+			Objeto proj = (Objeto) efeitos.get(i);
+			proj.DesenhaSe(dbg,XMundo,YMundo);
 	
+		}
 		
 	
 	}
@@ -433,7 +438,7 @@ public void explosao(double x, double y, int velx, int vely) {
 		
 
 			Particula part=null;
-			for(int B = 0; B < 20;B++){
+			for(int B = 0; B < 50;B++){
 				int modv = GamePanel.rnd.nextInt(200)+50;
 
 				int pvx = 0;
@@ -502,16 +507,6 @@ public void explosao(double x, double y, int velx, int vely) {
 			}
 			
 		}
-
-public void DesenhaSe2(Graphics2D dbg, int XMundo, int YMundo) {
-	// TODO Auto-generated method stub
-	for(int i = 0; i < efeitos.size();i++){
-		
-		Objeto proj = (Objeto) efeitos.get(i);
-		proj.DesenhaSe(dbg,XMundo,YMundo);
-
-	}
-}
 		
 	}
 

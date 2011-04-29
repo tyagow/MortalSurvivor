@@ -153,6 +153,9 @@ public class Constantes {
 	public static final int QUANTIDADE_FAST_KILL = 10;
 	public static double tempoEntreKill=2500;
 
+	//aura base
+	public static final int AURA_BASE_DIAMETRO = 175;
+	public static final int AURA_BASE_TIMER = 3000;
 	
 
 	public static BufferedImage LoadImage(String filename){

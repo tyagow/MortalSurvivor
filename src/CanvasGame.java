@@ -200,7 +200,6 @@ public static Minimap minimap;
 		gerenciadorDeRaids.DesenhaSe(dbg, MAPA.MapX, MAPA.MapY);
 		heroi.DesenhaSe(dbg, MAPA.MapX, MAPA.MapY);
 		gerenciadorTorre.DesenhaSe(dbg,  MAPA.MapX,  MAPA.MapY);
-		gerenciadorEfeitos.DesenhaSe2(dbg, MAPA.MapX, MAPA.MapY);
 
 		gerenciadorHud.DesenhaSe(dbg, MAPA.MapX, MAPA.MapY);
 		base.DesenhaSe(dbg, MAPA.MapX, MAPA.MapY);
