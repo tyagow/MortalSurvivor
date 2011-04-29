@@ -1,0 +1,101 @@
+
+
+
+BUGS:
+
+
+2) Fazer tecla de R recarregar
+
+
+3) fazer um limitador de som... para nao haver muito som....
+
+4) como fazer um som tocar em loop ?
+
+5) como fazer um som parar quando eu quero pois eh uma thread !
+
+
+6) arma continua atirando apos personagem trocar de mira com o botao de tiro pressionado...
+
+
+7) resolver como sera as particulas de sangue(thread ou direto ) 
+
+
+
+
+
+
+
+------------------------------------------------
+
+ [ Imagem ]
+
+
+ARmas = OK
+
+Torres 
+
+Personagem ???
+
+Zombies ???
+
+
+Predios ????
+
+
+Obestaculos ????
+
+Efeitos: 
+ 	- Explosao ???
+
+	- Sangue  ???
+
+	- Animacao fogo ????
+
+
+Cenario ???
+
+
+------------------------------------------------
+
+
+
+
+	Personagem  
+
+	TECLAS
+	Movimentacao 1
+
+	W: anda para -Y
+	S: anda para +Y 
+	A: anda para -X
+	D: anda para +X	
+	Movimentacao 2
+
+	W: anda para prafrente
+	S: anda para pra traz 
+	A: anda para pra esquerda
+	D: anda para pra direita
+
+	Acao
+	Mouse1: Atira
+	
+	
+	Q: Troca Para Arma Anterior Selecionada
+
+
+
+
+
+
+DUVIDAS  a TIRAR <<<<<<<<<<<<<<<<<<<<<<<<<
+
+
+
+
+--------------------------------------------------
+
+
+IDEIAS
+
+JOGO FRENETICO, TELAS DE COMBO E DE  ZOACOES COMO "WTF? kill all !!!!" "MAssive KILL) efeito combinando com musica estilo " love island fatboyslim "
+
