@@ -105,8 +105,8 @@ public class Constantes {
 	// HUD Torre
 	public static final int HUD_TORRE_STARTX = 40;
 	public static final int HUD_TORRE_STARTY = 100;
-	public static final int HUD_TORRE_SIZEX = 80;
-	public static final int HUD_TORRE_SIZEY = 80;
+	public static final int HUD_TORRE_SIZEX = 100;
+	public static final int HUD_TORRE_SIZEY  =120;
 
 
 	// XP

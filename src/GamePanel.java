@@ -279,8 +279,6 @@ private Thread animator;
 private boolean running = false;
 private boolean gameOver = false; 
 
-//public  AudioClip tiro= this.getAudioClip(new URL("path/to/tiro.wav"));
-
 static int FPS;
 int SFPS;
 int fpscount;
@@ -302,7 +300,7 @@ private BufferedImage dbImage;
 private Graphics2D dbg;
 
 
-public static GCanvas CanvasAtivo = null;
+private static GCanvas CanvasAtivo = null;
 
 public static int score=0;
 
@@ -312,8 +310,7 @@ long tempoinicial = 0;
 long tempototal = 0;
 
 CanvasGame canvasGame;
-
-//public static ArrayList<Agente> listadeagentes = new ArrayList<Agente>();
+ CanvasStart canvasInicio;
 
 public GamePanel()
 {
@@ -343,14 +340,14 @@ public GamePanel()
 			
 		public void keyPressed(KeyEvent e)
 			{ 
-				if(CanvasAtivo!=null){
-					CanvasAtivo.keyPressed(e);
+				if(getCanvasAtivo()!=null){
+					getCanvasAtivo().keyPressed(e);
 				}
 			}
 		@Override
 			public void keyReleased(KeyEvent e ) {
-				if(CanvasAtivo!=null){
-					CanvasAtivo.keyReleased(e);
+				if(getCanvasAtivo()!=null){
+					getCanvasAtivo().keyReleased(e);
 				}
 			}
 	});
@@ -359,15 +356,16 @@ addMouseMotionListener(new MouseMotionListener() {
 	public void mouseMoved(MouseEvent e) {
 		// TODO Auto-generated method stub
 
-		if(CanvasAtivo!=null){
-			CanvasAtivo.mouseMoved(e);
+		if(getCanvasAtivo()!=null){
+			getCanvasAtivo().mouseMoved(e);
 		}
+		
 	}
 
 	public void mouseDragged(MouseEvent e) {
 		// TODO Auto-generated method stub
-		if(CanvasAtivo!=null){
-			CanvasAtivo.mouseDragged(e);
+		if(getCanvasAtivo()!=null){
+			getCanvasAtivo().mouseDragged(e);
 		}
 	}
 });
@@ -379,48 +377,48 @@ addMouseListener(new MouseListener() {
 		public void mouseReleased(MouseEvent e) {
 			// TODO Auto-generated method stub
 
-			if(CanvasAtivo!=null){
-				CanvasAtivo.mouseReleased(e);
+			if(getCanvasAtivo()!=null){
+				getCanvasAtivo().mouseReleased(e);
 			}
 		}
 		
 		@Override
 		public void mousePressed(MouseEvent e) {
 			// TODO Auto-generated method stub
-			if(CanvasAtivo!=null){
-				CanvasAtivo.mousePressed(e);
+			if(getCanvasAtivo()!=null){
+				getCanvasAtivo().mousePressed(e);
 			}
 		}
 		
 		@Override
 		public void mouseExited(MouseEvent e) {
 			// TODO Auto-generated method stub
-			if(CanvasAtivo!=null){
-				CanvasAtivo.mouseExited(e);
+			if(getCanvasAtivo()!=null){
+				getCanvasAtivo().mouseExited(e);
 			}	
 		}
 		
 		@Override
 		public void mouseEntered(MouseEvent e) {
 			// TODO Auto-generated method stub
-			if(CanvasAtivo!=null){
-				CanvasAtivo.mouseEntered(e);
+			if(getCanvasAtivo()!=null){
+				getCanvasAtivo().mouseEntered(e);
 			}
 		}
 		
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			// TODO Auto-generated method stub
-			if(CanvasAtivo!=null){
-				CanvasAtivo.mouseClicked(e);
+			if(getCanvasAtivo()!=null){
+				getCanvasAtivo().mouseClicked(e);
 			}
 		}
 	
 	});
 
-	CanvasAtivo = new CanvasMenu();
+	canvasInicio = 	new CanvasStart();
 	canvasGame = new CanvasGame();
-
+	setCanvasAtivo(canvasInicio);
 	
 } // end of GamePanel()
 
@@ -483,17 +481,21 @@ int timerfps = 0;
 private void gameUpdate(long DiffTime)
 { 
 	//System.out.println(mousex);
-	if(CanvasAtivo!=null){
-		CanvasAtivo.SimulaSe(DiffTime);
+	if(getCanvasAtivo()!=null){
+		getCanvasAtivo().SimulaSe(DiffTime);
 	}	
 }
 
 private void gameRender(Graphics2D dbg)
 // draw the current frame to an image buffer
 {
-	if(CanvasAtivo!=null){
-		CanvasAtivo.DesenhaSe(dbg);
+	if(getCanvasAtivo()!=null){
+		getCanvasAtivo().DesenhaSe(dbg);
 	}	
+	
+	
+	
+	
 }
 
 
@@ -503,6 +505,14 @@ public void paintComponent(Graphics g)
 	if (dbImage != null){
 		g.drawImage(dbImage, 0, 0, null);
 	}
+}
+
+public static void setCanvasAtivo(GCanvas canvasAtivo) {
+	CanvasAtivo = canvasAtivo;
+}
+
+public static GCanvas getCanvasAtivo() {
+	return CanvasAtivo;
 }
 
 }

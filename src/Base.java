@@ -40,13 +40,11 @@ public class Base extends Objeto{
 		}
 		
 		if(auraAtiva && Constantes.colidecircular(xAura + Constantes.AURA_BASE_DIAMETRO/2, yAura + Constantes.AURA_BASE_DIAMETRO/2, Constantes.AURA_BASE_DIAMETRO/2, CanvasGame.heroi.getX(), CanvasGame.heroi.getY(), CanvasGame.heroi.getSizeX()/2)){
-			System.out.println("colidiu é noiz");
+			//System.out.println("colidiu é noiz");
 			CanvasGame.heroi.recarregaArmas();
 			auraAtiva = false;
 		}
-			
-		System.out.println(timerAura);
-		
+					
 		if (getLife() <0)
 			setLife(0);
 	}

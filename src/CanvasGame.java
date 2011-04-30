@@ -32,7 +32,7 @@ public class CanvasGame extends GCanvas {
 	static BufferedImage imagemcharsets;
 	//public static BufferedImage mira1;
 	
-	static int mousex,mousey; 
+//	static int mousex,mousey; 
 	static int torre;
 	static boolean click;
 	public static int Health = 20;
@@ -108,7 +108,7 @@ public static Minimap minimap;
 	public static int altura;
 	public static int largura;
 
-	private static Mira miraAtiva;
+	//private static Mira miraAtiva;
 	private static Mira miraJogo;
 
 	public static boolean testeGradeColisao=false;
@@ -120,6 +120,8 @@ public static Minimap minimap;
 	static Imagem loadImagem;
 
 	public static boolean miraDoJogoSelecionada;
+	
+
 	
 	public CanvasGame() {
 		// TODO Auto-generated constructor stub
@@ -144,7 +146,7 @@ public static Minimap minimap;
 		
 		
 		miraJogo= new MiraRedonda();
-		setMiraAtiva(miraJogo);
+
 		miraMenu=new CursorMenuTorre();
 		
 		heroi=new Heroi(GamePanel.PWIDTH/2, GamePanel.PHEIGHT/2,Imagem.heroiUm);
@@ -220,7 +222,10 @@ public static Minimap minimap;
 	
 	void SimulaSe(long DiffTime) {
 		
-		
+		if (getMiraAtiva() !=(Mira)miraJogo&&!gerenciadorTorre.hitMiraMenu) {
+			setMiraAtiva(miraJogo);
+			
+		}
 		getMiraAtiva().SimulaSe((int)DiffTime);
 		
 		if(!GerenciadorRespawn.isRespawn()){
@@ -270,7 +275,7 @@ public static Minimap minimap;
 			testeGradeColisao=true;
 	}		
 		if(keyCode == KeyEvent.VK_ESCAPE){
-			GamePanel.CanvasAtivo = new CanvasMenu();
+			GamePanel.setCanvasAtivo(new CanvasMenu());
 		}
 		if(keyCode == KeyEvent.VK_Q){
 			heroi.ARMA_ANTERIOR=true;
@@ -297,7 +302,7 @@ public static Minimap minimap;
 			heroi.SECUNDARIA=true;
 		}
 		if(keyCode == KeyEvent.VK_3){
-			GerenciadorTorre.adicionaTorre(mousex+MAPA.MapX,mousey+MAPA.MapY);
+			GerenciadorTorre.adicionaTorre((int)getMousex()+MAPA.MapX,(int)getMousey()+MAPA.MapY);
 		}	
 		if(keyCode == KeyEvent.VK_4){
 			//inimigos.add(new Inimigo(Constantes.inimigoUm));
@@ -329,16 +334,16 @@ public static Minimap minimap;
 	@Override
 	void mouseMoved(MouseEvent e) {
 		// TODO Auto-generated method stub
-		mousex = e.getX();
-		mousey = e.getY();
+		setMousex(e.getX());
+		setMousey(e.getY());
 		
 	}
 
 	@Override
 	void mouseDragged(MouseEvent e) {
 		// TODO Auto-generated method stub
-		mousex = e.getX();
-		mousey = e.getY();
+		setMousex(e.getX());
+		setMousey(e.getY());
 	}
 
 	@Override
@@ -390,8 +395,8 @@ public static Minimap minimap;
 	@Override
 	void mouseEntered(MouseEvent e) {
 		// TODO Auto-generated method stub
-		mousex = e.getX();
-		mousey = e.getY();
+		setMousex(e.getX());
+		setMousey(e.getY());
 	}
 
 	@Override
@@ -399,13 +404,13 @@ public static Minimap minimap;
 	
 	}
 
-	public static void setMiraAtiva(Mira miraAtiva) {
-		CanvasGame.miraAtiva = miraAtiva;
-	}
-
-	public static Mira getMiraAtiva() {
-		return miraAtiva;
-	}
+//	public static void setMiraAtiva(Mira miraAtiva) {
+//		CanvasGame.miraAtiva = miraAtiva;
+//	}
+//
+//	public static Mira getMiraAtiva() {
+//		return miraAtiva;
+//	}
 
 	public static void setEndGame(boolean endGame) {
 		CanvasGame.endGame = endGame;

@@ -8,7 +8,7 @@ public class ThreadExecutar extends Som {
         try {  
         	
         	AudioPlayer.player.start(Som.Sm(tipoSom));
-        
+        	
         } catch (Exception ex) {  
             ex.printStackTrace();  
         }  

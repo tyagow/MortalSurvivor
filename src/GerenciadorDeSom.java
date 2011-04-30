@@ -13,10 +13,10 @@ public class GerenciadorDeSom extends Objeto {
 	
 	public GerenciadorDeSom() {
 	
-		ak=new ThreadSom("/ak47.wav");
-		m4a=new ThreadSom("/m4a.wav");
-		//de=new ThreadSom("/de.wav");
-		fundo =new ThreadSom("mainMusic.wav");
+		ak=new ThreadSom("/sound/ak47.wav");
+		m4a=new ThreadSom("/sound/m4a.wav");
+		de=new ThreadSom("/sound/de.wav");
+		//fundo =new ThreadSom("mainMusic.wav");
 		
 	}
 	

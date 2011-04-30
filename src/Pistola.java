@@ -24,7 +24,6 @@ public class Pistola extends Arma {
 		setTempoRecarrega(0);
 		setValor(Constantes.PISTOLA_valor);
 	
-		//imagem=Constantes.LoadImage("deagle.png");
 
 		
 		
@@ -150,8 +149,8 @@ public class Pistola extends Arma {
 		if (temMunicao()) {
 			setRound(getRound() - 1);
 			CanvasGame.projeteis.add( new Projetil (this,getAngulo(),Constantes.TIPO_ASSASINO_PLAYER ));
-//			GerenciadorDeSom.de.run();
-			Sound.music("de.wav",false);
+			GerenciadorDeSom.de.run();
+//			Sound.music("sound/de.wav",false);
 		}
 		
 	}

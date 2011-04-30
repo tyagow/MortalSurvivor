@@ -12,7 +12,7 @@ public class MenuTorre extends Menu {
 	private boolean evoluiRange;
 	
 	public MenuTorre(int x, int y, int sizeX, int sizeY, Color cor,int _tempoVida, Torre pai) {
-		super(x-Constantes.HUD_TORRE_STARTX, y-Constantes.HUD_TORRE_STARTY, sizeX, sizeY, cor, _tempoVida);
+		super(x-sizeX/2-5, y-sizeY-5, sizeX, sizeY, cor, _tempoVida);
 		// TODO Auto-generated constructor stu
 		setEvoluiRange(false);
 		setTorrePai(pai);
@@ -31,7 +31,6 @@ public class MenuTorre extends Menu {
 		
 		if (Constantes.colideQuadrado((int)getX(),(int) getY(), (int) getSizeX(), (int) getSizeY(), (int) CanvasGame.getMiraAtiva().getXMundo(),(int) CanvasGame.getMiraAtiva().getYMundo(), 1, 1)) {
 			setTimerSelecionado(0);
-			System.out.println("reset time");
 		}
 		
 		if (getTempoVida() != -1 && getTimerSelecionado() >= getTempoVida()) {
@@ -85,8 +84,10 @@ public class MenuTorre extends Menu {
 		// TODO Auto-generated method stub
 		LinkedList<Botao>aux = new LinkedList<Botao>();
 		
-		Botao botaoRange = new Botao("Range",(int)getX()+10,(int)getY()+10);
-		aux.add(botaoRange);
+	
+		aux.add(new Botao(null,"range",(int)getX()+10,(int)getY()+10,40,12,false));
+		aux.add(new Botao(null,"fireR",(int)getX()+10,(int)getY()+30,40,12,false));
+		aux.add(new Botao(null,"Dano",(int)getX()+10,(int)getY()+50,40,12,false));
 		
 		return aux;
 	}
@@ -131,6 +132,7 @@ public class MenuTorre extends Menu {
 	public Torre getTorrePai() {
 		return torrePai;
 	}
+	
 
 
 	public void setTimerSelecionado(int timerSelecionado) {

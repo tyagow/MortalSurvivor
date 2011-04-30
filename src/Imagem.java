@@ -22,33 +22,37 @@ public class Imagem {
 	public static BufferedImage faca;
 	public static BufferedImage heroiUm;
 	public static BufferedImage he_hud;
+	public static BufferedImage botaoUm;
 
 	
 	public Imagem() {
 		
 		
-			logo=Constantes.LoadImage("logo.png");
-			miraMenu= Constantes.LoadImage("miraMenu.png");
-			inimigoUm =Constantes.LoadImage("zombie.png");				
-			tileset = Constantes.LoadImage("Bridge.png");
-			mira1= Constantes.LoadImage("mira1.png");	
-			explosao = Constantes.LoadImage("explosao.png");
-			explosao2 = Constantes.LoadImage("explosao2.png");
+			logo=Constantes.LoadImage("img/logo.png");
+			miraMenu= Constantes.LoadImage("img/miraMenu.png");
+			inimigoUm =Constantes.LoadImage("img/zombie.png");				
+			tileset = Constantes.LoadImage("img/Bridge.png");
+			mira1= Constantes.LoadImage("img/mira1.png");	
+			explosao = Constantes.LoadImage("img/explosao.png");
+			explosao2 = Constantes.LoadImage("img/explosao2.png");
 
-			TORRE_UM_ANIMESET = Constantes.LoadImage("torre.png");
-			TORRE_DOIS_ANIMESET = Constantes.LoadImage("torre2.png");
-			TORRE_TRES_ANIMESET = Constantes.LoadImage("torre3.png");
+			TORRE_UM_ANIMESET = Constantes.LoadImage("img/torre.png");
+			TORRE_DOIS_ANIMESET = Constantes.LoadImage("img/torre2.png");
+			TORRE_TRES_ANIMESET = Constantes.LoadImage("img/torre3.png");
 
-			deagle= Constantes.LoadImage("deagle.png");
-			m4=Constantes.LoadImage("m4a.png");
+			deagle= Constantes.LoadImage("img/deagle.png");
+			m4=Constantes.LoadImage("img/m4a.png");
 			deagle_hud=Constantes.LoadImage("img/deagle_hud.png");
 			m4_hud=Constantes.LoadImage("img/m4_hud.png");
-			he = Constantes.LoadImage("he.png");
+			he = Constantes.LoadImage("img/he.png");
 			he_hud = Constantes.LoadImage("img/he_hud.png");
-			faca =Constantes.LoadImage("knife.png");
+			faca =Constantes.LoadImage("img/knife.png");
 			
 			
-			heroiUm=Constantes.LoadImage("t1.png");
+			heroiUm=Constantes.LoadImage("img/t1.png");
+			
+			//botaoUm=Constantes.LoadImage("img/botoes/botaoUm.png");
+
 	}
  
 }

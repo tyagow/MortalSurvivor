@@ -26,9 +26,9 @@ public class  CursorMenuTorre extends Mira {
 	@Override
 	public void SimulaSe(int DiffTime) {
 		// TODO Auto-generated method stub
-		
-		setX(CanvasGame.mousex);
-		setY(CanvasGame.mousey);
+		GamePanel.getCanvasAtivo();
+		setX(GCanvas.getMousex());
+		setY(GCanvas.getMousey());
 		
 
 		

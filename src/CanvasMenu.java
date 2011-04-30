@@ -24,12 +24,10 @@ public class CanvasMenu extends GCanvas{
 		
 		loader = new GerenciadorDeSom();
 		
-		GerenciadorDeSom.fundo.run();
 		
 		
 		
 		
-//		Sound.music("mainMusic.wav",true);
 		
 		
 		imgloader = new Imagem();
@@ -58,6 +56,8 @@ public class CanvasMenu extends GCanvas{
 //			
 			dbg.setFont(fonteAutores);
 //					
+			String teste = "bla";
+
 			dbg.drawString("<Enter> Start/Continue", 380, 50);
 			dbg.drawString("<W> Frente", 410, 100);
 			dbg.drawString("<S> Traz", 410, 130);
@@ -108,7 +108,7 @@ public class CanvasMenu extends GCanvas{
 		
 		if(keyCode == KeyEvent.VK_ENTER && !instrucao){
 			
-			GamePanel.CanvasAtivo = CanvasGame.instance;
+			GamePanel.setCanvasAtivo(CanvasGame.instance);
 			//GerenciadorDeSom.fundo.;
 			
 //			AudioPlayer.player.interrupt();

@@ -1,7 +1,7 @@
 public class ThreadSom extends Thread {  
     private String tipoSom;  
   
-    public ThreadSom(String tipoSom) {  
+	public ThreadSom(String tipoSom) {  
         this.tipoSom = tipoSom;  
     }  
   

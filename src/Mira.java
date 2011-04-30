@@ -26,8 +26,8 @@ public abstract class  Mira extends Objeto {
 	public void SimulaSe(int DiffTime) {
 		// TODO Auto-generated method stub
 		
-		setX(CanvasGame.mousex);
-		setY(CanvasGame.mousey);
+		setX(CanvasGame.getMousex());
+		setY(CanvasGame.getMousey());
 	
 		
 	}

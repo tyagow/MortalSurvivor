@@ -25,9 +25,12 @@ public class  MiraRedonda extends Mira {
 	
 	@Override
 	public void SimulaSe(int DiffTime) {
+		GamePanel.getCanvasAtivo();
 		// TODO Auto-generated method stub
-		setX(CanvasGame.mousex);
-		setY(CanvasGame.mousey);
+		GamePanel.getCanvasAtivo();
+		
+		setX(GCanvas.getMousex());
+		setY(GCanvas.getMousey());
 		
 //		if (Constantes.colideQuadrado((int)getX(),(int) getY(), 1, 1, (int) GerenciadorTorre.selecionadorDeTorre.getX(),(int) GerenciadorTorre.selecionadorDeTorre.getY(), GerenciadorTorre.selecionadorDeTorre.getSizeX(), GerenciadorTorre.selecionadorDeTorre.getSizeY())) {	
 //			CanvasGame.setMiraMenu();
