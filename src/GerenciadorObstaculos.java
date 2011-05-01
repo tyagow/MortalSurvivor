@@ -9,7 +9,7 @@ public class GerenciadorObstaculos extends Objeto {
 
 	private static ArrayList<Obstaculo> obstaculos = new ArrayList<Obstaculo>();
 	
-	static int gradeColisao[][];
+	private static int mapa[][];
 
 	private static int largura;
 
@@ -51,10 +51,10 @@ public class GerenciadorObstaculos extends Objeto {
 		//System.out.println(obstaculos.size());
 
 		if (CanvasGame.testeGradeColisao)
-		for (int i=0;i<largura;i++) {
+		for (int i=0;i<getLargura();i++) {
 		
-			for (int j=0;j<altura;j++) {
-				if (gradeColisao[i][j]==1) {
+			for (int j=0;j<getAltura();j++) {
+				if (mapa[i][j]==1) {
 					dbg.setColor(Color.red);
 					dbg.drawRect(i*16-XMundo, j*16-YMundo, 16, 16);
 				}else {
@@ -68,7 +68,7 @@ public class GerenciadorObstaculos extends Objeto {
 	private void removeObstaculoGrade(int x, int y) {
 		// TODO Auto-generated method stub
 		
-		gradeColisao[x>>4][y>>4]=0;
+		mapa[x>>4][y>>4]=0;
 		
 		
 	}
@@ -76,9 +76,9 @@ public class GerenciadorObstaculos extends Objeto {
 	
 	private void carregaGradeColisao() {
 		// TODO Auto-generated method stub
-		largura=CanvasGame.MAPA.Largura;
-		altura=CanvasGame.MAPA.Altura;
-		gradeColisao=new int [largura][altura];
+		setLargura(CanvasGame.MAPA.Largura);
+		setAltura(CanvasGame.MAPA.Altura);
+		mapa=new int [getLargura()][getAltura()];
 		//System.out.println(CanvasGame.MAPA.Largura);
 		resetaGradeColisao();
 		
@@ -86,9 +86,9 @@ public class GerenciadorObstaculos extends Objeto {
 
 	private static void resetaGradeColisao() {
 		// TODO Auto-generated method stub
-		for (int i=0;i<largura;i++ ) {
-			for (int j=0;j<altura;j++ ) {
-				gradeColisao[i][j]=0;
+		for (int i=0;i<getLargura();i++ ) {
+			for (int j=0;j<getAltura();j++ ) {
+				mapa[i][j]=0;
 	
 			}
 		}
@@ -104,7 +104,7 @@ public class GerenciadorObstaculos extends Objeto {
 		Iterator<Obstaculo> it = getObstaculos().iterator();
 		while(it.hasNext()){
 			Obstaculo part = it.next();
-			gradeColisao[(int)part.getX()][(int)part.getY()]=1;
+			mapa[(int)part.getX()][(int)part.getY()]=1;
 
 		}
 		
@@ -165,7 +165,7 @@ public class GerenciadorObstaculos extends Objeto {
 			for (int j = 0;j<=sizeX-indX;j++) {
 			
 				getObstaculos().add(new Obstaculo(x+j, y+i));
-				gradeColisao[x+j][y+i]=1;
+				mapa[x+j][y+i]=1;
 			}
 		
 			
@@ -215,7 +215,7 @@ public class GerenciadorObstaculos extends Objeto {
 
 	public static boolean colidiuObstaculo(int mousex, int mousey) {
 		// TODO Auto-generated method stub
-		if (gradeColisao[mousex>>4][mousey>>4]==0) {
+		if (mapa[mousex>>4][mousey>>4]==0) {
 			return false;
 		}else 
 			return true;
@@ -227,6 +227,26 @@ public class GerenciadorObstaculos extends Objeto {
 
 	public static ArrayList<Obstaculo> getObstaculos() {
 		return obstaculos;
+	}
+
+
+	public static void setAltura(int altura) {
+		GerenciadorObstaculos.altura = altura;
+	}
+
+
+	public static int getAltura() {
+		return altura;
+	}
+
+
+	public static void setLargura(int largura) {
+		GerenciadorObstaculos.largura = largura;
+	}
+
+
+	public static int getLargura() {
+		return largura;
 	}
 
 

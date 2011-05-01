@@ -4,6 +4,7 @@ import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -19,6 +20,7 @@ public class CanvasStart extends GCanvas{
 	BufferedImage img;
 	Imagem imgloader;
 	
+	Menu menuAtivo;
 	
 	private static LinkedList<Botao> botoes= new LinkedList<Botao>();
 	public CanvasStart() {
@@ -26,7 +28,7 @@ public class CanvasStart extends GCanvas{
 		
 		loader = new GerenciadorDeSom();
 		
-	
+		
 		imgloader = new Imagem();
 		fonteLogo = new Font("Courier", Font.BOLD, 60);
 		
@@ -34,11 +36,14 @@ public class CanvasStart extends GCanvas{
 		
 		fonteAutores = new Font("Courier", Font.BOLD, 14);
 	 
-
-		botoes.add(new Botao(null,"Play",100,100,80,25,false));
-		botoes.add(new Botao(null,"Score",100,150,80,25,false));
-		botoes.add(new Botao(null,"Help",100,200,80,25,false));
-		botoes.add(new Botao(null,"Exit",100,250,80,25,false));
+		
+		botoes.add(new Botao(null,"Play",100,100,120,25,false));
+		botoes.add(new Botao(null,"Score",100,150,120,25,false));
+		botoes.add(new Botao(null,"Help",100,200,120,25,false));
+		botoes.add(new Botao(null,"Options",100,250,120,25,false));
+		botoes.add(new Botao(null,"Exit",100,300,120,25,false));
+		
+		
 		GamePanel.getCanvasAtivo();
 
 		GCanvas.setMiraAtiva(new CursorMenuTorre());
@@ -55,7 +60,11 @@ public class CanvasStart extends GCanvas{
 			dbg.setColor(Color.black);
 			dbg.fillRect(0, 0, GamePanel.PWIDTH, GamePanel.PHEIGHT);
 
-			dbg.drawImage(Imagem.logo, GamePanel.PWIDTH-Imagem.logo.getWidth(), GamePanel.PHEIGHT-Imagem.logo.getHeight(),Imagem.logo.getWidth(),Imagem.logo.getHeight(),null);
+			dbg.drawImage(Imagem.logo, GamePanel.PWIDTH-100, GamePanel.PHEIGHT-110,100,110,null);
+			
+			if (menuAtivo!=null) 
+				menuAtivo.DesenhaSe(dbg, 0, 0);
+			
 			
 			dbg.setColor(Color.yellow);
 			
@@ -67,9 +76,6 @@ public class CanvasStart extends GCanvas{
 			obj.DesenhaSe(dbg, 0, 0);
 			}
 			
-			
-		
-			//dbg.drawString("<Enter> Start/Continue", 100, 100);
 			getMiraAtiva().DesenhaSe(dbg, 0, 0);
 
 		
@@ -80,27 +86,46 @@ public class CanvasStart extends GCanvas{
 	@Override
 	void SimulaSe(long diftime) {
 		// TODO Auto-generated method stub
-		getMiraAtiva().SimulaSe((int)diftime);		
+		
+		if (menuAtivo!=null)
+			menuAtivo.SimulaSe((int)diftime);
 		
 		Iterator<Botao> it = botoes.iterator();
 		while(it.hasNext()){
-			Botao obj= (Botao) it.next();
-		obj.SimulaSe((int)diftime);
-		//System.out.println(obj.isAtivo());
+			
+			Botao b= (Botao) it.next();
+			b.SimulaSe((int)diftime);			
+			if (b.isAtivo()) {
+				trataBotao(b);
+			}		
+		}
 		
-		if (obj.isAtivo()&&obj.getName().contains("Play") ) {
+		getMiraAtiva().SimulaSe((int)diftime);	
+
+		
+
+	}
+	private void trataBotao(Botao b) {
+		// TODO Auto-generated method stub
+		if (b.getName().contains("Play") ) {
 			
 			GamePanel.setCanvasAtivo(CanvasGame.instance);
-
 			
-		}
+		}else if (b.getName().contains("Options") ) {
+			
+			menuAtivo= new MenuOptions(250, 100, 200, 200, null, 9999);
+			
+		}else if (b.getName().contains("Play") ) {
+			
+			GamePanel.setCanvasAtivo(CanvasGame.instance);
+			
+		}else if (b.getName().contains("Play") ) {
+			
+			GamePanel.setCanvasAtivo(CanvasGame.instance);
 			
 		}
 		
-//		System.out.println(diftime);
-//		System.out.println(getMiraAtiva().getX());
-//		System.out.println(GamePanel.mousex);
-
+		
 	}
 	@Override
 	void keyPressed(KeyEvent e) {

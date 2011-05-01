@@ -48,8 +48,6 @@ public class Botao extends Objeto {
 		// TODO Auto-generated method stub
 			int raioMedio=(getSizeX()/2+getSizeY()/2)/2;
 				GamePanel.getCanvasAtivo();
-				//System.out.println(GamePanel.getCanvasAtivo().getMiraAtiva().isPressed());
-
 				if (Constantes.colideQuadrado((int)getX(),(int)getY(),getSizeX(),getSizeY(), (int)GCanvas.getMiraAtiva().getXMundo(),(int)GCanvas.getMiraAtiva().getYMundo() ,2,2 )) {
 					if (!isAtivo()) {
 						if (GCanvas.getMiraAtiva().isPressed()) {
@@ -98,35 +96,50 @@ public class Botao extends Objeto {
 				
 				dbg.setColor(Color.red);
 				dbg.drawOval((int)getX()-XMundo,(int)getY()-YMundo, getSizeX(), getSizeY());
-				dbg.setColor(Color.white);
+				dbg.setColor(new Color(50,50,50,200));
+				dbg.fillOval((int)getX()+1-XMundo,(int)getY()-YMundo+1, getSizeX()-2, getSizeY()-2);
 				if (selecionado) {
 					dbg.setColor(Color.gray);
-
+					dbg.setColor(new Color(50,50,50,200));
+					dbg.fillOval((int)getX()+1-XMundo,(int)getY()-YMundo+1, getSizeX()-2, getSizeY()-2);
 					//dbg.fillRect((int)getX()-XMundo+2-getSizeX()/2,(int)getY()-YMundo+2-getSizeY()/2, getSizeX()-3, getSizeY()-3);
 					dbg.setColor(Color.red);
+				}else {
+					
+					dbg.setColor(Color.white);
 				}
 		
 		
-				dbg.drawString(name,(int) getX()+getSizeX()/2-XMundo-name.length()/2*((dbg.getFont().getSize()*2)/3),(int) getY()+getSizeY()/2+dbg.getFont().getSize()/2-YMundo);
+				dbg.drawString(name,(int) getX()+getSizeX()/2-XMundo-name.length()/2*((dbg.getFont().getSize()*2)/3),(int) getY()+getSizeY()/2+(dbg.getFont().getSize()/2)-YMundo);
 
 //				dbg.drawString(name,(int) getX()+getSizeX()/2-XMundo-name.length()/4*dbg.getFont().getSize(),(int) getY()+getSizeY()/2+dbg.getFont().getSize()/2-YMundo);
 			}
 			else { // desenha botao com imagem
 				
-				dbg.setColor(Color.yellow);
+				dbg.setColor(Color.WHITE);
+				
 				dbg.drawRect((int)getX()-XMundo,(int)getY()-YMundo, getSizeX(), getSizeY());
-				dbg.setColor(Color.white);
+				
+				dbg.setColor(new Color(50,50,50,200));
+				
+				dbg.fillRect((int)getX()+1-XMundo,(int)getY()-YMundo+1, getSizeX()-2, getSizeY()-2);
+				
+		
 				if (selecionado) {
 					dbg.setColor(Color.gray);
 
 					//dbg.fillRect((int)getX()-XMundo+2-getSizeX()/2,(int)getY()-YMundo+2-getSizeY()/2, getSizeX()-3, getSizeY()-3);
 					dbg.setColor(Color.red);
+				}else {
+					
+					dbg.setColor(Color.white);
 				}
 		
 		
 				//dbg.drawOval((int) getX()+getSizeX()/2-XMundo-name.length()/2*dbg.getFont().getSize()-2, (int) getY()+dbg.getFont().getSize()-YMundo-2, 4, 4);
+				dbg.drawString(name,(int) getX()+getSizeX()/2-XMundo-name.length()/2*((dbg.getFont().getSize()*2)/3),(int) getY()+getSizeY()/2+(dbg.getFont().getSize()/2)-YMundo);
 
-				dbg.drawString(name,(int) getX()+getSizeX()/2-XMundo-name.length()/2*((dbg.getFont().getSize()*2)/3),(int) getY()+getSizeY()/2+dbg.getFont().getSize()/2-YMundo);
+				//dbg.drawString(name,(int) getX()+getSizeX()/2-XMundo-name.length()/2*((dbg.getFont().getSize()*2)/3),(int) getY()+getSizeY()/2+dbg.getFont().getSize()/2-YMundo);
 
 			}
 		}

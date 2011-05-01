@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+import com.sun.media.sound.MidiUtils.TempoCache;
+
 /* A FAZER
  * 
  * torre trocar de direção de uma forma mais suave estilo a nave do jogo de IA
@@ -36,6 +38,10 @@ public class Torre extends Objeto{
 	private int timerSelect;
 
 	private boolean controleCursor;
+
+
+	
+	
 	public Torre(BufferedImage _AnimeSet, Arma arma,int x,int y){ 
 		// TODO Auto-generated constructor stub
 		
@@ -54,7 +60,7 @@ public class Torre extends Objeto{
 		setX(x/16*16+getSizeX()/2);
 		setY(y/16*16+getSizeY()/2);	
 		contruindo=true;
-		armaAtiva=arma;
+		setArmaAtiva(arma);
 		cor = Color.cyan;
 		setRange(200);
 		ang=0;
@@ -71,7 +77,7 @@ public class Torre extends Objeto{
 
 	public void DesenhaSe(Graphics2D dbg,int XMundo,int YMundo) {
 		// TODO Auto-generated method stub
-		armaAtiva.DesenhaSe(dbg, XMundo, YMundo);
+		getArmaAtiva().DesenhaSe(dbg, XMundo, YMundo);
 		
 		if (menuAtivo!=null) {
 			dbg.setColor(Color.red);
@@ -105,25 +111,45 @@ public class Torre extends Objeto{
 		if (!contruindo)	{		
 			procuraInimigos();
 			 
-			armaAtiva.definePosicaoArma(ang,getX(), getY());
-			armaAtiva.SimulaSe((int)DiffTime);	
+			getArmaAtiva().definePosicaoArma(ang,getX(), getY());
+			getArmaAtiva().SimulaSe((int)DiffTime);	
 			
 			if (menuAtivo!=null) {
 				menuAtivo.SimulaSe((int)DiffTime);	
-				if (menuAtivo.getEvoluiRange()) {
-
-					range+=10;
-					menuAtivo.tratouBotaoRange();
-				}
-				
-				if (!menuAtivo.isVivo()) {
-					controleCursor=false;
-					menuAtivo= null;
-				}
+				trataMenuAtivo();
 					
 			}
 	
 		}	
+	}
+
+
+	private void trataMenuAtivo() {
+		
+		// TODO Auto-generated method stub
+		if (menuAtivo.getEvoluiRange()) {
+
+			range+=10;
+			menuAtivo.tratouBotaoRange();
+		}
+		if (menuAtivo.getEvoluiFire()) {
+
+			getArmaAtiva().setTempoEntreTirosMax(getArmaAtiva().getTempoEntreTirosMax() -3);
+			
+			menuAtivo.tratouBotaoFire();
+		}
+		if (menuAtivo.isEvoluiDano()) {
+
+			getArmaAtiva().setDano(getArmaAtiva().getDano()+1);
+			
+			menuAtivo.tratouBotaoDano();
+		}
+		
+		if (!menuAtivo.isVivo()) {
+			controleCursor=false;
+			menuAtivo= null;
+		}
+		
 	}
 
 
@@ -176,9 +202,9 @@ public class Torre extends Objeto{
 					int difX=(int) (getX()-in.getX());
 					int difY=(int) (getY()-in.getY());
 					ang=Math.atan2(difY,difX)+Math.PI;
-					armaAtiva.definePosicaoArma(ang,getX(), getY());
+					getArmaAtiva().definePosicaoArma(ang,getX(), getY());
 
-					armaAtiva.atirou();
+					getArmaAtiva().atirou();
 					at=true;
 					break;
 					
@@ -187,7 +213,7 @@ public class Torre extends Objeto{
 
 		}
 		 if (at==false) 
-			 armaAtiva.naoAtirou();
+			 getArmaAtiva().naoAtirou();
 	}
 
 
@@ -215,5 +241,15 @@ public MenuTorre getMenuAtivo() {
 
 public void setMenuAtivo(MenuTorre menuAtivo) {
 	this.menuAtivo = menuAtivo;
+}
+
+
+public void setArmaAtiva(Arma armaAtiva) {
+	this.armaAtiva = armaAtiva;
+}
+
+
+public Arma getArmaAtiva() {
+	return armaAtiva;
 }
 }

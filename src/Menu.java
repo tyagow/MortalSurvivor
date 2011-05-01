@@ -1,11 +1,12 @@
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.util.Iterator;
 import java.util.LinkedList;
 
 
-public class Menu extends Objeto {
+public abstract class Menu extends Objeto {
 
-	
+	private boolean ativo;
 	private int tempoVida;
 	private Color cor;
 	
@@ -22,15 +23,31 @@ public class Menu extends Objeto {
 		setTempoVida(_tempoVida);
 		
 	}
-	@Override
-	public void SimulaSe(int DiffTime) {
-		// TODO Auto-generated method stub
 
-	}
 
+	//private abstract  void trataBotao(Botao part);
+	
 	@Override
 	public void DesenhaSe(Graphics2D dbg, int XMundo, int YMundo) {
 		// TODO Auto-generated method stub
+		
+		dbg.setColor(Color.white);
+		dbg.drawRect((int)getX()-XMundo,(int)getY()-YMundo, getSizeX(), getSizeY());
+		
+		dbg.setColor(new Color(50,50,50,200));
+		
+		dbg.fillRect((int)getX()+1-XMundo,(int)getY()-YMundo+1, getSizeX()-2, getSizeY()-2);
+		
+		Iterator<Botao> it = botoes.iterator();
+		while(it.hasNext()){
+			Botao bot= it.next();
+			
+			bot.DesenhaSe(dbg, XMundo, YMundo);
+			
+			//trataBotao(bot);
+		
+		}
+		
 
 	}
 	public void setCor(Color cor) {
@@ -50,6 +67,16 @@ public class Menu extends Objeto {
 	}
 	public LinkedList<Botao> getBotoes() {
 		return botoes;
+	}
+
+
+	public void setAtivo(boolean ativo) {
+		this.ativo = ativo;
+	}
+
+
+	public boolean isAtivo() {
+		return ativo;
 	}
 
 }

@@ -1,31 +1,16 @@
 
-public class Nodo {
-	int X;
-	int Y;
-	int Energia;
-	int Euristica;
+class Nodo{
 	Nodo pai;
+	int x;
+	int y;
+	double g;
+	double h;
 	
-
-	public Nodo(Nodo nodo,int x, int y, int energia, int objX, int objY) {
+	public Nodo(Nodo pai,int x,int y, double energia) {
 		// TODO Auto-generated constructor stub
-		this.pai = nodo;
-		this.X = x;
-		this.Y = y;
-		int difX=0;
-		int difY=0;
-		if(objX<x){
-			difX= x-objX;					
-		}else{
-			difX = objX-x;
-		}
-		if(objY<y){
-			difY = y-objY;
-		}else{
-			difY = objY-Y;
-		}
-		this.Euristica = (difX+difY);
-		this.Energia = energia;
-
-	}	
+		this.pai = pai;
+		this.x = x;
+		this.y = y;
+		this.g = energia;
+	}
 }

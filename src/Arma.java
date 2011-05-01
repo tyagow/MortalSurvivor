@@ -18,12 +18,16 @@ public abstract class Arma  {
 	private double angulo;
 	private double X,Y;
 	private int sizeX,sizeY;
-	
+	private int tempoEntreTirosMax;
+
 	
 	BufferedImage imagem;
 	BufferedImage imagem_hud;
 
 	private int tipo;
+	private int custoRange;
+	private int custoFire;
+	private int custoDano;
 
 	public abstract void definePosicaoArma(double ang,double x2,double y2);
 
@@ -164,5 +168,37 @@ public abstract class Arma  {
 
 	public int getMaxMag() {
 		return maxMag;
+	}
+
+	public void setTempoEntreTirosMax(int tempoEntreTirosMax) {
+		this.tempoEntreTirosMax = tempoEntreTirosMax;
+	}
+
+	public int getTempoEntreTirosMax() {
+		return tempoEntreTirosMax;
+	}
+
+	public void setCustoRange(int custoRange) {
+		this.custoRange = custoRange;
+	}
+
+	public int getCustoRange() {
+		return custoRange;
+	}
+
+	public void setCustoFire(int custoFire) {
+		this.custoFire = custoFire;
+	}
+
+	public int getCustoFire() {
+		return custoFire;
+	}
+
+	public void setCustoDano(int custoDano) {
+		this.custoDano = custoDano;
+	}
+
+	public int getCustoDano() {
+		return custoDano;
 	}
 }

@@ -69,7 +69,6 @@ public class GerenciadorTorre extends Objeto {
 		//System.out.println(mousex);
 //
 //		System.out.println(mousey);
-		boolean aux=true;
 		Iterator<Torre> it = torres.iterator();
 		while(it.hasNext()){
 			Torre torre = it.next();

@@ -175,7 +175,7 @@ public static Minimap minimap;
 	void DesenhaSe(Graphics2D dbg) {
 		// TODO Auto-generated method stub
 		dbg.setFont(fonte2);
-		dbg.setColor(Color.white);
+		dbg.setColor(Color.LIGHT_GRAY);
 		dbg.fillRect(0,0,GamePanel.PWIDTH, GamePanel.PHEIGHT);
 	//	MAPA.DesenhaSe(dbg);
 
