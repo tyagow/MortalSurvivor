@@ -130,19 +130,22 @@ public static Minimap minimap;
 
 		MAPA = new TileMap(Imagem.tileset, GamePanel.PWIDTH/16, GamePanel.PHEIGHT/16);
 		MAPA.AbreMapa("60x601.map");
-				
+			
+		
+		largura = MAPA.Largura*16;
+		altura = MAPA.Altura*16;
+		
+		gerenciadorObstaculos=new GerenciadorObstaculos();
+
+		base = new Base(largura/2, altura/2,Constantes.BASE_SIZEX_1,Constantes.BASE_SIZEY_1);
+
 		gerenciadorTorre = new GerenciadorTorre();
 		gerenciadorEfeitos = new GerenciadorEfeitos();
 		gerenciadorRespawn= new GerenciadorRespawn();
 		gerenciadorHud=new GerenciadorHud();
-		gerenciadorObstaculos=new GerenciadorObstaculos();
 		gerenciadorDeRaids= new GerenciadorDeRaids();
 		gerenciadorXP=new GerenciadorXP();
-		
-		largura = MAPA.Largura*16;
-		altura = MAPA.Altura*16;
 	
-		base = new Base(largura/2, altura/2,Constantes.BASE_SIZEX_1,Constantes.BASE_SIZEY_1);
 		
 		
 		miraJogo= new MiraRedonda();
@@ -175,7 +178,7 @@ public static Minimap minimap;
 	void DesenhaSe(Graphics2D dbg) {
 		// TODO Auto-generated method stub
 		dbg.setFont(fonte2);
-		dbg.setColor(Color.LIGHT_GRAY);
+		dbg.setColor(Color.white);
 		dbg.fillRect(0,0,GamePanel.PWIDTH, GamePanel.PHEIGHT);
 	//	MAPA.DesenhaSe(dbg);
 

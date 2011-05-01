@@ -54,7 +54,7 @@ public class GerenciadorObstaculos extends Objeto {
 		for (int i=0;i<getLargura();i++) {
 		
 			for (int j=0;j<getAltura();j++) {
-				if (mapa[i][j]==1) {
+				if (getMapa()[i][j]==1) {
 					dbg.setColor(Color.red);
 					dbg.drawRect(i*16-XMundo, j*16-YMundo, 16, 16);
 				}else {
@@ -68,7 +68,7 @@ public class GerenciadorObstaculos extends Objeto {
 	private void removeObstaculoGrade(int x, int y) {
 		// TODO Auto-generated method stub
 		
-		mapa[x>>4][y>>4]=0;
+		getMapa()[x>>4][y>>4]=0;
 		
 		
 	}
@@ -78,7 +78,7 @@ public class GerenciadorObstaculos extends Objeto {
 		// TODO Auto-generated method stub
 		setLargura(CanvasGame.MAPA.Largura);
 		setAltura(CanvasGame.MAPA.Altura);
-		mapa=new int [getLargura()][getAltura()];
+		setMapa(new int [getLargura()][getAltura()]);
 		//System.out.println(CanvasGame.MAPA.Largura);
 		resetaGradeColisao();
 		
@@ -88,7 +88,7 @@ public class GerenciadorObstaculos extends Objeto {
 		// TODO Auto-generated method stub
 		for (int i=0;i<getLargura();i++ ) {
 			for (int j=0;j<getAltura();j++ ) {
-				mapa[i][j]=0;
+				getMapa()[i][j]=0;
 	
 			}
 		}
@@ -104,7 +104,7 @@ public class GerenciadorObstaculos extends Objeto {
 		Iterator<Obstaculo> it = getObstaculos().iterator();
 		while(it.hasNext()){
 			Obstaculo part = it.next();
-			mapa[(int)part.getX()][(int)part.getY()]=1;
+			getMapa()[(int)part.getX()][(int)part.getY()]=1;
 
 		}
 		
@@ -165,7 +165,7 @@ public class GerenciadorObstaculos extends Objeto {
 			for (int j = 0;j<=sizeX-indX;j++) {
 			
 				getObstaculos().add(new Obstaculo(x+j, y+i));
-				mapa[x+j][y+i]=1;
+				getMapa()[x+j][y+i]=1;
 			}
 		
 			
@@ -215,7 +215,7 @@ public class GerenciadorObstaculos extends Objeto {
 
 	public static boolean colidiuObstaculo(int mousex, int mousey) {
 		// TODO Auto-generated method stub
-		if (mapa[mousex>>4][mousey>>4]==0) {
+		if (getMapa()[mousex>>4][mousey>>4]==0) {
 			return false;
 		}else 
 			return true;
@@ -247,6 +247,16 @@ public class GerenciadorObstaculos extends Objeto {
 
 	public static int getLargura() {
 		return largura;
+	}
+
+
+	public static void setMapa(int mapa[][]) {
+		GerenciadorObstaculos.mapa = mapa;
+	}
+
+
+	public static int[][] getMapa() {
+		return mapa;
 	}
 
 
