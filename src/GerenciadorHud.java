@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Stroke;
+import java.util.Iterator;
 import java.util.LinkedList;
 
 public class GerenciadorHud extends Objeto {
@@ -106,11 +107,53 @@ public class GerenciadorHud extends Objeto {
 //			
 //			}
 //		  
-		
+			atualizaHudArma();
 		
 	}
 	
 
+	private void atualizaHudArma() {
+		// TODO Auto-generated method stub
+
+		
+		switch (Heroi.getArma()) {
+		case Heroi.IDX_ARMA_MELEE:
+			setHudAtivo(0);
+			break;
+		case Heroi.IDX_ARMA_PRIMARIA:
+			setHudAtivo(2);
+
+			break;
+		case Heroi.IDX_ARMA_SECUNDARIA:
+			setHudAtivo(1);
+
+			break;
+		case Heroi.IDX_ARMA_GRANADA:
+			setHudAtivo(3);
+
+			break;
+
+		default:
+			break;
+		}
+		
+	}
+	private void setHudAtivo(int i) {
+		// TODO Auto-generated method stub
+		
+		
+		for (int j =0;j<slotsTorre.length;j++) {
+			
+			if (j!=i)	{
+				slotsTorre[j].setAtivo(false);
+			}
+			else {
+				slotsTorre[j].setAtivo(true);
+
+			}
+		
+		}
+	}
 	@Override
 	public void DesenhaSe(Graphics2D dbg, int XMundo, int YMundo) {
 		// TODO Auto-generated method stub

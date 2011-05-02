@@ -1,7 +1,5 @@
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.LinkedList;
+
 import java.util.List;
 
 public class Estrela {
@@ -32,16 +30,8 @@ public class Estrela {
 		Nodo selecionado = new Nodo(null, x, y, 0);
 
 		while (abreNodo(selecionado) == false) {
-			//System.out.println(selecionado.x + " - " +selecionado.y);
-/*			Collections.sort(nodosAbertos, new Comparator<Nodo>() {
-				public int compare(Nodo o1, Nodo o2) {
-					// TODO Auto-generated method stub
-					return (int) (o1.h - o2.h);
-				}
-			});*/
 			
-			
-			
+
 			double menorHeuristica = nodosAbertos.get(0).h;
 			int indiceMenor = 0;
 			
@@ -81,6 +71,10 @@ public class Estrela {
 
 		for (int i = 0; i < 4; i++) {
 			Nodo nodo = nodos.get(i);
+			System.out.println("nodo.x: "+ nodo.x);
+			System.out.println("nodo.y: "+ nodo.y);
+			System.out.println("obj.x: "+ objetivox);
+			System.out.println("obj.y: "+ objetivoy);
 
 			if (nodo.x == objetivox && nodo.y == objetivoy) {
 				nodosFechados.add(nodo);

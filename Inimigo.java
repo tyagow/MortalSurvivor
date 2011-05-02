@@ -26,7 +26,7 @@ public class Inimigo extends Objeto {
 	BufferedImage img;
 	
 	Estrela aestrela ;
-	List<Nodo> caminho= new ArrayList<Nodo>();
+	ArrayList<Nodo> caminho= new ArrayList<Nodo>();
 	private int objx;
 	private int objy;
 	
@@ -34,14 +34,14 @@ public class Inimigo extends Objeto {
 	private int XTela;
 	private int YTela;
 	public Inimigo(BufferedImage img,int _objx,int _objy) {
-		aestrela= new Estrela(GerenciadorObstaculos.getMapa());
+		//aestrela= new Estrela(GerenciadorObstaculos.getMapa());
 		this.img=img;
 		larguraMapa=CanvasGame.MAPA.Largura*16;
 		alturaMapa=CanvasGame.MAPA.Altura*16;
 		objx=_objx;
 		objy=_objy;
-		setX(GamePanel.rnd.nextInt(alturaMapa*4));
-		setY(GamePanel.rnd.nextInt(larguraMapa*4));
+		setX(GamePanel.rnd.nextInt(alturaMapa));
+		setY(GamePanel.rnd.nextInt(larguraMapa));
 		
 		setSizeX(img.getWidth()/2);
 		setSizeY(img.getHeight()/3);
@@ -209,28 +209,39 @@ public class Inimigo extends Objeto {
 	}
 		
 	private void irAtrasDaBase(){
-		System.out.println(caminho);
-	//	if (caminho==null) {
-			
-			caminho = aestrela.MontaEstrela((int)getX()/16, (int)getY()/16, objx, objy);
-	//	}
+		if (aestrela==null)
+			aestrela = new Estrela(new Nodo(null,(int)getX()/16,(int)getY()/16,0, objx-16, objy-16),objx-16,objy-16);
 		
-		//else {
+		//System.out.println(caminho);
+		if (caminho==null) {
+//			System.out.println("oi");
+		
+		
+		}
+		
+		else {
 			
 			if (chegouPasso())
 			ang = achaProximoPasso();
 	
 		
-		//}
+		}
 	}
 
 
 private boolean chegouPasso() {
 		// TODO Auto-generated method stub
-	
-		boolean chegouPassoX=((getX())/16==caminho.get(passo).x);
-		boolean chegouPassoY=((getY())/16==caminho.get(passo).y);
-		return (chegouPassoX&&chegouPassoY);
+		System.out.println(caminho.size());
+	if (caminho.size()>0) { 
+		if (caminho.get(passo).X!=objx&&caminho.get(passo).Y!=objy) {
+			boolean chegouPassoX=((getX())/16==caminho.get(passo).X);
+			boolean chegouPassoY=((getY())/16==caminho.get(passo).Y);
+			return (chegouPassoX&&chegouPassoY);
+		}else {
+			return false;
+		}
+	}
+	return false;
 	}
 
 private void atacaBase() {
@@ -246,9 +257,8 @@ private void atacaBase() {
 
 private double achaProximoPasso() {
 		// TODO Auto-generated method stub
-	
-	double difX =  caminho.get(passo).x*16  - getX();
-	double difY = caminho.get(passo).y*16 - getY();
+	double difX =  caminho.get(passo).X*16  - getX();
+	double difY = caminho.get(passo).Y*16 - getY();
 	passo++;
 	return Math.atan2(difY, difX);
 

@@ -98,21 +98,24 @@ public class Metralhadora extends Arma {
 		
 		if (estado==1) {
 			
-			
-			setTempoRecarrega(getTempoRecarrega() + DiffTime);
-			
-			setRecarregando(true);
-			if (getMag()<1)
-				estado=2;
+			if (getMag()>0) {
+
+				setTempoRecarrega(getTempoRecarrega() + DiffTime);
 				
-			if (getTempoRecarrega()>=Constantes.METRALHADORA_tempoRecarrega) {
-				
-				if (getMag() >=1) {
-					setTempoRecarrega(0);
-					setRound(Constantes.METRALHADORA_round);
-					setMag(getMag() - 1);
-					estado=0;
+				setRecarregando(true);
+			
+					
+				if (getTempoRecarrega()>=Constantes.METRALHADORA_tempoRecarrega) {
+					
+					if (getMag() >=1) {
+						setTempoRecarrega(0);
+						setRound(Constantes.METRALHADORA_round);
+						setMag(getMag() - 1);
+						estado=0;
+					}
 				}
+			}else {
+				estado =2;
 			}
 			
 		}

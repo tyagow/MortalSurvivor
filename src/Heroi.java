@@ -6,10 +6,10 @@ import java.awt.image.BufferedImage;
 
 
 public class Heroi extends Objeto {
-	private static final int ARMA_MELEE = 0;
-	private static final int ARMA_SECUNDARIA = 1;
-	private static final int ARMA_PRIMARIA = 2;
-	private static final int ARMA_GRANADA = 3;
+	public static final int IDX_ARMA_MELEE = 0;
+	public static final int IDX_ARMA_SECUNDARIA = 1;
+	public  static final int IDX_ARMA_PRIMARIA = 2;
+	public static final int IDX_ARMA_GRANADA = 3;
 
 	Color cor;
 	boolean LEFT,RIGHT,UP,DOWN;
@@ -17,6 +17,7 @@ public class Heroi extends Objeto {
 	private int VelMaxFrente=350;
 	private double VelMaxTras=200;
 	private double VelMaxLado=270;
+	
 	
 	
 	private double vel;
@@ -43,7 +44,7 @@ public class Heroi extends Objeto {
 	private BufferedImage imagem;
 	private int frameX=1;
 	private int frameY=0;
-	private int arma;
+	private static int arma;
 	
 	
 	public Heroi(int x,int y,BufferedImage img) {
@@ -156,7 +157,7 @@ public class Heroi extends Objeto {
 			
 			
 			armaAtiva=armaPrimaria;
-			arma=ARMA_PRIMARIA;
+			setArma(IDX_ARMA_PRIMARIA);
 			PRIMARIA=false;
 		}
 		else if (SECUNDARIA)  {
@@ -168,7 +169,7 @@ public class Heroi extends Objeto {
 			ultimaArma=armaAtiva;
 			armaAtiva=getArmaSecundaria();
 			SECUNDARIA=false;
-			arma=ARMA_SECUNDARIA;
+			setArma(IDX_ARMA_SECUNDARIA);
 		}
 		else if (MELEE) {
 		if (armaAtiva!=null) {
@@ -179,7 +180,7 @@ public class Heroi extends Objeto {
 			ultimaArma=armaAtiva;
 			armaAtiva=armaMelee;
 			MELEE=false;
-			arma=ARMA_MELEE;
+			setArma(IDX_ARMA_MELEE);
 		}
 		else if (ARMA_ANTERIOR)  {
 			if (armaAtiva!=null) {
@@ -191,7 +192,7 @@ public class Heroi extends Objeto {
 				armaAtiva=ultimaArma;
 				ultimaArma=temp;
 				
-				arma = armaAtiva.getTipo();
+				setArma(armaAtiva.getTipo());
 				
 				ARMA_ANTERIOR=false;
 			}
@@ -204,7 +205,7 @@ public class Heroi extends Objeto {
 				ultimaArma=armaAtiva;
 				armaAtiva=armaGranada;
 				
-				arma = ARMA_GRANADA;
+				setArma(IDX_ARMA_GRANADA);
 				
 				HE=false;
 			}
@@ -212,21 +213,21 @@ public class Heroi extends Objeto {
 	private void calculaAnimacao() {
 		// TODO Auto-generated method stub
 		
-		switch (arma) {
-		case ARMA_MELEE:
+		switch (getArma()) {
+		case IDX_ARMA_MELEE:
 			frameX=0;
 			frameY=2;
 			break;	
 			
-		case ARMA_SECUNDARIA:
+		case IDX_ARMA_SECUNDARIA:
 			frameX=1;
 			frameY=1;
 			break;
-		case ARMA_PRIMARIA:
+		case IDX_ARMA_PRIMARIA:
 			frameX=1;
 			frameY=2;
 			break;
-		case ARMA_GRANADA: 
+		case IDX_ARMA_GRANADA: 
 			frameX=1;
 			frameY=2;
 			break;
@@ -431,5 +432,14 @@ public class Heroi extends Objeto {
 	public static Arma getArmaGranada() {
 		// TODO Auto-generated method stub
 		return armaGranada;
+	}
+	public void setArma(int arma) {
+		this.arma = arma;
+	}
+	public static int getArma() {
+		return arma;
+	}
+	public final static int getIdxArmaMelee() {
+		return IDX_ARMA_MELEE;
 	}	
 }

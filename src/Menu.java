@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -10,7 +11,9 @@ public abstract class Menu extends Objeto {
 	private int tempoVida;
 	private Color cor;
 	
-	private LinkedList<Botao> botoes = new LinkedList<Botao>();
+	private int r,g,b,alpha;
+	
+	private ArrayList<Botao> botoes = new ArrayList<Botao>();
 	
 	public Menu (int _x,int _y,int sizeX,int sizeY, Color cor, int _tempoVida) {
 		
@@ -21,7 +24,10 @@ public abstract class Menu extends Objeto {
 		setCor(cor);
 		setVivo(true);
 		setTempoVida(_tempoVida);
-		
+		setR(cor.getRed());
+		setG(cor.getGreen());
+		setB(cor.getBlue());
+		setAlpha(100);
 	}
 
 
@@ -38,7 +44,7 @@ public abstract class Menu extends Objeto {
 		
 		dbg.fillRect((int)getX()+1-XMundo,(int)getY()-YMundo+1, getSizeX()-2, getSizeY()-2);
 		
-		Iterator<Botao> it = botoes.iterator();
+		Iterator<Botao> it = getBotoes().iterator();
 		while(it.hasNext()){
 			Botao bot= it.next();
 			
@@ -62,10 +68,10 @@ public abstract class Menu extends Objeto {
 	public int getTempoVida() {
 		return tempoVida;
 	}
-	public void setBotoes(LinkedList<Botao> botoes) {
-		this.botoes = botoes;
-	}
-	public LinkedList<Botao> getBotoes() {
+//	public void setBotoes(ArrayList<Botao> botoes) {
+//		this.botoes = botoes;
+//	}
+	public ArrayList<Botao> getBotoes() {
 		return botoes;
 	}
 
@@ -77,6 +83,51 @@ public abstract class Menu extends Objeto {
 
 	public boolean isAtivo() {
 		return ativo;
+	}
+
+
+	public void setBotoes(ArrayList<Botao> botoes) {
+		this.botoes = botoes;
+	}
+
+
+	public void setAlpha(int alpha) {
+		this.alpha = alpha;
+	}
+
+
+	public int getAlpha() {
+		return alpha;
+	}
+
+
+	public void setR(int r) {
+		this.r = r;
+	}
+
+
+	public int getR() {
+		return r;
+	}
+
+
+	public void setB(int b) {
+		this.b = b;
+	}
+
+
+	public int getB() {
+		return b;
+	}
+
+
+	public void setG(int g) {
+		this.g = g;
+	}
+
+
+	public int getG() {
+		return g;
 	}
 
 }

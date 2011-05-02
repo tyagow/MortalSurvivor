@@ -96,21 +96,25 @@ public class Pistola extends Arma {
 		
 		if (estado==1) {
 			
-			
-			setTempoRecarrega(getTempoRecarrega() + DiffTime);
-			
-			setRecarregando(true);
-			if (getMag()<1)
-				estado=2;
+			if (getMag()>0) {
+					
+				setTempoRecarrega(getTempoRecarrega() + DiffTime);
 				
-			if (getTempoRecarrega()>=Constantes.PISTOLA_tempoRecarrega) {
+				setRecarregando(true);
 				
-				if (getMag() >=1) {
-					setTempoRecarrega(0);
-					setRound(Constantes.PISTOLA_round);
-					setMag(getMag() - 1);
-					estado=0;
+					
+				if (getTempoRecarrega()>=Constantes.PISTOLA_tempoRecarrega) {
+					
+					if (getMag() >=1) {
+						setTempoRecarrega(0);
+						setRound(Constantes.PISTOLA_round);
+						setMag(getMag() - 1);
+						estado=0;
+					}
 				}
+				
+			}else {
+				estado =2;
 			}
 			
 		}

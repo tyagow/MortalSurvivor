@@ -21,8 +21,10 @@ public class CanvasStart extends GCanvas{
 	Imagem imgloader;
 	
 	Menu menuAtivo;
+
+	private Menu menuOptions;
 	
-	private static LinkedList<Botao> botoes= new LinkedList<Botao>();
+	private static ArrayList<Botao> botoes= new ArrayList<Botao>();
 	public CanvasStart() {
 		// TODO Auto-generated constructor stub
 		
@@ -42,7 +44,7 @@ public class CanvasStart extends GCanvas{
 		botoes.add(new Botao(null,"Help",100,200,120,25,false));
 		botoes.add(new Botao(null,"Options",100,250,120,25,false));
 		botoes.add(new Botao(null,"Exit",100,300,120,25,false));
-		
+		menuOptions= new MenuOptions(250, 100, 200, 200, Color.darkGray, 9999);
 		
 		GamePanel.getCanvasAtivo();
 
@@ -90,15 +92,19 @@ public class CanvasStart extends GCanvas{
 		if (menuAtivo!=null)
 			menuAtivo.SimulaSe((int)diftime);
 		
-		Iterator<Botao> it = botoes.iterator();
-		while(it.hasNext()){
-			
-			Botao b= (Botao) it.next();
-			b.SimulaSe((int)diftime);			
-			if (b.isAtivo()) {
-				trataBotao(b);
-			}		
-		}
+//		Iterator<Botao> it = botoes.iterator();
+//		while(it.hasNext()){
+			for (int x=0;x<botoes.size();x++) {
+	//				Botao b= (Botao) it.next();
+				Botao b= botoes.get(x);
+	
+				b.SimulaSe((int)diftime);			
+				if (b.isAtivo()) {
+					trataBotao(b);
+					botoes.get(x).setAtivo(false);
+				}		
+			}
+		
 		
 		getMiraAtiva().SimulaSe((int)diftime);	
 
@@ -112,9 +118,12 @@ public class CanvasStart extends GCanvas{
 			GamePanel.setCanvasAtivo(CanvasGame.instance);
 			
 		}else if (b.getName().contains("Options") ) {
-			
-			menuAtivo= new MenuOptions(250, 100, 200, 200, null, 9999);
-			
+			if (menuAtivo!=menuOptions){
+				menuAtivo=menuOptions;
+			}
+			else {
+				menuAtivo=null;
+			}
 		}else if (b.getName().contains("Play") ) {
 			
 			GamePanel.setCanvasAtivo(CanvasGame.instance);

@@ -1,6 +1,7 @@
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -129,9 +130,9 @@ public class MenuTorre extends Menu {
 	}
 
 
-	private LinkedList<Botao> criaBotoesStatusTorre() {
+	private ArrayList<Botao> criaBotoesStatusTorre() {
 		// TODO Auto-generated method stub
-		LinkedList<Botao>aux = new LinkedList<Botao>();
+		ArrayList<Botao>aux = new ArrayList<Botao>();
 		
 	
 		aux.add(new Botao(null,"range",(int)getX()+10,(int)getY()+10,40,12,false));

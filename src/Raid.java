@@ -37,8 +37,9 @@ public class Raid {
 					int iv = Integer.parseInt(strs[4]);
 					int ilife = Integer.parseInt(strs[5]);
 					
-					Inimigo inim = new Inimigo(Imagem.inimigoUm/*,(int)CanvasGame.base.getX()/16,(int)CanvasGame.base.getY()/16*/);
-					
+//					Inimigo inim = new Inimigo(Imagem.inimigoUm,(int)CanvasGame.base.getX()/16-20,(int)CanvasGame.base.getY()/16-20);
+					Inimigo inim = new Inimigo(Imagem.inimigoUm/*,(int)CanvasGame.base.getX()/16-20,(int)CanvasGame.base.getY()/16-20*/);
+
 //					inim.setX(ix);
 //					inim.setY(iy);
 //
@@ -48,8 +49,8 @@ public class Raid {
 //
 //					inim.setLife(ilife);
 //					inim.setTipoAssasino(tipo);
-					Inimigo inim2 = new Inimigo(Imagem.inimigoUm/*,(int)CanvasGame.base.getX()/16,(int)CanvasGame.base.getY()/16*/);
-					inimigos.add(inim2);
+//					Inimigo inim2 = new Inimigo(Imagem.inimigoUm/*,(int)CanvasGame.base.getX()/16,(int)CanvasGame.base.getY()/16*/);
+//					inimigos.add(inim2);
 				
 					inimigos.add(inim);
 				}

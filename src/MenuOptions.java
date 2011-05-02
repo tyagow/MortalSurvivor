@@ -10,6 +10,7 @@ public class MenuOptions extends Menu {
 		// TODO Auto-generated constructor stub
 		
 		criaBotoes();
+		setAlpha(200);
 	}
 	
 
@@ -17,11 +18,14 @@ public class MenuOptions extends Menu {
 	@Override
 	public void SimulaSe(int DiffTime) {
 		// TODO Auto-generated method stub
-		Iterator<Botao> it = getBotoes().iterator();
-		while(it.hasNext()){
-			Botao bot= it.next();
-			bot.SimulaSe(DiffTime);
-			trataBotao(bot);
+		for (int x=0;x<getBotoes().size();x++) {
+			Botao b= getBotoes().get(x);
+			
+			b.SimulaSe((int)DiffTime);			
+			if (b.isAtivo()) {
+				trataBotao(b);
+				getBotoes().get(x).setAtivo(false);
+			}		
 		}
 		
 
@@ -32,7 +36,7 @@ public class MenuOptions extends Menu {
 		dbg.setColor(Color.white);
 		dbg.drawRect((int)getX()-XMundo,(int)getY()-YMundo, getSizeX(), getSizeY());
 		
-		dbg.setColor(new Color(50,50,50,200));
+		dbg.setColor(new Color(getR(),getG(),getB(),getAlpha()));
 		
 		dbg.fillRect((int)getX()+1-XMundo,(int)getY()-YMundo+1, getSizeX()-2, getSizeY()-2);
 		
@@ -51,7 +55,13 @@ public class MenuOptions extends Menu {
 	private void trataBotao(Botao b) {
 		// TODO Auto-generated method stub
 		
-		
+		if (b.getName().contains("Video") ) {
+			
+			//GamePanel.setCanvasAtivo(CanvasGame.instance);
+			
+		}else if (b.getName().contains("Options") ) {
+	
+		}
 		
 	}
 
