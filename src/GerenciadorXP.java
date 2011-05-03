@@ -7,7 +7,6 @@ import java.awt.Stroke;
 
 public class GerenciadorXP extends Objeto {
 	private static int xp;
-	private int tempoEntreKill = 5000;
 	private float alpha;
 	private static int fastKill=0;
 	private static double timer;
@@ -46,7 +45,7 @@ public class GerenciadorXP extends Objeto {
 			dbg.drawRect(GamePanel.PWIDTH/2-25,20, Constantes.QUANTIDADE_FAST_KILL*10, 30);
 			dbg.fillRect(GamePanel.PWIDTH/2-25,20 , fastKill*10, 30);
 			dbg.setColor(Color.red);
-			dbg.setFont(Constantes.big);
+			dbg.setFont(Constantes.fonteBig);
 			dbg.drawString("Fast Kill", GamePanel.PWIDTH/2-20,45 );
 			
 			dbg.setStroke(stk);

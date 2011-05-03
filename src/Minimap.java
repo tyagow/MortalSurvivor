@@ -45,7 +45,7 @@ public class Minimap extends Objeto{
 			for(int i = 0; i < GerenciadorDeRaids.getRaids().get(j).inimigos.size(); i++){
 				Inimigo inim = (Inimigo) GerenciadorDeRaids.getRaids().get(j).inimigos.get(i);
 				
-				if(inim.getX() >= 0 && inim.getX() <= 80*16 && inim.getY() >= 0&& inim.getY() < 60*16){
+				if(inim.getX() >= 0 && inim.getX() <= CanvasGame.largura && inim.getY() >= 0 && inim.getY() < CanvasGame.altura){
 					double xM = (resizeX * inim.getX()/tamanhoMiniMap) + this.getX();
 					double yM = (resizeY * inim.getY()/tamanhoMiniMap) + this.getY();
 					int lM = inim.getSizeX()/tamanhoMiniMap;
@@ -61,9 +61,9 @@ public class Minimap extends Objeto{
 			dbg.setColor(Color.yellow);
 		for (int k=0;k<GerenciadorObstaculos.getObstaculos().size();k++)
 		{
-			Obstaculo inim = GerenciadorObstaculos.getObstaculos().get(k);
-			double xM = (resizeX * inim.getX()*16/tamanhoMiniMap + this.getX());
-			double yM = (resizeY * inim.getY()*16/tamanhoMiniMap + this.getY());
+			Obstaculo obs = GerenciadorObstaculos.getObstaculos().get(k);
+			double xM = (resizeX * obs.getX()*16/tamanhoMiniMap + this.getX());
+			double yM = (resizeY * obs.getY()*16/tamanhoMiniMap + this.getY());
 
 			dbg.fillOval((int)xM-2, (int)yM-2, 4, 4);
 			

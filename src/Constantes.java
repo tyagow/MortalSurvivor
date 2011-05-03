@@ -67,7 +67,8 @@ public class Constantes {
 	public static final int SANGUE_SIZE_Y = 10;
 	
 	//Fonte
-	public static final Font big = new Font("SansSerif", Font.BOLD, (int) 24);
+	public static Font FonteNormal=new Font("SansSerif", Font.BOLD, (int) 12);
+	public static final Font fonteBig = new Font("SansSerif", Font.BOLD, (int) 24);
 
 
 	// Torre 
@@ -154,7 +155,7 @@ public class Constantes {
 	public static double tempoEntreKill=2500;
 
 	//aura base
-	public static final int AURA_BASE_DIAMETRO = 175;
+	public static final int AURA_BASE_DIAMETRO = 250;
 	public static final int AURA_BASE_TIMER = 3000;
 	
 

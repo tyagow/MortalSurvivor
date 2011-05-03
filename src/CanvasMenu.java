@@ -5,7 +5,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
-import sun.audio.AudioPlayer;
 
 public class CanvasMenu extends GCanvas{
 	
@@ -33,7 +32,7 @@ public class CanvasMenu extends GCanvas{
 		imgloader = new Imagem();
 		fonteLogo = new Font("Courier", Font.BOLD, 60);
 		
-		fonteMenu = new Font("Courier", Font.BOLD, 30);
+		setFonteMenu(new Font("Courier", Font.BOLD, 30));
 		
 		fonteAutores = new Font("Courier", Font.BOLD, 14);
 
@@ -49,14 +48,11 @@ public class CanvasMenu extends GCanvas{
 			dbg.setColor(Color.black);
 			dbg.fillRect(0, 0, GamePanel.PWIDTH, GamePanel.PHEIGHT);
 			
-			dbg.drawImage(Imagem.logo, 0, 0,Imagem.logo.getWidth(),Imagem.logo.getHeight(),null);
-//			
+			dbg.drawImage(Imagem.logo, 0, 0,Imagem.logo.getWidth(),Imagem.logo.getHeight(),null);			
 			dbg.setColor(Color.yellow);
-//			dbg.drawString("TD", 525, 75);
-//			
+		
 			dbg.setFont(fonteAutores);
-//					
-			String teste = "bla";
+
 
 			dbg.drawString("<Enter> Start/Continue", 380, 50);
 			dbg.drawString("<W> Frente", 410, 100);
@@ -69,18 +65,6 @@ public class CanvasMenu extends GCanvas{
 			dbg.drawString("<3> Cria Torre na Mira", 410, 280);
 			dbg.drawString("<Mouse2> Arma Primaria / Edit Torre", 410, 350);
 			dbg.drawString("<Mouse1> Atira", 410, 380);
-
-			
-			
-			
-
-//			
-//			dbg.setColor(Color.white);
-//			
-//			dbg.setFont(fonteAutores);
-//			
-//			dbg.drawString("Autores: Paulo Douglas Tefili Filho", 350, 430);
-//			dbg.drawString("Tiago Lima Almeida", 422, 450);
 
 	
 		} else{
@@ -100,7 +84,6 @@ public class CanvasMenu extends GCanvas{
 		
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
@@ -173,6 +156,14 @@ public class CanvasMenu extends GCanvas{
 	void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	public void setFonteMenu(Font fonteMenu) {
+		this.fonteMenu = fonteMenu;
+	}
+
+	public Font getFonteMenu() {
+		return fonteMenu;
 	}
 
 }

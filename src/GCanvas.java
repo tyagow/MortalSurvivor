@@ -1,13 +1,12 @@
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
+
 
 
 public abstract class GCanvas {
 	private static Mira miraAtiva;
-	private static Mira miraDesejada;
+
 	
 	private static double mousex;
 	private static double mousey;

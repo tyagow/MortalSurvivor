@@ -10,7 +10,6 @@ public class Faca extends Arma {
 	private boolean soltouTiro;
 	private double oldAng;
 	private double alcanceAtaque=50;
-	private boolean atacou;
 
 	public Faca() {
 		setTipo(0);
@@ -93,7 +92,6 @@ public class Faca extends Arma {
 					soltouTiro=false;
 					atira();
 					setTempoEntreTiros(0);
-					atacou=false;
 					
 				}
 				

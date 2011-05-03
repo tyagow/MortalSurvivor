@@ -9,7 +9,7 @@ public class GerenciadorTorre extends Objeto {
 	public static SelecionadorDeTorre selecionadorDeTorre;
 	public static ArrayList<Torre> torres = new ArrayList<Torre>();
 	
-	public static boolean hitMiraMenu = false;
+	private static boolean hitMiraMenu = false;
 	public static boolean hitMiraSelecionador = false;
 	
 	private static int rangeMouse=20;
@@ -176,17 +176,27 @@ public class GerenciadorTorre extends Objeto {
 			MenuTorre m = torres.get(i).getMenuAtivo();
 			if(m != null){
 				if (Constantes.colideQuadrado((int)m.getX(),(int) m.getY(),(int) m.getSizeX(),(int) m.getSizeY(), (int)CanvasGame.getMiraAtiva().getXMundo(),(int) CanvasGame.getMiraAtiva().getYMundo(), 1, 1)) {
-					hitMiraMenu = true;
+					setHitMiraMenu(true);
 					break;
 				}
 			}
-			hitMiraMenu = false;
+			setHitMiraMenu(false);
 		}
 		
-		if(hitMiraMenu || hitMiraSelecionador){
+		if(isHitMiraMenu() || hitMiraSelecionador){
 			CanvasGame.setMiraMenu();
 		}else {
 			CanvasGame.setMiraJogo();
 		}
+	}
+
+
+	public static void setHitMiraMenu(boolean hitMiraMenu) {
+		GerenciadorTorre.hitMiraMenu = hitMiraMenu;
+	}
+
+
+	public static boolean isHitMiraMenu() {
+		return hitMiraMenu;
 	}
 }

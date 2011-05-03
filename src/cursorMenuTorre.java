@@ -1,5 +1,3 @@
-import java.awt.AlphaComposite;
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
@@ -32,47 +30,12 @@ public class  CursorMenuTorre extends Mira {
 		
 
 		
-//		if (Constantes.colideQuadrado((int)getX(),(int) getY(), 1, 1, (int) GerenciadorTorre.selecionadorDeTorre.getX(),(int) GerenciadorTorre.selecionadorDeTorre.getY(), GerenciadorTorre.selecionadorDeTorre.getSizeX(), GerenciadorTorre.selecionadorDeTorre.getSizeY())) {	
-//			CanvasGame.setMiraJogo();
-//		}
-//		
-//		
-//		if (!Constantes.colideQuadrado((int)getX(),(int) getY(), 1, 1, (int) GerenciadorTorre.selecionadorDeTorre.getX(),(int) GerenciadorTorre.selecionadorDeTorre.getY(), GerenciadorTorre.selecionadorDeTorre.getSizeX(), GerenciadorTorre.selecionadorDeTorre.getSizeY())) {	
-//			for(int i = 0; i < GerenciadorTorre.torres.size(); i++){
-//				MenuTorre m = GerenciadorTorre.torres.get(i).getMenuAtivo();
-//				if(m != null){
-//					if (!Constantes.colideQuadrado((int)m.getX(),(int) m.getY(),(int) m.getSizeX(),(int) m.getSizeY(), (int)CanvasGame.getMiraAtiva().getXMundo(),(int) CanvasGame.getMiraAtiva().getYMundo(), 1, 1)) {
-//						CanvasGame.setMiraJogo();
-//					}
-//				}
-//			}		
-//		}	
-		
-
-		
 		
 	}
 
 	@Override
 	public void DesenhaSe(Graphics2D dbg, int XMundo, int YMundo) {
 		// TODO Auto-generated method stub
-//		
-//		dbg.setColor(Color.black);
-//		dbg.drawOval((int)getX()-getSizeX()/2, (int)getY()-getSizeY()/2, getSizeX(), getSizeY());
-//		dbg.drawLine((int)getX(), (int)getY()-getSizeY()/2-4, (int)getX(),(int)getY()-getSizeY()/4); 
-//		dbg.drawLine((int)getX(), (int)getY()+getSizeY()/2+4, (int)getX(),(int)getY()+getSizeY()/4);
-//		dbg.drawLine((int)getX()-getSizeX()/2-4, (int)getY(), (int)getX()-getSizeX()/4,(int)getY());
-//		dbg.drawLine((int)getX()+getSizeX()/2+4, (int)getY(), (int)getX()+getSizeX()/4,(int)getY());
-//		
-//	    dbg.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f));
-//		dbg.drawLine((int)getX()-getSizeX()/4, (int)getY(), (int)getX()+getSizeX()/4,(int)getY());
-//		dbg.drawLine((int)getX(), (int)getY()-getSizeY()/4, (int)getX(),(int)getY()+getSizeY()/4);
-//
-//
-//	    dbg.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
-
-//		System.out.println("pressed"+isPressed());
-	//	System.out.println(isReleased());
 
 		dbg.drawImage(mira,(int)getX(),(int)getY(),(int)getX()+getSizeX(),(int)getY()+getSizeY(),0,0,(int)mira.getWidth(),(int)mira.getHeight(),null);
 

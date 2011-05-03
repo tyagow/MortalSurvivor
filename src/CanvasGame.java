@@ -1,26 +1,10 @@
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Cursor;
-import java.awt.Font;
 import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.awt.image.MemoryImageSource;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.LinkedList;
-
-
-import java.awt.Cursor;
-import java.awt.Image;
-import java.awt.Point;
-import java.awt.Toolkit;
-import java.awt.image.MemoryImageSource;
-
-import javax.swing.JFrame;
 
 
 
@@ -30,27 +14,18 @@ public class CanvasGame extends GCanvas {
 	public static CanvasGame instance = null;
 	
 	static BufferedImage imagemcharsets;
-	//public static BufferedImage mira1;
-	
-//	static int mousex,mousey; 
 	static int torre;
 	static boolean click;
 	public static int Health = 20;
 	
 	private static boolean endGame=false;
 
-	
-	
 	BufferedImage fundo;
 
 	public static Base base;
 	
 	public static ArrayList<Projetil> projeteis = new ArrayList<Projetil>();
-
 	public static ArrayList<Objeto> objetos = new ArrayList<Objeto>();
-	
-	//public static ArrayList<Inimigo> inimigos = new ArrayList<Inimigo>();
-	
 	public static ArrayList<Torre> torres = new ArrayList<Torre>();
 	
 	public static GerenciadorTorre gerenciadorTorre;
@@ -58,57 +33,24 @@ public class CanvasGame extends GCanvas {
 	public static GerenciadorRespawn gerenciadorRespawn;
 	public static GerenciadorHud gerenciadorHud;
 	public static GerenciadorDeRaids gerenciadorDeRaids;
-
-public static Minimap minimap;
-	//static BufferedImage tileset;
-
-//	private boolean menu;
-
-//	public static int Torre=0;
+	private static  GerenciadorXP gerenciadorXP;
 
 
-
-	//private boolean TimerClick=true;
-
-//	private long timermouse=0;
-
-	//private boolean mouseRelease;
-
-//	public static boolean dialogoativo = false;
-//	public static int timerdialogo = 0;
-//	public static String oDialogo = "";
-	
-//	public static GerenciadorDeRaids gerenciadorderaids;
-//	
-//	public static ControladorDeDirecao controladordedirecao;
-//	
+	public static Minimap minimap;
 	static double timer = 0;
-
-
-//	public static int Dinheiro=Constantes.DINHEIRO_INICIAL;
-
-	Font fonte;
-
-	Font fonte3;
-
-	Font fonte2;
-
+	
 	public static Heroi heroi;
 
 	public int MundoY=0;
-
 	public int MundoX=0;
 
-	private GerenciadorXP gerenciadorXP;
 
 	public static GerenciadorObstaculos gerenciadorObstaculos;
 	
 	public static TileMap MAPA;
-
 	public static int altura;
 	public static int largura;
 
-	//private static Mira miraAtiva;
 	private static Mira miraJogo;
 
 	public static boolean testeGradeColisao=false;
@@ -126,8 +68,6 @@ public static Minimap minimap;
 	public CanvasGame() {
 		// TODO Auto-generated constructor stub
 		instance = this;
-		carregaFontes();
-
 		MAPA = new TileMap(Imagem.tileset, GamePanel.PWIDTH/16, GamePanel.PHEIGHT/16);
 		MAPA.AbreMapa("60x601.map");
 			
@@ -137,7 +77,7 @@ public static Minimap minimap;
 		
 		gerenciadorObstaculos=new GerenciadorObstaculos();
 
-		base = new Base(largura/2, altura/2,Constantes.BASE_SIZEX_1,Constantes.BASE_SIZEY_1);
+		base = new Base(largura/2, altura/2, Imagem.base);
 
 		gerenciadorTorre = new GerenciadorTorre();
 		gerenciadorEfeitos = new GerenciadorEfeitos();
@@ -159,32 +99,20 @@ public static Minimap minimap;
 		
 	}
 
-	private void carregaFontes() {
-		// TODO Auto-generated method stub
-		
-		fonte = new Font("Courier", Font.BOLD, 12);
-		fonte2 = new Font("Courier", Font.BOLD, 13);
-		fonte3 = new Font("Courier", Font.BOLD, 16);
-	}
 
-	private void carregaImagens() {
-		// TODO Auto-generated method stub
 
-	//	loadImagem = new Imagem();
 
-	}
 
 	@Override
 	void DesenhaSe(Graphics2D dbg) {
 		// TODO Auto-generated method stub
-		dbg.setFont(fonte2);
+		dbg.setFont(Constantes.FonteNormal);
 		dbg.setColor(Color.white);
 		dbg.fillRect(0,0,GamePanel.PWIDTH, GamePanel.PHEIGHT);
 
 		dbg.setColor(Color.black);
 		dbg.drawString(""+GamePanel.FPS, 10, 10);
 		
-		gerenciadorEfeitos.DesenhaSe(dbg, MAPA.MapX, MAPA.MapY);
 
 		
 		for(int i = 0; i < projeteis.size();i++){
@@ -201,14 +129,12 @@ public static Minimap minimap;
 			
 		}
 			
-		gerenciadorDeRaids.DesenhaSe(dbg, MAPA.MapX, MAPA.MapY);
-		heroi.DesenhaSe(dbg, MAPA.MapX, MAPA.MapY);
-		gerenciadorTorre.DesenhaSe(dbg,  MAPA.MapX,  MAPA.MapY);
-
-		gerenciadorHud.DesenhaSe(dbg, MAPA.MapX, MAPA.MapY);
+		
+		gerenciadorEfeitos.DesenhaSe(dbg, MAPA.MapX, MAPA.MapY);
 		base.DesenhaSe(dbg, MAPA.MapX, MAPA.MapY);
 
-		gerenciadorXP.DesenhaSe(dbg, MAPA.MapX, MAPA.MapY);
+		gerenciadorHud.DesenhaSe(dbg, MAPA.MapX, MAPA.MapY);
+
 		minimap.DesenhaSe(dbg, MAPA.MapX, MAPA.MapY);
 		getMiraAtiva().DesenhaSe(dbg, MAPA.MapX, MAPA.MapY);
 		
@@ -216,7 +142,11 @@ public static Minimap minimap;
 		
 		gerenciadorObstaculos.DesenhaSe(dbg, MAPA.MapX, MAPA.MapY);
 		
-		
+		gerenciadorDeRaids.DesenhaSe(dbg, MAPA.MapX, MAPA.MapY);
+		heroi.DesenhaSe(dbg, MAPA.MapX, MAPA.MapY);
+		gerenciadorXP.DesenhaSe(dbg, MAPA.MapX, MAPA.MapY);
+
+		gerenciadorTorre.DesenhaSe(dbg,  MAPA.MapX,  MAPA.MapY);
 	}
 	
 	
@@ -224,10 +154,7 @@ public static Minimap minimap;
 	
 	void SimulaSe(long DiffTime) {
 		
-		if (getMiraAtiva() !=(Mira)miraJogo&&!gerenciadorTorre.hitMiraMenu) {
-			setMiraAtiva(miraJogo);
-			
-		}
+	trataMiraDoJogo();
 		getMiraAtiva().SimulaSe((int)DiffTime);
 		
 		if(!GerenciadorRespawn.isRespawn()){
@@ -269,6 +196,18 @@ public static Minimap minimap;
 		
 	}
 	
+	private void trataMiraDoJogo() {
+		// TODO Auto-generated method stub
+		if (getMiraAtiva() !=(Mira)miraJogo&&!GerenciadorTorre.isHitMiraMenu()) {
+			setMiraAtiva(miraJogo);
+			
+		}
+	}
+
+
+
+
+
 	@Override
 	void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub

@@ -23,6 +23,8 @@ public class Imagem {
 	public static BufferedImage heroiUm;
 	public static BufferedImage he_hud;
 	public static BufferedImage botaoUm;
+	public static BufferedImage base;
+
 
 	
 	public Imagem() {
@@ -52,6 +54,8 @@ public class Imagem {
 			heroiUm=Constantes.LoadImage("img/t1.png");
 			
 			//botaoUm=Constantes.LoadImage("img/botoes/botaoUm.png");
+			base = Constantes.LoadImage("img/base.png");
+
 
 	}
  

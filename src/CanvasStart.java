@@ -6,9 +6,6 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.LinkedList;
-
-import sun.audio.AudioPlayer;
 
 public class CanvasStart extends GCanvas{
 	
@@ -32,11 +29,11 @@ public class CanvasStart extends GCanvas{
 		
 		
 		imgloader = new Imagem();
-		fonteLogo = new Font("Courier", Font.BOLD, 60);
+		setFonteLogo(new Font("Courier", Font.BOLD, 60));
 		
 		fonteMenu = new Font("Courier", Font.BOLD, 30);
 		
-		fonteAutores = new Font("Courier", Font.BOLD, 14);
+		setFonteAutores(new Font("Courier", Font.BOLD, 14));
 	 
 		
 		botoes.add(new Botao(null,"Play",100,100,120,25,false));
@@ -232,6 +229,18 @@ public class CanvasStart extends GCanvas{
 	void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
+	}
+	public void setFonteAutores(Font fonteAutores) {
+		this.fonteAutores = fonteAutores;
+	}
+	public Font getFonteAutores() {
+		return fonteAutores;
+	}
+	public void setFonteLogo(Font fonteLogo) {
+		this.fonteLogo = fonteLogo;
+	}
+	public Font getFonteLogo() {
+		return fonteLogo;
 	}
 
 }

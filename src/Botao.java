@@ -10,7 +10,6 @@ public class Botao extends Objeto {
 	
 	private boolean ativo;
 	private boolean selecionado;
-	private boolean click;
 	private String name;
 	private boolean isOval = true;
 	private boolean oldIsMousePressed;
@@ -24,16 +23,14 @@ public class Botao extends Objeto {
 		setAtivo(false);
 		selecionado=false;
 		setSizeX(_sizeX);
-		
 
 		font =  new Font("SansSerif", Font.BOLD, (int) _fontSize);
+		
 		if (_isOval) 
 			setSizeY(_sizeX/2);
 		else 
 			setSizeY(_sizeX/3);
 
-		
-		click=false;
 		setName(_name);
 		setX(_x);
 		setY(_y);
@@ -44,9 +41,7 @@ public class Botao extends Objeto {
 	
 	@Override
 	public void SimulaSe(int DiffTime) {
-		//System.out.println("botao ativo?"+isAtivo());
 		// TODO Auto-generated method stub
-			int raioMedio=(getSizeX()/2+getSizeY()/2)/2;
 				GamePanel.getCanvasAtivo();
 				if (Constantes.colideQuadrado((int)getX(),(int)getY(),getSizeX(),getSizeY(), (int)GCanvas.getMiraAtiva().getXMundo(),(int)GCanvas.getMiraAtiva().getYMundo() ,2,2 )) {
 					if (!isAtivo()) {
@@ -82,16 +77,6 @@ public class Botao extends Objeto {
 		Font temp = dbg.getFont();
 		dbg.setFont(font);
 		if (imagem == null) {
-//			if (isOval) {
-//				if (selecionado)
-//					dbg.fillOval((int)getX()-XMundo+1-getSizeX()/2,(int)getY()-YMundo+1-getSizeY()/2, getSizeX()-2, getSizeY()-2);
-//		
-//				
-//				dbg.drawOval((int)getX()-XMundo-getSizeX()/2,(int)getY()-YMundo-getSizeY()/2, getSizeX(), getSizeY());
-//				
-//				dbg.drawString(name,(int) getX()-XMundo-dbg.getFont().getSize()/2,(int) getY()-YMundo);
-//				
-//			}
 			if (isOval) { // desenha botao com imagem
 				
 				dbg.setColor(Color.red);
@@ -102,7 +87,6 @@ public class Botao extends Objeto {
 					dbg.setColor(Color.gray);
 					dbg.setColor(new Color(50,50,50,200));
 					dbg.fillOval((int)getX()+1-XMundo,(int)getY()-YMundo+1, getSizeX()-2, getSizeY()-2);
-					//dbg.fillRect((int)getX()-XMundo+2-getSizeX()/2,(int)getY()-YMundo+2-getSizeY()/2, getSizeX()-3, getSizeY()-3);
 					dbg.setColor(Color.red);
 				}else {
 					
@@ -112,7 +96,6 @@ public class Botao extends Objeto {
 		
 				dbg.drawString(name,(int) getX()+getSizeX()/2-XMundo-name.length()/2*((dbg.getFont().getSize()*2)/3),(int) getY()+getSizeY()/2+(dbg.getFont().getSize()/2)-YMundo);
 
-//				dbg.drawString(name,(int) getX()+getSizeX()/2-XMundo-name.length()/4*dbg.getFont().getSize(),(int) getY()+getSizeY()/2+dbg.getFont().getSize()/2-YMundo);
 			}
 			else { // desenha botao com imagem
 				
@@ -128,7 +111,6 @@ public class Botao extends Objeto {
 				if (selecionado) {
 					dbg.setColor(Color.gray);
 
-					//dbg.fillRect((int)getX()-XMundo+2-getSizeX()/2,(int)getY()-YMundo+2-getSizeY()/2, getSizeX()-3, getSizeY()-3);
 					dbg.setColor(Color.red);
 				}else {
 					
@@ -136,10 +118,8 @@ public class Botao extends Objeto {
 				}
 		
 		
-				//dbg.drawOval((int) getX()+getSizeX()/2-XMundo-name.length()/2*dbg.getFont().getSize()-2, (int) getY()+dbg.getFont().getSize()-YMundo-2, 4, 4);
 				dbg.drawString(name,(int) getX()+getSizeX()/2-XMundo-name.length()/2*((dbg.getFont().getSize()*2)/3),(int) getY()+getSizeY()/2+(dbg.getFont().getSize()/2)-YMundo);
 
-				//dbg.drawString(name,(int) getX()+getSizeX()/2-XMundo-name.length()/2*((dbg.getFont().getSize()*2)/3),(int) getY()+getSizeY()/2+dbg.getFont().getSize()/2-YMundo);
 
 			}
 		}

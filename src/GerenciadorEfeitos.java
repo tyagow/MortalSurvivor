@@ -1,15 +1,10 @@
-import java.awt.Canvas;
 import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.image.BufferStrategy;
+
 import java.awt.image.BufferedImage;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-import com.sun.servicetag.SystemEnvironment;
-import com.sun.swing.internal.plaf.synth.resources.synth;
 
 
 public class GerenciadorEfeitos extends Objeto implements Runnable {
@@ -303,7 +298,7 @@ public class GerenciadorEfeitos extends Objeto implements Runnable {
 
 			int totalParticulas= dano+10;
 			for(int B = 0; B < totalParticulas;B++){
-				int modv = GamePanel.rnd.nextInt(300)-100;
+				int modv = GamePanel.rnd.nextInt(500)-100;
 				
 				int pvx = 0;
 				int pvy = 0;
@@ -366,7 +361,7 @@ public class GerenciadorEfeitos extends Objeto implements Runnable {
 					   
 				}
 				
-				particulas.add((Particula)new Sangue(x,y,-pvx,-pvy,GamePanel.rnd.nextInt(300)+100,cor));
+				particulas.add((Particula)new Sangue(x,y,-pvx,-pvy,GamePanel.rnd.nextInt(100)+100,cor));
 			}
 //			int modv = GamePanel.rnd.nextInt(300);
 //			
