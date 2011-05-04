@@ -35,7 +35,6 @@ public class Base extends Objeto{
 	
 	@Override
 	public void SimulaSe(int DiffTime) {
-		// TODO Auto-generated method stub
 		if(!auraAtiva){
 			timerAura += DiffTime;
 		}
@@ -57,7 +56,6 @@ public class Base extends Objeto{
 
 	@Override
 	public void DesenhaSe(Graphics2D dbg, int XMundo, int YMundo) {
-		// TODO Auto-generated method stub
 		
 		
 		Color corAnterior = dbg.getColor();

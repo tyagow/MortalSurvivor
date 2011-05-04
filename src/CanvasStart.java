@@ -18,15 +18,18 @@ public class CanvasStart extends GCanvas{
 	Imagem imgloader;
 	
 	Menu menuAtivo;
+	private static Mira miraAtiva;
 
+	
+	private static double mousex;
+	private static double mousey;
 	private Menu menuOptions;
 	
-	private static ArrayList<Botao> botoes= new ArrayList<Botao>();
+	private static ArrayList<BotaoMenu> botoes= new ArrayList<BotaoMenu>();
 	public CanvasStart() {
 		// TODO Auto-generated constructor stub
 		
 		loader = new GerenciadorDeSom();
-		
 		
 		imgloader = new Imagem();
 		setFonteLogo(new Font("Courier", Font.BOLD, 60));
@@ -36,16 +39,16 @@ public class CanvasStart extends GCanvas{
 		setFonteAutores(new Font("Courier", Font.BOLD, 14));
 	 
 		
-		botoes.add(new Botao(null,"Play",100,100,120,25,false));
-		botoes.add(new Botao(null,"Score",100,150,120,25,false));
-		botoes.add(new Botao(null,"Help",100,200,120,25,false));
-		botoes.add(new Botao(null,"Options",100,250,120,25,false));
-		botoes.add(new Botao(null,"Exit",100,300,120,25,false));
+		botoes.add(new BotaoMenu(null,"Play",100,100,120,25,false));
+		botoes.add(new BotaoMenu(null,"Score",100,150,120,25,false));
+		botoes.add(new BotaoMenu(null,"Help",100,200,120,25,false));
+		botoes.add(new BotaoMenu(null,"Options",100,250,120,25,false));
+		botoes.add(new BotaoMenu(null,"Exit",100,300,120,25,false));
 		menuOptions= new MenuOptions(250, 100, 200, 200, Color.darkGray, 9999);
 		
 		GamePanel.getCanvasAtivo();
 
-		GCanvas.setMiraAtiva(new CursorMenuTorre());
+		setMiraAtiva(new CursorMenuStart());
 		
 
 
@@ -68,10 +71,10 @@ public class CanvasStart extends GCanvas{
 			dbg.setColor(Color.yellow);
 			
 			//dbg.setFont(fonteAutores);
-			Iterator<Botao> it = botoes.iterator();
+			Iterator<BotaoMenu> it = botoes.iterator();
 
 			while(it.hasNext()){
-				Botao obj= it.next();
+				BotaoMenu obj= it.next();
 			obj.DesenhaSe(dbg, 0, 0);
 			}
 			
@@ -93,7 +96,7 @@ public class CanvasStart extends GCanvas{
 //		while(it.hasNext()){
 			for (int x=0;x<botoes.size();x++) {
 	//				Botao b= (Botao) it.next();
-				Botao b= botoes.get(x);
+				BotaoMenu b= botoes.get(x);
 	
 				b.SimulaSe((int)diftime);			
 				if (b.isAtivo()) {
@@ -108,11 +111,12 @@ public class CanvasStart extends GCanvas{
 		
 
 	}
-	private void trataBotao(Botao b) {
+	private void trataBotao(BotaoMenu b) {
 		// TODO Auto-generated method stub
 		if (b.getName().contains("Play") ) {
 			
 			GamePanel.setCanvasAtivo(CanvasGame.instance);
+			setMiraAtiva(new MiraRedonda());
 			
 		}else if (b.getName().contains("Options") ) {
 			if (menuAtivo!=menuOptions){
@@ -242,5 +246,22 @@ public class CanvasStart extends GCanvas{
 	public Font getFonteLogo() {
 		return fonteLogo;
 	}
-
+	public static void setMiraAtiva(Mira _miraAtiva) {
+		miraAtiva = _miraAtiva;
+	}
+	public static Mira getMiraAtiva() {
+		return miraAtiva;
+	}
+	public static void setMousey(int _mousey) {
+		mousey = _mousey;
+	}
+	public static double getMousey() {
+		return mousey;
+	}
+	public static void setMousex(int _mousex) {
+		mousex = _mousex;
+	}
+	public static double getMousex() {
+		return mousex;
+	}
 }

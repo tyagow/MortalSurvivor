@@ -41,11 +41,10 @@ public class Botao extends Objeto {
 	
 	@Override
 	public void SimulaSe(int DiffTime) {
-		// TODO Auto-generated method stub
-				GamePanel.getCanvasAtivo();
-				if (Constantes.colideQuadrado((int)getX(),(int)getY(),getSizeX(),getSizeY(), (int)GCanvas.getMiraAtiva().getXMundo(),(int)GCanvas.getMiraAtiva().getYMundo() ,2,2 )) {
+	
+				if (Constantes.colideQuadrado((int)getX(),(int)getY(),getSizeX(),getSizeY(), (int)CanvasGame.getMiraAtiva().getXMundo(),(int)CanvasGame.getMiraAtiva().getYMundo() ,2,2 )) {
 					if (!isAtivo()) {
-						if (GCanvas.getMiraAtiva().isPressed()) {
+						if (CanvasGame.getMiraAtiva().isPressed()) {
 			
 							trataClickBotao();
 						}
@@ -55,13 +54,12 @@ public class Botao extends Objeto {
 					selecionado = false;
 				}
 
-		oldIsMousePressed = GCanvas.getMiraAtiva().isPressed();
+		oldIsMousePressed = CanvasGame.getMiraAtiva().isPressed();
 	}
 
 	
 	
 	private void trataClickBotao() {
-		// TODO Auto-generated method stub
 		if(!oldIsMousePressed)
 			ativaBotao();	
 
@@ -73,7 +71,6 @@ public class Botao extends Objeto {
 
 	@Override
 	public void DesenhaSe(Graphics2D dbg, int XMundo, int YMundo) {
-		// TODO Auto-generated method stub
 		Font temp = dbg.getFont();
 		dbg.setFont(font);
 		if (imagem == null) {
@@ -126,7 +123,6 @@ public class Botao extends Objeto {
 		dbg.setFont(temp);
 	}
 	private void ativaBotao() {
-		// TODO Auto-generated method stub
 		setAtivo(true);
 	}
 

@@ -19,7 +19,11 @@ public class CanvasGame extends GCanvas {
 	public static int Health = 20;
 	
 	private static boolean endGame=false;
+	private static Mira miraAtiva;
 
+	
+	private static double mousex;
+	private static double mousey;
 	BufferedImage fundo;
 
 	public static Base base;
@@ -136,7 +140,8 @@ public class CanvasGame extends GCanvas {
 		gerenciadorHud.DesenhaSe(dbg, MAPA.MapX, MAPA.MapY);
 
 		minimap.DesenhaSe(dbg, MAPA.MapX, MAPA.MapY);
-		getMiraAtiva().DesenhaSe(dbg, MAPA.MapX, MAPA.MapY);
+		if (getMiraAtiva()!=null)
+			getMiraAtiva().DesenhaSe(dbg, MAPA.MapX, MAPA.MapY);
 		
 		gerenciadorRespawn.DesenhaSe(dbg, MAPA.MapX, MAPA.MapY);
 		
@@ -154,7 +159,7 @@ public class CanvasGame extends GCanvas {
 	
 	void SimulaSe(long DiffTime) {
 		
-	trataMiraDoJogo();
+		trataMiraDoJogo();
 		getMiraAtiva().SimulaSe((int)DiffTime);
 		
 		if(!GerenciadorRespawn.isRespawn()){
@@ -377,4 +382,23 @@ public class CanvasGame extends GCanvas {
 
 	}
 
+
+public static void setMiraAtiva(Mira _miraAtiva) {
+	miraAtiva = _miraAtiva;
+}
+public static Mira getMiraAtiva() {
+	return miraAtiva;
+}
+public static void setMousey(int _mousey) {
+	mousey = _mousey;
+}
+public static double getMousey() {
+	return mousey;
+}
+public static void setMousex(int _mousex) {
+	mousex = _mousex;
+}
+public static double getMousex() {
+	return mousex;
+}
 }

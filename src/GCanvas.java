@@ -5,11 +5,7 @@ import java.awt.event.MouseEvent;
 
 
 public abstract class GCanvas {
-	private static Mira miraAtiva;
 
-	
-	private static double mousex;
-	private static double mousey;
 
 	abstract void DesenhaSe(Graphics2D dbg);
 	abstract void SimulaSe(long diftime);
@@ -33,24 +29,6 @@ public abstract class GCanvas {
 
 
 	abstract void mouseClicked(MouseEvent e);
-	public static void setMiraAtiva(Mira miraAtiva) {
-		GCanvas.miraAtiva = miraAtiva;
-	}
-	public static Mira getMiraAtiva() {
-		return miraAtiva;
-	}
-	public static void setMousey(double mousey) {
-		GCanvas.mousey = mousey;
-	}
-	public static double getMousey() {
-		return mousey;
-	}
-	public static void setMousex(double mousex) {
-		GCanvas.mousex = mousex;
-	}
-	public static double getMousex() {
-		return mousex;
-	}
 
 	
 }
