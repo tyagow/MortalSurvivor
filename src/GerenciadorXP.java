@@ -84,7 +84,13 @@ public class GerenciadorXP extends Objeto {
 		
 		
 	}
-
+	public void reset() {
+		System.out.println("teste");
+		xp=0;
+		fastKill=0;
+		timer=0;
+		
+	}
 	private static void trataEfeito(boolean extraXp, int _xp, double x, double y) {
 		// TODO Auto-generated method stub
 		
@@ -97,7 +103,6 @@ public class GerenciadorXP extends Objeto {
 	}
 
 	private static boolean trataXp(int _xp) {
-		// TODO Auto-generated method stub
 		boolean fast=false;
 		if (fastKill>Constantes.QUANTIDADE_FAST_KILL) {
 			xp+=(_xp*3);

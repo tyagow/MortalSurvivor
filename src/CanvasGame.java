@@ -76,9 +76,28 @@ public class CanvasGame extends GCanvas {
 		MAPA.AbreMapa("60x601.map");
 		largura = MAPA.Largura*16;
 		altura = MAPA.Altura*16;
-		
+		inicializaFase();
 		recarregaFase();
 		
+	}
+
+
+
+
+
+	private void inicializaFase() {
+		gerenciadorObstaculos=new GerenciadorObstaculos();
+		base = new Base(largura/2, altura/2, Imagem.base);
+		gerenciadorTorre = new GerenciadorTorre();
+		gerenciadorEfeitos = new GerenciadorEfeitos();
+		gerenciadorRespawn= new GerenciadorRespawn();
+		gerenciadorHud=new GerenciadorHud();
+		gerenciadorDeRaids= new GerenciadorDeRaids();
+		gerenciadorXP=new GerenciadorXP();
+		miraJogo= new MiraRedonda();
+		miraMenu=new CursorMenuTorre();
+		minimap=new Minimap();
+
 	}
 
 
@@ -91,27 +110,14 @@ public class CanvasGame extends GCanvas {
 		
 		
 
-		gerenciadorObstaculos=new GerenciadorObstaculos();
+		gerenciadorHud.reset();
+		gerenciadorEfeitos.reset();
+		gerenciadorXP.reset();
+		
 
-		base = new Base(largura/2, altura/2, Imagem.base);
-		
-		gerenciadorTorre = new GerenciadorTorre();
-		gerenciadorEfeitos = new GerenciadorEfeitos();
-		gerenciadorRespawn= new GerenciadorRespawn();
-		gerenciadorHud=new GerenciadorHud();
-		gerenciadorDeRaids= new GerenciadorDeRaids();
-		gerenciadorXP=new GerenciadorXP();
-	
-		
-		
-		miraJogo= new MiraRedonda();
-
-		miraMenu=new CursorMenuTorre();
-		
 		heroi=new Heroi(GamePanel.PWIDTH/2, GamePanel.PHEIGHT/2,Imagem.heroiUm);
 		
 	
-		minimap=new Minimap();
 		ContiuaJogo=true;
 	}
 
@@ -172,6 +178,7 @@ public class CanvasGame extends GCanvas {
 	
 	void SimulaSe(long DiffTime) {
 		
+		
 		trataMiraDoJogo();
 		getMiraAtiva().SimulaSe((int)DiffTime);
 		
@@ -193,6 +200,8 @@ public class CanvasGame extends GCanvas {
 				}
 		}
 		base.SimulaSe((int)DiffTime);
+		
+
 		heroi.SimulaSe((int)DiffTime);
 		
 		Iterator<Projetil> itP = projeteis.iterator();
@@ -212,12 +221,29 @@ public class CanvasGame extends GCanvas {
 		gerenciadorHud.SimulaSe((int)DiffTime);
 		gerenciadorXP.SimulaSe((int)DiffTime);
 		
+		verificaFimDoJogo();
+
 	}
 	
+	private void verificaFimDoJogo() {
+		
+		if (isEndGame() && GerenciadorDeRaids.acabouRaids()||base.getLife()<=0) {
+			GamePanel.setCanvasAtivo(new CanvasStart());
+		}
+		
+	}
+
+
+
+
+
 	private void trataMiraDoJogo() {
 		// TODO Auto-generated method stub
-		if (getMiraAtiva() !=(Mira)miraJogo&&!GerenciadorTorre.isHitMiraMenu()) {
+		if (!GerenciadorTorre.isHitMiraMenu()&&!GerenciadorTorre.hitMiraSelecionador) {
 			setMiraAtiva(miraJogo);
+			
+		}else {
+			setMiraAtiva(miraMenu);
 			
 		}
 	}
@@ -232,7 +258,7 @@ public class CanvasGame extends GCanvas {
 		int keyCode = e.getKeyCode();
 		if(keyCode == KeyEvent.VK_0){
 			testeGradeColisao=true;
-	}		
+		}		
 		if(keyCode == KeyEvent.VK_ESCAPE){
 			GamePanel.setCanvasAtivo(new CanvasMenu());
 		}
@@ -265,7 +291,6 @@ public class CanvasGame extends GCanvas {
 		}	
 		if(keyCode == KeyEvent.VK_4){
 			GamePanel.setCanvasAtivo(new CanvasGame());
-			//inimigos.add(new Inimigo(Constantes.inimigoUm));
 		}
 		
 	

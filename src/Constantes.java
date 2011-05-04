@@ -153,13 +153,15 @@ public class Constantes {
 //efeito triple XP	
 	public static final int QUANTIDADE_FAST_KILL = 10;
 	public static double tempoEntreKill=2500;
-	public static final int VELOCIDADE_TIRO=1300;
 
 	//aura base
 	public static final int AURA_BASE_DIAMETRO = 250;
 	public static final int AURA_BASE_TIMER = 3000;
 	public static final int ID_ARMA_TRES_TORRE = 5;
 	
+	//Projetil
+	public static final int VELOCIDADE_TIRO=1300;
+
 
 	public static BufferedImage LoadImage(String filename){
 		BufferedImage image = null;

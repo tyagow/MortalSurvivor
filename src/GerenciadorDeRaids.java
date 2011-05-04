@@ -79,6 +79,7 @@ public class GerenciadorDeRaids {
 			raid4.ativo = true;
 			getRaids().add(raid4);
 			numRaid++;
+			System.out.println("teste");
 			break;
 		case 4:
 			Raid raid5 = new Raid("raid5.csv");
@@ -193,7 +194,10 @@ public class GerenciadorDeRaids {
 		return raids;
 	}
 
-	
+	public static boolean acabouRaids() {
+		
+		return getRaids().isEmpty();
+	}
 
 
 }

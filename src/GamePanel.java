@@ -48,8 +48,8 @@ public static int scoreUltimaJogada;
 long tempoinicial = 0;
 long tempototal = 0;
 
-CanvasGame canvasGame;
- CanvasStart canvasInicio;
+private static CanvasGame canvasGame;
+private static CanvasStart canvasInicio;
 
 public GamePanel()
 {
@@ -156,9 +156,9 @@ addMouseListener(new MouseListener() {
 	});
 	
 	
-	canvasInicio = 	new CanvasStart();
-	canvasGame = new CanvasGame();
-	setCanvasAtivo(canvasInicio);
+	setCanvasInicio(new CanvasStart());
+	setCanvasGame(new CanvasGame());
+	setCanvasAtivo(getCanvasInicio());
 	
 } // end of GamePanel()
 
@@ -261,6 +261,22 @@ public void setDbg(Graphics2D dbg) {
 
 public Graphics2D getDbg() {
 	return dbg;
+}
+
+public static void setCanvasGame(CanvasGame canvasGame) {
+	GamePanel.canvasGame = canvasGame;
+}
+
+public static CanvasGame getCanvasGame() {
+	return canvasGame;
+}
+
+public static void setCanvasInicio(CanvasStart canvasInicio) {
+	GamePanel.canvasInicio = canvasInicio;
+}
+
+public static CanvasStart getCanvasInicio() {
+	return canvasInicio;
 }
 
 }

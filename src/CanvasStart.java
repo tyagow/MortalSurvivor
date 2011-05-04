@@ -46,8 +46,6 @@ public class CanvasStart extends GCanvas{
 		botoes.add(new BotaoMenu(null,"Exit",100,300,120,25,false));
 		menuOptions= new MenuOptions(250, 100, 200, 200, Color.darkGray, 9999);
 		
-		GamePanel.getCanvasAtivo();
-
 		setMiraAtiva(new CursorMenuStart());
 		
 
@@ -97,7 +95,7 @@ public class CanvasStart extends GCanvas{
 			for (int x=0;x<botoes.size();x++) {
 	//				Botao b= (Botao) it.next();
 				BotaoMenu b= botoes.get(x);
-	
+				
 				b.SimulaSe((int)diftime);			
 				if (b.isAtivo()) {
 					trataBotao(b);
@@ -116,7 +114,7 @@ public class CanvasStart extends GCanvas{
 		if (b.getName().contains("Play") ) {
 			
 			GamePanel.setCanvasAtivo(CanvasGame.instance);
-			setMiraAtiva(new MiraRedonda());
+			//setMiraAtiva(new MiraRedonda());
 			
 		}else if (b.getName().contains("Options") ) {
 			if (menuAtivo!=menuOptions){
@@ -125,9 +123,9 @@ public class CanvasStart extends GCanvas{
 			else {
 				menuAtivo=null;
 			}
-		}else if (b.getName().contains("Play") ) {
+		}else if (b.getName().contains("Exit") ) {
 			
-			GamePanel.setCanvasAtivo(CanvasGame.instance);
+			System.exit(0);
 			
 		}else if (b.getName().contains("Play") ) {
 			
@@ -152,11 +150,9 @@ public class CanvasStart extends GCanvas{
 		}
 		
 		if(keyCode == KeyEvent.VK_F1){
-			instrucao = true;
 		}
 		
 		if(keyCode == KeyEvent.VK_ESCAPE){
-			instrucao = false;
 		}
 		
 	}

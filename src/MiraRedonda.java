@@ -10,7 +10,6 @@ public class  MiraRedonda extends Mira {
 	private boolean pressed;
 	private boolean released;
 	private int button;
-	//private boolean clicked;
 	public MiraRedonda() {
 		
 		setSizeX(Constantes.MOUSE_SIZEX);
@@ -20,38 +19,19 @@ public class  MiraRedonda extends Mira {
 		setReleased(true);
 		mira = Imagem.mira1;
 		
-		 //SimulaSe(0);
 	}
 	
 	@Override
 	public void SimulaSe(int DiffTime) {
-		GamePanel.getCanvasAtivo();
-		// TODO Auto-generated method stub
-		GamePanel.getCanvasAtivo();
+
 		
 		setX(CanvasGame.getMousex());
 		setY(CanvasGame.getMousey());
-		
-//		if (Constantes.colideQuadrado((int)getX(),(int) getY(), 1, 1, (int) GerenciadorTorre.selecionadorDeTorre.getX(),(int) GerenciadorTorre.selecionadorDeTorre.getY(), GerenciadorTorre.selecionadorDeTorre.getSizeX(), GerenciadorTorre.selecionadorDeTorre.getSizeY())) {	
-//			CanvasGame.setMiraMenu();
-//		}
-		
-//		for(int i = 0; i < GerenciadorTorre.torres.size(); i++){
-//			MenuTorre m = GerenciadorTorre.torres.get(i).getMenuAtivo();
-//			if(m != null){
-//				if (Constantes.colideQuadrado((int)m.getX(),(int) m.getY(),(int) m.getSizeX(),(int) m.getSizeY(), (int)CanvasGame.getMiraAtiva().getXMundo(),(int) CanvasGame.getMiraAtiva().getYMundo(), 1, 1)) {
-//					CanvasGame.setMiraMenu();
-//				}
-//			}
-//		}
-	
-		
-		
+			
 	}
 
 	@Override
 	public void DesenhaSe(Graphics2D dbg, int XMundo, int YMundo) {
-		// TODO Auto-generated method stub
 		
 		dbg.setColor(Color.black);
 		dbg.drawOval((int)getX()-getSizeX()/2, (int)getY()-getSizeY()/2, getSizeX(), getSizeY());
@@ -66,11 +46,6 @@ public class  MiraRedonda extends Mira {
 
 
 	    dbg.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
-
-//		System.out.println("pressed"+isPressed());
-	//	System.out.println(isReleased());
-
-		//dbg.drawImage(mira,(int)X,(int)Y,(int)X+sizeX,(int)Y+sizeY,0,0,(int)mira.getWidth(),(int)mira.getHeight(),null);
 
 	}
 	
@@ -92,7 +67,6 @@ public class  MiraRedonda extends Mira {
 	}
 
 	public void trataClickMouse1() {
-		// TODO Auto-generated method stub
 		
 		CanvasGame.heroi.trataClick();
 		
@@ -100,19 +74,16 @@ public class  MiraRedonda extends Mira {
 	}
 
 	public void trataClickMouse2() {
-		// TODO Auto-generated method stub
 		CanvasGame.gerenciadorTorre.click((int)getXMundo(),(int)getYMundo());
 
 		
 	}
 
 	public double getXMundo() {
-		// TODO Auto-generated method stub
 		
 		return getX()+CanvasGame.MAPA.MapX;
 	}
 	public double getYMundo() {
-		// TODO Auto-generated method stub
 		
 		return getY()+CanvasGame.MAPA.MapY;
 	}

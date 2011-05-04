@@ -4,77 +4,83 @@ import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-
+import java.util.ArrayList;
+import java.util.Iterator;
 
 public class CanvasMenu extends GCanvas{
 	
 	static BufferedImage imagemlogo;
-	
+
 	private Font fonteLogo, fonteMenu, fonteAutores;
-	GerenciadorDeSom loader;
-	boolean instrucao = false;
-	BufferedImage img;
-	Imagem imgloader;
+	Graphics2D img;
+	
+	Menu menuAtivo;
+	
+	private static Mira miraAtiva;
+	public static CanvasMenu instance ;
+	
+	private static double mousex;
+	private static double mousey;
+	
+	private Menu menuOptions;
+	
+	private static ArrayList<BotaoMenu> botoes= new ArrayList<BotaoMenu>();
+	
 	public CanvasMenu() {
-		// TODO Auto-generated constructor stub
+		instance=this;
+		setFonteLogo(new Font("Courier", Font.BOLD, 60));
 		
+		fonteMenu = new Font("Courier", Font.BOLD, 30);
 		
-		//Constantes.logo=
+		setFonteAutores(new Font("Courier", Font.BOLD, 14));
+	 
+//		
+//		botoes.add(new BotaoMenu(null,"Play",100,100,120,25,false));
+//		botoes.add(new BotaoMenu(null,"Score",100,150,120,25,false));
+//		botoes.add(new BotaoMenu(null,"Help",100,200,120,25,false));
+//		botoes.add(new BotaoMenu(null,"Options",100,250,120,25,false));
+//		botoes.add(new BotaoMenu(null,"Exit",100,300,120,25,false));
+		menuOptions= new MenuOptions(250, 100, 200, 200, Color.darkGray, 9999);
 		
-		loader = new GerenciadorDeSom();
+		setMiraAtiva(new CursorMenuOptions());
 		
-		
-		
-		
-		
-		
-		
-		imgloader = new Imagem();
-		fonteLogo = new Font("Courier", Font.BOLD, 60);
-		
-		setFonteMenu(new Font("Courier", Font.BOLD, 30));
-		
-		fonteAutores = new Font("Courier", Font.BOLD, 14);
+
 
 	}
-	
 	@Override
 	void DesenhaSe(Graphics2D dbg) {
 		// TODO Auto-generated method stub
 		
-		if(!instrucao){
-			dbg.setFont(fonteLogo);
+			if (img==null) 
+				img=dbg;
 			
-			dbg.setColor(Color.black);
-			dbg.fillRect(0, 0, GamePanel.PWIDTH, GamePanel.PHEIGHT);
+			dbg=img;
+			dbg.setFont(fonteMenu);
 			
-			dbg.drawImage(Imagem.logo, 0, 0,Imagem.logo.getWidth(),Imagem.logo.getHeight(),null);			
+//			
+//			dbg.setColor(new Color(50,50,50,1));
+//			dbg.fillRect(0, 0, GamePanel.PWIDTH, GamePanel.PHEIGHT);
+
+			dbg.drawImage(Imagem.logo, GamePanel.PWIDTH-100, GamePanel.PHEIGHT-110,100,110,null);
+			
+			if (menuAtivo!=null) 
+				menuAtivo.DesenhaSe(dbg, 0, 0);
 			dbg.setColor(Color.yellow);
+			dbg.drawString("Aperte <Enter> para jogar !", GamePanel.PWIDTH/2-200, GamePanel.PHEIGHT/2-30);
+			dbg.setColor(Color.yellow);
+			
+			//dbg.setFont(fonteAutores);
+			Iterator<BotaoMenu> it = botoes.iterator();
+
+			while(it.hasNext()){
+				BotaoMenu obj= it.next();
+			obj.DesenhaSe(dbg, 0, 0);
+			}
+			
+			getMiraAtiva().DesenhaSe(dbg, 0, 0);
+
 		
-			dbg.setFont(fonteAutores);
-
-
-			dbg.drawString("<Enter> Start/Continue", 380, 50);
-			dbg.drawString("<W> Frente", 410, 100);
-			dbg.drawString("<S> Traz", 410, 130);
-			dbg.drawString("<A> Esquerda", 410, 160);
-			dbg.drawString("<D> Direita", 410, 190);
-			
-			dbg.drawString("<1> Faca", 410, 220);
-			dbg.drawString("<2> Secundaria", 410, 250);
-			dbg.drawString("<3> Cria Torre na Mira", 410, 280);
-			dbg.drawString("<Mouse2> Arma Primaria / Edit Torre", 410, 350);
-			dbg.drawString("<Mouse1> Atira", 410, 380);
-
 	
-		} else{
-			dbg.setFont(fonteLogo);
-			
-			dbg.setColor(Color.black);
-			dbg.fillRect(0, 0, GamePanel.PWIDTH, GamePanel.PHEIGHT);
-
-			
-		}
 
 	}
 
@@ -82,30 +88,72 @@ public class CanvasMenu extends GCanvas{
 	void SimulaSe(long diftime) {
 		// TODO Auto-generated method stub
 		
-	}
+		if (menuAtivo!=null)
+			menuAtivo.SimulaSe((int)diftime);
+		
+//		Iterator<Botao> it = botoes.iterator();
+//		while(it.hasNext()){
+			for (int x=0;x<botoes.size();x++) {
+	//				Botao b= (Botao) it.next();
+				BotaoMenu b= botoes.get(x);
+	
+				b.SimulaSe((int)diftime);			
+				if (b.isAtivo()) {
+					trataBotao(b);
+					botoes.get(x).setAtivo(false);
+				}		
+			}
+		
+		
+		getMiraAtiva().SimulaSe((int)diftime);	
 
+		
+
+	}
+	private void trataBotao(BotaoMenu b) {
+		// TODO Auto-generated method stub
+		if (b.getName().contains("Play") ) {
+			
+			GamePanel.setCanvasAtivo(CanvasGame.instance);
+			//setMiraAtiva(new MiraRedonda());
+			
+		}else if (b.getName().contains("Options") ) {
+			if (menuAtivo!=menuOptions){
+				menuAtivo=menuOptions;
+			}
+			else {
+				menuAtivo=null;
+			}
+		}else if (b.getName().contains("Exit") ) {
+			
+			System.exit(0);
+			
+		}else if (b.getName().contains("Play") ) {
+			
+			GamePanel.setCanvasAtivo(CanvasGame.instance);
+			
+		}
+		
+		
+	}
 	@Override
 	void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
 		int keyCode = e.getKeyCode();
 		
-		if(keyCode == KeyEvent.VK_ENTER && !instrucao){
+		if(keyCode == KeyEvent.VK_ENTER){
 			
 			GamePanel.setCanvasAtivo(CanvasGame.instance);
-			//GerenciadorDeSom.fundo.;
-			
-//			AudioPlayer.player.interrupt();
 
-		}else if(keyCode == KeyEvent.VK_ESCAPE && !instrucao){
+
+		}else if(keyCode == KeyEvent.VK_ESCAPE){
 			System.exit(0);
 		}
 		
-		if(keyCode == KeyEvent.VK_F1 && !instrucao){
-			instrucao = true;
+		if(keyCode == KeyEvent.VK_F1){
 		}
 		
-		if(keyCode == KeyEvent.VK_ESCAPE && instrucao){
-			instrucao = false;
+		if(keyCode == KeyEvent.VK_ESCAPE){
 		}
 		
 	}
@@ -113,32 +161,57 @@ public class CanvasMenu extends GCanvas{
 	@Override
 	void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	void mouseMoved(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+		setMousex(e.getX());
+		setMousey(e.getY());
 	}
 
 	@Override
 	void mouseDragged(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+		setMousex(e.getX());
+		setMousey(e.getY());
 	}
 
 	@Override
 	void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
+		int button = e.getButton();
+		getMiraAtiva().released(button);
+		if (button == MouseEvent.BUTTON1) {
+			
 		
+			getMiraAtiva().trataClickMouse1();
+
+			
+		}
+	
+
+
 	}
 
 	@Override
 	void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
+		int button = e.getButton();
+		getMiraAtiva().pressed(button);
 		
-	}
+		if (button == MouseEvent.BUTTON1) {
+			getMiraAtiva().trataClickMouse1();
+			
+			
+			}
+		else if (button == MouseEvent.BUTTON3) {
+			getMiraAtiva().trataClickMouse2();
+		
+		}
+		
+}
 
 	@Override
 	void mouseExited(MouseEvent e) {
@@ -149,7 +222,8 @@ public class CanvasMenu extends GCanvas{
 	@Override
 	void mouseEntered(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+		setMousex(e.getX());
+		setMousey(e.getY());
 	}
 
 	@Override
@@ -157,13 +231,34 @@ public class CanvasMenu extends GCanvas{
 		// TODO Auto-generated method stub
 		
 	}
-
-	public void setFonteMenu(Font fonteMenu) {
-		this.fonteMenu = fonteMenu;
+	public void setFonteAutores(Font fonteAutores) {
+		this.fonteAutores = fonteAutores;
 	}
-
-	public Font getFonteMenu() {
-		return fonteMenu;
+	public Font getFonteAutores() {
+		return fonteAutores;
 	}
-
+	public void setFonteLogo(Font fonteLogo) {
+		this.fonteLogo = fonteLogo;
+	}
+	public Font getFonteLogo() {
+		return fonteLogo;
+	}
+	public static void setMiraAtiva(Mira _miraAtiva) {
+		miraAtiva = _miraAtiva;
+	}
+	public static Mira getMiraAtiva() {
+		return miraAtiva;
+	}
+	public static void setMousey(int _mousey) {
+		mousey = _mousey;
+	}
+	public static double getMousey() {
+		return mousey;
+	}
+	public static void setMousex(int _mousex) {
+		mousex = _mousex;
+	}
+	public static double getMousex() {
+		return mousex;
+	}
 }

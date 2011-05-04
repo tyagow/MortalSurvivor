@@ -42,10 +42,17 @@ public class GerenciadorEfeitos extends Objeto implements Runnable {
 		diffTimeParticulas=0;
 		manchasSangue= new BufferedImage(CanvasGame.MAPA.Largura*16, CanvasGame.MAPA.Altura*16, BufferedImage.TYPE_INT_ARGB);
 		manchas = manchasSangue.createGraphics();
-		
+		particulas.clear();
+		particulasDesenha.clear();
+		particulasExplosao.clear();
+		efeitos.clear();
 
 		
 //		startGame();
+	}
+	public void reset() {
+		xp=0;
+		
 	}
 
 	public synchronized void setParticulasDesenha(LinkedList<Particula> aux ) {

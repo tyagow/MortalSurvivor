@@ -1,6 +1,7 @@
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 
@@ -129,7 +130,7 @@ public class Heroi extends Objeto {
 		
 		trataMiraDoPersonagem();
 			
-		trataTiroArma();
+		trataInputMouse();
 		trataTrocaArma();
 		calculaAnimacao();
 			
@@ -281,26 +282,18 @@ public class Heroi extends Objeto {
 		
 		
 	}
-	private void trataTiroArma() {
+	private void trataInputMouse() {
 		// TODO Auto-generated method stub
 		
-		
-//		System.out.println("pressed "+CanvasGame.getMiraAtiva().isPressed());
-//		System.out.println("released "+CanvasGame.getMiraAtiva().isReleased());
-		
-//		
-//		System.out.println(armaAtiva.atirou);
-//		
-//		System.out.println("miradojo "+CanvasGame.miraDoJogoSelecionada);
-		
+	
 		if (CanvasGame.miraDoJogoSelecionada){
 			if (CanvasGame.getMiraAtiva().isPressed()) {
+				trataBotaoPressed(CanvasGame.getMiraAtiva().getButton());
 				
-				armaAtiva.atirou();
-			}
-			if (CanvasGame.getMiraAtiva().isReleased())
-				armaAtiva.naoAtirou();
-			
+				
+			}else if (CanvasGame.getMiraAtiva().isReleased())
+				trataBotaoReleased(CanvasGame.getMiraAtiva().getButton());
+
 		}
 		else {
 			
@@ -308,6 +301,19 @@ public class Heroi extends Objeto {
 			armaAtiva.naoAtirou();
 		}
 		
+	}
+	private void trataBotaoReleased(int button) {
+		if (button ==MouseEvent.BUTTON1) {
+
+			armaAtiva.naoAtirou();
+		
+		}
+	}
+	private void trataBotaoPressed(int button) {
+		if (button ==MouseEvent.BUTTON1) {
+				armaAtiva.atirou();
+			
+		}		
 	}
 	private void calculaAnguloVelocidade() {
 		// TODO Auto-generated method stub

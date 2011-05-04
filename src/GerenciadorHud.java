@@ -183,6 +183,9 @@ public class GerenciadorHud extends Objeto {
 	public static LinkedList<Botao> getBotoes() {
 		return botoes;
 	}
+	public void reset() {
+		xpHud=0;
+	}
 	
 
 
