@@ -1,13 +1,14 @@
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.util.ArrayList;
 import java.util.Iterator;
 
 
 public class MenuOptions extends Menu {
 
+	private ArrayList<BotaoMenu> botoesMenu = new ArrayList<BotaoMenu>();
 	public MenuOptions(int _x, int _y, int sizeX, int sizeY, Color cor, int _tempoVida) {
 		super(_x, _y, sizeX, sizeY, cor, _tempoVida);
-		// TODO Auto-generated constructor stub
 		
 		criaBotoes();
 		setAlpha(200);
@@ -18,18 +19,25 @@ public class MenuOptions extends Menu {
 	@Override
 	public void SimulaSe(int DiffTime) {
 		// TODO Auto-generated method stub
-		for (int x=0;x<getBotoes().size();x++) {
-			Botao b= getBotoes().get(x);
+		for (int x=0;x<getBotoesMenu().size();x++) {
+			BotaoMenu b= getBotoesMenu().get(x);
 			
 			b.SimulaSe((int)DiffTime);			
 			if (b.isAtivo()) {
 				trataBotao(b);
-				getBotoes().get(x).setAtivo(false);
+				getBotoesMenu().get(x).setAtivo(false);
 			}		
 		}
 		
 
 	}
+	private ArrayList<BotaoMenu> getBotoesMenu() {
+		// TODO Auto-generated method stub
+		return botoesMenu;
+	}
+
+
+
 	public void DesenhaSe(Graphics2D dbg, int XMundo, int YMundo) {
 		// TODO Auto-generated method stub
 		
@@ -40,9 +48,9 @@ public class MenuOptions extends Menu {
 		
 		dbg.fillRect((int)getX()+1-XMundo,(int)getY()-YMundo+1, getSizeX()-2, getSizeY()-2);
 		
-		Iterator<Botao> it = getBotoes().iterator();
+		Iterator<BotaoMenu> it = getBotoesMenu().iterator();
 		while(it.hasNext()){
-			Botao bot= it.next();
+			BotaoMenu bot= it.next();
 			
 			bot.DesenhaSe(dbg, XMundo, YMundo);
 			
@@ -52,7 +60,7 @@ public class MenuOptions extends Menu {
 		
 
 	}
-	private void trataBotao(Botao b) {
+	private void trataBotao(BotaoMenu b) {
 		// TODO Auto-generated method stub
 		
 		if (b.getName().contains("Video") ) {
@@ -68,12 +76,18 @@ public class MenuOptions extends Menu {
 	private void criaBotoes() {
 		// TODO Auto-generated method stubB
 
-		getBotoes().add(new Botao(null,"Video",(int)getX()+10,(int)getY()+10,60,14,false));
-		getBotoes().add(new Botao(null,"Som",(int)getX()+10,(int)getY()+35,60,14,false));
+		getBotoesMenu().add(new BotaoMenu(null,"Video",(int)getX()+10,(int)getY()+10,60,14,false));
+		getBotoesMenu().add(new BotaoMenu(null,"Som",(int)getX()+10,(int)getY()+35,60,14,false));
 //		getBotoes().add(new Botao(null,"",(int)getX()+10,(int)getY()+110,120,25,false));
 //		getBotoes().add(new Botao(null,"Options",(int)getX()+10,(int)getY()+160,120,25,false));
 //		getBotoes().add(new Botao(null,"Exit",(int)getX()+10,(int)getY()+210,120,25,false));
 		
 		
+	}
+
+
+
+	public void setBotoesMenu(ArrayList<BotaoMenu> botoesMenu) {
+		this.botoesMenu = botoesMenu;
 	}
 }

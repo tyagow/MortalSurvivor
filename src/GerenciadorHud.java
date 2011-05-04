@@ -17,7 +17,7 @@ public class GerenciadorHud extends Objeto {
 	
 	
 	int xHudArmas,yHudArmas,sizeXHudArmas,sizeYHudArmas;
-	private SlotTorre[] slotsTorre;
+	private SlotTorre[] hudArma;
 	
 	
 	
@@ -36,34 +36,34 @@ public class GerenciadorHud extends Objeto {
 		
 		
 		
-		setSlotsTorre(new SlotTorre[4]);
-		getSlotsTorre()[0] = new SlotTorre();
-		getSlotsTorre()[0].setX(xHudArmas+40);
-		getSlotsTorre()[0].setY(yHudArmas+10);
-		getSlotsTorre()[0].setTorre(Heroi.getArmaMelee().imagem, new Faca());
-		getSlotsTorre()[0].setAtivo(true);
+		setHudArma(new SlotTorre[4]);
+		getHudArma()[0] = new SlotTorre();
+		getHudArma()[0].setX(xHudArmas+40);
+		getHudArma()[0].setY(yHudArmas+10);
+		getHudArma()[0].setSlot(Heroi.getArmaMelee());
+		getHudArma()[0].setAtivo(true);
 
 
 		
-		getSlotsTorre()[1] = new SlotTorre();
-		getSlotsTorre()[1].setX(slotsTorre[0].getX()+5+slotsTorre[0].getSizeX());
-		getSlotsTorre()[1].setY(yHudArmas+10);
-		getSlotsTorre()[1].setTorre(Heroi.getArmaSecundaria().imagem_hud, new Deagle());
-		getSlotsTorre()[1].setAtivo(false);
+		getHudArma()[1] = new SlotTorre();
+		getHudArma()[1].setX(hudArma[0].getX()+5+hudArma[0].getSizeX());
+		getHudArma()[1].setY(yHudArmas+10);
+		getHudArma()[1].setSlot(Heroi.getArmaSecundaria());
+		getHudArma()[1].setAtivo(false);
 		
 		
-		getSlotsTorre()[2] = new SlotTorre();
-		getSlotsTorre()[2].setX(slotsTorre[1].getX()+5+slotsTorre[1].getSizeX());
-		getSlotsTorre()[2].setY(yHudArmas+10);
-		getSlotsTorre()[2].setTorre(Heroi.getArmaPrimaria().imagem_hud, new Deagle());
-		getSlotsTorre()[2].setAtivo(false);
+		getHudArma()[2] = new SlotTorre();
+		getHudArma()[2].setX(hudArma[1].getX()+5+hudArma[1].getSizeX());
+		getHudArma()[2].setY(yHudArmas+10);
+		getHudArma()[2].setSlot(Heroi.getArmaPrimaria());
+		getHudArma()[2].setAtivo(false);
 		
 		
-		getSlotsTorre()[3] = new SlotTorre();
-		getSlotsTorre()[3].setX(slotsTorre[2].getX()+5+slotsTorre[2].getSizeX());
-		getSlotsTorre()[3].setY(yHudArmas+10);
-		getSlotsTorre()[3].setTorre(Heroi.getArmaGranada().imagem_hud, new He());
-		getSlotsTorre()[3].setAtivo(false);
+		getHudArma()[3] = new SlotTorre();
+		getHudArma()[3].setX(hudArma[2].getX()+5+hudArma[2].getSizeX());
+		getHudArma()[3].setY(yHudArmas+10);
+		getHudArma()[3].setSlot(Heroi.getArmaGranada());
+		getHudArma()[3].setAtivo(false);
 	
 
 	}
@@ -105,20 +105,20 @@ public class GerenciadorHud extends Objeto {
 		// TODO Auto-generated method stub
 		
 		
-		for (int j =0;j<slotsTorre.length;j++) {
+		for (int j =0;j<hudArma.length;j++) {
 			
 			if (j!=i)	{
-				slotsTorre[j].setAtivo(false);
+				hudArma[j].setAtivo(false);
 			}
 			else {
-				slotsTorre[j].setAtivo(true);
+				hudArma[j].setAtivo(true);
 
 			}
 		
 		}
 	}
 	@Override
-	public void DesenhaSe(Graphics2D dbg, int XMundo, int YMundo) {
+	public void DesenhaSe(Graphics2D dbg, int XTela, int YTela) {
 		// TODO Auto-generated method stub
 
 		Stroke stk = dbg.getStroke();
@@ -128,13 +128,14 @@ public class GerenciadorHud extends Objeto {
 		dbg.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f));
 		dbg.fillRect(xHudArmas, yHudArmas, sizeXHudArmas, sizeYHudArmas);
 	    dbg.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
-
-		for(int i = 0; i < getSlotsTorre().length; i++){
-			getSlotsTorre()[i].DesenhaSe(dbg, XMundo, YMundo);
+	    dbg.setStroke(stk);
+		for(int i = 0; i < getHudArma().length; i++){
+			getHudArma()[i].DesenhaSe(dbg, XTela, YTela);
+			desenhaQuantidadeTiros(dbg,getHudArma()[i]);
 		}
 		
-	    dbg.setStroke(stk);
-
+	  
+	    
 
 		//hud XP
 		oldFont=dbg.getFont();
@@ -149,17 +150,32 @@ public class GerenciadorHud extends Objeto {
 		
 	}
 
+	private void desenhaQuantidadeTiros(Graphics2D dbg,SlotTorre slotHudArma) {
+		
+		Font f =  dbg.getFont();
+		dbg.setFont(Constantes.FonteNormal);
+		
+		int round = slotHudArma.getArmaAtiva().getRound();
+		int mag = slotHudArma.getArmaAtiva().getMag();
+		int _x = (int)slotHudArma.getX()+slotHudArma.getSizeX()-25;
+		int _y = (int)slotHudArma.getY()+slotHudArma.getSizeY()-35;
+		dbg.setColor(Color.black);
+		dbg.drawString("r:"+round, _x-23, _y);
+		dbg.drawString("m:"+mag, _x, _y);
+		
+		
+	}
 	public static void setXpHud(int _xpHud) {
 		xpHud = _xpHud;
 	}
 	public int getXpHud() {
 		return xpHud;
 	}
-	public void setSlotsTorre(SlotTorre[] slotsTorre) {
-		this.slotsTorre = slotsTorre;
+	public void setHudArma(SlotTorre[] _hudArma) {
+		this.hudArma = _hudArma;
 	}
-	public SlotTorre[] getSlotsTorre() {
-		return slotsTorre;
+	public SlotTorre[] getHudArma() {
+		return hudArma;
 	}
 	public static void setBotoes(LinkedList<Botao> botoes) {
 		GerenciadorHud.botoes = botoes;

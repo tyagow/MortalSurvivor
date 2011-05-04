@@ -7,14 +7,14 @@ import java.util.List;
 
 public class Projetil extends Objeto {
 	
-	int vel=1300;
+	int vel=Constantes.VELOCIDADE_TIRO;
 	double ang;
 	int tipo;
 	Arma pai;
 	protected int dano;
 	private int penetration;
 	
-	public Projetil(Arma pai,double ang,int tipo){
+	public Projetil(Arma pai,double ang,int _tipo){
 		// TODO Auto-generated constructor stub
 		this.pai = pai;
 		this.ang = ang;
@@ -22,13 +22,43 @@ public class Projetil extends Objeto {
 		this.setX(pai.getX());
 		this.setY(pai.getY());
 		penetration=Arma.penetration;
-		this.tipo=tipo;
+		trataTipo(_tipo);
+		
 		this.setDano(pai.getDano());
 		setVivo(true);
 		setSizeX(4);
 		setSizeY(2);
+	
+	
+	}
+	public Projetil(Arma pai,double ang,int _tipo,int _x,int _y){
+		// TODO Auto-generated constructor stub
+		this.pai = pai;
+		this.ang = ang;
+
+		this.setX(_x);
+		this.setY(_y);
+		penetration=Arma.penetration;
+		trataTipo(_tipo);
+		
+		this.setDano(pai.getDano());
+		setVivo(true);
+		setSizeX(4);
+		setSizeY(2);
+	
+	
 	}
 	
+	
+	
+	private void trataTipo(int _tipo) {
+		tipo=_tipo;
+		
+
+	}
+
+
+
 	@Override
 	public void SimulaSe(int DiffTime) {
 		// TODO Auto-generated method stub

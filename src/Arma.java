@@ -12,7 +12,7 @@ public abstract class Arma  {
 	private int peso;
 	private int valor;
 	private int round,mag;
-	private int maxMag;
+	private int maxMag,maxRound;
 	private boolean recarregando;
 	boolean atirou;
 	private double angulo;
@@ -21,8 +21,8 @@ public abstract class Arma  {
 	private int tempoEntreTirosMax;
 
 	
-	BufferedImage imagem;
-	BufferedImage imagem_hud;
+	private BufferedImage imagem;
+	private BufferedImage imagem_hud;
 
 	private int tipo;
 	private int custoRange;
@@ -43,8 +43,18 @@ public abstract class Arma  {
 		
 		setMag(getMaxMag()+1);
 		
+	}	
+	public  void resetaTiros() {
+		
+		setMag(getMaxMag());
+		setRound(getMaxRound());
 	}
 	
+	protected int getMaxRound() {
+		// TODO Auto-generated method stub
+		return maxRound;
+	}
+
 	public void reseta() {
 		atirou=false;
 		
@@ -200,5 +210,25 @@ public abstract class Arma  {
 
 	public int getCustoDano() {
 		return custoDano;
+	}
+
+	public void setImagem(BufferedImage imagem) {
+		this.imagem = imagem;
+	}
+
+	public BufferedImage getImagem() {
+		return imagem;
+	}
+
+	public void setImagem_hud(BufferedImage imagem_hud) {
+		this.imagem_hud = imagem_hud;
+	}
+
+	public BufferedImage getImagem_hud() {
+		return imagem_hud;
+	}
+
+	public void setMaxRound(int maxRound) {
+		this.maxRound = maxRound;
 	}
 }

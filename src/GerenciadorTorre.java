@@ -17,6 +17,7 @@ public class GerenciadorTorre extends Objeto {
 	
 	public GerenciadorTorre() {
 		 selecionadorDeTorre = new SelecionadorDeTorre();
+		 torres.clear();
 	}
 
 
@@ -166,7 +167,7 @@ public class GerenciadorTorre extends Objeto {
 	
 	private void trataMouse() {
 		// TODO Auto-generated method stub
-		if (Constantes.colideQuadrado((int) GerenciadorTorre.selecionadorDeTorre.getX(),(int) GerenciadorTorre.selecionadorDeTorre.getY(), GerenciadorTorre.selecionadorDeTorre.getSizeX(), GerenciadorTorre.selecionadorDeTorre.getSizeY(), (int) CanvasGame.getMiraAtiva().getX(),(int) CanvasGame.getMiraAtiva().getY(), 1, 1)) {
+		if (Constantes.colideQuadrado((int) selecionadorDeTorre.getX(),(int) selecionadorDeTorre.getY(), selecionadorDeTorre.getSizeX(), selecionadorDeTorre.getSizeY(), (int) CanvasGame.getMiraAtiva().getX(),(int) CanvasGame.getMiraAtiva().getY(), 1, 1)) {
 			hitMiraSelecionador = true;
 		}else {
 			hitMiraSelecionador = false;
@@ -185,6 +186,7 @@ public class GerenciadorTorre extends Objeto {
 		
 		if(isHitMiraMenu() || hitMiraSelecionador){
 			CanvasGame.setMiraMenu();
+			
 		}else {
 			CanvasGame.setMiraJogo();
 		}

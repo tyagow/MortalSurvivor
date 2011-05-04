@@ -13,6 +13,7 @@ public class He extends Arma {
 	public int estado=0;
 	public He() {
 		setMaxMag(Constantes.HE_mag);
+		setMaxRound(Constantes.HE_round);
 
 		setTipo(1);
 		atirou=false;
@@ -24,10 +25,10 @@ public class He extends Arma {
 		setTempoRecarrega(0);
 		setValor(Constantes.HE_valor);
 	
-		imagem=Imagem.he;
-		imagem_hud=Imagem.he_hud;
-		setSizeX(imagem.getWidth());
-		setSizeY(imagem.getHeight());
+		setImagem(Imagem.he);
+		setImagem_hud(Imagem.he_hud);
+		setSizeX(getImagem().getWidth());
+		setSizeY(getImagem().getHeight());
 		
 
 		
@@ -43,11 +44,10 @@ public class He extends Arma {
 		dbg.translate(getX()-XMundo, getY()-YMundo);
 		dbg.rotate(getAngulo()-Math.PI/2);
 		//dbg.drawLine(0, 0, getSizeX(), 0);
-
 		
-		if (!isRecarregando())
-			dbg.drawImage(imagem, 0, +6, getSizeX(),6+getSizeY(),getSizeX(),getSizeY(),0,0,null);
-		
+		if (!isRecarregando()&&getRound()>0) {
+			dbg.drawImage(getImagem(), 0, +6, getSizeX(),6+getSizeY(),getSizeX(),getSizeY(),0,0,null);
+		}
 		
 		
 		dbg.setTransform(trans);
@@ -157,7 +157,7 @@ public class He extends Arma {
 		
 		if (temMunicao()) {
 			setRound(getRound() - 1);
-			CanvasGame.projeteis.add( new ProjetilGranada(this, getAngulo(), 1, imagem));
+			CanvasGame.projeteis.add( new ProjetilGranada(this, getAngulo(), 1, getImagem()));
 			//Constantes.de.run();
 		}
 		
@@ -168,11 +168,11 @@ public class He extends Arma {
 		// TODO Auto-generated method stub
 		
 		if (getRound()<1) {
-			semMunicao=true;
+			setSemMunicao(true);
 			return false;
 			
 		}else 
-			semMunicao=false;
+			setSemMunicao(false);
 		
 		
 		return true;
@@ -194,6 +194,18 @@ public class He extends Arma {
 		// TODO Auto-generated method stub
 		atirou=false;
 
+	}
+
+
+
+	public void setSemMunicao(boolean semMunicao) {
+		this.semMunicao = semMunicao;
+	}
+
+
+
+	public boolean isSemMunicao() {
+		return semMunicao;
 	}
 
 

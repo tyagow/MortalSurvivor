@@ -4,12 +4,12 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 
 
-public class ArmaTorre extends Arma {
+public abstract class ArmaTorre extends Arma {
 
 	int tempoRecarrega;
-	BufferedImage AnimeSet;
+
 	public int estado=0;
-	private int maxRound;
+
 
 	@Override
 	public void DesenhaSe(Graphics2D dbg, int XMundo, int YMundo) {
@@ -19,7 +19,7 @@ public class ArmaTorre extends Arma {
 		dbg.translate(getX()-XMundo, getY()-YMundo);
 		dbg.rotate(getAngulo()+Math.PI/2);
 		//dbg.drawLine(0, 0, getSizeX(), 0);
-		dbg.drawImage(AnimeSet,-getSizeX()/2,-getSizeY()/2,getSizeX()/2,getSizeY()/2,0,0,getSizeX(),getSizeY(),null);
+		dbg.drawImage(getImagem(),-getSizeX()/2,-getSizeY()/2,getSizeX()/2,getSizeY()/2,0,0,getSizeX(),getSizeY(),null);
 
 		dbg.setTransform(trans);
 		
@@ -114,19 +114,7 @@ public class ArmaTorre extends Arma {
 	
 
 	
-	private void atira() {
-//		System.out.println("atira");
-		// TODO Auto-generated method stub
-		
-//		if (temMunicao()) {
-			setRound(getRound() - 1);
-			
-			CanvasGame.projeteis.add( new Projetil (this,getAngulo(),2 ));
-			GerenciadorDeSom.ak.run();
-			
-//		}
-		
-	}
+	public abstract void atira();
 
 
 
@@ -150,14 +138,5 @@ public class ArmaTorre extends Arma {
 
 
 
-	public void setMaxRound(int maxRound) {
-		this.maxRound = maxRound;
-	}
-
-
-
-	public int getMaxRound() {
-		return maxRound;
-	}
 
 }

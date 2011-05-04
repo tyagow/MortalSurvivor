@@ -21,6 +21,7 @@ public class Metralhadora extends Arma {
 		setMag(Constantes.METRALHADORA_mag);
 		setPeso(Constantes.METRALHADORA_peso);
 		setRound(Constantes.METRALHADORA_round);
+		setMaxRound(Constantes.METRALHADORA_round);
 		setTempoEntreTiros(0);
 		setTempoRecarrega(0);
 		setValor(Constantes.METRALHADORA_valor);
@@ -40,7 +41,7 @@ public class Metralhadora extends Arma {
 		dbg.rotate(getAngulo()-Math.PI/2);
 		//dbg.drawLine(0, 0, getSizeX(), 0);
 
-		dbg.drawImage(imagem, -getSizeX()/2-10, -getSizeY()/2-5, getSizeX()-2,getSizeY(),0,0,getSizeX(),getSizeY(),null);
+		dbg.drawImage(getImagem(), -getSizeX()/2-10, -getSizeY()/2-5, getSizeX()-2,getSizeY(),0,0,getSizeX(),getSizeY(),null);
 		dbg.setTransform(trans);
 		
 		if (estado==1) {

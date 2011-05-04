@@ -99,7 +99,7 @@ public class MenuTorre extends Menu {
 		while(it.hasNext()){
 			Botao bt = it.next();
 			bt.DesenhaSe(dbg, xMundo, yMundo);
-			trataDesenhoBotao(dbg,bt);
+			trataDesenhoBotao(dbg,bt,xMundo,yMundo);
 
 		}
 		dbg.setColor(Color.black);
@@ -110,21 +110,22 @@ public class MenuTorre extends Menu {
 		
 	}
 	
-	private void trataDesenhoBotao(Graphics2D dbg,Botao bt) {
+	private void trataDesenhoBotao(Graphics2D dbg,Botao bt,int XTela,int YTela) {
 		// TODO Auto-generated method stub
+		dbg.setFont(Constantes.FonteNormal);
 		if (bt.getName()=="range") {
 			dbg.setColor(Color.white);
-			dbg.drawString("$"+torrePai.getArmaAtiva().getCustoRange(), (int)bt.getX()+bt.getSizeX()+10,(int) bt.getY()+bt.getSizeY()-2);
+			dbg.drawString("$"+torrePai.getArmaAtiva().getCustoRange(), (int)bt.getX()+bt.getSizeX()+10-XTela,(int) bt.getY()+bt.getSizeY()-2-YTela);
 			
 		}
 		if (bt.getName()=="fire") {
 			dbg.setColor(Color.white);
-			dbg.drawString("$"+torrePai.getArmaAtiva().getCustoFire(), (int)bt.getX()+bt.getSizeX()+10,(int) bt.getY()+bt.getSizeY()-2);
+			dbg.drawString("$"+torrePai.getArmaAtiva().getCustoFire(), (int)bt.getX()+bt.getSizeX()+10-XTela,(int) bt.getY()+bt.getSizeY()-2-YTela);
 			
 		}
 		if (bt.getName()=="dano") {
 			dbg.setColor(Color.white);
-			dbg.drawString("$"+torrePai.getArmaAtiva().getCustoDano(), (int)bt.getX()+bt.getSizeX()+10,(int) bt.getY()+bt.getSizeY()-2);
+			dbg.drawString("$"+torrePai.getArmaAtiva().getCustoDano(), (int)bt.getX()+bt.getSizeX()+10-XTela,(int) bt.getY()+bt.getSizeY()-2-YTela);
 			
 		}
 	}

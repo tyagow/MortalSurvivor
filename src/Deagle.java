@@ -4,10 +4,10 @@ public class Deagle extends Pistola {
 	public Deagle() {
 		// TODO Auto-generated constructor stub
 		super();
-		imagem=Imagem.deagle;
-		imagem_hud=Imagem.deagle_hud;
-		setSizeX(imagem.getWidth());
-		setSizeY(imagem.getHeight());
+		setImagem(Imagem.deagle);
+		setImagem_hud(Imagem.deagle_hud);
+		setSizeX(getImagem().getWidth());
+		setSizeY(getImagem().getHeight());
 		
 	}
 

@@ -24,25 +24,25 @@ public class SelecionadorDeTorre extends Objeto {
 		getSlotsTorre()[0] = new SlotTorre();
 		getSlotsTorre()[0].setX(Constantes.SLOT_UM_X);
 		getSlotsTorre()[0].setY(Constantes.SLOT_UM_Y);
-		getSlotsTorre()[0].setTorre(Imagem.TORRE_UM_ANIMESET, new ArmaUmTorre(Imagem.TORRE_UM_ANIMESET));
+		getSlotsTorre()[0].setSlot(new ArmaUmTorre(Imagem.TORRE_UM_ANIMESET));
 		getSlotsTorre()[0].setAtivo(true);
 		
 		getSlotsTorre()[1] = new SlotTorre();
 		getSlotsTorre()[1].setX(Constantes.SLOT_DOIS_X);
 		getSlotsTorre()[1].setY(Constantes.SLOT_DOIS_Y);
-		getSlotsTorre()[1].setTorre(Imagem.TORRE_DOIS_ANIMESET, new ArmaDoisTorre(Imagem.TORRE_DOIS_ANIMESET));
+		getSlotsTorre()[1].setSlot( new ArmaDoisTorre(Imagem.TORRE_DOIS_ANIMESET));
 		getSlotsTorre()[1].setAtivo(false);
 
 		getSlotsTorre()[2] = new SlotTorre();
 		getSlotsTorre()[2].setX(Constantes.SLOT_TRES_X);
 		getSlotsTorre()[2].setY(Constantes.SLOT_TRES_Y);
-		getSlotsTorre()[2].setTorre(Imagem.TORRE_TRES_ANIMESET, new ArmaTresTorre(Imagem.TORRE_TRES_ANIMESET));
+		getSlotsTorre()[2].setSlot(new ArmaTresTorre(Imagem.TORRE_TRES_ANIMESET));
 		getSlotsTorre()[2].setAtivo(false);
 
 		getSlotsTorre()[3] = new SlotTorre();
 		getSlotsTorre()[3].setX(Constantes.SLOT_QUATRO_X);
 		getSlotsTorre()[3].setY(Constantes.SLOT_QUATRO_Y);
-		getSlotsTorre()[3].setTorre(Imagem.TORRE_UM_ANIMESET, new ArmaUmTorre(Imagem.TORRE_UM_ANIMESET));
+		getSlotsTorre()[3].setSlot( new ArmaUmTorre(Imagem.TORRE_UM_ANIMESET));
 		getSlotsTorre()[3].setAtivo(false);
 		
 		

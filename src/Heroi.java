@@ -28,10 +28,11 @@ public class Heroi extends Objeto {
 	private static Arma armaMelee=new Faca();
 	private static Arma armaPrimaria=new M4();
 	private static Arma armaSecundaria=new Deagle();
-	private static Arma ultimaArma;
 	private static Arma armaAtiva=getArmaSecundaria();
 	private static Arma armaGranada=new He();
 	
+	private static Arma ultimaArma;
+
 	
 	boolean HE=false;
 
@@ -58,26 +59,19 @@ public class Heroi extends Objeto {
 		setVivo(true);
 		larguraMapa=CanvasGame.MAPA.Largura*16;
 		alturaMapa=CanvasGame.MAPA.Altura*16;
-	
-
+		resetArmas();
 		
+	}
+	private void resetArmas() {
+	
+		armaPrimaria.resetaTiros();
+		getArmaSecundaria().resetaTiros();
+		armaGranada.resetaTiros();
 	}
 	@Override
 	public void SimulaSe(int DiffTime) {
 		// TODO Auto-generated method stub
-		//int test =(int) getX();
-		
-//		
-//		if (sizeX%16>) {
-//			setSizeX(sizeX>>4);
-//				
-//		}else {
-//			
-//		}
-//		
-	//	System.out.println(getSizeX()%16);
-		
-		
+	
 		
 		if (isVivo()) {
 			calculaIA(DiffTime);
@@ -85,7 +79,7 @@ public class Heroi extends Objeto {
 			
 			trataMovimentacao(DiffTime);
 
-			if (getX()+getSizeX()/2 >=larguraMapa || getY()+getSizeY()/2+1>=alturaMapa || getY()-getSizeY()/2-1 <=0 || getX()-getSizeX()/2-1<=0||colisaoBase(DiffTime)) {
+			if (getX()+(getSizeX()>>1) >=larguraMapa || getY()+getSizeY()/2+1>=alturaMapa || getY()-getSizeY()/2-1 <=0 || getX()-getSizeX()/2-1<=0||colisaoBase(DiffTime)) {
 				
 				setX(getOldx());
 				setY(getOldy());
@@ -108,7 +102,7 @@ public class Heroi extends Objeto {
 			
 			AffineTransform trans = dbg.getTransform();
 			dbg.translate(px, py);
-			dbg.rotate(ang+Math.PI/2);
+			dbg.rotate(ang+(Math.PI*0.5));
 			dbg.drawImage(imagem, -getSizeX()/2,-getSizeX()/2,getSizeX()/2,getSizeY()/2,getSizeX()*frameX,getSizeY()*frameY,getSizeX()*frameX+getSizeX(),getSizeY()*frameY+getSizeY(),null);
 //		dbg.drawImage(AnimeSet,-14,-18,sizeX-10,sizeY-14,sizeX*frame+start,startY,(sizeX*frame)+sizeX+start,(startY)+sizeY,null);
 
@@ -401,6 +395,7 @@ public class Heroi extends Objeto {
 		
 		armaPrimaria.recarrega();
 		getArmaSecundaria().recarrega();
+		armaGranada.recarrega();
 
 		
 	}

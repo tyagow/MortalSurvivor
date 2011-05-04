@@ -23,7 +23,7 @@ public class GerenciadorObstaculos extends Objeto {
 	private static boolean yIgualUm;
 	public GerenciadorObstaculos() {
 		// TODO Auto-generated constructor stub
-		
+		obstaculos.clear();
 		carregaGradeColisao();
 	}
 
@@ -137,15 +137,15 @@ public class GerenciadorObstaculos extends Objeto {
 
 		if (sizeX>2){
 			x=x-sizeX/2;
-			xIgualUm=false;
+			setxIgualUm(false);
 		}
-		else xIgualUm=true;
+		else setxIgualUm(true);
 		
 		if (sizeY>1){
 			y=y-sizeY/2;
-			yIgualUm=false;
+			setyIgualUm(false);
 		}
-		else yIgualUm=true;
+		else setyIgualUm(true);
 		
 		int indX;
 		if (_sizeX<33)
@@ -256,6 +256,46 @@ public class GerenciadorObstaculos extends Objeto {
 
 	public static int[][] getMapa() {
 		return mapa;
+	}
+
+
+	public static void setxMaiorQueUm(boolean xMaiorQueUm) {
+		GerenciadorObstaculos.xMaiorQueUm = xMaiorQueUm;
+	}
+
+
+	public static boolean isxMaiorQueUm() {
+		return xMaiorQueUm;
+	}
+
+
+	public static void setyMaiorQueUm(boolean yMaiorQueUm) {
+		GerenciadorObstaculos.yMaiorQueUm = yMaiorQueUm;
+	}
+
+
+	public static boolean isyMaiorQueUm() {
+		return yMaiorQueUm;
+	}
+
+
+	public static void setxIgualUm(boolean xIgualUm) {
+		GerenciadorObstaculos.xIgualUm = xIgualUm;
+	}
+
+
+	public static boolean isxIgualUm() {
+		return xIgualUm;
+	}
+
+
+	public static void setyIgualUm(boolean yIgualUm) {
+		GerenciadorObstaculos.yIgualUm = yIgualUm;
+	}
+
+
+	public static boolean isyIgualUm() {
+		return yIgualUm;
 	}
 
 

@@ -10,8 +10,8 @@ public class SlotTorre extends Objeto{
 	private boolean selecionado;
 	
 	public SlotTorre() {
-		setSizeX(Constantes.SLOT_SIZEX);
-		setSizeY(Constantes.SLOT_SIZEY);
+		setSizeX(Constantes.SLOT_SIZEX+4);
+		setSizeY(Constantes.SLOT_SIZEY+2);
 		setVivo(true);
 		setAtivo(false);
 		setSelecionado(false);
@@ -50,8 +50,8 @@ public class SlotTorre extends Objeto{
 		return ativo;
 	}
 
-	public void setTorre(BufferedImage _AnimeSet, Arma _armaAtiva){
-		setAnimeSet(_AnimeSet);
+	public void setSlot(Arma _armaAtiva){
+		setAnimeSet(_armaAtiva.getImagem_hud());
 		setArmaAtiva(_armaAtiva);
 	}
 

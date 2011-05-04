@@ -21,9 +21,10 @@ public class Faca extends Arma {
 		setTempoRecarrega(0);
 		setValor(Constantes.FACA_valor);
 	
-		imagem=Imagem.faca;
-		setSizeX(imagem.getWidth());
-		setSizeY(imagem.getHeight());
+		setImagem(Imagem.faca);
+		setImagem_hud(Imagem.faca);
+		setSizeX(getImagem().getWidth());
+		setSizeY(getImagem().getHeight());
 		
 		
 	}
@@ -50,7 +51,7 @@ public class Faca extends Arma {
 			else 
 				dbg.rotate(getAngulo());
 			
-			dbg.drawImage(imagem, -getSizeX()/2+8, -getSizeY()/2, getSizeX()-2,getSizeY(),getSizeX(),getSizeY(),0,0,null);
+			dbg.drawImage(getImagem(), -getSizeX()/2+8, -getSizeY()/2, getSizeX()-2,getSizeY(),getSizeX(),getSizeY(),0,0,null);
 
 			//dbg.drawLine(0, 0, (int)alcanceAtaque/2, 0);
 			//dbg.drawOval(0/*(int)Math.cos(getAngulo())*50*/,-25/*(int) Math.sin(getAngulo())*50*/,(int) alcanceAtaque,(int)alcanceAtaque);
