@@ -1,6 +1,7 @@
 import java.awt.Font;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
@@ -8,6 +9,7 @@ import javax.imageio.ImageIO;
 public class Constantes {
 	
 
+	public static ArrayList<Inimigo> inimigos = new ArrayList<Inimigo>();
 
 	//public static final int MAXIMO_PARTICULAS_ESTATICAS = 1000;
 

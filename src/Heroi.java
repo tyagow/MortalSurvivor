@@ -58,8 +58,8 @@ public class Heroi extends Objeto {
 		setSizeY(imagem.getHeight()/3);
 		setLife(100);
 		setVivo(true);
-		larguraMapa=CanvasGame.MAPA.Largura*16;
-		alturaMapa=CanvasGame.MAPA.Altura*16;
+		larguraMapa=CanvasGame.tela.Largura*16;
+		alturaMapa=CanvasGame.tela.Altura*16;
 		resetArmas();
 		
 	}

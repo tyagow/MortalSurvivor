@@ -59,24 +59,24 @@ public class Explosao extends Particula {
 	private void verificaColisaInimigos() {
 		// TODO Auto-generated method stub
 		
-		for (int i = 0;i<GerenciadorDeRaids.getRaids().size();i++) {
-			Raid ra = GerenciadorDeRaids.getRaids().get(i);
-		
-			for (int j = 0;j<ra.inimigos.size();j++) {
-				Inimigo in = ra.inimigos.get(j);
+//		for (int i = 0;i<GerenciadorDeRaids.getRaids().size();i++) {
+//			Raid ra = GerenciadorDeRaids.getRaids().get(i);
+//		
+			for (int j = 0;j<Constantes.inimigos.size();j++) {
+				Inimigo in = Constantes.inimigos.get(j);
 				
 				
 				if (Constantes.colidecircular(getX(), getY(),Constantes.HE_RANGE,in.getX(),in.getY(),in.getSizeX()/2)) {
 
 					
-					GerenciadorDeRaids.getRaids().get(i).inimigos.get(j).recebeuDano(dano,Constantes.TIPO_ASSASINO_PLAYER);
+					Constantes.inimigos.get(j).recebeuDano(dano,Constantes.TIPO_ASSASINO_PLAYER);
 					//CanvasGame.gerenciadorEfeitos.ativaSangue(getX(),getY(), GamePanel.rnd.nextInt(360)*Math.PI/360,1);
 
 					
 				}
 			}
 
-		}
+//		}
 		
 		first=false;
 	}

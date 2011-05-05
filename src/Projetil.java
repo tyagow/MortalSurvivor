@@ -75,17 +75,17 @@ public class Projetil extends Objeto {
 			setVivo(false);
 			
 		}
-		for (int i = 0;i<GerenciadorDeRaids.getRaids().size();i++) {
-			Raid ra = GerenciadorDeRaids.getRaids().get(i);
-		
-			for (int j = 0;j<ra.inimigos.size();j++) {
-				Inimigo in = ra.inimigos.get(j);
+//		for (int i = 0;i<GerenciadorDeRaids.getRaids().size();i++) {
+//			Raid ra = GerenciadorDeRaids.getRaids().get(i);
+//		
+			for (int j = 0;j<Constantes.inimigos.size();j++) {
+				Inimigo in = Constantes.inimigos.get(j);
 				
 
 				if (Constantes.colidecircular(getX(), getY(),getSizeX()/2,in.getX(),in.getY(),in.getSizeX()/2)) {
 				
 					penetration--;
-					GerenciadorDeRaids.getRaids().get(i).inimigos.get(j).recebeuDano(dano,tipo);
+					Constantes.inimigos.get(j).recebeuDano(dano,tipo);
 				
 					if (penetration<=0) {
 						setVivo(false);
@@ -96,7 +96,7 @@ public class Projetil extends Objeto {
 				}
 			}
 			
-		}
+//		}
 	}
 //
 //	private List<Inimigo> extracted() {

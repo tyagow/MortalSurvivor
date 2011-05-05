@@ -13,8 +13,8 @@ public class Minimap extends Objeto{
 	
 	public Minimap(){
 		
-		resizeX = (float) 70/(CanvasGame.MAPA.Largura);
-		resizeY = (float) 60/(CanvasGame.MAPA.Altura);
+		resizeX = (float) 70/(CanvasGame.tela.Largura);
+		resizeY = (float) 60/(CanvasGame.tela.Altura);
 
 		setX(0);
 		setY(GamePanel.PHEIGHT - (int)((resizeY * CanvasGame.altura)/tamanhoMiniMap));
@@ -41,9 +41,9 @@ public class Minimap extends Objeto{
 		dbg.drawLine((int)getX() + getSizeX()/2, (int)getY(),(int)getX() + getSizeX()/2,(int)getY() + getSizeY());
 		dbg.drawLine((int)getX(), (int)getY() + getSizeY()/2,(int)getX() + getSizeX(),(int)getY() + getSizeY()/2);
 		
-		for(int j = 0; j < GerenciadorDeRaids.getRaids().size(); j++){
-			for(int i = 0; i < GerenciadorDeRaids.getRaids().get(j).inimigos.size(); i++){
-				Inimigo inim = (Inimigo) GerenciadorDeRaids.getRaids().get(j).inimigos.get(i);
+//		for(int j = 0; j < GerenciadorDeRaids.getRaids().size(); j++){
+			for(int i = 0; i < Constantes.inimigos.size(); i++){
+				Inimigo inim = (Inimigo) Constantes.inimigos.get(i);
 				
 				if(inim.getX() >= 0 && inim.getX() <= CanvasGame.largura && inim.getY() >= 0 && inim.getY() < CanvasGame.altura){
 					double xM = (resizeX * inim.getX()/tamanhoMiniMap) + this.getX();
@@ -55,7 +55,7 @@ public class Minimap extends Objeto{
 					dbg.fillOval((int) xM-lM/2, (int) yM-aM/2, lM, aM);
 				}
 			}
-		}
+//		}
 
 			
 			dbg.setColor(Color.yellow);

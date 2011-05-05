@@ -19,8 +19,8 @@ public class TileMap {
     
     public Image TileSet = null;
     
-    int MapX;
-    int MapY;
+    int XTela;
+    int YTela;
     int NTileX,NTileY;
     int Largura = 60;
     int Altura = 50;
@@ -33,8 +33,8 @@ public class TileMap {
         NTileX = tilestelaX;
         NTileY = tilestelaY;
         TileSet = tileset;
-        MapX = 0;
-        MapY = 0;
+        XTela = 0;
+        YTela = 0;
         TilePLinhaTileset = TileSet.getWidth(null) >>4;
     }
     
@@ -156,8 +156,8 @@ public class TileMap {
    
     
     public void DesenhaSe(Graphics2D dbg){
-    	int offx = MapX&0x0f; 
-    	int offy = MapY&0x0f;
+    	int offx = XTela&0x0f; 
+    	int offy = YTela&0x0f;
     	int somax,somay;
     	if(offx>0){
     		somax = 1;
@@ -173,8 +173,8 @@ public class TileMap {
 	        for(int j = 0; j < NTileY + somay; j++){            
 	            for(int i = 0; i < NTileX + somax; i++){
 	            	
-	                int tilex = (mapa[z][j+(MapY>>4)][i+(MapX>>4)]%TilePLinhaTileset)<<4;
-	                int tiley = (mapa[z][j+(MapY>>4)][i+(MapX>>4)]/TilePLinhaTileset)<<4;
+	                int tilex = (mapa[z][j+(YTela>>4)][i+(XTela>>4)]%TilePLinhaTileset)<<4;
+	                int tiley = (mapa[z][j+(YTela>>4)][i+(XTela>>4)]/TilePLinhaTileset)<<4;
 	                dbg.drawImage(TileSet,(i<<4)-offx,(j<<4)-offy,(i<<4)+16-offx,(j<<4)+16-offy,tilex,tiley,tilex+16,tiley+16,null);
 	                
 	            }
@@ -188,20 +188,20 @@ public class TileMap {
     	int Y = y>>4;
     	
         if(X < 0){
-            MapX = 0;
+            XTela = 0;
         }else if(X >= (Largura-NTileX)){
-            MapX = ((Largura-NTileX))<<4;
+            XTela = ((Largura-NTileX))<<4;
         }else{
-            MapX = x;
+            XTela = x;
            
         }
         
         if(Y < 0){
-            MapY = 0;
+            YTela = 0;
         }else if(Y >= (Altura-NTileY)){
-            MapY = ((Altura-NTileY))<<4;
+            YTela = ((Altura-NTileY))<<4;
         }else{
-            MapY = y;
+            YTela = y;
         }        
 
     }

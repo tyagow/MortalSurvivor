@@ -24,7 +24,7 @@ public class CanvasMenu extends GCanvas{
 	
 	private Menu menuOptions;
 	
-	private static ArrayList<BotaoMenu> botoes= new ArrayList<BotaoMenu>();
+	private static ArrayList<Botao> botoes= new ArrayList<Botao>();
 	
 	public CanvasMenu() {
 		instance=this;
@@ -70,10 +70,10 @@ public class CanvasMenu extends GCanvas{
 			dbg.setColor(Color.yellow);
 			
 			//dbg.setFont(fonteAutores);
-			Iterator<BotaoMenu> it = botoes.iterator();
+			Iterator<Botao> it = botoes.iterator();
 
 			while(it.hasNext()){
-				BotaoMenu obj= it.next();
+				Botao obj= it.next();
 			obj.DesenhaSe(dbg, 0, 0);
 			}
 			
@@ -95,12 +95,12 @@ public class CanvasMenu extends GCanvas{
 //		while(it.hasNext()){
 			for (int x=0;x<botoes.size();x++) {
 	//				Botao b= (Botao) it.next();
-				BotaoMenu b= botoes.get(x);
+				Botao b= botoes.get(x);
 	
 				b.SimulaSe((int)diftime);			
-				if (b.isAtivo()) {
+				if (b.ativo) {
 					trataBotao(b);
-					botoes.get(x).setAtivo(false);
+					botoes.get(x).ativo=false;
 				}		
 			}
 		
@@ -110,25 +110,25 @@ public class CanvasMenu extends GCanvas{
 		
 
 	}
-	private void trataBotao(BotaoMenu b) {
+	private void trataBotao(Botao b) {
 		// TODO Auto-generated method stub
-		if (b.getName().contains("Play") ) {
+		if (b.name.contains("Play") ) {
 			
 			GamePanel.setCanvasAtivo(CanvasGame.instance);
 			//setMiraAtiva(new MiraRedonda());
 			
-		}else if (b.getName().contains("Options") ) {
+		}else if (b.name.contains("Options") ) {
 			if (menuAtivo!=menuOptions){
 				menuAtivo=menuOptions;
 			}
 			else {
 				menuAtivo=null;
 			}
-		}else if (b.getName().contains("Exit") ) {
+		}else if (b.name.contains("Exit") ) {
 			
 			System.exit(0);
 			
-		}else if (b.getName().contains("Play") ) {
+		}else if (b.name.contains("Play") ) {
 			
 			GamePanel.setCanvasAtivo(CanvasGame.instance);
 			

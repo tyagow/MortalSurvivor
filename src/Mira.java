@@ -7,9 +7,11 @@ import java.awt.image.BufferedImage;
 public abstract class  Mira extends Objeto {
 
 	BufferedImage mira;
-	private boolean pressed;
-	private boolean released;
-	private int button;
+	public boolean pressed;
+	public boolean released;
+	public int button;
+	public int XTela;
+	public int YTela;
 	//private boolean clicked;
 	public Mira() {
 		
@@ -70,12 +72,12 @@ public abstract class  Mira extends Objeto {
 	public double getXMundo() {
 		// TODO Auto-generated method stub
 		
-		return getX()+CanvasGame.MAPA.MapX;
+		return getX()+CanvasGame.tela.XTela;
 	}
 	public double getYMundo() {
 		// TODO Auto-generated method stub
 		
-		return getY()+CanvasGame.MAPA.MapY;
+		return getY()+CanvasGame.tela.YTela;
 	}
 
 	public void setPressed(boolean pressed) {

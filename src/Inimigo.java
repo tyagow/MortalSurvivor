@@ -22,8 +22,8 @@ public class Inimigo extends Objeto {
 	public Inimigo(BufferedImage img) {
 		
 		this.img=img;
-		larguraMapa=CanvasGame.MAPA.Largura*16;
-		alturaMapa=CanvasGame.MAPA.Altura*16;
+		larguraMapa=CanvasGame.tela.Largura*16;
+		alturaMapa=CanvasGame.tela.Altura*16;
 		
 		setX(GamePanel.rnd.nextInt(alturaMapa*4));
 		setY(GamePanel.rnd.nextInt(larguraMapa*4));

@@ -1,6 +1,7 @@
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
 
@@ -32,7 +33,7 @@ public class BotaoMenu extends Objeto {
 			setSizeY(_sizeX/3);
 
 		setName(_name);
-		setX(_x);
+		X=_x;
 		setY(_y);
 		
 		
@@ -150,6 +151,20 @@ public class BotaoMenu extends Objeto {
 
 	public boolean isAtivo() {
 		return ativo;
+	}
+
+
+	public void mouseClicked(MouseEvent e) {
+		
+		
+		ativo=true;
+	
+	
+	}
+
+
+	public void mouseMoved(MouseEvent e) {
+		
 	}
 	
 }

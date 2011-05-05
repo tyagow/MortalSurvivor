@@ -40,7 +40,7 @@ public class GerenciadorEfeitos extends Objeto implements Runnable {
 	public GerenciadorEfeitos() {
 		// TODO Auto-generated constructor stub
 		diffTimeParticulas=0;
-		manchasSangue= new BufferedImage(CanvasGame.MAPA.Largura*16, CanvasGame.MAPA.Altura*16, BufferedImage.TYPE_INT_ARGB);
+		manchasSangue= new BufferedImage(CanvasGame.tela.Largura*16, CanvasGame.tela.Altura*16, BufferedImage.TYPE_INT_ARGB);
 		manchas = manchasSangue.createGraphics();
 		particulas.clear();
 		particulasDesenha.clear();
@@ -52,6 +52,9 @@ public class GerenciadorEfeitos extends Objeto implements Runnable {
 	}
 	public void reset() {
 		xp=0;
+		manchasSangue= new BufferedImage(CanvasGame.tela.Largura*16, CanvasGame.tela.Altura*16, BufferedImage.TYPE_INT_ARGB);
+		manchas = manchasSangue.createGraphics();
+
 		
 	}
 
@@ -187,7 +190,7 @@ public class GerenciadorEfeitos extends Objeto implements Runnable {
 			
 		}
 		
-		dbg.drawString(""+FPS, 50, 10);
+		//dbg.drawString(""+FPS, 50, 10);
 
 		for(int i = 0; i < efeitos.size();i++){
 			

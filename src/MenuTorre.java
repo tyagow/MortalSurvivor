@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -35,14 +36,21 @@ public class MenuTorre extends Menu {
 	
 	@Override
 	public void SimulaSe(int DiffTime) {
-		// TODO Auto-generated method stub
-		setTimerSelecionado(getTimerSelecionado() + DiffTime);
-		
-		if (Constantes.colideQuadrado((int)getX(),(int) getY(), (int) getSizeX(), (int) getSizeY(), (int) CanvasGame.getMiraAtiva().getXMundo(),(int) CanvasGame.getMiraAtiva().getYMundo(), 1, 1)) {
-			setTimerSelecionado(0);
+		if (Constantes.colideQuadrado((int)getX(),(int)getY(),getSizeX(),getSizeY(),(int) CanvasGame.miraAtiva.X + CanvasGame.miraAtiva.XTela,(int) CanvasGame.miraAtiva.Y+CanvasGame.miraAtiva.YTela,2,2 )) {
+			selecionado=true;
+			
+		}
+		else {
+			selecionado=false;
 		}
 		
-		if (getTempoVida() != -1 && getTimerSelecionado() >= getTempoVida()) {
+		setTimerSelecionado(getTimerSelecionado() + DiffTime);
+		
+		if (selecionado) {
+			timerSelecionado=0;
+		}
+		
+		if (tempoVida != -1 && getTimerSelecionado() >= getTempoVida()) {
 			
 			setVivo(false);
 			setTimerSelecionado(0);
@@ -51,7 +59,7 @@ public class MenuTorre extends Menu {
 		while(it.hasNext()){
 			Botao bt = it.next();
 			bt.SimulaSe((int)DiffTime);
-			if (bt.isAtivo()) {
+			if (bt.ativo==true) {
 				trataBotao(bt);
 			}
 		}
@@ -59,18 +67,27 @@ public class MenuTorre extends Menu {
 	
 		
 	}
+	@Override
+	public void mouseMoved(MouseEvent e) {
+		
 
+		for (int i=0;i<botoes.size();i++) {
+			
+			botoes.get(i).mouseMoved(e);
+		}
+	}
+	
 	private void trataBotao(Botao bt) {
 		// TODO Auto-generated method stub
-		if (bt.getName()=="range"){
+		if (bt.name=="range"){
 			trataBotaoRange();
-			bt.setAtivo(false);
-		}else if (bt.getName()=="fire"){
+			bt.ativo = false;
+		}else if (bt.name=="fire"){
 			trataBotaoFire();
-			bt.setAtivo(false);
-		}else if (bt.getName()=="dano"){
+			bt.ativo = false;
+		}else if (bt.name=="dano"){
 			trataBotaoDano();
-			bt.setAtivo(false);
+			bt.ativo = false;
 		}
 		
 		
@@ -113,17 +130,17 @@ public class MenuTorre extends Menu {
 	private void trataDesenhoBotao(Graphics2D dbg,Botao bt,int XTela,int YTela) {
 		// TODO Auto-generated method stub
 		dbg.setFont(Constantes.FonteNormal);
-		if (bt.getName()=="range") {
+		if (bt.name=="range") {
 			dbg.setColor(Color.white);
 			dbg.drawString("$"+torrePai.getArmaAtiva().getCustoRange(), (int)bt.getX()+bt.getSizeX()+10-XTela,(int) bt.getY()+bt.getSizeY()-2-YTela);
 			
 		}
-		if (bt.getName()=="fire") {
+		if (bt.name=="fire") {
 			dbg.setColor(Color.white);
 			dbg.drawString("$"+torrePai.getArmaAtiva().getCustoFire(), (int)bt.getX()+bt.getSizeX()+10-XTela,(int) bt.getY()+bt.getSizeY()-2-YTela);
 			
 		}
-		if (bt.getName()=="dano") {
+		if (bt.name=="dano") {
 			dbg.setColor(Color.white);
 			dbg.drawString("$"+torrePai.getArmaAtiva().getCustoDano(), (int)bt.getX()+bt.getSizeX()+10-XTela,(int) bt.getY()+bt.getSizeY()-2-YTela);
 			

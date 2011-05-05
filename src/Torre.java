@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -151,7 +152,39 @@ public class Torre extends Objeto{
 		}
 		
 	}
+	
+	public void mouseClicked(MouseEvent e) {
+		if (menuAtivo!=null) {
+			
+			menuAtivo.mouseClicked(e);
+		}
 
+	}
+	public void mousePressed(MouseEvent e) {
+		if (menuAtivo!=null) {
+			
+			menuAtivo.mousePressed(e);
+		}
+
+	}
+	public void mouseReleased(MouseEvent e) {
+		if (menuAtivo!=null) {
+			
+			menuAtivo.mouseReleased(e);
+		}
+
+	}
+
+
+	public void mouseMoved(MouseEvent e) {
+		if (menuAtivo!=null) {
+			
+			menuAtivo.mouseMoved(e);
+		}
+
+
+	}
+		
 
 	private void calculaIA(int DiffTime) {
 		// TODO Auto-generated method stub
@@ -170,7 +203,7 @@ public class Torre extends Objeto{
 	
 	public void seleciona() {
 		
-		if (menuAtivo!=null&&menuAtivo.isVivo()){
+		if (menuAtivo!=null&&menuAtivo.vivo){
 			select =false;
 			menuAtivo.setVivo(false);
 		}
@@ -190,11 +223,11 @@ public class Torre extends Objeto{
 		// TODO Auto-generated method stub
 		boolean at=false;
 		
-		for (int i = 0;i<GerenciadorDeRaids.getRaids().size();i++) {
-			Raid ra = GerenciadorDeRaids.getRaids().get(i);
+//		for (int i = 0;i<GerenciadorDeRaids.getRaids().size();i++) {
+//			Raid ra = GerenciadorDeRaids.getRaids().get(i);
 		
-			for (int j = 0;j<ra.inimigos.size();j++) {
-				Inimigo in = ra.inimigos.get(j);
+			for (int j = 0;j<Constantes.inimigos.size();j++) {
+				Inimigo in = Constantes.inimigos.get(j);
 				
 
 				if (Constantes.colidecircular(in.getX(), in.getY(), in.getSizeX()/2, getX(), getY(), getRange()/2)) {
@@ -211,7 +244,7 @@ public class Torre extends Objeto{
 				}			
 			}
 
-		}
+//		}
 		 if (at==false) 
 			 getArmaAtiva().naoAtirou();
 	}

@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -7,13 +8,14 @@ import java.util.LinkedList;
 
 public abstract class Menu extends Objeto {
 
-	private boolean ativo;
-	private int tempoVida;
-	private Color cor;
+	public boolean ativo;
+	public int tempoVida;
+	public Color cor;
 	
-	private int r,g,b,alpha;
+	public int r,g,b,alpha;
 	
-	private ArrayList<Botao> botoes = new ArrayList<Botao>();
+	public ArrayList<Botao> botoes = new ArrayList<Botao>();
+	public boolean selecionado;
 	
 	public Menu (int _x,int _y,int sizeX,int sizeY, Color cor, int _tempoVida) {
 		
@@ -56,6 +58,45 @@ public abstract class Menu extends Objeto {
 		
 
 	}
+public void mouseClicked(MouseEvent e) {
+	for (int i=0;i<botoes.size();i++) {
+		
+		botoes.get(i).mouseClicked(e);
+	}
+
+	}
+	public void mousePressed(MouseEvent e) {
+		for (int i=0;i<botoes.size();i++) {
+			
+			botoes.get(i).mousePressed(e);
+		}
+	}
+	public void mouseReleased(MouseEvent e) {
+		for (int i=0;i<botoes.size();i++) {
+			
+			botoes.get(i).mouseReleased(e);
+		}
+	}
+
+
+public void mouseMoved(MouseEvent e) {
+		
+		if (Constantes.colideQuadrado((int)getX(),(int)getY(),getSizeX(),getSizeY(), (int)e.getX(),(int)e.getY() ,2,2 )) {
+			selecionado=true;
+			
+		}
+		else {
+			selecionado=false;
+		}
+		
+		for (int i=0;i<botoes.size();i++) {
+			
+			botoes.get(i).mouseMoved(e);
+		}
+	}
+	
+	
+	
 	public void setCor(Color cor) {
 		this.cor = cor;
 	}

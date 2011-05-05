@@ -70,11 +70,11 @@ public class  CursorMenuOptions extends Mira {
 
 	public double getXMundo() {
 		
-		return getX()+CanvasGame.MAPA.MapX;
+		return getX()+CanvasGame.tela.XTela;
 	}
 	public double getYMundo() {
 		
-		return getY()+CanvasGame.MAPA.MapY;
+		return getY()+CanvasGame.tela.YTela;
 	}
 
 	public void setPressed(boolean pressed) {

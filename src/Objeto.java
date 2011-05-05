@@ -2,10 +2,10 @@ import java.awt.Graphics2D;
 
 
 public abstract class Objeto {
-	private int sizeX,sizeY;
-	private double X,Y;
-	private int life, oldx, oldy;
-	private boolean vivo;
+	public int sizeX,sizeY;
+	public double X,Y;
+	public int life, oldx, oldy;
+	public boolean vivo;
 	
 	public abstract void SimulaSe(int DiffTime);
 	public abstract void DesenhaSe(Graphics2D dbg,int XMundo,int YMundo);

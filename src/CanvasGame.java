@@ -19,7 +19,7 @@ public class CanvasGame extends GCanvas {
 	public static int Health = 20;
 	
 	private static boolean endGame=false;
-	private static Mira miraAtiva;
+	public static Mira miraAtiva;
 
 	
 	private static double mousex;
@@ -45,13 +45,13 @@ public class CanvasGame extends GCanvas {
 	
 	public static Heroi heroi;
 
-	public int MundoY=0;
-	public int MundoX=0;
+	public int YTela=0;
+	public int XTela=0;
 
 
 	public static GerenciadorObstaculos gerenciadorObstaculos;
 	
-	public static TileMap MAPA;
+	public static TileMap tela;
 	public static int altura;
 	public static int largura;
 
@@ -72,10 +72,10 @@ public class CanvasGame extends GCanvas {
 	public CanvasGame() {
 		// TODO Auto-generated constructor stub
 		instance = this;
-		MAPA = new TileMap(Imagem.tileset, GamePanel.PWIDTH/16, GamePanel.PHEIGHT/16);
-		MAPA.AbreMapa("60x601.map");
-		largura = MAPA.Largura*16;
-		altura = MAPA.Altura*16;
+		tela = new TileMap(Imagem.tileset, GamePanel.PWIDTH/16, GamePanel.PHEIGHT/16);
+		tela.AbreMapa("60x601.map");
+		largura = tela.Largura*16;
+		altura = tela.Altura*16;
 		inicializaFase();
 		recarregaFase();
 		
@@ -107,14 +107,16 @@ public class CanvasGame extends GCanvas {
 	private void recarregaFase() {
 		
 		
-		
-		
+		gerenciadorTorre.reset();
 
+		gerenciadorObstaculos.reset();
+
+		gerenciadorDeRaids.reset();
 		gerenciadorHud.reset();
 		gerenciadorEfeitos.reset();
 		gerenciadorXP.reset();
 		
-
+		base.life=Constantes.BASE_LIFE_1;
 		heroi=new Heroi(GamePanel.PWIDTH/2, GamePanel.PHEIGHT/2,Imagem.heroiUm);
 		
 	
@@ -140,37 +142,40 @@ public class CanvasGame extends GCanvas {
 		for(int i = 0; i < projeteis.size();i++){
 			
 			Projetil proj = (Projetil) projeteis.get(i);
-			proj.DesenhaSe(dbg, MAPA.MapX, MAPA.MapY);
+			proj.DesenhaSe(dbg, tela.XTela, tela.YTela);
 			
 		}		
 
 		for(int i = 0; i < objetos.size();i++){
 			
 			Objeto proj = (Objeto)objetos.get(i);
-			proj.DesenhaSe(dbg, MAPA.MapX, MAPA.MapY);
+			proj.DesenhaSe(dbg, tela.XTela, tela.YTela);
 			
 		}
 			
 		
-		gerenciadorEfeitos.DesenhaSe(dbg, MAPA.MapX, MAPA.MapY);
-		base.DesenhaSe(dbg, MAPA.MapX, MAPA.MapY);
+		gerenciadorEfeitos.DesenhaSe(dbg, tela.XTela, tela.YTela);
+		base.DesenhaSe(dbg, tela.XTela, tela.YTela);
 
 
-		minimap.DesenhaSe(dbg, MAPA.MapX, MAPA.MapY);
+		minimap.DesenhaSe(dbg, tela.XTela, tela.YTela);
+		
+		
+		
+		gerenciadorObstaculos.DesenhaSe(dbg, tela.XTela, tela.YTela);
+		
+		gerenciadorDeRaids.DesenhaSe(dbg, tela.XTela, tela.YTela);
+		gerenciadorTorre.DesenhaSe(dbg,  tela.XTela,  tela.YTela);
+		heroi.DesenhaSe(dbg, tela.XTela, tela.YTela);
 		if (getMiraAtiva()!=null)
-			getMiraAtiva().DesenhaSe(dbg, MAPA.MapX, MAPA.MapY);
-		
-		gerenciadorRespawn.DesenhaSe(dbg, MAPA.MapX, MAPA.MapY);
-		
-		gerenciadorObstaculos.DesenhaSe(dbg, MAPA.MapX, MAPA.MapY);
-		
-		gerenciadorDeRaids.DesenhaSe(dbg, MAPA.MapX, MAPA.MapY);
-		heroi.DesenhaSe(dbg, MAPA.MapX, MAPA.MapY);
-		gerenciadorHud.DesenhaSe(dbg, MAPA.MapX, MAPA.MapY);
+			getMiraAtiva().DesenhaSe(dbg, tela.XTela, tela.YTela);
+		gerenciadorRespawn.DesenhaSe(dbg, tela.XTela, tela.YTela);
 
-		gerenciadorXP.DesenhaSe(dbg, MAPA.MapX, MAPA.MapY);
+		gerenciadorHud.DesenhaSe(dbg, tela.XTela, tela.YTela);
 
-		gerenciadorTorre.DesenhaSe(dbg,  MAPA.MapX,  MAPA.MapY);
+		gerenciadorXP.DesenhaSe(dbg, tela.XTela, tela.YTela);
+
+
 	}
 	
 	
@@ -178,12 +183,13 @@ public class CanvasGame extends GCanvas {
 	
 	void SimulaSe(long DiffTime) {
 		
-		
+		verificaFimDoJogo();
 		trataMiraDoJogo();
 		getMiraAtiva().SimulaSe((int)DiffTime);
 		
 		if(!GerenciadorRespawn.isRespawn()){
-			MAPA.Posiciona((int)(heroi.getX()-(GamePanel.PWIDTH/2)), (int)heroi.getY()-(GamePanel.PHEIGHT/2));
+			tela.Posiciona((int)(heroi.X-(GamePanel.PWIDTH/2)), (int)heroi.Y-(GamePanel.PHEIGHT/2));
+		
 		}
 		
 //		MAPA.PosiWciona((int)(mousex-(GamePanel.PWIDTH/2)), (int)mousey-(GamePanel.PHEIGHT/2));
@@ -221,13 +227,16 @@ public class CanvasGame extends GCanvas {
 		gerenciadorHud.SimulaSe((int)DiffTime);
 		gerenciadorXP.SimulaSe((int)DiffTime);
 		
-		verificaFimDoJogo();
+		
 
 	}
 	
 	private void verificaFimDoJogo() {
 		
+		
 		if (isEndGame() && GerenciadorDeRaids.acabouRaids()||base.getLife()<=0) {
+		
+			recarregaFase();
 			GamePanel.setCanvasAtivo(new CanvasStart());
 		}
 		
@@ -287,7 +296,7 @@ public class CanvasGame extends GCanvas {
 			heroi.SECUNDARIA=true;
 		}
 		if(keyCode == KeyEvent.VK_3){
-			GerenciadorTorre.adicionaTorre((int)getMousex()+MAPA.MapX,(int)getMousey()+MAPA.MapY);
+			GerenciadorTorre.adicionaTorre((int)getMousex()+tela.XTela,(int)getMousey()+tela.YTela);
 		}	
 		if(keyCode == KeyEvent.VK_4){
 			GamePanel.setCanvasAtivo(new CanvasGame());
@@ -321,7 +330,10 @@ public class CanvasGame extends GCanvas {
 		// TODO Auto-generated method stub
 		setMousex(e.getX());
 		setMousey(e.getY());
-		
+		gerenciadorTorre.mouseMoved(e);
+
+		XTela=tela.XTela;
+		YTela=tela.YTela;
 	}
 
 	@Override
@@ -338,16 +350,18 @@ public class CanvasGame extends GCanvas {
 		getMiraAtiva().released(button);
 		if (button == MouseEvent.BUTTON1) {
 			
-		
+			
 			getMiraAtiva().trataClickMouse1();
 
 			
 		}
+		
 		if (button == MouseEvent.BUTTON3) {
 
 			heroi.PRIMARIA=false;
 		}
-
+		
+		gerenciadorTorre.mouseReleased(e);
 
 	}
 
@@ -355,6 +369,7 @@ public class CanvasGame extends GCanvas {
 	void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
 		int button = e.getButton();
+		gerenciadorTorre.mousePressed(e);
 		getMiraAtiva().pressed(button);
 		
 		if (button == MouseEvent.BUTTON1) {
@@ -379,23 +394,15 @@ public class CanvasGame extends GCanvas {
 
 	@Override
 	void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
 		setMousex(e.getX());
 		setMousey(e.getY());
 	}
 
 	@Override
 	void mouseClicked(MouseEvent e) {
-	
+		gerenciadorTorre.mouseClicked(e);
 	}
 
-//	public static void setMiraAtiva(Mira miraAtiva) {
-//		CanvasGame.miraAtiva = miraAtiva;
-//	}
-//
-//	public static Mira getMiraAtiva() {
-//		return miraAtiva;
-//	}
 
 	public static void setEndGame(boolean _endGame) {
 		CanvasGame.endGame = _endGame;
@@ -408,7 +415,6 @@ public class CanvasGame extends GCanvas {
 	public static void setMiraMenu() {
 		// TODO Auto-generated method stub
 		if (miraDoJogoSelecionada) {
-			System.out.println("so uma vez");
 			getMiraAtiva().setPressed(false);
 			setMiraAtiva(miraMenu);
 			miraDoJogoSelecionada=false;

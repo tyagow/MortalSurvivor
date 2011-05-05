@@ -75,12 +75,12 @@ public class  CursorMenuTorre extends Mira {
 	public double getXMundo() {
 		// TODO Auto-generated method stub
 		
-		return getX()+CanvasGame.MAPA.MapX;
+		return getX()+CanvasGame.tela.XTela;
 	}
 	public double getYMundo() {
 		// TODO Auto-generated method stub
 		
-		return getY()+CanvasGame.MAPA.MapY;
+		return getY()+CanvasGame.tela.YTela;
 	}
 
 	public void setPressed(boolean pressed) {

@@ -32,6 +32,8 @@ public class GerenciadorObstaculos extends Objeto {
 	public void SimulaSe(int DiffTime) {
 		// TODO Auto-generated method stub
 		//System.out.println(obstaculos.size());
+	
+		
 		Iterator<Obstaculo> it = getObstaculos().iterator();
 		while(it.hasNext()){
 			Obstaculo part = it.next();
@@ -42,6 +44,8 @@ public class GerenciadorObstaculos extends Objeto {
 				removeObstaculoGrade((int)part.getX(),(int)part.getY());
 			}
 		}
+		
+		
 	}
 	@Override
 	public void DesenhaSe(Graphics2D dbg, int XMundo, int YMundo) {
@@ -75,8 +79,8 @@ public class GerenciadorObstaculos extends Objeto {
 	
 	private void carregaGradeColisao() {
 		// TODO Auto-generated method stub
-		setLargura(CanvasGame.MAPA.Largura);
-		setAltura(CanvasGame.MAPA.Altura);
+		largura=CanvasGame.tela.Largura;
+		altura=CanvasGame.tela.Altura;
 		setMapa(new int [getLargura()][getAltura()]);
 		//System.out.println(CanvasGame.MAPA.Largura);
 		resetaGradeColisao();
@@ -249,8 +253,8 @@ public class GerenciadorObstaculos extends Objeto {
 	}
 
 
-	public static void setMapa(int mapa[][]) {
-		GerenciadorObstaculos.mapa = mapa;
+	public static void setMapa(int _mapa[][]) {
+		mapa = _mapa;
 	}
 
 
@@ -296,6 +300,11 @@ public class GerenciadorObstaculos extends Objeto {
 
 	public static boolean isyIgualUm() {
 		return yIgualUm;
+	}
+
+
+	public void reset() {
+//TODO pensar em como resetar pois os obstaculos sao adicionados por fora e se eu limpar a lista vai dar merda para carregar a grade...		
 	}
 
 

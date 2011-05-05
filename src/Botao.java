@@ -1,6 +1,7 @@
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
 
@@ -8,19 +9,21 @@ public class Botao extends Objeto {
 
 	
 	
-	private boolean ativo;
-	private boolean selecionado;
-	private String name;
-	private boolean isOval = true;
-	private boolean oldIsMousePressed;
+	public boolean ativo;
+	public  boolean selecionado;
+	public  String name;
+	public  boolean isOval = true;
+	public  boolean oldIsMousePressed;
 	BufferedImage imagem=null;
 	Font font;
+	private int timerAtivo;
+	private boolean oldPressed;
 	public Botao(BufferedImage img,String _name, int _x,int _y,int _sizeX,int _fontSize, boolean _isOval) {
 		
 		imagem = img;
 		isOval=_isOval;
 		setVivo(true);
-		setAtivo(false);
+		ativo=false;
 		selecionado=false;
 		setSizeX(_sizeX);
 
@@ -31,9 +34,9 @@ public class Botao extends Objeto {
 		else 
 			setSizeY(_sizeX/3);
 
-		setName(_name);
-		setX(_x);
-		setY(_y);
+		name=_name;
+		X=_x;
+		Y=_y;
 		
 		
 	}
@@ -42,27 +45,39 @@ public class Botao extends Objeto {
 	@Override
 	public void SimulaSe(int DiffTime) {
 	
-				if (Constantes.colideQuadrado((int)getX(),(int)getY(),getSizeX(),getSizeY(), (int)CanvasGame.getMiraAtiva().getXMundo(),(int)CanvasGame.getMiraAtiva().getYMundo() ,2,2 )) {
-					if (!isAtivo()) {
-						if (CanvasGame.getMiraAtiva().isPressed()) {
+//				if (Constantes.colideQuadrado((int)X,(int)Y,getSizeX(),getSizeY(), (int)CanvasGame.getMiraAtiva().getXMundo(),(int)CanvasGame.getMiraAtiva().getYMundo() ,2,2 )) {
+//					if (!isAtivo()) {
+//						if (CanvasGame.getMiraAtiva().isPressed()) {
+//			
+//							trataClickBotao();
+//						}
+//						selecionado=true;
+//					}
+//				}else {
+//					selecionado = false;
+//				}
+//
+//		oldIsMousePressed = CanvasGame.getMiraAtiva().isPressed();
+		
+		
+		if (ativo) {
 			
-							trataClickBotao();
-						}
-						selecionado=true;
-					}
-				}else {
-					selecionado = false;
-				}
-
-		oldIsMousePressed = CanvasGame.getMiraAtiva().isPressed();
+			timerAtivo +=DiffTime;
+			
+			if (timerAtivo > 50) {
+				ativo=false;
+				timerAtivo=0;
+				
+			}
+		}
 	}
 
 	
 	
 	private void trataClickBotao() {
-		if(!oldIsMousePressed)
-			ativaBotao();	
-
+//		if(!oldIsMousePressed)
+//			ativaBotao();	
+//
 	
 	}
 
@@ -77,13 +92,13 @@ public class Botao extends Objeto {
 			if (isOval) { // desenha botao com imagem
 				
 				dbg.setColor(Color.red);
-				dbg.drawOval((int)getX()-XMundo,(int)getY()-YMundo, getSizeX(), getSizeY());
+				dbg.drawOval((int)X-XMundo,(int)Y-YMundo, getSizeX(), getSizeY());
 				dbg.setColor(new Color(50,50,50,200));
-				dbg.fillOval((int)getX()+1-XMundo,(int)getY()-YMundo+1, getSizeX()-2, getSizeY()-2);
+				dbg.fillOval((int)X+1-XMundo,(int)Y-YMundo+1, getSizeX()-2, getSizeY()-2);
 				if (selecionado) {
 					dbg.setColor(Color.gray);
 					dbg.setColor(new Color(50,50,50,200));
-					dbg.fillOval((int)getX()+1-XMundo,(int)getY()-YMundo+1, getSizeX()-2, getSizeY()-2);
+					dbg.fillOval((int)X+1-XMundo,(int)Y-YMundo+1, getSizeX()-2, getSizeY()-2);
 					dbg.setColor(Color.red);
 				}else {
 					
@@ -91,18 +106,18 @@ public class Botao extends Objeto {
 				}
 		
 		
-				dbg.drawString(name,(int) getX()+getSizeX()/2-XMundo-name.length()/2*((dbg.getFont().getSize()*2)/3),(int) getY()+getSizeY()/2+(dbg.getFont().getSize()/2)-YMundo);
+				dbg.drawString(name,(int) X+getSizeX()/2-XMundo-name.length()/2*((dbg.getFont().getSize()*2)/3),(int) Y+getSizeY()/2+(dbg.getFont().getSize()/2)-YMundo);
 
 			}
 			else { // desenha botao com imagem
 				
 				dbg.setColor(Color.WHITE);
 				
-				dbg.drawRect((int)getX()-XMundo,(int)getY()-YMundo, getSizeX(), getSizeY());
+				dbg.drawRect((int)X-XMundo,(int)Y-YMundo, getSizeX(), getSizeY());
 				
 				dbg.setColor(new Color(50,50,50,200));
 				
-				dbg.fillRect((int)getX()+1-XMundo,(int)getY()-YMundo+1, getSizeX()-2, getSizeY()-2);
+				dbg.fillRect((int)X+1-XMundo,(int)Y-YMundo+1, getSizeX()-2, getSizeY()-2);
 				
 		
 				if (selecionado) {
@@ -115,41 +130,49 @@ public class Botao extends Objeto {
 				}
 		
 		
-				dbg.drawString(name,(int) getX()+getSizeX()/2-XMundo-name.length()/2*((dbg.getFont().getSize()*2)/3),(int) getY()+getSizeY()/2+(dbg.getFont().getSize()/2)-YMundo);
+				dbg.drawString(name,(int) X+getSizeX()/2-XMundo-name.length()/2*((dbg.getFont().getSize()*2)/3),(int) Y+getSizeY()/2+(dbg.getFont().getSize()/2)-YMundo);
 
 
 			}
 		}
 		dbg.setFont(temp);
 	}
-	private void ativaBotao() {
-		setAtivo(true);
-	}
 
-	
-	public void desativaBotao() {
-		setAtivo(false);
+	public void mouseClicked(MouseEvent e) {
 		
+		if (Constantes.colideQuadrado((int)X,(int)Y,getSizeX(),getSizeY(), (int)e.getX(),(int)e.getY() ,2,2 )) {
+
+		ativo=true;
+	
+		}
+	}
+	public void mousePressed(MouseEvent e) {
+//		if (Constantes.colideQuadrado((int)X,(int)Y,getSizeX(),getSizeY(), (int)e.X,(int)e.Y ,2,2 )) {
+//
+//			if (!oldPressed)
+//				ativo=true;
+//	
+//		}
+	}
+	public void mouseReleased(MouseEvent e) {
+		
+		oldPressed=false;
+		
+	
+	
 	}
 
 
-	public void setName(String name) {
-		this.name = name;
+	public void mouseMoved(MouseEvent e) {
+		
+		if (Constantes.colideQuadrado((int)X,(int)Y,getSizeX(),getSizeY(), (int)e.getX(),(int)e.getY() ,2,2 )) {
+			selecionado=true;
+			
+		}
+		else {
+			selecionado=false;
+		}
 	}
-
-
-	public String getName() {
-		return name;
-	}
-
-
-	public void setAtivo(boolean ativo) {
-		this.ativo = ativo;
-	}
-
-
-	public boolean isAtivo() {
-		return ativo;
-	}
+	
 	
 }

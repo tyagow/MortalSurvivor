@@ -154,7 +154,7 @@ addMouseListener(new MouseListener() {
 		}
 	
 	});
-	
+
 	
 	setCanvasInicio(new CanvasStart());
 	setCanvasGame(new CanvasGame());

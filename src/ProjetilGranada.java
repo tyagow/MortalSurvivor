@@ -65,11 +65,11 @@ public class ProjetilGranada extends Projetil {
 			angDesenho += Math.PI*DiffTime/1000.0f;
 			
 			
-			for (int i = 0;i<GerenciadorDeRaids.getRaids().size();i++) {
-				Raid ra = GerenciadorDeRaids.getRaids().get(i);
-			
-				for (int j = 0;j<ra.inimigos.size();j++) {
-					Inimigo in = ra.inimigos.get(j);
+//			for (int i = 0;i<GerenciadorDeRaids.getRaids().size();i++) {
+//				Raid ra = GerenciadorDeRaids.getRaids().get(i);
+//			
+				for (int j = 0;j<Constantes.inimigos.size();j++) {
+					Inimigo in = Constantes.inimigos.get(j);
 					
 
 					if (Constantes.colidecircular(getX(), getY(),getSizeX()/2,in.getX(),in.getY(),in.getSizeX()/2)) {
@@ -83,7 +83,7 @@ public class ProjetilGranada extends Projetil {
 					}
 				}
 				
-			}
+//			}
 
 		
 			

@@ -2,14 +2,14 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 
-public class  CursorMenuStart extends Mira {
+public class  CursorMenu extends Mira {
 
 	BufferedImage mira;
 	private boolean pressed;
 	private boolean released;
 	private int button;
 	//private boolean clicked;
-	public CursorMenuStart() {
+	public CursorMenu() {
 		
 	
 		setVivo(true);
@@ -23,10 +23,10 @@ public class  CursorMenuStart extends Mira {
 	
 	@Override
 	public void SimulaSe(int DiffTime) {
-		// TODO Auto-generated method stub
+		// TODO 
 		GamePanel.getCanvasAtivo();
-		setX(CanvasStart.getMousex());
-		setY(CanvasStart.getMousey());
+//		setX(CanvasStart.getMousex());
+//		setY(CanvasStart.getMousey());
 		
 
 		
@@ -36,8 +36,7 @@ public class  CursorMenuStart extends Mira {
 	@Override
 	public void DesenhaSe(Graphics2D dbg, int XMundo, int YMundo) {
 		// TODO Auto-generated method stub
-
-		dbg.drawImage(mira,(int)getX(),(int)getY(),(int)getX()+getSizeX(),(int)getY()+getSizeY(),0,0,(int)mira.getWidth(),(int)mira.getHeight(),null);
+		dbg.drawImage(mira,(int)X,(int)Y,(int)X+getSizeX(),(int)Y+getSizeY(),0,0,(int)mira.getWidth(),(int)mira.getHeight(),null);
 
 	}
 	
@@ -71,11 +70,11 @@ public class  CursorMenuStart extends Mira {
 
 	public double getXMundo() {
 		
-		return getX()+CanvasGame.MAPA.MapX;
+		return X+CanvasGame.tela.XTela;
 	}
 	public double getYMundo() {
 		
-		return getY()+CanvasGame.MAPA.MapY;
+		return Y+CanvasGame.tela.YTela;
 	}
 
 	public void setPressed(boolean pressed) {

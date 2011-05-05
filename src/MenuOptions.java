@@ -6,7 +6,6 @@ import java.util.Iterator;
 
 public class MenuOptions extends Menu {
 
-	private ArrayList<BotaoMenu> botoesMenu = new ArrayList<BotaoMenu>();
 	public MenuOptions(int _x, int _y, int sizeX, int sizeY, Color cor, int _tempoVida) {
 		super(_x, _y, sizeX, sizeY, cor, _tempoVida);
 		
@@ -20,20 +19,20 @@ public class MenuOptions extends Menu {
 	public void SimulaSe(int DiffTime) {
 		// TODO Auto-generated method stub
 		for (int x=0;x<getBotoesMenu().size();x++) {
-			BotaoMenu b= getBotoesMenu().get(x);
+			Botao b= getBotoesMenu().get(x);
 			
 			b.SimulaSe((int)DiffTime);			
-			if (b.isAtivo()) {
+			if (b.ativo==true) {
 				trataBotao(b);
-				getBotoesMenu().get(x).setAtivo(false);
+				getBotoesMenu().get(x).ativo=false;
 			}		
 		}
 		
 
 	}
-	private ArrayList<BotaoMenu> getBotoesMenu() {
+	private ArrayList<Botao> getBotoesMenu() {
 		// TODO Auto-generated method stub
-		return botoesMenu;
+		return botoes;
 	}
 
 
@@ -48,9 +47,9 @@ public class MenuOptions extends Menu {
 		
 		dbg.fillRect((int)getX()+1-XMundo,(int)getY()-YMundo+1, getSizeX()-2, getSizeY()-2);
 		
-		Iterator<BotaoMenu> it = getBotoesMenu().iterator();
+		Iterator<Botao> it = getBotoesMenu().iterator();
 		while(it.hasNext()){
-			BotaoMenu bot= it.next();
+			Botao bot= it.next();
 			
 			bot.DesenhaSe(dbg, XMundo, YMundo);
 			
@@ -60,14 +59,14 @@ public class MenuOptions extends Menu {
 		
 
 	}
-	private void trataBotao(BotaoMenu b) {
+	private void trataBotao(Botao b) {
 		// TODO Auto-generated method stub
 		
-		if (b.getName().contains("Video") ) {
+		if (b.name.contains("Video") ) {
 			
 			//GamePanel.setCanvasAtivo(CanvasGame.instance);
 			
-		}else if (b.getName().contains("Options") ) {
+		}else if (b.name.contains("Options") ) {
 	
 		}
 		
@@ -76,8 +75,8 @@ public class MenuOptions extends Menu {
 	private void criaBotoes() {
 		// TODO Auto-generated method stubB
 
-		getBotoesMenu().add(new BotaoMenu(null,"Video",(int)getX()+10,(int)getY()+10,60,14,false));
-		getBotoesMenu().add(new BotaoMenu(null,"Som",(int)getX()+10,(int)getY()+35,60,14,false));
+		getBotoesMenu().add(new Botao(null,"Video",(int)getX()+10,(int)getY()+10,60,14,false));
+		getBotoesMenu().add(new Botao(null,"Som",(int)getX()+10,(int)getY()+35,60,14,false));
 //		getBotoes().add(new Botao(null,"",(int)getX()+10,(int)getY()+110,120,25,false));
 //		getBotoes().add(new Botao(null,"Options",(int)getX()+10,(int)getY()+160,120,25,false));
 //		getBotoes().add(new Botao(null,"Exit",(int)getX()+10,(int)getY()+210,120,25,false));
@@ -87,7 +86,7 @@ public class MenuOptions extends Menu {
 
 
 
-	public void setBotoesMenu(ArrayList<BotaoMenu> botoesMenu) {
-		this.botoesMenu = botoesMenu;
+	public void setBotoesMenu(ArrayList<Botao> botoesMenu) {
+		this.botoes = botoesMenu;
 	}
 }

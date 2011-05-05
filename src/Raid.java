@@ -10,7 +10,7 @@ public class Raid {
 	
 	public boolean ativo = false;
 	
-	public ArrayList<Inimigo> inimigos = new ArrayList<Inimigo>();
+//	public ArrayList<Inimigo> inimigos = new ArrayList<Inimigo>();
 	
 	public Raid(String filename){
 		
@@ -52,7 +52,7 @@ public class Raid {
 //					Inimigo inim2 = new Inimigo(Imagem.inimigoUm/*,(int)CanvasGame.base.getX()/16,(int)CanvasGame.base.getY()/16*/);
 //					inimigos.add(inim2);
 				
-					inimigos.add(inim);
+					Constantes.inimigos.add(inim);
 				}
 			}
 		} catch (IOException e1) {
@@ -63,30 +63,30 @@ public class Raid {
 	}
 	
 	public void DesenhaSe(Graphics2D dbg, int XMundo, int YMundo) {
-		for(int i = 0; i < inimigos.size();i++){
-			inimigos.get(i).DesenhaSe(dbg, CanvasGame.MAPA.MapX, CanvasGame.MAPA.MapY);
-
-			
-		}
+//		for(int i = 0; i < inimigos.size();i++){
+//			inimigos.get(i).DesenhaSe(dbg, CanvasGame.MAPA.MapX, CanvasGame.MAPA.MapY);
+//
+//			
+//		}
 	}
 	
 	public void SimulaSe(int DiffTime){
 		
 //		System.out.println(inimigos.size());
 		
-		
-		for(int i = 0; i < inimigos.size();i++){
-			Inimigo inim = inimigos.get(i);
-			
-			inim.SimulaSe((int)DiffTime);
-			
-			if(!inim.isVivo()){
-				inimigos.remove(i);
-				GerenciadorXP.ganhouXp(inim.getX(), inim.getY(),inim.getTipoAssasino() );
-			}
-			if(inimigos.size() == 0)
-				this.ativo = false;
-		}
+//		
+//		for(int i = 0; i < inimigos.size();i++){
+//			Inimigo inim = inimigos.get(i);
+//			
+//			inim.SimulaSe((int)DiffTime);
+//			
+//			if(!inim.isVivo()){
+//				inimigos.remove(i);
+//				GerenciadorXP.ganhouXp(inim.getX(), inim.getY(),inim.getTipoAssasino() );
+//			}
+//			if(inimigos.size() == 0)
+//				this.ativo = false;
+//		}
 	}
 
 }

@@ -1,4 +1,5 @@
 import java.awt.Graphics2D;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -56,7 +57,7 @@ public class GerenciadorTorre extends Objeto {
 		for(int i = 0; i < torres.size();i++){
 			
 			Torre proj = (Torre) torres.get(i);
-			proj.DesenhaSe(dbg, CanvasGame.MAPA.MapX,CanvasGame.MAPA.MapY);
+			proj.DesenhaSe(dbg, CanvasGame.tela.XTela,CanvasGame.tela.YTela);
 			
 		}
 		
@@ -141,7 +142,36 @@ public class GerenciadorTorre extends Objeto {
 	}
 	
 	
+	public void mouseClicked(MouseEvent e) {
+		for (int i = 0;i<torres.size();i++) {
+			torres.get(i).mouseClicked(e);
+			
+		}
 
+	}
+	public void mousePressed(MouseEvent e) {
+		for (int i = 0;i<torres.size();i++) {
+			torres.get(i).mousePressed(e);
+			
+		}
+	}
+	public void mouseReleased(MouseEvent e) {
+		for (int i = 0;i<torres.size();i++) {
+			torres.get(i).mouseReleased(e);
+			
+		}
+	}
+
+
+	public void mouseMoved(MouseEvent e) {
+		for (int i = 0;i<torres.size();i++) {
+			torres.get(i).mouseMoved(e);
+			
+		}
+
+	}
+		
+		
 	private static boolean posicaoValida(int x, int y) {
 		// TODO Auto-generated method stub
 		boolean aux=true;
@@ -200,5 +230,12 @@ public class GerenciadorTorre extends Objeto {
 
 	public static boolean isHitMiraMenu() {
 		return hitMiraMenu;
+	}
+
+
+	public void reset() {
+		torres.clear();
+		 selecionadorDeTorre = new SelecionadorDeTorre();
+		
 	}
 }
