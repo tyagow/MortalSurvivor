@@ -110,7 +110,7 @@ public class CanvasGame extends GCanvas {
 		gerenciadorTorre.reset();
 
 		gerenciadorObstaculos.reset();
-
+		Constantes.inimigos.clear();
 		gerenciadorDeRaids.reset();
 		gerenciadorHud.reset();
 		gerenciadorEfeitos.reset();
