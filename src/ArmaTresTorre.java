@@ -33,10 +33,10 @@ public class ArmaTresTorre extends ArmaTorre {
 	public void atira() {
 
 			setRound(getRound() - 1);
-			CanvasGame.projeteis.add( new Projetil (this,getAngulo(),	Constantes.ID_ARMA_TRES_TORRE,(int)(getX()-Math.cos(getAngulo()-Math.PI/2)*10), (int)(getY()-Math.sin(getAngulo()-Math.PI/2)*10)));
+			Constantes.projeteis.add( new Projetil (this,getAngulo(),	Constantes.ID_ARMA_TRES_TORRE,(int)(getX()-Math.cos(getAngulo()-Math.PI/2)*10), (int)(getY()-Math.sin(getAngulo()-Math.PI/2)*10)));
 
-			CanvasGame.projeteis.add( new Projetil (this,getAngulo(),	Constantes.ID_ARMA_TRES_TORRE ));
-			CanvasGame.projeteis.add( new Projetil (this,getAngulo(),	Constantes.ID_ARMA_TRES_TORRE,(int)(getX()+Math.cos(getAngulo()-Math.PI/2)*10), (int)(getY()+Math.sin(getAngulo()-Math.PI/2)*10)));
+			Constantes.projeteis.add( new Projetil (this,getAngulo(),	Constantes.ID_ARMA_TRES_TORRE ));
+			Constantes.projeteis.add( new Projetil (this,getAngulo(),	Constantes.ID_ARMA_TRES_TORRE,(int)(getX()+Math.cos(getAngulo()-Math.PI/2)*10), (int)(getY()+Math.sin(getAngulo()-Math.PI/2)*10)));
 			
 			GerenciadorDeSom.ak.run();
 			

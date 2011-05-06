@@ -33,7 +33,7 @@ public class ArmaUmTorre extends ArmaTorre {
 //		if (temMunicao()) {
 			setRound(getRound() - 1);
 			
-			CanvasGame.projeteis.add( new Projetil (this,getAngulo(),2 ));
+			Constantes.projeteis.add( new Projetil (this,getAngulo(),2 ));
 			
 			
 			

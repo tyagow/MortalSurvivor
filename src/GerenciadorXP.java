@@ -10,7 +10,8 @@ public class GerenciadorXP extends Objeto {
 	private float alpha;
 	private static int fastKill=0;
 	private static double timer;
-	
+	int  larguraHudFastKill =200;
+
 	
 	@Override
 	public void SimulaSe(int DiffTime) {
@@ -41,9 +42,11 @@ public class GerenciadorXP extends Objeto {
 		    
 		    dbg.setStroke(new BasicStroke(1.5f));
 			dbg.setColor(Color.cyan);
-			
-			dbg.drawRect(GamePanel.PWIDTH/2-25,20, Constantes.QUANTIDADE_FAST_KILL*10, 30);
-			dbg.fillRect(GamePanel.PWIDTH/2-25,20 , fastKill*10, 30);
+			dbg.fillRect(GamePanel.PWIDTH/2-larguraHudFastKill/2,GamePanel.PHEIGHT-larguraHudFastKill/2 , larguraHudFastKill*fastKill/Constantes.QUANTIDADE_FAST_KILL, 20);
+			dbg.setColor(Color.black);
+
+			dbg.drawRect(GamePanel.PWIDTH/2-larguraHudFastKill/2,GamePanel.PHEIGHT-larguraHudFastKill/2, larguraHudFastKill, 20);
+
 			dbg.setColor(Color.red);
 			dbg.setFont(Constantes.fonteBig);
 			dbg.drawString("Fast Kill", GamePanel.PWIDTH/2-20,45 );
@@ -95,9 +98,9 @@ public class GerenciadorXP extends Objeto {
 		// TODO Auto-generated method stub
 		
 		if (extraXp){
-			GerenciadorEfeitos.efeitos.add(new TextoExtraXp(_xp,x,y) );
+			Constantes.efeitos.add(new TextoExtraXp(_xp,x,y) );
 		}else {
-			GerenciadorEfeitos.efeitos.add(new Texto(_xp,x,y) );
+			Constantes.efeitos.add(new Texto(_xp,x,y) );
 
 		}
 	}

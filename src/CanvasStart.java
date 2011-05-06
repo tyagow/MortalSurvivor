@@ -21,13 +21,14 @@ public class CanvasStart extends GCanvas{
 	private static Mira miraAtiva;
 
 	
-	private static double mousex;
-	private static double mousey;
+
 	private Menu menuOptions;
 	
 	private static ArrayList<Botao> botoes= new ArrayList<Botao>();
 	public CanvasStart() {
 		// TODO Auto-generated constructor stub
+		Constantes.XTela=0;
+		Constantes.YTela=0;
 		
 		loader = new GerenciadorDeSom();
 		
@@ -86,10 +87,11 @@ public class CanvasStart extends GCanvas{
 	@Override
 	void SimulaSe(long diftime) {
 		// TODO Auto-generated method stub
-		
+		Constantes.XTela=0;
+		Constantes.YTela=0;
 		if (menuAtivo!=null)
 			menuAtivo.SimulaSe((int)diftime);
-		
+
 //		Iterator<Botao> it = botoes.iterator();
 //		while(it.hasNext()){
 			for (int x=0;x<botoes.size();x++) {
@@ -178,8 +180,10 @@ public class CanvasStart extends GCanvas{
 				menuAtivo.botoes.get(i).mouseMoved(e);
 			}
 		}
-		mousex=e.getX();
-		mousey=e.getY();
+		
+		Constantes.mouseXTela=e.getX()+Constantes.XTela;
+		Constantes.mouseYTela=e.getY()+Constantes.YTela;
+
 		miraAtiva.X=e.getX();
 		miraAtiva.Y=e.getY();
 		
@@ -249,8 +253,7 @@ public class CanvasStart extends GCanvas{
 	@Override
 	void mouseEntered(MouseEvent e) {
 		// TODO Auto-generated method stub
-		setMousex(e.getX());
-		setMousey(e.getY());
+
 	}
 
 	@Override
@@ -285,16 +288,5 @@ public class CanvasStart extends GCanvas{
 	public static Mira getMiraAtiva() {
 		return miraAtiva;
 	}
-	public static void setMousey(int _mousey) {
-		mousey = _mousey;
-	}
-	public static double getMousey() {
-		return mousey;
-	}
-	public static void setMousex(int _mousex) {
-		mousex = _mousex;
-	}
-	public static double getMousex() {
-		return mousex;
-	}
+
 }

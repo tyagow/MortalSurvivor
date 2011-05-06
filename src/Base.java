@@ -21,14 +21,14 @@ public class Base extends Objeto {
 
 		setSizeX(_img.getWidth());
 		setSizeY(_img.getHeight());
-		X=_x/16*16;
-		Y=_y/16*16;	
+		X=(_x-sizeX/2)/16*16;
+		Y=(_y-sizeY/2)/16*16;	
 	
 		img = _img;
 		alpha = 0;
 
-		setVivo(true);
-		setLife(Constantes.BASE_LIFE_1);
+		vivo=true;
+		life=Constantes.BASE_LIFE_1;
 		GerenciadorObstaculos.addObstaculos((int)X,(int)Y,getSizeX(),getSizeY() );
 		
 		auraAtiva = true;
@@ -63,9 +63,9 @@ public class Base extends Objeto {
 		
 		Color corAnterior = dbg.getColor();
 		//LIFE
-		dbg.drawRect((int)X-getSizeX()/2-XMundo, (int)-getSizeY()/2-17-YMundo, 30, 10);
+		dbg.drawRect((int)GamePanel.PWIDTH/2-150, (int)5, 300, 25);
 		dbg.setColor(Color.lightGray);
-		dbg.fillRect((int)X-getSizeX()/2+1-XMundo, (int)-getSizeY()/2-16-YMundo, (int)(getLife()*30/Constantes.BASE_LIFE_1)-1, 9);
+		dbg.fillRect((int)GamePanel.PWIDTH/2-149, (int)6, (int)(life*300/Constantes.BASE_LIFE_1)-2, 23);
 		//BASE
 		dbg.setColor(Color.ORANGE);
 			//dbg.fillOval((int)X-getSizeX()/2-XMundo,(int) (-getSizeY()/2-YMundo), getSizeX(),getSizeY());

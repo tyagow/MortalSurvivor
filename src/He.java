@@ -157,7 +157,7 @@ public class He extends Arma {
 		
 		if (temMunicao()) {
 			setRound(getRound() - 1);
-			CanvasGame.projeteis.add( new ProjetilGranada(this, getAngulo(), 1, getImagem()));
+			Constantes.projeteis.add( new ProjetilGranada(this, getAngulo(), 1, getImagem()));
 			//Constantes.de.run();
 		}
 		

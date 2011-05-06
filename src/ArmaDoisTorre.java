@@ -37,10 +37,10 @@ public class ArmaDoisTorre extends ArmaTorre {
 //		if (temMunicao()) {
 			setRound(getRound() - 1);
 		
-			CanvasGame.projeteis.add( new Projetil (this,getAngulo(),	Constantes.ID_ARMA_TRES_TORRE,(int)(getX()-Math.cos(getAngulo()-Math.PI/2)*6), (int)(getY()-Math.sin(getAngulo()-Math.PI/2)*5)));
+			Constantes.projeteis.add( new Projetil (this,getAngulo(),	Constantes.ID_ARMA_TRES_TORRE,(int)(getX()-Math.cos(getAngulo()-Math.PI/2)*6), (int)(getY()-Math.sin(getAngulo()-Math.PI/2)*5)));
 
 
-			CanvasGame.projeteis.add( new Projetil (this,getAngulo(),	Constantes.ID_ARMA_TRES_TORRE,(int)(getX()+Math.cos(getAngulo()-Math.PI/2)*5), (int)(getY()+Math.sin(getAngulo()-Math.PI/2)*5)));
+			Constantes.projeteis.add( new Projetil (this,getAngulo(),	Constantes.ID_ARMA_TRES_TORRE,(int)(getX()+Math.cos(getAngulo()-Math.PI/2)*5), (int)(getY()+Math.sin(getAngulo()-Math.PI/2)*5)));
 	
 			
 			

@@ -148,7 +148,7 @@ public class Metralhadora extends Arma {
 		
 		if (temMunicao()) {
 			setRound(getRound() - 1);
-			CanvasGame.projeteis.add( new Projetil (this,getAngulo(),Constantes.TIPO_ASSASINO_PLAYER ));
+			Constantes.projeteis.add( new Projetil (this,getAngulo(),Constantes.TIPO_ASSASINO_PLAYER ));
 			GerenciadorDeSom.m4a.run();
 		}
 		

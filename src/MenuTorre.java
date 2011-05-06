@@ -50,7 +50,7 @@ public class MenuTorre extends Menu {
 			timerSelecionado=0;
 		}
 		
-		if (tempoVida != -1 && getTimerSelecionado() >= getTempoVida()) {
+		if (tempoVida != -1 && getTimerSelecionado() >= getTempoVida()+10000) {
 			
 			setVivo(false);
 			setTimerSelecionado(0);
@@ -59,6 +59,9 @@ public class MenuTorre extends Menu {
 		while(it.hasNext()){
 			Botao bt = it.next();
 			bt.SimulaSe((int)DiffTime);
+			bt.mousex=Constantes.mouseXTela;
+			bt.mousex=Constantes.mouseYTela;
+
 			if (bt.ativo==true) {
 				trataBotao(bt);
 			}
@@ -74,8 +77,16 @@ public class MenuTorre extends Menu {
 		for (int i=0;i<botoes.size();i++) {
 			
 			botoes.get(i).mouseMoved(e);
-		}
+			
+			botoes.get(i).mousex = e.getX()+Constantes.XTela;
+
+			botoes.get(i).mousey = e.getY()+Constantes.YTela;
+			
+		
+}
+
 	}
+	
 	
 	private void trataBotao(Botao bt) {
 		// TODO Auto-generated method stub

@@ -2,6 +2,7 @@ import java.awt.Font;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 import javax.imageio.ImageIO;
 
@@ -10,7 +11,15 @@ public class Constantes {
 	
 
 	public static ArrayList<Inimigo> inimigos = new ArrayList<Inimigo>();
+	public static ArrayList<Projetil> projeteis = new ArrayList<Projetil>();
 
+	public static LinkedList<Particula> particulas = new LinkedList<Particula>();
+	public static LinkedList<Particula> particulasExplosao = new LinkedList<Particula>();
+
+	public static LinkedList<Particula> particulasDesenha = new LinkedList<Particula>();
+	public static LinkedList<Objeto> efeitos = new LinkedList<Objeto>();
+	
+	public static int XTela,YTela;
 	//public static final int MAXIMO_PARTICULAS_ESTATICAS = 1000;
 
 	//public static final int PERSONAGEM_TEMPO_TIRO = 100;
@@ -20,7 +29,7 @@ public class Constantes {
 
 	public static final int BASE_SIZEX_1 = 80;
 	public static final int BASE_SIZEY_1 = 80;
-	public static final int BASE_LIFE_1 = 1000;
+	public static final int BASE_LIFE_1 = 10000;
 
 
 	//public static  BufferedImage inimigoUm ;
@@ -155,6 +164,8 @@ public class Constantes {
 //efeito triple XP	
 	public static final int QUANTIDADE_FAST_KILL = 10;
 	public static double tempoEntreKill=2500;
+	public static int mouseXTela;
+	public static int mouseYTela;
 
 	//aura base
 	public static final int AURA_BASE_DIAMETRO = 250;

@@ -14,7 +14,6 @@ public class CanvasGame extends GCanvas {
 	public static CanvasGame instance = null;
 	
 	static BufferedImage imagemcharsets;
-	static int torre;
 	static boolean click;
 	public static int Health = 20;
 	
@@ -28,9 +27,7 @@ public class CanvasGame extends GCanvas {
 
 	public static Base base;
 	
-	public static ArrayList<Projetil> projeteis = new ArrayList<Projetil>();
 	public static ArrayList<Objeto> objetos = new ArrayList<Objeto>();
-	public static ArrayList<Torre> torres = new ArrayList<Torre>();
 	
 	public static GerenciadorTorre gerenciadorTorre;
 	public static GerenciadorEfeitos gerenciadorEfeitos;
@@ -45,10 +42,8 @@ public class CanvasGame extends GCanvas {
 	
 	public static Heroi heroi;
 
-	public int YTela=0;
-	public int XTela=0;
 
-	public float pause;
+	public float velocidadeJogo;
 
 
 	public static GerenciadorObstaculos gerenciadorObstaculos;
@@ -108,7 +103,7 @@ public class CanvasGame extends GCanvas {
 
 	private void recarregaFase() {
 		
-		pause=1.0f;
+		velocidadeJogo=1.0f;
 		gerenciadorTorre.reset();
 
 		gerenciadorObstaculos.reset();
@@ -141,9 +136,9 @@ public class CanvasGame extends GCanvas {
 		
 
 		
-		for(int i = 0; i < projeteis.size();i++){
+		for(int i = 0; i < Constantes.projeteis.size();i++){
 			
-			Projetil proj = (Projetil) projeteis.get(i);
+			Projetil proj = (Projetil) Constantes.projeteis.get(i);
 			proj.DesenhaSe(dbg, tela.XTela, tela.YTela);
 			
 		}		
@@ -184,16 +179,20 @@ public class CanvasGame extends GCanvas {
 
 	
 	void SimulaSe(long DiffTime) {
-		
+
+
 		verificaFimDoJogo();
 		trataMiraDoJogo();
-		getMiraAtiva().SimulaSe((int)(DiffTime*pause));
+		
+		
+		
+		getMiraAtiva().SimulaSe((int)(DiffTime*velocidadeJogo));
 		
 		if(!GerenciadorRespawn.isRespawn()){
 			tela.Posiciona((int)(heroi.X-(GamePanel.PWIDTH/2)), (int)heroi.Y-(GamePanel.PHEIGHT/2));
-		
+			
 		}
-		if (pause==0) {
+		if (velocidadeJogo==0) {
 			
 		}
 		
@@ -205,32 +204,32 @@ public class CanvasGame extends GCanvas {
 		Iterator<Objeto> itO = objetos.iterator();
 		while(itO.hasNext()){
 			Objeto inim = itO.next();
-			inim.SimulaSe((int)(DiffTime*pause));
+			inim.SimulaSe((int)(DiffTime*velocidadeJogo));
 			if(inim.isVivo()==false){
 				itO.remove();
 				}
 		}
-		base.SimulaSe((int)(DiffTime*pause));
+		base.SimulaSe((int)(DiffTime*velocidadeJogo));
 		
 
-		heroi.SimulaSe((int)(DiffTime*pause));
+		heroi.SimulaSe((int)(DiffTime*velocidadeJogo));
 		
-		Iterator<Projetil> itP = projeteis.iterator();
+		Iterator<Projetil> itP = Constantes.projeteis.iterator();
 		while(itP.hasNext()){
 			Projetil proj = itP.next();
-			proj.SimulaSe((int)(DiffTime*pause));
+			proj.SimulaSe((int)(DiffTime*velocidadeJogo));
 			if(proj.isVivo()==false){
 				itP.remove();
 				}		
 		}	
 
-		gerenciadorObstaculos.SimulaSe((int) (DiffTime*pause));
-		gerenciadorDeRaids.SimulaSe((int)(DiffTime*pause));
-		gerenciadorEfeitos.SimulaSe((int)(DiffTime*pause));
-		gerenciadorTorre.SimulaSe((int)(DiffTime*pause));
-		gerenciadorRespawn.SimulaSe((int)(DiffTime*pause));
-		gerenciadorHud.SimulaSe((int)(DiffTime*pause));
-		gerenciadorXP.SimulaSe((int)(DiffTime*pause));
+		gerenciadorObstaculos.SimulaSe((int) (DiffTime*velocidadeJogo));
+		gerenciadorDeRaids.SimulaSe((int)(DiffTime*velocidadeJogo));
+		gerenciadorEfeitos.SimulaSe((int)(DiffTime*velocidadeJogo));
+		gerenciadorTorre.SimulaSe((int)(DiffTime*velocidadeJogo));
+		gerenciadorRespawn.SimulaSe((int)(DiffTime*velocidadeJogo));
+		gerenciadorHud.SimulaSe((int)(DiffTime*velocidadeJogo));
+		gerenciadorXP.SimulaSe((int)(DiffTime*velocidadeJogo));
 		
 		
 
@@ -260,7 +259,9 @@ public class CanvasGame extends GCanvas {
 			setMiraAtiva(miraMenu);
 			
 		}
-	}
+		Constantes.XTela=tela.XTela;
+		Constantes.YTela=tela.YTela;
+}
 
 
 
@@ -335,10 +336,12 @@ public class CanvasGame extends GCanvas {
 		// TODO Auto-generated method stub
 		setMousex(e.getX());
 		setMousey(e.getY());
+		
+		Constantes.mouseXTela=e.getX()+Constantes.XTela;
+		Constantes.mouseYTela=e.getY()+Constantes.YTela;
+
 		gerenciadorTorre.mouseMoved(e);
 
-		XTela=tela.XTela;
-		YTela=tela.YTela;
 	}
 
 	@Override

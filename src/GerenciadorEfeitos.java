@@ -10,11 +10,7 @@ import java.util.LinkedList;
 public class GerenciadorEfeitos extends Objeto implements Runnable {
 	
 	private Thread tPart;
-	public static LinkedList<Particula> particulas = new LinkedList<Particula>();
-	public static LinkedList<Particula> particulasExplosao = new LinkedList<Particula>();
 
-	private  static LinkedList<Particula> particulasDesenha = new LinkedList<Particula>();
-	public static LinkedList<Objeto> efeitos = new LinkedList<Objeto>();
 	private static int xp;
 	private static BufferedImage manchasSangue;
 	private static Graphics2D manchas;
@@ -42,10 +38,10 @@ public class GerenciadorEfeitos extends Objeto implements Runnable {
 		diffTimeParticulas=0;
 		manchasSangue= new BufferedImage(CanvasGame.tela.Largura*16, CanvasGame.tela.Altura*16, BufferedImage.TYPE_INT_ARGB);
 		manchas = manchasSangue.createGraphics();
-		particulas.clear();
-		particulasDesenha.clear();
-		particulasExplosao.clear();
-		efeitos.clear();
+		Constantes.particulas.clear();
+		Constantes.particulasDesenha.clear();
+		Constantes.particulasExplosao.clear();
+		Constantes.efeitos.clear();
 
 		
 //		startGame();
@@ -60,7 +56,7 @@ public class GerenciadorEfeitos extends Objeto implements Runnable {
 
 	public synchronized void setParticulasDesenha(LinkedList<Particula> aux ) {
 		
-		particulasDesenha=aux;
+		Constantes.particulasDesenha=aux;
 		
 	}
 
@@ -75,15 +71,15 @@ public class GerenciadorEfeitos extends Objeto implements Runnable {
 //				
 //			}
 			
-			for(int i = 0; i < efeitos.size();i++){
-				Objeto part =  efeitos.get(i);
+			for(int i = 0; i < Constantes.efeitos.size();i++){
+				Objeto part =  Constantes.efeitos.get(i);
 				part.SimulaSe((int)DiffTime);
 				if(part.isVivo()==false) {
-					efeitos.remove(i);
+					Constantes.efeitos.remove(i);
 				}
 			}
 			
-			Iterator<Particula> itP = particulas.iterator();
+			Iterator<Particula> itP = Constantes.particulas.iterator();
 			while(itP.hasNext()){
 				Particula part= itP.next();
 			
@@ -96,7 +92,7 @@ public class GerenciadorEfeitos extends Objeto implements Runnable {
 		
 			}
 			
-			Iterator<Particula> itP2 = particulasExplosao.iterator();
+			Iterator<Particula> itP2 = Constantes.particulasExplosao.iterator();
 			while(itP2.hasNext()){
 				Particula part= itP2.next();
 			
@@ -135,17 +131,17 @@ public class GerenciadorEfeitos extends Objeto implements Runnable {
 		
 		while(running) {
 				
-			for(int i = 0; i < particulas.size();i++){
-				Particula part =  particulas.get(i);
+			for(int i = 0; i < Constantes.particulas.size();i++){
+				Particula part =  Constantes.particulas.get(i);
 				part.SimulaSe((int)DiffTime);
 				if(part.isVivo()==false) {
 					
-					particulas.remove(i);
+					Constantes.particulas.remove(i);
 					desenhaSangue(part);
 				}
 			}
 			
-			setParticulasDesenha(particulas);
+			setParticulasDesenha(Constantes.particulas);
 
 				
 			try {
@@ -176,14 +172,14 @@ public class GerenciadorEfeitos extends Objeto implements Runnable {
 
 		dbg.drawImage(manchasSangue, -XMundo,-YMundo, manchasSangue.getWidth()-XMundo, manchasSangue.getHeight()-YMundo, 0, 0, CanvasGame.largura, CanvasGame.altura, null);
 		
-		Iterator<Particula> itP = particulasDesenha.iterator();
+		Iterator<Particula> itP = Constantes.particulasDesenha.iterator();
 		while(itP.hasNext()){
 			Particula part= itP.next();
 			part.DesenhaSe(dbg,XMundo,YMundo);
 			
 		}	
 		
-		Iterator<Particula> itP2 = particulasExplosao.iterator();
+		Iterator<Particula> itP2 = Constantes.particulasExplosao.iterator();
 		while(itP2.hasNext()){
 			Particula part= itP2.next();
 			part.DesenhaSe(dbg,XMundo,YMundo);
@@ -192,9 +188,9 @@ public class GerenciadorEfeitos extends Objeto implements Runnable {
 		
 		//dbg.drawString(""+FPS, 50, 10);
 
-		for(int i = 0; i < efeitos.size();i++){
+		for(int i = 0; i < Constantes.efeitos.size();i++){
 			
-			Objeto proj = (Objeto) efeitos.get(i);
+			Objeto proj = (Objeto) Constantes.efeitos.get(i);
 			proj.DesenhaSe(dbg,XMundo,YMundo);
 	
 		}
@@ -209,8 +205,8 @@ public class GerenciadorEfeitos extends Objeto implements Runnable {
 		//System.out.println("oi");
 //		Iterator<Particula> it = particulas.iterator();
 //		while(it.hasNext()){
-		for(int i = 0; i < particulas.size();i++){
-			Particula part =  particulas.get(i);
+		for(int i = 0; i < Constantes.particulas.size();i++){
+			Particula part =  Constantes.particulas.get(i);
 //			part.SimulaSe(50/*(int)DiffTime*/);
 //			if(part.isVivo()==false) {
 //				efeitos.remove();
@@ -222,7 +218,7 @@ public class GerenciadorEfeitos extends Objeto implements Runnable {
 			//System.out.println(diffTimeParticulas+ "   ");
 			if(part.isVivo()==false) {
 				
-				particulas.remove(i);
+				Constantes.particulas.remove(i);
 				desenhaSangue(part);
 //				//chamaThreadDesenhaSangue(part);
 			}
@@ -371,7 +367,7 @@ public class GerenciadorEfeitos extends Objeto implements Runnable {
 					   
 				}
 				
-				particulas.add((Particula)new Sangue(x,y,-pvx,-pvy,GamePanel.rnd.nextInt(100)+100,cor));
+				Constantes.particulas.add((Particula)new Sangue(x,y,-pvx,-pvy,GamePanel.rnd.nextInt(100)+100,cor));
 			}
 //			int modv = GamePanel.rnd.nextInt(300);
 //			
@@ -477,7 +473,7 @@ public void explosao(double x, double y, int velx, int vely) {
 				part = (Particula)new Explosao(x,y,pvx,pvy,GamePanel.rnd.nextInt(500)+200,Imagem.explosao,Imagem.explosao2);
 				
 			
-				particulasExplosao.add(part);
+				Constantes.particulasExplosao.add(part);
 
 //				switch (B%4) {
 //				case 0:
