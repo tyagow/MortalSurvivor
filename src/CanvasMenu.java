@@ -12,37 +12,41 @@ public class CanvasMenu extends GCanvas{
 	static BufferedImage imagemlogo;
 
 	private Font fonteLogo, fonteMenu, fonteAutores;
+	GerenciadorDeSom loader;
+	boolean instrucao = false;
 	Graphics2D img;
+	Imagem imgloader;
 	
 	Menu menuAtivo;
-	
 	private static Mira miraAtiva;
-	public static CanvasMenu instance ;
+
 	
 	private static double mousex;
 	private static double mousey;
-	
 	private Menu menuOptions;
 	
 	private static ArrayList<Botao> botoes= new ArrayList<Botao>();
-	
 	public CanvasMenu() {
-		instance=this;
+		// TODO Auto-generated constructor stub
+		
+		loader = new GerenciadorDeSom();
+		
+		imgloader = new Imagem();
 		setFonteLogo(new Font("Courier", Font.BOLD, 60));
 		
 		fonteMenu = new Font("Courier", Font.BOLD, 30);
 		
 		setFonteAutores(new Font("Courier", Font.BOLD, 14));
 	 
-//		
-//		botoes.add(new BotaoMenu(null,"Play",100,100,120,25,false));
-//		botoes.add(new BotaoMenu(null,"Score",100,150,120,25,false));
-//		botoes.add(new BotaoMenu(null,"Help",100,200,120,25,false));
-//		botoes.add(new BotaoMenu(null,"Options",100,250,120,25,false));
-//		botoes.add(new BotaoMenu(null,"Exit",100,300,120,25,false));
+		
+//		botoes.add(new Botao(null,"Play",100,100,120,25,false));
+//		botoes.add(new Botao(null,"Score",100,150,120,25,false));
+//		botoes.add(new Botao(null,"Help",100,200,120,25,false));
+//		botoes.add(new Botao(null,"Options",100,250,120,25,false));
+//		botoes.add(new Botao(null,"Exit",100,300,120,25,false));
 		menuOptions= new MenuOptions(250, 100, 200, 200, Color.darkGray, 9999);
 		
-		setMiraAtiva(new CursorMenuOptions());
+		setMiraAtiva(new CursorMenu());
 		
 
 
@@ -50,11 +54,11 @@ public class CanvasMenu extends GCanvas{
 	@Override
 	void DesenhaSe(Graphics2D dbg) {
 		// TODO Auto-generated method stub
-		
-			if (img==null) 
-				img=dbg;
-			
-			dbg=img;
+//		
+//			if (img==null) 
+//				img=dbg;
+//			
+//			dbg=img;
 			dbg.setFont(fonteMenu);
 			
 //			
@@ -65,7 +69,9 @@ public class CanvasMenu extends GCanvas{
 			
 			if (menuAtivo!=null) 
 				menuAtivo.DesenhaSe(dbg, 0, 0);
-			dbg.setColor(Color.yellow);
+			dbg.setColor(new Color(200,255,190,10));
+			dbg.fillRect(GamePanel.PWIDTH/2-250, GamePanel.PHEIGHT/2-100, 550, 100);
+			dbg.setColor(Color.red);
 			dbg.drawString("Aperte <Enter> para jogar !", GamePanel.PWIDTH/2-200, GamePanel.PHEIGHT/2-30);
 			dbg.setColor(Color.yellow);
 			
@@ -96,16 +102,16 @@ public class CanvasMenu extends GCanvas{
 			for (int x=0;x<botoes.size();x++) {
 	//				Botao b= (Botao) it.next();
 				Botao b= botoes.get(x);
-	
+				
 				b.SimulaSe((int)diftime);			
-				if (b.ativo) {
+				if (b.ativo==true) {
 					trataBotao(b);
 					botoes.get(x).ativo=false;
 				}		
 			}
 		
 		
-		getMiraAtiva().SimulaSe((int)diftime);	
+	//	getMiraAtiva().SimulaSe((int)diftime);	
 
 		
 
@@ -114,7 +120,9 @@ public class CanvasMenu extends GCanvas{
 		// TODO Auto-generated method stub
 		if (b.name.contains("Play") ) {
 			
+			
 			GamePanel.setCanvasAtivo(CanvasGame.instance);
+		
 			//setMiraAtiva(new MiraRedonda());
 			
 		}else if (b.name.contains("Options") ) {
@@ -167,20 +175,32 @@ public class CanvasMenu extends GCanvas{
 	@Override
 	void mouseMoved(MouseEvent e) {
 		// TODO Auto-generated method stub
-		setMousex(e.getX());
-		setMousey(e.getY());
+		for (int i=0;i<botoes.size();i++) {
+			
+			botoes.get(i).mouseMoved(e);
+		}
+		if (menuAtivo!=null)  {
+			for (int i=0;i<menuAtivo.botoes.size();i++) {
+				
+				menuAtivo.botoes.get(i).mouseMoved(e);
+			}
+		}
+		mousex=e.getX();
+		mousey=e.getY();
+		miraAtiva.X=e.getX();
+		miraAtiva.Y=e.getY();
+		
 	}
 
 	@Override
 	void mouseDragged(MouseEvent e) {
-		// TODO Auto-generated method stub
-		setMousex(e.getX());
-		setMousey(e.getY());
+
+	
 	}
 
 	@Override
 	void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
+	
 		int button = e.getButton();
 		getMiraAtiva().released(button);
 		if (button == MouseEvent.BUTTON1) {
@@ -191,7 +211,10 @@ public class CanvasMenu extends GCanvas{
 			
 		}
 	
-
+		for (int i=0;i<botoes.size();i++) {
+			
+			botoes.get(i).mouseReleased(e);
+		}
 
 	}
 
@@ -199,6 +222,7 @@ public class CanvasMenu extends GCanvas{
 	void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
 		int button = e.getButton();
+		
 		getMiraAtiva().pressed(button);
 		
 		if (button == MouseEvent.BUTTON1) {
@@ -209,6 +233,16 @@ public class CanvasMenu extends GCanvas{
 		else if (button == MouseEvent.BUTTON3) {
 			getMiraAtiva().trataClickMouse2();
 		
+		}
+		for (int i=0;i<botoes.size();i++) {
+			
+			botoes.get(i).mousePressed(e);
+		}
+		if (menuAtivo!=null)  {
+			for (int i=0;i<menuAtivo.botoes.size();i++) {
+				
+				menuAtivo.botoes.get(i).mousePressed(e);
+			}
 		}
 		
 }
@@ -228,8 +262,17 @@ public class CanvasMenu extends GCanvas{
 
 	@Override
 	void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
+		for (int i=0;i<botoes.size();i++) {
+			
+			botoes.get(i).mouseClicked(e);
+		}
 		
+		if (menuAtivo!=null)  {
+			for (int i=0;i<menuAtivo.botoes.size();i++) {
+				
+				menuAtivo.botoes.get(i).mouseClicked(e);
+			}
+		}
 	}
 	public void setFonteAutores(Font fonteAutores) {
 		this.fonteAutores = fonteAutores;
@@ -262,3 +305,5 @@ public class CanvasMenu extends GCanvas{
 		return mousex;
 	}
 }
+
+	

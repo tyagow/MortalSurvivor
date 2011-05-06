@@ -48,6 +48,8 @@ public class CanvasGame extends GCanvas {
 	public int YTela=0;
 	public int XTela=0;
 
+	public float pause;
+
 
 	public static GerenciadorObstaculos gerenciadorObstaculos;
 	
@@ -106,7 +108,7 @@ public class CanvasGame extends GCanvas {
 
 	private void recarregaFase() {
 		
-		
+		pause=1.0f;
 		gerenciadorTorre.reset();
 
 		gerenciadorObstaculos.reset();
@@ -185,11 +187,14 @@ public class CanvasGame extends GCanvas {
 		
 		verificaFimDoJogo();
 		trataMiraDoJogo();
-		getMiraAtiva().SimulaSe((int)DiffTime);
+		getMiraAtiva().SimulaSe((int)(DiffTime*pause));
 		
 		if(!GerenciadorRespawn.isRespawn()){
 			tela.Posiciona((int)(heroi.X-(GamePanel.PWIDTH/2)), (int)heroi.Y-(GamePanel.PHEIGHT/2));
 		
+		}
+		if (pause==0) {
+			
 		}
 		
 //		MAPA.PosiWciona((int)(mousex-(GamePanel.PWIDTH/2)), (int)mousey-(GamePanel.PHEIGHT/2));
@@ -200,32 +205,32 @@ public class CanvasGame extends GCanvas {
 		Iterator<Objeto> itO = objetos.iterator();
 		while(itO.hasNext()){
 			Objeto inim = itO.next();
-			inim.SimulaSe((int)DiffTime);
+			inim.SimulaSe((int)(DiffTime*pause));
 			if(inim.isVivo()==false){
 				itO.remove();
 				}
 		}
-		base.SimulaSe((int)DiffTime);
+		base.SimulaSe((int)(DiffTime*pause));
 		
 
-		heroi.SimulaSe((int)DiffTime);
+		heroi.SimulaSe((int)(DiffTime*pause));
 		
 		Iterator<Projetil> itP = projeteis.iterator();
 		while(itP.hasNext()){
 			Projetil proj = itP.next();
-			proj.SimulaSe((int)DiffTime);
+			proj.SimulaSe((int)(DiffTime*pause));
 			if(proj.isVivo()==false){
 				itP.remove();
 				}		
 		}	
 
-		gerenciadorObstaculos.SimulaSe((int) DiffTime);
-		gerenciadorDeRaids.SimulaSe((int)DiffTime);
-		gerenciadorEfeitos.SimulaSe((int)DiffTime);
-		gerenciadorTorre.SimulaSe((int)DiffTime);
-		gerenciadorRespawn.SimulaSe((int)DiffTime);
-		gerenciadorHud.SimulaSe((int)DiffTime);
-		gerenciadorXP.SimulaSe((int)DiffTime);
+		gerenciadorObstaculos.SimulaSe((int) (DiffTime*pause));
+		gerenciadorDeRaids.SimulaSe((int)(DiffTime*pause));
+		gerenciadorEfeitos.SimulaSe((int)(DiffTime*pause));
+		gerenciadorTorre.SimulaSe((int)(DiffTime*pause));
+		gerenciadorRespawn.SimulaSe((int)(DiffTime*pause));
+		gerenciadorHud.SimulaSe((int)(DiffTime*pause));
+		gerenciadorXP.SimulaSe((int)(DiffTime*pause));
 		
 		
 
