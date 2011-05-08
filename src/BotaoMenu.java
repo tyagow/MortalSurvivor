@@ -4,6 +4,10 @@ import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
+import AbstractClasses.Objeto;
+import Canvas.CanvasStart;
+import Constantes.Constantes;
+
 
 public class BotaoMenu extends Objeto {
 

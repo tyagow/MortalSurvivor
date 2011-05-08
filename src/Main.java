@@ -1,5 +1,8 @@
 import javax.swing.*;
 
+import GameState.GamePanel;
+
+
 import java.awt.*;
 import java.awt.event.*;
 

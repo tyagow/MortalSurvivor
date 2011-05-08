@@ -2,6 +2,8 @@ import java.util.ArrayList;
 
 import java.util.List;
 
+import Gerenciadores.GerenciadorObstaculos;
+
 public class Estrela {
  int[][] mapa;
 
