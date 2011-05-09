@@ -93,9 +93,30 @@ public class CanvasStart extends GCanvas{
 			
 			getMiraAtiva().DesenhaSe(dbg, 0, 0);
 
-		
+//			dbg.setColor(Color.yellow);
+//			
+//			//predio 1
+//			dbg.fillRoundRect(24, GamePanel.PHEIGHT-100,8, 8, 1, 1);
+//			dbg.fillRoundRect(40, GamePanel.PHEIGHT-100,8, 8, 1, 1);
+//			dbg.fillRoundRect(56, GamePanel.PHEIGHT-100,8, 8, 1, 1);
+//			dbg.fillRoundRect(72, GamePanel.PHEIGHT-100,8, 8, 1, 1);
+//	
+//			dbg.fillRoundRect(24, GamePanel.PHEIGHT-84,8, 8, 1, 1);
+//			dbg.fillRoundRect(40, GamePanel.PHEIGHT-84,8, 8, 1, 1);
+//			dbg.fillRoundRect(56, GamePanel.PHEIGHT-84,8, 8, 1, 1);
+//			dbg.fillRoundRect(72, GamePanel.PHEIGHT-84,8, 8, 1, 1);
+//			
+//			
+//			//predio 2
+//			dbg.fillRoundRect(110, GamePanel.PHEIGHT-84,4, 4, 1, 1);
+//			dbg.fillRoundRect(115, GamePanel.PHEIGHT-84,4, 4, 1, 1);
+//			dbg.fillRoundRect(120, GamePanel.PHEIGHT-84,4, 4, 1, 1);
+//			
+//			dbg.fillRoundRect(110, GamePanel.PHEIGHT-92,4, 4, 1, 1);
+//			dbg.fillRoundRect(115, GamePanel.PHEIGHT-92,4, 4, 1, 1);
+//			dbg.fillRoundRect(120, GamePanel.PHEIGHT-92,4, 4, 1, 1);
 	
-
+			
 	}
 
 	@Override

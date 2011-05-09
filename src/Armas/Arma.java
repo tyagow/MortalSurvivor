@@ -7,16 +7,16 @@ import java.awt.image.BufferedImage;
 public abstract class Arma  {
 	
 	public static int penetration=1;
-	private int timerTempoEntreTiros;
-	private int dano;
+	public int timerTempoEntreTiros;
+	public  int dano;
 	private int tempoRecarrega;
-	private int peso;
-	private int valor;
-	private int round,mag;
-	private int maxMag,maxRound;
+	public  int peso;
+	public  int valor;
+	public  int round,mag;
+	public  int maxMag,maxRound;
 	private boolean recarregando;
 	boolean atirou;
-	private double angulo;
+	public  double angulo;
 	private double X,Y;
 	private int sizeX,sizeY;
 	private int tempoEntreTirosMax;

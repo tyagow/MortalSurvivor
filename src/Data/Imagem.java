@@ -28,12 +28,13 @@ public class Imagem {
 	public static BufferedImage he_hud;
 	public static BufferedImage botaoUm;
 	public static BufferedImage base;
+	public static BufferedImage efeitoFaca;
 
 	public static Imagem instance;
 	
 	public Imagem() {
-		
-			fundoCidade=Constantes.LoadImage("img/fundoCidade.png");;
+			efeitoFaca=Constantes.LoadImage("img/efeitoFaca.png");
+			fundoCidade=Constantes.LoadImage("img/fundoCidade.png");
 			logo=Constantes.LoadImage("img/logo.png");
 			miraMenu= Constantes.LoadImage("img/miraMenu.png");
 			inimigoUm =Constantes.LoadImage("img/zombie.png");				
@@ -52,6 +53,7 @@ public class Imagem {
 			m4_hud=Constantes.LoadImage("img/m4_hud.png");
 			he = Constantes.LoadImage("img/he.png");
 			he_hud = Constantes.LoadImage("img/he_hud.png");
+			
 			faca =Constantes.LoadImage("img/knife.png");
 			
 			

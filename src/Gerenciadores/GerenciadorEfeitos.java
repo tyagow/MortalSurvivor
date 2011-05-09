@@ -289,25 +289,14 @@ public class GerenciadorEfeitos extends Objeto implements Runnable {
 		
 	}
 
-//	public static void ganhouXp(double x,double y,int tipoAssasino) {
-//		int _xp;
-//		
-//		if (tipoAssasino==Constantes.TIPO_ASSASINO_PLAYER) {
-//			_xp=Constantes.GANHO_XP_PLAYER;
-//		}else {
-//			_xp=+Constantes.GANHO_XP_TORRE;
-//		}
-//			
-//		xp+=_xp;
-//		GerenciadorHud.setXpHud(xp);
-//		
-//		efeitos.add(new Texto(_xp,x,y) );
-//		
-//
-//	
-//		
-//		
-//	}
+	public static void criaEfeitoFaca(double x,double y,double ang) {
+	
+		
+
+	
+		
+		
+	}
 	
 	public void ativaSangue (double x, double y, double ang, int dano) {
 		Color cor;

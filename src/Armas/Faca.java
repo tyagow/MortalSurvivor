@@ -15,6 +15,7 @@ public class Faca extends Arma {
 	private boolean soltouTiro;
 	private double oldAng;
 	private double alcanceAtaque=50;
+	private boolean atirando;
 
 	public Faca() {
 		setTipo(0);
@@ -54,7 +55,7 @@ public class Faca extends Arma {
 			if(estado==1)
 				dbg.rotate(oldAng);
 			else 
-				dbg.rotate(getAngulo());
+				dbg.rotate(angulo);
 			
 			dbg.drawImage(getImagem(), -getSizeX()/2+8, -getSizeY()/2, getSizeX()-2,getSizeY(),getSizeX(),getSizeY(),0,0,null);
 
@@ -103,6 +104,15 @@ public class Faca extends Arma {
 				
 				if (!atirou)
 					soltouTiro=true;
+			}else {
+				
+//				if (atirou&&soltouTiro) {	
+//					if (!atirando) {
+//						atirando=true;
+//						
+//					}
+//				}
+				
 			}
 			
 		}
