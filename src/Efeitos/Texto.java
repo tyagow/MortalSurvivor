@@ -92,13 +92,13 @@ public class Texto extends Objeto {
 				dbg.setFont(big);
 				dbg.setColor(Color.black);
 				
-			    dbg.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
+//			    dbg.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
 				dbg.drawString("+"+xp+" XP ", (int)getX()-XMundo, (int)getY()-YMundo);
 							
 				dbg.setColor(Color.yellow);
 		
 				dbg.drawString("+"+xp+" XP ", (int)getX()-2-XMundo, (int)getY()-2-YMundo);
-			    dbg.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
+//			    dbg.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
 				
 			}
 			
