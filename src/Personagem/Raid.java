@@ -49,12 +49,11 @@ public class Raid {
 
 //					inim.setX(ix);
 //					inim.setY(iy);
-//
+//ddddddddddddddd
 //					inim.setVel(iv);
 //					
 //					inim.setLife(ilife);
 //
-//					inim.setLife(ilife);
 //					inim.setTipoAssasino(tipo);
 //					Inimigo inim2 = new Inimigo(Imagem.inimigoUm/*,(int)CanvasGame.base.getX()/16,(int)CanvasGame.base.getY()/16*/);
 //					inimigos.add(inim2);

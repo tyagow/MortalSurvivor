@@ -177,6 +177,7 @@ public class Constantes {
 	public static double tempoEntreKill=2500;
 	public static int mouseXTela;
 	public static int mouseYTela;
+	public static boolean testeGradeColisao=false;
 
 	//aura base
 	public static final int AURA_BASE_DIAMETRO = 250;

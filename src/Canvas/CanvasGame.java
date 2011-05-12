@@ -77,7 +77,6 @@ public class CanvasGame extends GCanvas {
 
 	private static Mira miraJogo;
 
-	public static boolean testeGradeColisao=false;
 
 	protected static boolean ContiuaJogo;
 
@@ -96,6 +95,7 @@ public class CanvasGame extends GCanvas {
 		tela.AbreMapa("60x601.map");
 		largura = tela.Largura*16;
 		altura = tela.Altura*16;
+		System.out.println("largura"+largura);
 		inicializaFase();
 		recarregaFase();
 		
@@ -154,7 +154,7 @@ public class CanvasGame extends GCanvas {
 		dbg.setFont(Constantes.FonteNormal);
 		dbg.setColor(Color.white);
 		dbg.fillRect(0,0,GamePanel.PWIDTH, GamePanel.PHEIGHT);
-
+		tela.DesenhaSe(dbg);
 		dbg.setColor(Color.black);
 		dbg.drawString(""+GamePanel.FPS, 10, 10);
 		
@@ -178,11 +178,8 @@ public class CanvasGame extends GCanvas {
 		gerenciadorEfeitos.DesenhaSe(dbg, tela.XTela, tela.YTela);
 		base.DesenhaSe(dbg, tela.XTela, tela.YTela);
 
-
 		minimap.DesenhaSe(dbg, tela.XTela, tela.YTela);
-		
-		
-		
+
 		gerenciadorObstaculos.DesenhaSe(dbg, tela.XTela, tela.YTela);
 		
 		gerenciadorDeRaids.DesenhaSe(dbg, tela.XTela, tela.YTela);
@@ -201,7 +198,6 @@ public class CanvasGame extends GCanvas {
 	
 	
 
-	
 	public void SimulaSe(long DiffTime) {
 
 
@@ -211,7 +207,8 @@ public class CanvasGame extends GCanvas {
 		
 		
 		getMiraAtiva().SimulaSe((int)(DiffTime*velocidadeJogo));
-		
+		heroi.SimulaSe((int)(DiffTime*velocidadeJogo));
+
 		if(!GerenciadorRespawn.isRespawn()){
 			tela.Posiciona((int)(heroi.X-(GamePanel.PWIDTH/2)), (int)heroi.Y-(GamePanel.PHEIGHT/2));
 			
@@ -236,7 +233,6 @@ public class CanvasGame extends GCanvas {
 		base.SimulaSe((int)(DiffTime*velocidadeJogo));
 		
 
-		heroi.SimulaSe((int)(DiffTime*velocidadeJogo));
 		
 		Iterator<Projetil> itP = Constantes.projeteis.iterator();
 		while(itP.hasNext()){
@@ -297,7 +293,7 @@ public class CanvasGame extends GCanvas {
 		// TODO Auto-generated method stub
 		int keyCode = e.getKeyCode();
 		if(keyCode == KeyEvent.VK_0){
-			testeGradeColisao=true;
+			Constantes.testeGradeColisao=true;
 		}		
 		if(keyCode == KeyEvent.VK_ESCAPE){
 			GamePanel.setCanvasAtivo(new CanvasMenu());
@@ -340,7 +336,7 @@ public class CanvasGame extends GCanvas {
 	public void keyReleased(KeyEvent e ) {
 		int keyCode = e.getKeyCode();
 		if(keyCode == KeyEvent.VK_0){
-			testeGradeColisao=false;
+			Constantes.testeGradeColisao=false;
 	}	
 		if(keyCode == KeyEvent.VK_W){
 			heroi.UP=false;

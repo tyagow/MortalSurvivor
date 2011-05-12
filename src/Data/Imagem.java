@@ -9,6 +9,8 @@ public class Imagem {
 
 	public static BufferedImage miraMenu;
 	public static BufferedImage tileset;
+	public static BufferedImage obstaculos;
+
 	public static BufferedImage mira1;
 	public static BufferedImage inimigoUm;
 	public static BufferedImage logo;
@@ -42,7 +44,7 @@ public class Imagem {
 			mira1= Constantes.LoadImage("img/mira1.png");	
 			explosao = Constantes.LoadImage("img/explosao.png");
 			explosao2 = Constantes.LoadImage("img/explosao2.png");
-
+			obstaculos = Constantes.LoadImage("img/obstaculos.png");
 			TORRE_UM_ANIMESET = Constantes.LoadImage("img/torre.png");
 			TORRE_DOIS_ANIMESET = Constantes.LoadImage("img/torre2.png");
 			TORRE_TRES_ANIMESET = Constantes.LoadImage("img/torre3.png");

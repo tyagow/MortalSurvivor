@@ -28,17 +28,18 @@ public class Base extends Objeto {
 	
 	public Base(int _x, int _y, BufferedImage _img){
 
-		setSizeX(_img.getWidth());
-		setSizeY(_img.getHeight());
-		X=(_x-sizeX/2)/16*16;
-		Y=(_y-sizeY/2)/16*16;	
+	
+		setSizeX((_img.getWidth()*16)/16);
+		setSizeY((_img.getHeight()*16)/16);
+		X=(_x/16)*16;
+		Y=(_y/16)*16;	
 	
 		img = _img;
 		alpha = 0;
 
 		vivo=true;
 		life=Constantes.BASE_LIFE_1;
-		GerenciadorObstaculos.addObstaculos((int)X,(int)Y,getSizeX(),getSizeY() );
+		GerenciadorObstaculos.addObstaculos((int)(X),(int)(Y),getSizeX(),getSizeY(),0,0 );
 		
 		auraAtiva = true;
 		timerAura = 0;

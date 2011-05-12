@@ -114,7 +114,7 @@ public class Projetil extends Objeto {
 	public void DesenhaSe(Graphics2D dbg, int XMundo, int YMundo) {
 		// TODO Auto-generated method stub
 		
-		dbg.setColor(Color.black);
+		dbg.setColor(Color.yellow);
 	
 		AffineTransform trans = dbg.getTransform();
 		dbg.translate(getX()-XMundo, getY()-YMundo);

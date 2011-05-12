@@ -30,16 +30,22 @@ public class GerenciadorObstaculos extends Objeto {
 	public GerenciadorObstaculos() {
 		// TODO Auto-generated constructor stub
 		obstaculos.clear();
+		carregaObstaculos();
 		carregaGradeColisao();
+	
+	}
+
+
+	private void carregaObstaculos() {
+		
+		
+		
 	}
 
 
 	@Override
 	public void SimulaSe(int DiffTime) {
-		// TODO Auto-generated method stub
-		//System.out.println(obstaculos.size());
 	
-		
 		Iterator<Obstaculo> it = getObstaculos().iterator();
 		while(it.hasNext()){
 			Obstaculo part = it.next();
@@ -51,19 +57,23 @@ public class GerenciadorObstaculos extends Objeto {
 			}
 		}
 		
-		
 	}
 	@Override
 	public void DesenhaSe(Graphics2D dbg, int XMundo, int YMundo) {
 		// TODO Auto-generated method stub
 		
 		//System.out.println(obstaculos.size());
-
-		if (CanvasGame.testeGradeColisao)
-		for (int i=0;i<getLargura();i++) {
 		
-			for (int j=0;j<getAltura();j++) {
-				if (getMapa()[i][j]==1) {
+		for (int i = 0; i<obstaculos.size();i++) {
+			obstaculos.get(i).DesenhaSe(dbg, XMundo, YMundo);
+			
+			
+		}
+
+		for (int i=0;i<largura;i++) {
+		
+			for (int j=0;j<altura;j++) {
+				if (mapa[i][j]==1) {
 					dbg.setColor(Color.red);
 					dbg.drawRect(i*16-XMundo, j*16-YMundo, 16, 16);
 				}else {
@@ -73,6 +83,13 @@ public class GerenciadorObstaculos extends Objeto {
 				
 			}
 		}
+//		
+	
+		
+		
+		
+	
+	
 	}
 	private void removeObstaculoGrade(int x, int y) {
 		// TODO Auto-generated method stub
@@ -118,68 +135,83 @@ public class GerenciadorObstaculos extends Objeto {
 		}
 		
 	}
-	public static void addObstaculos(int _x,int _y,int _sizeX,int _sizeY) {
-		// TODO Auto-generated method stub
-		//System.out.println(obstaculo.getY());
-		//System.out.println(_sizeY);
-
-		int x = _x>>4;
-		int y = _y>>4;
+	public static void addObstaculos(int _x,int _y,int _sizeX,int _sizeY,int linha, int coluna) {
+		
+		obstaculos.add(new Obstaculo(_x, _y,_sizeX,_sizeY,0,0));
+	
+		
+		
+//		for (int i =0;i< _sizeX/16;i++) {
+//			for (int j =0;j< _sizeY/16;i++) {
+//				
+//				mapa[_x/16+i][_y/16+j] = 0;
+//				
+//				
+//			}
+//			
+//		}
+//		
+//		
 		
 		
 		
-		int sizeX;
-		int sizeY;
-
-		if (_sizeX%16>0)
-			sizeX= _sizeX>>4+1;
-			else
-				sizeX= _sizeX>>4;
-				
-		if (_sizeY%16>0)
-			sizeY= _sizeY>>4+1;
-		else
-			sizeY= _sizeY>>4;
-						
-				
-		//System.out.println(sizeX+"  opa");
-
-
-		if (sizeX>2){
-			x=x-sizeX/2;
-			setxIgualUm(false);
-		}
-		else setxIgualUm(true);
-		
-		if (sizeY>1){
-			y=y-sizeY/2;
-			setyIgualUm(false);
-		}
-		else setyIgualUm(true);
-		
-		int indX;
-		if (_sizeX<33)
-			indX=0;
-		else 
-			indX=1;
-		
-		
-		int indY;
-		if (_sizeY<33)
-			indY=0;
-		else 
-			indY=1;
-		
-		for (int i = 0;i<=sizeY-indY;i++) {
-			for (int j = 0;j<=sizeX-indX;j++) {
-			
-				getObstaculos().add(new Obstaculo(x+j, y+i));
-				getMapa()[x+j][y+i]=1;
-			}
-		
-			
-		}
-		
+//		
+//		int x = _x;
+//		int y = _y;
+//			
+//		int sizeX;
+//		int sizeY;
+////		
+////		if (_sizeX%16>0)
+////			sizeX= _sizeX>>4+1;
+////			else
+////				sizeX= _sizeX>>4;
+////				
+////		if (_sizeY%16>0)
+////			sizeY= _sizeY>>4+1;
+////		else
+////			sizeY= _sizeY>>4;
+////						
+//
+//			
+//			sizeX= _sizeX;
+//			sizeY= _sizeY;
+//
+//		if (sizeX>2){
+//			x=x-sizeX/2;
+//			setxIgualUm(false);
+//		}
+//		else setxIgualUm(true);
+//		
+//		if (sizeY>1){
+//			y=y-sizeY/2;
+//			setyIgualUm(false);
+//		}
+//		else setyIgualUm(true);
+//		
+//		int indX;
+//		if (_sizeX<33)
+//			indX=0;
+//		else 
+//			indX=1;
+//		
+//		
+//		int indY;
+//		if (_sizeY<33)
+//			indY=0;
+//		else 
+//			indY=1;
+//		
+//		for (int i = 0;i<=sizeY-indY;i++) {
+//			for (int j = 0;j<=sizeX-indX;j++) {
+//			
+//				getObstaculos().add(new Obstaculo(x+j, y+i,0,0));
+//				getMapa()[x+j][y+i]=1;
+//			}
+//		
+//			
+//		}
+//		
 				
 
 			

@@ -7,36 +7,44 @@ import AbstractClasses.Objeto;
 
 public class Obstaculo extends Objeto {
 
-	
-	public Obstaculo(int _x, int _y) {
-//		
-//		setX((_x/16*16)>>4);
-//		setY((_y/16*16)>>4);
-//		
-		
-		setX(_x);
-		setY(_y);
-		setSizeX(16);
-		setSizeY(16);
+int linha,coluna;
+	public Obstaculo(int _x, int _y,int _sizeX,int _sizeY,int _linha,int _coluna) {
 
-//		defineDimensaoEmTiles(sizeX,sizeY);
-		setVivo(true);
 		
-//		System.out.println(getSizeX()+"  "+getSizeY());
+	X=(_x/16)*16;
+	Y=(_y/16)*16;
+	sizeX=_sizeX;
+	sizeY=_sizeY;
+	linha=_linha;
+	coluna=_coluna;
+	
+	
+//		defineDimensaoEmTiles(sizeX,sizeY);
+		vivo=true;
+
 		
 	}
 	
 	@Override
 	public void SimulaSe(int DiffTime) {
-		// TODO Auto-generated method stub
+
+		
 		
 	}
 
 	@Override
 	public void DesenhaSe(Graphics2D dbg, int XMundo, int YMundo) {
 		// TODO Auto-generated method stub
-//		dbg.setColor(Color.RED);
-//		dbg.fillRect(((int)getX()*16)-XMundo,(int) (getY()*16)-YMundo, 16, 16);
+		if (linha !=0&&coluna !=0) {
+			
+			
+		}else {
+			if (Constantes.Constantes.testeGradeColisao) {
+				dbg.setColor(Color.RED);
+				dbg.fillRect(((int)getX()-sizeX/2)-XMundo,(int) (getY()-sizeY/2)-YMundo, sizeX, sizeY);
+			}
+		}
+		
 	}
 	
 	
