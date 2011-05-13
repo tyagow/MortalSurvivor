@@ -440,7 +440,7 @@ public void explosao(double x, double y, int velx, int vely) {
 		
 
 			Particula part=null;
-			for(int B = 0; B < 50;B++){
+			for(int B = 0; B < 20;B++){
 				int modv = GamePanel.rnd.nextInt(200)+50;
 
 				int pvx = 0;
@@ -471,7 +471,7 @@ public void explosao(double x, double y, int velx, int vely) {
 				
 				pvx = (int)(pvx*(0.1+0.25*GamePanel.rnd.nextFloat()));
 				pvy = (int)(pvy*(0.1+0.25*GamePanel.rnd.nextFloat()));
-				part = (Particula)new Explosao(x,y,pvx,pvy,GamePanel.rnd.nextInt(500)+200,Imagem.explosao,Imagem.explosao2);
+				part = (Particula)new Explosao(x,y,pvx/4,pvy/4,GamePanel.rnd.nextInt(500)+200,Imagem.explosao,Imagem.explosao2);
 				
 			
 				Constantes.particulasExplosao.add(part);

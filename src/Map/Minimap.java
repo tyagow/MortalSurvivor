@@ -2,7 +2,6 @@ package Map;
 
 
 import java.awt.AlphaComposite;
-import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
@@ -23,12 +22,15 @@ public class Minimap extends Objeto{
 	
 	public Minimap(){
 		
-		resizeX = (float) 70/(CanvasGame.tela.Largura);
-		resizeY = (float) 60/(CanvasGame.tela.Altura);
-
+		resizeX = (float) 70/(CanvasGame.tela.Largura)*4/5;
+		resizeY = (float) 60/(CanvasGame.tela.Altura)*4/5;
+//mapa em cima direita 
+//		X= GamePanel.PWIDTH- (int)((resizeX * CanvasGame.largura)/tamanhoMiniMap);
+//		Y=0;
+		// mapa em baixo esquerda
 		setX(0);
 		setY(GamePanel.PHEIGHT - (int)((resizeY * CanvasGame.altura)/tamanhoMiniMap));
-		
+//		
 		setSizeX((int) (resizeX * CanvasGame.largura/tamanhoMiniMap));
 		setSizeY((int) (resizeY * CanvasGame.altura/tamanhoMiniMap));
 	}

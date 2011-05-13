@@ -15,11 +15,13 @@ import AbstractClasses.Objeto;
 import Armas.Projetil;
 import Efeitos.Particula;
 import GameState.GamePanel;
+import Map.WayPoint;
 import Personagem.Inimigo;
 
 
 public class Constantes {
 	
+	public static ArrayList<WayPoint> wayPoints = new ArrayList<WayPoint>();
 
 	public static ArrayList<Inimigo> inimigos = new ArrayList<Inimigo>();
 	public static ArrayList<Projetil> projeteis = new ArrayList<Projetil>();
@@ -186,6 +188,8 @@ public class Constantes {
 	
 	//Projetil
 	public static final int VELOCIDADE_TIRO=1300;
+
+	public static final int NUM_WAYPOINT_PRINCIPAL = 4;
 
 
 	public static BufferedImage LoadImage(String filename){

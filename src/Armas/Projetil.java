@@ -31,7 +31,7 @@ public class Projetil extends Objeto {
 		penetration=Arma.penetration;
 		trataTipo(_tipo);
 		
-		this.setDano(pai.getDano());
+		this.setDano(pai.dano);
 		setVivo(true);
 		setSizeX(4);
 		setSizeY(2);

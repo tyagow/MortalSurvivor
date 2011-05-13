@@ -12,7 +12,7 @@ public class MenuOptions extends Menu {
 		super(_x, _y, sizeX, sizeY, cor, _tempoVida);
 		
 		criaBotoes();
-		setAlpha(200);
+		alpha=100;
 	}
 	
 
@@ -43,9 +43,9 @@ public class MenuOptions extends Menu {
 		// TODO Auto-generated method stub
 		
 		dbg.setColor(Color.white);
-		dbg.drawRect((int)getX()-XMundo,(int)getY()-YMundo, getSizeX(), getSizeY());
+		//dbg.drawRect((int)getX()-XMundo,(int)getY()-YMundo, getSizeX(), getSizeY());
 		
-		dbg.setColor(new Color(getR(),getG(),getB(),getAlpha()));
+		dbg.setColor(new Color(r,g,b,alpha));
 		
 		dbg.fillRect((int)getX()+1-XMundo,(int)getY()-YMundo+1, getSizeX()-2, getSizeY()-2);
 		
@@ -77,8 +77,8 @@ public class MenuOptions extends Menu {
 	private void criaBotoes() {
 		// TODO Auto-generated method stubB
 
-		getBotoesMenu().add(new Botao(null,"Video",(int)getX()+10,(int)getY()+10,60,14,false));
-		getBotoesMenu().add(new Botao(null,"Som",(int)getX()+10,(int)getY()+35,60,14,false));
+		getBotoesMenu().add(new Botao(null,"Video",(int)getX(),(int)getY()-35,90,16,false));
+		getBotoesMenu().add(new Botao(null,"Som",(int)getX()+100+5,(int)getY()-35,90,16,false));
 //		getBotoes().add(new Botao(null,"",(int)getX()+10,(int)getY()+110,120,25,false));
 //		getBotoes().add(new Botao(null,"Options",(int)getX()+10,(int)getY()+160,120,25,false));
 //		getBotoes().add(new Botao(null,"Exit",(int)getX()+10,(int)getY()+210,120,25,false));

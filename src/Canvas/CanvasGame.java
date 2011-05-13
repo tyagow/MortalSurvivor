@@ -24,6 +24,7 @@ import Gerenciadores.GerenciadorTorre;
 import Gerenciadores.GerenciadorXP;
 import Map.Minimap;
 import Map.TileMap;
+import Map.WayPoint;
 import Mouse.CursorMenuTorre;
 import Mouse.Mira;
 import Mouse.MiraRedonda;
@@ -95,7 +96,6 @@ public class CanvasGame extends GCanvas {
 		tela.AbreMapa("60x601.map");
 		largura = tela.Largura*16;
 		altura = tela.Altura*16;
-		System.out.println("largura"+largura);
 		inicializaFase();
 		recarregaFase();
 		
@@ -272,7 +272,7 @@ public class CanvasGame extends GCanvas {
 
 	private void trataMiraDoJogo() {
 		// TODO Auto-generated method stub
-		if (!GerenciadorTorre.isHitMiraMenu()&&!GerenciadorTorre.hitMiraSelecionador) {
+		if (!GerenciadorTorre.hitMiraMenu&&!GerenciadorTorre.hitMiraSelecionador) {
 			setMiraAtiva(miraJogo);
 			
 		}else {
@@ -295,6 +295,14 @@ public class CanvasGame extends GCanvas {
 		if(keyCode == KeyEvent.VK_0){
 			Constantes.testeGradeColisao=true;
 		}		
+		if(keyCode == KeyEvent.VK_8){
+			for (int i=0;i<Constantes.wayPoints.size();i++) {
+				System.out.println("way "  + i);
+				System.out.println("X: "+ Constantes.wayPoints.get(i).X );
+				System.out.println("Y: "+ Constantes.wayPoints.get(i).Y );
+				
+			}	
+		}	
 		if(keyCode == KeyEvent.VK_ESCAPE){
 			GamePanel.setCanvasAtivo(new CanvasMenu());
 		}
@@ -434,6 +442,8 @@ public class CanvasGame extends GCanvas {
 	public
 	void mouseClicked(MouseEvent e) {
 		gerenciadorTorre.mouseClicked(e);
+		
+		Constantes.wayPoints.add(new WayPoint(e.getX()+Constantes.XTela,e.getY()+Constantes.YTela, 16, 16));
 	}
 
 

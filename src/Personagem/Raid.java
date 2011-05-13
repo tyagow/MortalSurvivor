@@ -58,14 +58,14 @@ public class Raid {
 //					Inimigo inim2 = new Inimigo(Imagem.inimigoUm/*,(int)CanvasGame.base.getX()/16,(int)CanvasGame.base.getY()/16*/);
 //					inimigos.add(inim2);
 				
-					Constantes.inimigos.add(inim);
 				}
 			}
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
+
+
 	}
 	
 	public void DesenhaSe(Graphics2D dbg, int XMundo, int YMundo) {

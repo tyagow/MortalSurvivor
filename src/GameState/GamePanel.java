@@ -21,7 +21,7 @@ public class GamePanel extends Canvas implements Runnable
 	 */
 	private static final long serialVersionUID = 1L;
 public static final int PWIDTH = 800;
-public static final int PHEIGHT = 640;
+public static final int PHEIGHT = 592;
 private Thread animator;
 private boolean running = false;
 

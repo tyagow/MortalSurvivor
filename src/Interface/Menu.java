@@ -45,9 +45,9 @@ public abstract class Menu extends Objeto {
 		// TODO Auto-generated method stub
 		
 		dbg.setColor(Color.white);
-		dbg.drawRect((int)getX()-XMundo,(int)getY()-YMundo, getSizeX(), getSizeY());
+	//	dbg.drawRect((int)getX()-XMundo,(int)getY()-YMundo, getSizeX(), getSizeY());
 		
-		dbg.setColor(new Color(50,50,50,200));
+		dbg.setColor(new Color(r,g,b,alpha));
 		
 		dbg.fillRect((int)getX()+1-XMundo,(int)getY()-YMundo+1, getSizeX()-2, getSizeY()-2);
 		

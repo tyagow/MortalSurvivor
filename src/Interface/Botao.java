@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 
 import AbstractClasses.Objeto;
 import Constantes.Constantes;
+import GameState.GamePanel;
 
 
 public class Botao extends Objeto {
@@ -97,16 +98,19 @@ public class Botao extends Objeto {
 				}
 		
 		
-				dbg.drawString(name,(int) X+getSizeX()/2-XMundo-name.length()/2*((dbg.getFont().getSize()*2)/3),(int) Y+getSizeY()/2+(dbg.getFont().getSize()/2)-YMundo);
+				dbg.drawString(name,(int) X+getSizeX()/2-XMundo-name.length()/2*(dbg.getFont().getSize()),(int) Y+getSizeY()/2+(dbg.getFont().getSize())-YMundo);
 
 			}
 			else { // desenha botao com imagem
 				
 				dbg.setColor(Color.WHITE);
-				
-				dbg.drawRect((int)X-XMundo,(int)Y-YMundo, getSizeX(), getSizeY());
-				
-				dbg.setColor(new Color(50,50,50,200));
+//				if (selecionado)
+//					dbg.fillRect((int)X-XMundo-getSizeX(),(int)Y-YMundo, GamePanel.PWIDTH, getSizeY());
+//				dbg.drawRect((int)X-XMundo,(int)Y-YMundo, sizeX,sizeY);
+				if (selecionado)
+					dbg.setColor(new Color(50,250,250,200));	
+				else
+					dbg.setColor(new Color(50,50,50,200));
 				
 				dbg.fillRect((int)X+1-XMundo,(int)Y-YMundo+1, getSizeX()-2, getSizeY()-2);
 				
@@ -122,7 +126,6 @@ public class Botao extends Objeto {
 		
 		
 				dbg.drawString(name,(int) X+getSizeX()/2-XMundo-name.length()/2*((dbg.getFont().getSize()*2)/3),(int) Y+getSizeY()/2+(dbg.getFont().getSize()/2)-YMundo);
-
 
 			}
 		}

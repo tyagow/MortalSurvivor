@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import Canvas.CanvasGame;
 import Constantes.Constantes;
+import Data.Imagem;
 import Personagem.Inimigo;
 import Personagem.Raid;
 
@@ -78,7 +79,7 @@ public class GerenciadorDeRaids {
 			
 			if(!inim.isVivo()){
 				Constantes.inimigos.remove(i);
-				GerenciadorXP.ganhouXp(inim.getX(), inim.getY(),inim.getTipoAssasino() );
+				GerenciadorXP.ganhouXp(inim.getX(), inim.getY(),inim.tipoAssasino );
 			}
 		
 		}
@@ -100,8 +101,9 @@ public class GerenciadorDeRaids {
 			raid2.ativo = true;
 			raids.add(raid2);
 			numRaid++;
-		
+			Constantes.inimigos.add ( new Inimigo(Imagem.inimigoUm) );
 
+			Constantes.inimigos.add ( new Inimigo(Imagem.inimigoUm) );
 			
 		break;
 			

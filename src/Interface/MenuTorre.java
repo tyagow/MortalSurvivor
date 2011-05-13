@@ -120,9 +120,9 @@ public class MenuTorre extends Menu {
 		
 		//desenha menu
 		dbg.setColor(Color.black);
-		dbg.drawRect((int)getX()-xMundo,(int) (getY()-yMundo), getSizeX(),getSizeY());
+//		dbg.drawRect((int)getX()-xMundo,(int) (getY()-yMundo), getSizeX(),getSizeY());
 		
-		dbg.setColor(new Color(100,100,100,100));
+		dbg.setColor(new Color(r,g,b,alpha));
 		dbg.fillRect((int)getX()-xMundo+1,(int) (getY()-yMundo)+1, getSizeX()-1,getSizeY()-1);
 
 		// range

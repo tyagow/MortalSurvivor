@@ -45,7 +45,7 @@ public class TileMap {
     		InputStream In = getClass().getResourceAsStream(nomemapa);
     
     		
-    		System.out.println(" In "+In.available());
+//    		System.out.println(" In "+In.available());
     		
     		DataInputStream data = new DataInputStream(In); 
     		
@@ -55,16 +55,16 @@ public class TileMap {
         	Largura = ReadCInt(data);    // lê Largura
         	Altura = ReadCInt(data);	// lê Largura
         	
-        	System.out.println(" Largura "+Largura);
-        	
-           	System.out.println(" Altura "+Altura);
+//        	System.out.println(" Largura "+Largura);
+//        	
+//           	System.out.println(" Altura "+Altura);
            	
         	int ltilex =  ReadCInt(data);// lê Larg Tile
         	int ltiley =  ReadCInt(data);// lê Altura Tile
         	
-        	System.out.println(" ltilex "+ltilex);
-        	
-           	System.out.println(" ltiley "+ltiley);
+//        	System.out.println(" ltilex "+ltilex);
+//        	
+//           	System.out.println(" ltiley "+ltiley);
            	
         	byte nome[] = new byte[32]; 
 
@@ -74,12 +74,12 @@ public class TileMap {
         	numLayers =  ReadCInt(data);// lê numero de Layers
         	int numTiles =  ReadCInt(data);// lê numero de Tiles
         	
-           	System.out.println(" numLayers "+numLayers);
-           	System.out.println(" numTiles "+numTiles);
-        	
+//           	System.out.println(" numLayers "+numLayers);
+//           	System.out.println(" numTiles "+numTiles);
+//        	
             int BytesPorTiles =  ReadCInt(data); // lê numero de bytes por tile;
             
-           	System.out.println(" BytesPorTiles "+BytesPorTiles);
+//           	System.out.println(" BytesPorTiles "+BytesPorTiles);
            	
             int vago1 =  ReadCInt(data); // lê vago;
             int vago2 =  ReadCInt(data); // lê vago;            
@@ -149,7 +149,7 @@ public class TileMap {
 	    catch (Exception e)
 	    {
 	    	e.printStackTrace();
-	      System.out.println(e.getMessage()+ "  abreaMapaPau!!!");
+//	      System.out.println(e.getMessage()+ "  abreaMapaPau!!!");
 	    }    		
 		    	
     	

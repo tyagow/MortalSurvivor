@@ -8,6 +8,8 @@ import java.util.Iterator;
 import AbstractClasses.Objeto;
 import Canvas.CanvasGame;
 import Map.Obstaculo;
+import Map.WayPoint;
+import Map.WayPoint;
 
 
 public class GerenciadorObstaculos extends Objeto {
@@ -29,6 +31,8 @@ public class GerenciadorObstaculos extends Objeto {
 	private static boolean yIgualUm;
 	public GerenciadorObstaculos() {
 		// TODO Auto-generated constructor stub
+		largura=CanvasGame.tela.Largura;
+		altura=CanvasGame.tela.Altura;
 		obstaculos.clear();
 		carregaObstaculos();
 		carregaGradeColisao();
@@ -38,9 +42,12 @@ public class GerenciadorObstaculos extends Objeto {
 
 	private void carregaObstaculos() {
 		
-		addObstaculos(50, 50, 32, 32, 0, 1);
-		addObstaculos(50, 50, 32, 32, 0, 0);
+		addObstaculos(20*16, 10*16, 32, 32, 0, 1);
+		addObstaculos(22*16, 10*16, 32, 32, 13, 1);
+		addObstaculos(20*16, 12*16, 32, 32, 15, 0);
+		
 
+		loadWayPoints();
 		
 	}
 
@@ -71,20 +78,24 @@ public class GerenciadorObstaculos extends Objeto {
 			
 			
 		}
-
-		for (int i=0;i<largura;i++) {
-		
-			for (int j=0;j<altura;j++) {
-				if (mapa[i][j]==1) {
-					dbg.setColor(Color.red);
-					dbg.drawRect(i*16-XMundo, j*16-YMundo, 16, 16);
-				}else {
-					dbg.setColor(Color.blue);
-					dbg.drawRect(i*16-XMundo, j*16-YMundo, 16, 16);
-				}
-				
-			}
-		}
+		for (int i = 0; i<Constantes.Constantes.wayPoints.size();i++) {
+			Constantes.Constantes.wayPoints.get(i).DesenhaSe(dbg, XMundo, YMundo);
+			
+			//System.out.println("ola");
+		} 
+//		for (int i=0;i<largura;i++) {
+//		
+//			for (int j=0;j<altura;j++) {
+//				if (mapa[i][j]==1) {
+//					dbg.setColor(Color.red);
+//					dbg.drawRect(i*16-XMundo, j*16-YMundo, 16, 16);
+//				}else {
+//					dbg.setColor(Color.blue);
+//					dbg.drawRect(i*16-XMundo, j*16-YMundo, 16, 16);
+//				}
+//				
+//			}
+//		}
 //		
 	
 		
@@ -96,7 +107,7 @@ public class GerenciadorObstaculos extends Objeto {
 	private void removeObstaculoGrade(int x, int y) {
 		// TODO Auto-generated method stub
 		
-		getMapa()[x>>4][y>>4]=0;
+		mapa[x>>4][y>>4]=0;
 		
 		
 	}
@@ -104,8 +115,7 @@ public class GerenciadorObstaculos extends Objeto {
 	
 	private void carregaGradeColisao() {
 		// TODO Auto-generated method stub
-		largura=CanvasGame.tela.Largura;
-		altura=CanvasGame.tela.Altura;
+	
 		setMapa(new int [getLargura()][getAltura()]);
 		//System.out.println(CanvasGame.MAPA.Largura);
 		resetaGradeColisao();
@@ -253,7 +263,53 @@ public class GerenciadorObstaculos extends Objeto {
 //		}
 		
 		
-	
+	public void loadWayPoints() {
+		WayPoint aux;
+
+		int wayX = (largura*16)/2-21;
+		int wayY = 100;
+		int waySizeX = 42;
+		int waySizeY = 42;
+		 aux = new WayPoint( wayX,wayY,waySizeX,waySizeY );
+		 aux.indexNextTarget = 1;
+
+		Constantes.Constantes.wayPoints.add(aux);
+		
+		 wayX = largura*16-42-100;
+		 wayY = (altura*16)/2-21;
+		 waySizeX = 42;
+		 waySizeY = 42;
+		 aux = new WayPoint( wayX,wayY,waySizeX,waySizeY );
+		 aux.indexNextTarget = 2;
+
+			Constantes.Constantes.wayPoints.add(aux);		
+		
+		 wayX = (largura*16)/2-21;
+		 wayY = (altura*16)-42;
+		 waySizeX = 42;
+		 waySizeY = 42;
+		 aux = new WayPoint( wayX,wayY,waySizeX,waySizeY );
+		 aux.indexNextTarget = 3;
+
+			Constantes.Constantes.wayPoints.add(aux);		
+		
+			wayX = 0;
+			 wayY = (altura*16)/2;
+			 waySizeX = 42;
+			 waySizeY = 42;
+			 aux = new WayPoint( wayX,wayY,waySizeX,waySizeY );
+			 aux.indexNextTarget = 0;
+
+				Constantes.Constantes.wayPoints.add(aux);
+				
+		
+			
+			
+//			for (int i = 0 ; i <Constantes.Constantes.wayPoints.size();i++) {
+//				
+//				Constantes.Constantes.wayPoints.get(i).indexNextTarget=i;
+//			}
+	}
 
 
 	public static boolean colidiuObstaculo(int mousex, int mousey) {

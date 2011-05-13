@@ -1,17 +1,17 @@
 package Torre;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
 import AbstractClasses.Objeto;
 import Armas.Arma;
 import Constantes.Constantes;
-
 public class SlotTorre extends Objeto{
 
 	private BufferedImage AnimeSet;
 	private Arma armaAtiva;
-	private boolean ativo;
+	public boolean ativo;
 	private boolean selecionado;
 	
 	public SlotTorre() {
@@ -20,6 +20,7 @@ public class SlotTorre extends Objeto{
 		setVivo(true);
 		setAtivo(false);
 		setSelecionado(false);
+	
 	}
 	
 	@Override
@@ -82,5 +83,17 @@ public class SlotTorre extends Objeto{
 
 	public Arma getArmaAtiva() {
 		return armaAtiva;
+	}
+
+	public void mouseClicked(MouseEvent e) {
+		
+	}
+
+	public void mouseReleased(MouseEvent e) {
+		
+	}
+
+	public void mouseMoved(MouseEvent e) {
+		
 	}
 }

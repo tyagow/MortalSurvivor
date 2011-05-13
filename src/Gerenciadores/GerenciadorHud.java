@@ -80,7 +80,6 @@ public class GerenciadorHud extends Objeto {
 	}
 	@Override
 	public void SimulaSe(int DiffTime) {
-		// TODO Auto-generated method stub
 	  
 			atualizaHudArma();
 		
@@ -135,14 +134,14 @@ public class GerenciadorHud extends Objeto {
 		Stroke stk = dbg.getStroke();
 		    
 		dbg.setStroke(new BasicStroke(1.5f));
-		dbg.setColor(Color.DARK_GRAY);
+		dbg.setColor(Color.LIGHT_GRAY);
 		dbg.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f));
 		dbg.fillRect(xHudArmas, yHudArmas, sizeXHudArmas, sizeYHudArmas);
 	    dbg.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
 	    dbg.setStroke(stk);
 		for(int i = 0; i < getHudArma().length; i++){
-			getHudArma()[i].DesenhaSe(dbg, XTela, YTela);
-			desenhaQuantidadeTiros(dbg,getHudArma()[i]);
+			hudArma[i].DesenhaSe(dbg, XTela, YTela);
+			desenhaQuantidadeTiros(dbg,hudArma[i]);
 		}
 		
 	  

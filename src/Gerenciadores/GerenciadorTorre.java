@@ -23,7 +23,7 @@ public class GerenciadorTorre extends Objeto {
 	public static SelecionadorDeTorre selecionadorDeTorre;
 	public static ArrayList<Torre> torres = new ArrayList<Torre>();
 	
-	private static boolean hitMiraMenu = false;
+	public static boolean hitMiraMenu = false;
 	public static boolean hitMiraSelecionador = false;
 	
 	private static int rangeMouse=20;
@@ -113,7 +113,7 @@ public class GerenciadorTorre extends Objeto {
 		
 				for (int i=0;i<4;i++) {
 				
-					if (selecionadorDeTorre.getSlotsTorre()[i].isAtivo()){
+					if (selecionadorDeTorre.slotsTorre[i].ativo){
 						
 						switch (i) {
 						case 0: // torre um
@@ -158,8 +158,10 @@ public class GerenciadorTorre extends Objeto {
 	public void mouseClicked(MouseEvent e) {
 		for (int i = 0;i<torres.size();i++) {
 			torres.get(i).mouseClicked(e);
+		
 			
 		}
+		selecionadorDeTorre.mouseClicked(e);
 
 	}
 	public void mousePressed(MouseEvent e) {
@@ -173,6 +175,7 @@ public class GerenciadorTorre extends Objeto {
 			torres.get(i).mouseReleased(e);
 			
 		}
+		selecionadorDeTorre.mouseReleased(e);
 	}
 
 
@@ -181,7 +184,7 @@ public class GerenciadorTorre extends Objeto {
 			torres.get(i).mouseMoved(e);
 			
 		}
-
+		selecionadorDeTorre.mouseMoved(e);
 	}
 		
 		
@@ -220,14 +223,14 @@ public class GerenciadorTorre extends Objeto {
 			MenuTorre m = torres.get(i).getMenuAtivo();
 			if(m != null){
 				if (Constantes.colideQuadrado((int)m.getX(),(int) m.getY(),(int) m.getSizeX(),(int) m.getSizeY(), (int)CanvasGame.getMiraAtiva().getXMundo(),(int) CanvasGame.getMiraAtiva().getYMundo(), 1, 1)) {
-					setHitMiraMenu(true);
+					hitMiraMenu=(true);
 					break;
 				}
 			}
-			setHitMiraMenu(false);
+			hitMiraMenu=false;
 		}
 		
-		if(isHitMiraMenu() || hitMiraSelecionador){
+		if(hitMiraMenu || hitMiraSelecionador){
 			CanvasGame.setMiraMenu();
 			
 		}else {
@@ -236,14 +239,7 @@ public class GerenciadorTorre extends Objeto {
 	}
 
 
-	public static void setHitMiraMenu(boolean hitMiraMenu) {
-		GerenciadorTorre.hitMiraMenu = hitMiraMenu;
-	}
 
-
-	public static boolean isHitMiraMenu() {
-		return hitMiraMenu;
-	}
 
 
 	public void reset() {

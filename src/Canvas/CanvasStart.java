@@ -53,11 +53,11 @@ public class CanvasStart extends GCanvas{
 		setFonteAutores(new Font("Courier", Font.BOLD, 14));
 	 
 		
-		botoes.add(new Botao(null,"Play",100,100,120,25,false));
-		botoes.add(new Botao(null,"Score",100,150,120,25,false));
-		botoes.add(new Botao(null,"Help",100,200,120,25,false));
-		botoes.add(new Botao(null,"Options",100,250,120,25,false));
-		botoes.add(new Botao(null,"Exit",100,300,120,25,false));
+		botoes.add(new Botao(null,"Play",50,100,120,25,false));
+		botoes.add(new Botao(null,"Score",50,150,120,25,false));
+		botoes.add(new Botao(null,"Help",50,200,120,25,false));
+		botoes.add(new Botao(null,"Options",50,250,120,25,false));
+		botoes.add(new Botao(null,"Exit",50,300,120,25,false));
 		menuOptions= new MenuOptions(250, 100, 200, 200, Color.darkGray, 9999);
 		
 		setMiraAtiva(new CursorMenu());
@@ -79,8 +79,8 @@ public class CanvasStart extends GCanvas{
 			
 			if (menuAtivo!=null) 
 				menuAtivo.DesenhaSe(dbg, 0, 0);
-			
-			
+			dbg.setColor(new Color(50,50,50,100));
+			dbg.fillRect(0, 0, 250, GamePanel.PHEIGHT);
 			dbg.setColor(Color.yellow);
 			
 			//dbg.setFont(fonteAutores);
@@ -93,8 +93,8 @@ public class CanvasStart extends GCanvas{
 			
 			getMiraAtiva().DesenhaSe(dbg, 0, 0);
 
-//			dbg.setColor(Color.yellow);
-//			
+			dbg.setColor(Color.yellow);
+			
 //			//predio 1
 //			dbg.fillRoundRect(24, GamePanel.PHEIGHT-100,8, 8, 1, 1);
 //			dbg.fillRoundRect(40, GamePanel.PHEIGHT-100,8, 8, 1, 1);

@@ -97,7 +97,6 @@ public class GerenciadorXP extends Objeto {
 		
 	}
 	public void reset() {
-		System.out.println("teste");
 		xp=0;
 		fastKill=0;
 		timer=0;

@@ -51,22 +51,7 @@ int tileSetLinha, tileSetColuna;
 	}
 	
 	
-	private void defineDimensaoEmTiles(int sizeX, int sizeY) {
-		// TODO Auto-generated method stub
-//		if (sizeX%16<4) {
-			setSizeX(sizeX);
-//				
-//		}else {
-//			setSizeX(sizeX>>4+1);
-//		}
-//		if (sizeY%16<4) {
-			setSizeY(sizeY);
-				
-//		}else {
-//			setSizeY(sizeY>>4+1);
-//		}
-		
-	}
+
 	
 	
 	
