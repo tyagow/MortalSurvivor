@@ -38,7 +38,9 @@ public class GerenciadorObstaculos extends Objeto {
 
 	private void carregaObstaculos() {
 		
-		addObstaculos(50, 50, 32, 32, 1, 1);
+		addObstaculos(50, 50, 32, 32, 0, 1);
+		addObstaculos(50, 50, 32, 32, 0, 0);
+
 		
 	}
 

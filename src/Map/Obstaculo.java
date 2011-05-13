@@ -36,9 +36,9 @@ int tileSetLinha, tileSetColuna;
 	@Override
 	public void DesenhaSe(Graphics2D dbg, int xTela, int yTela) {
 		// TODO Auto-generated method stub
-		if (tileSetLinha != 0 && tileSetColuna != 0) {
+		if (tileSetLinha != 0 || tileSetColuna != 0) {
 
-			dbg.drawImage(Data.Imagem.obstaculos,(int) getX() - xTela,(int) getY() - yTela,(int) getX() + getSizeX() - xTela,(int) getY() + getSizeY() - yTela, (tileSetColuna*16), (tileSetLinha*16), tileSetColuna*16 + 16, tileSetLinha*16 + 16, null);
+			dbg.drawImage(Data.Imagem.obstaculos,(int) getX() - xTela - getSizeX()/2,(int) getY() - yTela - getSizeY()/2,(int) getX() + getSizeX() - xTela - getSizeX()/2,(int) getY() + getSizeY() - yTela - getSizeY()/2, (tileSetColuna*32), (tileSetLinha*32), tileSetColuna*32 + 32, tileSetLinha*32 + 32, null);
 			//dbg.drawRect((int)getX() - xTela, (int)getY() - yTela, getSizeX(), getSizeY());
 			
 		}else {
