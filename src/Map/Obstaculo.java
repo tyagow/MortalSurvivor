@@ -7,16 +7,17 @@ import AbstractClasses.Objeto;
 
 public class Obstaculo extends Objeto {
 
-int linha,coluna;
-	public Obstaculo(int _x, int _y,int _sizeX,int _sizeY,int _linha,int _coluna) {
+int tileSetLinha, tileSetColuna;
+
+	public Obstaculo(int _x, int _y,int _sizeX,int _sizeY,int _tileSetColuna,int _tileSetLinha) {
 
 		
 	X=(_x/16)*16;
 	Y=(_y/16)*16;
 	sizeX=_sizeX;
 	sizeY=_sizeY;
-	linha=_linha;
-	coluna=_coluna;
+	tileSetLinha=_tileSetLinha;
+	tileSetColuna=_tileSetColuna;
 	
 	
 //		defineDimensaoEmTiles(sizeX,sizeY);
@@ -33,15 +34,17 @@ int linha,coluna;
 	}
 
 	@Override
-	public void DesenhaSe(Graphics2D dbg, int XMundo, int YMundo) {
+	public void DesenhaSe(Graphics2D dbg, int xTela, int yTela) {
 		// TODO Auto-generated method stub
-		if (linha !=0&&coluna !=0) {
-			
+		if (tileSetLinha != 0 && tileSetColuna != 0) {
+
+			dbg.drawImage(Data.Imagem.obstaculos,(int) getX() - xTela,(int) getY() - yTela,(int) getX() + getSizeX() - xTela,(int) getY() + getSizeY() - yTela, (tileSetColuna*16), (tileSetLinha*16), tileSetColuna*16 + 16, tileSetLinha*16 + 16, null);
+			//dbg.drawRect((int)getX() - xTela, (int)getY() - yTela, getSizeX(), getSizeY());
 			
 		}else {
 			if (Constantes.Constantes.testeGradeColisao) {
 				dbg.setColor(Color.RED);
-				dbg.fillRect(((int)getX()-sizeX/2)-XMundo,(int) (getY()-sizeY/2)-YMundo, sizeX, sizeY);
+				dbg.fillRect(((int)getX()-sizeX/2)-xTela,(int) (getY()-sizeY/2)-yTela, sizeX, sizeY);
 			}
 		}
 		

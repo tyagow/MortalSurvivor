@@ -175,8 +175,8 @@ public class CanvasGame extends GCanvas {
 		}
 			
 		
-		gerenciadorEfeitos.DesenhaSe(dbg, tela.XTela, tela.YTela);
 		base.DesenhaSe(dbg, tela.XTela, tela.YTela);
+		gerenciadorEfeitos.DesenhaSe(dbg, tela.XTela, tela.YTela);
 
 		minimap.DesenhaSe(dbg, tela.XTela, tela.YTela);
 

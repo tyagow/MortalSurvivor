@@ -38,7 +38,7 @@ public class GerenciadorObstaculos extends Objeto {
 
 	private void carregaObstaculos() {
 		
-		
+		addObstaculos(50, 50, 32, 32, 1, 1);
 		
 	}
 
@@ -135,9 +135,9 @@ public class GerenciadorObstaculos extends Objeto {
 		}
 		
 	}
-	public static void addObstaculos(int _x,int _y,int _sizeX,int _sizeY,int linha, int coluna) {
+	public static void addObstaculos(int _x,int _y,int _sizeX,int _sizeY,int tileSetColuna, int tileSetLinha) {
 		
-		obstaculos.add(new Obstaculo(_x, _y,_sizeX,_sizeY,0,0));
+		obstaculos.add(new Obstaculo(_x, _y, _sizeX, _sizeY, tileSetColuna, tileSetLinha));
 	
 		
 		
