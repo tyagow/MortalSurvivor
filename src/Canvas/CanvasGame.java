@@ -272,7 +272,7 @@ public class CanvasGame extends GCanvas {
 
 	private void trataMiraDoJogo() {
 		// TODO Auto-generated method stub
-		if (!GerenciadorTorre.hitMiraMenu&&!GerenciadorTorre.hitMiraSelecionador) {
+		if (!Constantes.hitMiraMenu&&!Constantes.hitMiraSelecionador) {
 			setMiraAtiva(miraJogo);
 			
 		}else {
@@ -306,6 +306,8 @@ public class CanvasGame extends GCanvas {
 		if(keyCode == KeyEvent.VK_ESCAPE){
 			GamePanel.setCanvasAtivo(new CanvasMenu());
 		}
+		
+		
 		if(keyCode == KeyEvent.VK_Q){
 			heroi.ARMA_ANTERIOR=true;
 		}
@@ -345,7 +347,19 @@ public class CanvasGame extends GCanvas {
 		int keyCode = e.getKeyCode();
 		if(keyCode == KeyEvent.VK_0){
 			Constantes.testeGradeColisao=false;
-	}	
+		}	
+		if(keyCode == KeyEvent.VK_F6){
+			if (Constantes.menuDeObstaculos){
+				Constantes.menuDeObstaculos=false;
+				Constantes.hitMiraMenu=false;
+				setMiraJogo();
+			}
+			else {
+				Constantes.menuDeObstaculos=true;
+				setMiraMenu();
+			}
+		
+		}
 		if(keyCode == KeyEvent.VK_W){
 			heroi.UP=false;
 		}
@@ -370,7 +384,8 @@ public class CanvasGame extends GCanvas {
 		Constantes.mouseYTela=e.getY()+Constantes.YTela;
 
 		gerenciadorTorre.mouseMoved(e);
-
+		gerenciadorObstaculos.mouseMoved(e);
+		
 	}
 
 	@Override
@@ -378,6 +393,7 @@ public class CanvasGame extends GCanvas {
 		// TODO Auto-generated method stub
 		setMousex(e.getX());
 		setMousey(e.getY());
+		gerenciadorObstaculos. mouseDragged(e);
 	}
 
 	@Override
@@ -399,7 +415,7 @@ public class CanvasGame extends GCanvas {
 		}
 		
 		gerenciadorTorre.mouseReleased(e);
-
+		gerenciadorObstaculos.mouseReleased(e);
 	}
 
 	@Override
@@ -408,6 +424,7 @@ public class CanvasGame extends GCanvas {
 		// TODO Auto-generated method stub
 		int button = e.getButton();
 		gerenciadorTorre.mousePressed(e);
+		gerenciadorObstaculos.mousePressed(e);
 		getMiraAtiva().pressed(button);
 		
 		if (button == MouseEvent.BUTTON1) {
@@ -442,8 +459,7 @@ public class CanvasGame extends GCanvas {
 	public
 	void mouseClicked(MouseEvent e) {
 		gerenciadorTorre.mouseClicked(e);
-		
-		Constantes.wayPoints.add(new WayPoint(e.getX()+Constantes.XTela,e.getY()+Constantes.YTela, 16, 16));
+		gerenciadorObstaculos.mouseClicked(e);
 	}
 
 
@@ -458,8 +474,8 @@ public class CanvasGame extends GCanvas {
 	public static void setMiraMenu() {
 		// TODO Auto-generated method stub
 		if (miraDoJogoSelecionada) {
-			getMiraAtiva().setPressed(false);
-			setMiraAtiva(miraMenu);
+			miraAtiva.pressed =(false);
+			miraAtiva=(miraMenu);
 			miraDoJogoSelecionada=false;
 		}
 	}
@@ -467,8 +483,8 @@ public class CanvasGame extends GCanvas {
 	public static void setMiraJogo() {
 		// TODO Auto-generated method stub
 		if (!miraDoJogoSelecionada) {
-			getMiraAtiva().setPressed(false);
-			setMiraAtiva(miraJogo);
+			miraAtiva.pressed =(false);
+			miraAtiva=(miraJogo);
 			miraDoJogoSelecionada=true;
 		}
 	}

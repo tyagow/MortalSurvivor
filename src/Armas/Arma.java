@@ -19,7 +19,7 @@ public abstract class Arma  {
 	public  double angulo;
 	private double X,Y;
 	private int sizeX,sizeY;
-	private int tempoEntreTirosMax;
+	public int tempoEntreTirosMax;
 
 	
 	private BufferedImage imagem;

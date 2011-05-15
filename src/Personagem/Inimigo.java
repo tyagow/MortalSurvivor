@@ -4,16 +4,20 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
+import java.util.Observable;
 
 import AbstractClasses.Objeto;
 import Canvas.CanvasGame;
 import Constantes.Constantes;
 import GameState.GamePanel;
+import Gerenciadores.GerenciadorObstaculos;
 import Gerenciadores.GerenciadorRespawn;
+import Map.Obstaculo;
 import Map.WayPoint;
 
 public class Inimigo extends Objeto {
 	
+	int objX,objY;
 	int dano;
 	private double vel;
 	private int tempoEntreAtaque;
@@ -28,24 +32,33 @@ public class Inimigo extends Objeto {
 	private int frameX=0;
 	private int frameY=1;
 	BufferedImage img;
-	
+	int velx;
+	int vely;
 	
 	WayPoint target  = null;
-	public Inimigo(BufferedImage img) {
-		
+	private int tipo;
+	private int objSizeX;
+	private int objSizeY;
+	private boolean colidiuObstaculo;
+	private int objSecundarioX=-1;
+	private int objSecundarioY=-1;
+	public Inimigo(BufferedImage img,int _tipo,int _objX,int _objY) {
+		objX=_objX;
+		objY=_objY;
+		tipo=_tipo;
 		this.img=img;
 		larguraMapa=CanvasGame.tela.Largura*16;
 		alturaMapa=CanvasGame.tela.Altura*16;
+		 colidiuObstaculo = false;
+		X=(GamePanel.rnd.nextInt(alturaMapa));//+alturaMapa*(-2));
+		Y=(GamePanel.rnd.nextInt(larguraMapa));//+alturaMapa*(-2));
 		
-		setX(GamePanel.rnd.nextInt(alturaMapa));//+alturaMapa*(-2));
-		setY(GamePanel.rnd.nextInt(larguraMapa));//+alturaMapa*(-2));
-		
-		setSizeX(img.getWidth()/2);
-		setSizeY(img.getHeight()/3);
+		sizeX=(img.getWidth()/2);
+		sizeY=(img.getHeight()/3);
 		dano = 10;
-		setVel(100);
-		setLife(maximoVida);
-		setVivo(true);
+		vel=100;
+		life=(maximoVida);
+		vivo=(true);
 		estado=0;
 		campoDeVisao=Constantes.INIMIGO_CAMPO_VISAO1;
 
@@ -54,22 +67,21 @@ public class Inimigo extends Objeto {
 
 	public void SimulaSe(int DiffTime) {
 		// TODO Auto-generated method stub	
-			calculaIA(DiffTime);
-		
-			double velx=(int) (Math.cos(ang)*getVel());
-			double vely=(int) (Math.sin(ang)*getVel());
-			
-			X=(X + (velx*DiffTime/1000.0f));
-			Y=(Y + (vely*DiffTime/1000.0f));
+	
+
+		calculaIA(DiffTime);
+			X+= (velx*DiffTime/1000.0f);
+			Y+= (vely*DiffTime/1000.0f);
 			
 			if (life<0) {
 				setVivo(false);
 				
 			}			
-			
+		
 			oldx=((int)X);
 			oldy=((int)Y);
-			
+		
+	
 			//verificaColisaoTiros();
 	}
 
@@ -108,43 +120,229 @@ public class Inimigo extends Objeto {
 		dbg.fillRect((int)px-getSizeX()/2-5+1, (int)py-16-getSizeY()/2, (int)(getLife()*30/maximoVida)-1, 9);
 	
 //		if(Constantes.colidecircular(getX(), getY(),getSizeX(),target.getX()+target.sizeX/2,target.getY()+target.sizeY/2,target.getSizeX()/2)){
-dbg.drawOval((int)getX()-sizeX/2-XMundo,(int) getY()-sizeY/2-YMundo, sizeX, sizeX);
-if (target!=null)
-dbg.drawOval((int)target.getX()-target.sizeX/2-XMundo,(int)target.getY()-target.sizeY/2-YMundo, target.sizeX, target.sizeX);
+		dbg.drawOval((int)getX()-sizeX/2-XMundo,(int) getY()-sizeY/2-YMundo, sizeX, sizeX);
+		if (target!=null)
+			dbg.drawOval((int)target.getX()-target.sizeX/2-XMundo,(int)target.getY()-target.sizeY/2-YMundo, target.sizeX, target.sizeX);
 
 	
 	}
 	
-	private void calculaIA(int DiffTime) {
+private void calculaIA(int DiffTime) {
 		// TODO Auto-generated method stub
 		
 		tempoEntreAtaque+=DiffTime;
-		
-		//System.out.println(estado);
-		
-		if (estado ==0) {// ir atras da base
-
-				if(!Constantes.colidecircular(getX(), getY(),campoDeVisao,CanvasGame.heroi.getX(),CanvasGame.heroi.getY(),CanvasGame.heroi.getSizeX()/2)&&!GerenciadorRespawn.isRespawn()){
-					irAtrasDaBase();
-				} else {
-					estado = 1;
-				}
+		if(estado == 0){
+			
+			estado=trataEstado(estado);
+			System.out.println("1");
 		}
 		
-		if (estado ==1) { //ir atras do heroi
+		if (estado == 1) {
+			System.out.println("2");
 
-			if(Constantes.colidecircular(getX(), getY(),campoDeVisao,CanvasGame.heroi.getX(),CanvasGame.heroi.getY(),CanvasGame.heroi.getSizeX()/2)){
-					irAtrasDoHeroi();
-				} else {
-					estado = 0;
-					carregaTargetProximo();
-				}
-		
+			estado=trataEstado(estado);
 		}
+		if (estado == 2) {
+			System.out.println("3");
+
+			estado=trataEstado(estado);
+		}
+		if (estado == 3) {
+			System.out.println("4");
+
+			estado=trataEstado(estado);
+		}
+		
+		estado=0;
+		
+	}
+		
+//		
+//		//System.out.println(estado);
+//		
+//		if (estado ==0) {// ir atras da base
+//		
+//				if(!Constantes.colidecircular(getX(), getY(),campoDeVisao,CanvasGame.heroi.getX(),CanvasGame.heroi.getY(),CanvasGame.heroi.getSizeX()/2)||	GerenciadorRespawn.isRespawn() ){
+//					irAtrasDaBase();
+//				} else {
+//				
+//						estado = 1;
+//				}
+//		}
+//		
+//		if (estado ==1) {
+//			if(!GerenciadorRespawn.isRespawn()){
+//
+//				if(Constantes.colidecircular(getX(), getY(),campoDeVisao,CanvasGame.heroi.getX(),CanvasGame.heroi.getY(),CanvasGame.heroi.getSizeX()/2)){
+//					irAtrasDoHeroi();
+//				} else {
+//					estado = 0;
+//					carregaTargetProximo();
+//				}
+//			} else {
+//				estado = 0;
+//				carregaTargetProximo();
+//			}
+//		}
+	
+	 private int trataEstado(int _estado) {
+			
+			switch (_estado) {
+			case 0:
+				
+				return estadoDesviaObstaculo(_estado);
+			case 1:
+				
+				return estadoFollowPlayer(_estado);
+			case 2:
+				
+				return estadoFollowBase(_estado);
+			
+			case 3:
+			
+			return estadoAtacaBase(_estado);
+		
+
+			default:
+				break;
+			}
+			
+			return 0;
+		}
+	private int estadoAtacaBase(int _estado) {
+		// TODO Auto-generated method stub
+		atacaBase();
+		return 0;
 	}
 
+	private int estadoFollowBase(int _estado) {
+		// TODO ir atras da base
+	
+		return procuraCaminho(_estado); // trata do caminho e ainda retorna se ja pode atacar a base ou nao que eh o proximo estado
+		
+	
+	}
+
+	private int estadoFollowPlayer(int _estado) {
+		// TODO ir Atras do player
+		
+		if(!GerenciadorRespawn.isRespawn()){
+			
+			if(Constantes.colidecircular(getX(), getY(),campoDeVisao,CanvasGame.heroi.X,CanvasGame.heroi.Y,CanvasGame.heroi.sizeX/2)){
+					irAtrasDoHeroi();
+					objSecundarioX=(int)CanvasGame.heroi.X;
+					objSecundarioY=(int)CanvasGame.heroi.Y;
+					target=null;
+					return _estado;
+				}else {
+					objSecundarioX=-1;
+					objSecundarioY=-1;
+				} 
+			} 
+		return _estado+1;
+
+	}
+
+	private int estadoDesviaObstaculo(int _estado) {
+		// TODO desviar de obstaculos
+
+		
+		for (int i =0; i < GerenciadorObstaculos.obstaculos.size();i++) {
+			Obstaculo ob = GerenciadorObstaculos.obstaculos.get(i);
+			if (Constantes.colidecircular(X, Y, sizeX/2, ob.X, ob.Y, ob.sizeX/2)) {
+				colidiuObstaculo=true;
+					trataColisaoObstaculo(ob);
+				break;
+			}else {
+				velx=(int) (Math.cos(ang)*vel);
+				 vely=(int) (Math.sin(ang)*vel);
+			}
+			
+			
+		} 
+//		if (!colidiuObstaculo) {
+			 velx=(int) (Math.cos(ang)*vel);
+			 vely=(int) (Math.sin(ang)*vel);
+				vel=maxVel;
+
+				return _estado+1;
+//		}else {
+////			atualizaAngulo();
+//			colidiuObstaculo=false;
+//			
+//		}
+			
+			
+			
+//		
+//		return _estado+1;
+	}
+
+	private void atualizaAngulo() {
+
+//		if (objSecundarioX != -1 &&objSecundarioY != -1 ) {
+//			double difX = objSecundarioX - X;
+//			double difY = objSecundarioY - Y;
+//			ang =  Math.atan2(difY, difX);
+//			
+//		}else {
+//			double difX = target.X - X;
+//			double difY = target.Y - Y;
+//			ang =  Math.atan2(difY, difX);
+//		}
+		
+	}
+
+	private void trataColisaoObstaculo(Obstaculo ob) {
+//		if(((x1+sizeX1<x2 || x1>x2+sizeX2)) || ((y1+sizeY1<y2 || y1>y2+sizeY2)))
+		
+		if (X+sizeX>ob.X && X < ob.X+ob.sizeX) {
+			X=oldx;
+		}
+		if (Y+sizeY>ob.Y && Y < ob.Y+ob.sizeY) {
+			Y=oldy;
+		}
+//		
+//		
+//		if (velx!=0) {
+//			if (vely!=0) {
+//				vely=0;
+//				velx=(int) (Math.cos(ang)*vel);
+//				X=oldx;
+//				Y=oldy;
+//			
+//				
+//			}else {
+//				 vely=(int) (Math.sin(ang)*vel);
+//				 velx=0;
+//				X=oldx;
+//				Y=oldy;
+//
+//				
+//			}		
+//		}
+//		else {
+//			if (vely==0) {
+//				vely = -(int)(Math.sin(ang)*vel);
+//				X=oldx;
+//				Y=oldy;
+//				
+//					
+//			}
+//			else { 
+//				vely=0;
+//				velx=-(int) (Math.cos(ang)*vel);
+//				X=oldx;
+//				Y=oldy;
+//				
+//			}
+//
+//		}		
+	}
+
+
+
 	public void recebeuDano(int dano,int tipo) {
-		// TODO Auto-generated method stub
 		if (getLife()>0)
 			
 			CanvasGame.gerenciadorEfeitos.ativaSangue(getX(),getY(),ang,(int)dano);
@@ -170,52 +368,72 @@ dbg.drawOval((int)target.getX()-target.sizeX/2-XMundo,(int)target.getY()-target.
 	}
 
 		
-	private void irAtrasDaBase(){
-		
-		
-		if (target==null) {
-			carregaPrimeiroTarget();
+	private int procuraCaminho(int _estado){
+
+
+		if (target==null ) {
+			carregaTargetProximo();
+			return _estado;
 		}else {
-			verificaTarget();
+	
+			return verificaTarget(_estado);
 		}
-//		
-//
-//		double difX = CanvasGame.base.getX() - getX();
-//		double difY = CanvasGame.base.getY() - getY();
-//		 ang =  Math.atan2(difY, difX);
-//		 
-//
-//atacaBase();
+
 	}
 
 
-private void verificaTarget() {
+private int verificaTarget(int _estado) {
 	
 	double difX = target.X - X;
 	double difY = target.Y - Y;
 	 ang =  Math.atan2(difY, difX);
 
 
-	if(Constantes.colidecircular(getX(), getY(),getSizeX()/2,target.getX(),target.getY(),target.getSizeX()/2)){
-		int newI = target.indexNextTarget;
-		target = Constantes.wayPoints.get(newI);
-		ang = Math.atan2(difY, difX);
-		System.out.println("TROCA TARGET");
-		}
+	if(Constantes.colidecircular(getX(), getY(),getSizeX()/2,target.getX(),target.getY(),target.getSizeX()/2)){		
 
-//	   int dx = (int)(target.X - X);
-//	   int dy = (int)(target.Y - Y);
-//System.out.println(target.X);
-//		if(Constantes.colidecircular(X, Y,sizeX/2,target.X,target.Y,target.sizeX)){
-//
-//		   target = Constantes.wayPoints.get(target.indexNextTarget);
-////		   System.out.println(target.indexNextTarget);
-//
-//		   ang = Math.atan2(dy, dx);
-//	   }
+		return  trataColisaoTarget(target,_estado);
+			
+		}
+	return _estado;
+
 	   
 	}
+private int trataColisaoTarget(WayPoint target2,int _estado) {
+//	System.out.println("x t " + target.X);
+//	System.out.println("y t " + target.Y);
+//	System.out.println("x  " + objX);
+//	System.out.println("Y  " + objY);
+//	
+//	System.out.println("Y target colidida"+target2.Y);	
+//	System.out.println("X obj"+objX);	
+//	System.out.println("Y obj"+objY);	
+	if ((int)target.X!=objX||(int)target.Y!=objY) {
+
+		int newI = target2.indexNextTarget; 
+
+		if (newI !=-1) {
+			
+			target = Constantes.wayPoints.get(newI);
+			
+		
+
+			return _estado;
+//			if (newI == 1) 
+			
+			
+		
+
+			
+		}else {
+			target = new WayPoint(objX,objY,objSizeX,objSizeY);
+		}	
+
+	}
+	return _estado+1; // vai atras da base
+}
+
 private void carregaTargetProximo() {
+	vel=maxVel;
 	WayPoint _target= new WayPoint(0, 0, 0, 0);
 		int dist = 99999999;
 		for (int i = 0; i<Constantes.wayPoints.size();i++ ) {
@@ -234,17 +452,17 @@ private void carregaTargetProximo() {
 //			System.out.println(_d + "i " + i);
 		}
 //		System.out.println(target.indexNextTarget);
-		if (_target !=null) {
+	
 			target=_target;
-		}
-		if (target !=null){
+		
+		
 			   int dx = (int)(target.X - X);
 			   int dy = (int)(target.Y - Y);
 			   
 			   ang = Math.atan2(dy, dx);
 			   
 			
-		}
+		
 }
 private void carregaPrimeiroTarget() {
 		WayPoint _target= new WayPoint(0, 0, 0, 0);
@@ -255,9 +473,9 @@ private void carregaPrimeiroTarget() {
 				   int dy = (int)(Constantes.wayPoints.get(i).Y - Y);
 				
 				   int _d = dx*dx+dy*dy;
-				   System.out.println(Constantes.wayPoints.get(i).X + "   "+Constantes.wayPoints.get(i).Y  );
-				   System.out.println("x" +X);
-				   System.out.println("y" +Y);
+//				   System.out.println(Constantes.wayPoints.get(i).X + "   "+Constantes.wayPoints.get(i).Y  );
+//				   System.out.println("x" +X);
+//				   System.out.println("y" +Y);
 
 				   if (_d<dist) {
 					   
@@ -283,15 +501,17 @@ private void carregaPrimeiroTarget() {
 private void atacaBase() {
 	if(Constantes.colidecircular(getX(), getY(),getSizeX()/2,CanvasGame.base.getX(),CanvasGame.base.getY(),CanvasGame.base.getSizeX()/2)){
 	if (tempoEntreAtaque>500) {
-		CanvasGame.base.setLife(CanvasGame.base.getLife() - dano);
+		CanvasGame.base.life=(CanvasGame.base.life - dano);
 		tempoEntreAtaque=0;
 	}
-	setX(getOldx());
-	setY(getOldy());
-	setVel(0); /// variavel para o inimigo nao atravessar o player....
+//	X(getOldx());
+//	Y(getOldy());
+	vel =0; /// variavel para o inimigo nao atravessar o player....
 	
+	}else {
+		vel = maxVel;
 	}
-else setVel(maxVel);		
+		
 	}
 
 private void irAtrasDoHeroi(){

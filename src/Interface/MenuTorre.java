@@ -14,7 +14,7 @@ import Canvas.CanvasGame;
 import Constantes.Constantes;
 
 
-public class MenuTorre extends Menu {
+public class MenuTorre extends FrameBase {
 
 	private int timerSelecionado;
 	private Torre torrePai;
@@ -94,8 +94,8 @@ public class MenuTorre extends Menu {
 
 	}
 	
-	
-	private void trataBotao(Botao bt) {
+	@Override
+	protected void trataBotao(Botao bt) {
 		// TODO Auto-generated method stub
 		if (bt.name=="range"){
 			trataBotaoRange();
@@ -114,36 +114,36 @@ public class MenuTorre extends Menu {
 
 
 
-	@Override
-	public void DesenhaSe(Graphics2D dbg, int xMundo, int yMundo) {
-		// TODO Auto-generated method stub
-		
-		//desenha menu
-		dbg.setColor(Color.black);
-//		dbg.drawRect((int)getX()-xMundo,(int) (getY()-yMundo), getSizeX(),getSizeY());
-		
-		dbg.setColor(new Color(r,g,b,alpha));
-		dbg.fillRect((int)getX()-xMundo+1,(int) (getY()-yMundo)+1, getSizeX()-1,getSizeY()-1);
-
-		// range
-			dbg.setColor(Color.red);
-			//dbg.drawOval((int)getX()-torrePai.getRange()/2-xMundo, (int)getY()-torrePai.getRange()/2-yMundo, torrePai.getRange(), torrePai.getRange());
-
-		//desenha botoes
-		Iterator<Botao> it = getBotoes().iterator();
-		while(it.hasNext()){
-			Botao bt = it.next();
-			bt.DesenhaSe(dbg, xMundo, yMundo);
-			trataDesenhoBotao(dbg,bt,xMundo,yMundo);
-
-		}
-		dbg.setColor(Color.black);
-		
-	
-		
-		//dbg.drawString(torrePai., x, y)
-		
-	}
+//	@Override
+//	public void DesenhaSe(Graphics2D dbg, int xMundo, int yMundo) {
+//		// TODO Auto-generated method stub
+//		
+//		//desenha menu
+//		dbg.setColor(Color.black);
+////		dbg.drawRect((int)getX()-xMundo,(int) (getY()-yMundo), getSizeX(),getSizeY());
+//		
+//		dbg.setColor(new Color(r,g,b,alpha));
+//		dbg.fillRect((int)getX()-xMundo+1,(int) (getY()-yMundo)+1, getSizeX()-1,getSizeY()-1);
+//
+//		// range
+//			dbg.setColor(Color.red);
+//			//dbg.drawOval((int)getX()-torrePai.getRange()/2-xMundo, (int)getY()-torrePai.getRange()/2-yMundo, torrePai.getRange(), torrePai.getRange());
+//
+//		//desenha botoes
+//		Iterator<Botao> it = getBotoes().iterator();
+//		while(it.hasNext()){
+//			Botao bt = it.next();
+//			bt.DesenhaSe(dbg, xMundo, yMundo);
+//			trataDesenhoBotao(dbg,bt,xMundo,yMundo);
+//
+//		}
+//		dbg.setColor(Color.black);
+//		
+//	
+//		
+//		//dbg.drawString(torrePai., x, y)
+//		
+//	}
 	
 	private void trataDesenhoBotao(Graphics2D dbg,Botao bt,int XTela,int YTela) {
 		// TODO Auto-generated method stub

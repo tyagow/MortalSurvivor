@@ -108,7 +108,8 @@ public class Botao extends Objeto {
 //					dbg.fillRect((int)X-XMundo-getSizeX(),(int)Y-YMundo, GamePanel.PWIDTH, getSizeY());
 //				dbg.drawRect((int)X-XMundo,(int)Y-YMundo, sizeX,sizeY);
 				if (selecionado)
-					dbg.setColor(new Color(50,250,250,200));	
+					dbg.setColor(new Color(250,250,250,200));	
+//					dbg.setColor(Color.white);
 				else
 					dbg.setColor(new Color(50,50,50,200));
 				
@@ -118,7 +119,7 @@ public class Botao extends Objeto {
 				if (selecionado) {
 					dbg.setColor(Color.gray);
 
-					dbg.setColor(Color.red);
+				dbg.setColor(Color.red );
 				}else {
 					
 					dbg.setColor(Color.white);

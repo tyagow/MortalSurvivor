@@ -49,27 +49,27 @@ public class GerenciadorDeRaids {
 			carregaPrimeiraRaid();
 			
 		}
-		if (tempoEntreRaids > Constantes.TEMPO_ENTRE_RAIDS&&!CanvasGame.isEndGame()){
-			
-				trataInicializacaoRaid(numRaid);
-				tempoEntreRaids=0;
-				
-			
-			
-		}else for(int i = 0; i < raids.size(); i++){
-				
-				Raid raid = raids.get(i);
-				if(raid.ativo == true){
-					raid.SimulaSe(DiffTime);
-				}
-				
-				if(raid.ativo == false){
-					raids.remove(i);
-				}
-					
-
-				
-			}
+//		if (tempoEntreRaids > Constantes.TEMPO_ENTRE_RAIDS&&!CanvasGame.isEndGame()){
+//			
+//				trataInicializacaoRaid(numRaid);
+//				tempoEntreRaids=0;
+//				
+//			
+//			
+//		}else for(int i = 0; i < raids.size(); i++){
+//				
+//				Raid raid = raids.get(i);
+//				if(raid.ativo == true){
+//					raid.SimulaSe(DiffTime);
+//				}
+//				
+//				if(raid.ativo == false){
+//					raids.remove(i);
+//				}
+//					
+//
+//				
+//			}
 		
 		
 		for(int i = 0; i < Constantes.inimigos.size();i++){
@@ -101,10 +101,7 @@ public class GerenciadorDeRaids {
 			raid2.ativo = true;
 			raids.add(raid2);
 			numRaid++;
-			Constantes.inimigos.add ( new Inimigo(Imagem.inimigoUm) );
 
-			Constantes.inimigos.add ( new Inimigo(Imagem.inimigoUm) );
-			
 		break;
 			
 		case 2:

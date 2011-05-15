@@ -33,7 +33,9 @@ public class Base extends Objeto {
 		setSizeY((_img.getHeight()*16)/16);
 		X=(_x/16)*16;
 		Y=(_y/16)*16;	
-	
+		Constantes.BASE_X=(int)X;
+		Constantes.BASE_Y=(int)Y;
+
 		img = _img;
 		alpha = 0;
 

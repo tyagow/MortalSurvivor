@@ -93,11 +93,15 @@ public class Heroi extends Objeto {
 			
 			trataMovimentacao(DiffTime);
 
-			if (getX()+(getSizeX()>>1) >=larguraMapa || getY()+getSizeY()/2+1>=alturaMapa || getY()-getSizeY()/2-1 <=0 || getX()-getSizeX()/2-1<=0||colisaoBase(DiffTime)) {
+			if (getX()+(getSizeX()>>1) >=larguraMapa ||getX()-getSizeX()/2-1<=0||colisaoBase(DiffTime)) {
 				
-				setX(getOldx());
-				setY(getOldy());
+				X=(getOldx());
+			
 			}
+			if ( getY()+getSizeY()/2+1>=alturaMapa || getY()-getSizeY()/2-1 <=0  )
+				Y=(getOldy());
+			
+			
 			armaAtiva.definePosicaoArma(ang, getX(), getY());
 			armaAtiva.SimulaSe(DiffTime);
 		}
@@ -252,8 +256,8 @@ public class Heroi extends Objeto {
 	}
 	private void trataMovimentacao(int DiffTime) {
 		// TODO Auto-generated method stub
-		setOldx((int) getX());
-		setOldy((int) getY());
+		setOldx((int) X);
+		setOldy((int) Y);
 		
 			setX(getX() + (Math.cos(angMovimentacao)*vel*DiffTime/1000.0f)); 
 			setY(getY() - (Math.sin(angMovimentacao)*vel*DiffTime/1000.0f)); 	

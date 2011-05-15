@@ -14,8 +14,8 @@ import Data.Imagem;
 import GameState.GamePanel;
 import Gerenciadores.GerenciadorDeSom;
 import Interface.Botao;
-import Interface.Menu;
-import Interface.MenuOptions;
+import Interface.FrameBase;
+import Interface.FrameOptions;
 import Mouse.CursorMenu;
 import Mouse.Mira;
 
@@ -29,13 +29,13 @@ public class CanvasMenu extends GCanvas{
 	Graphics2D img;
 	Imagem imgloader;
 	
-	Menu menuAtivo;
+	FrameBase menuAtivo;
 	private static Mira miraAtiva;
 
 	
 	private static double mousex;
 	private static double mousey;
-	private Menu menuOptions;
+	private FrameBase menuOptions;
 	
 	private static ArrayList<Botao> botoes= new ArrayList<Botao>();
 	public CanvasMenu() {
@@ -56,7 +56,7 @@ public class CanvasMenu extends GCanvas{
 //		botoes.add(new Botao(null,"Help",100,200,120,25,false));
 //		botoes.add(new Botao(null,"Options",100,250,120,25,false));
 //		botoes.add(new Botao(null,"Exit",100,300,120,25,false));
-		menuOptions= new MenuOptions(250, 100, 200, 200, Color.darkGray, 9999);
+		menuOptions= new FrameOptions(250, 100, 200, 200, Color.darkGray, 9999);
 		
 		setMiraAtiva(new CursorMenu());
 		

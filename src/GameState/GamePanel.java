@@ -16,10 +16,7 @@ import Canvas.GCanvas;
 
 public class GamePanel extends Canvas implements Runnable
 {
-/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+
 public static final int PWIDTH = 800;
 public static final int PHEIGHT = 592;
 private Thread animator;
@@ -163,9 +160,9 @@ addMouseListener(new MouseListener() {
 	});
 
 	
-	setCanvasInicio(new CanvasStart());
-	setCanvasGame(new CanvasGame());
-	setCanvasAtivo(getCanvasInicio());
+	canvasInicio = (new CanvasStart());
+	canvasGame = (new CanvasGame());
+	CanvasAtivo =(getCanvasInicio());
 	
 } // end of GamePanel()
 
@@ -254,8 +251,8 @@ public void paintComponent(Graphics g)
 	}
 }
 
-public static void setCanvasAtivo(GCanvas canvasAtivo) {
-	CanvasAtivo = canvasAtivo;
+public static void setCanvasAtivo(GCanvas _canvasAtivo) {
+	CanvasAtivo = _canvasAtivo;
 }
 
 public static GCanvas getCanvasAtivo() {
@@ -270,8 +267,8 @@ public Graphics2D getDbg() {
 	return dbg;
 }
 
-public static void setCanvasGame(CanvasGame canvasGame) {
-	GamePanel.canvasGame = canvasGame;
+public static void setCanvasGame(CanvasGame _canvasGame) {
+	GamePanel.canvasGame = _canvasGame;
 }
 
 public static CanvasGame getCanvasGame() {

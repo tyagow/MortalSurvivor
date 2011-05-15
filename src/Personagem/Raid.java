@@ -2,6 +2,7 @@ package Personagem;
 
 import java.awt.Graphics2D;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -26,7 +27,6 @@ public class Raid {
 		
 		BufferedReader bf = new BufferedReader(new InputStreamReader(in));
 		
-		
 		String str = "";
 		
 	
@@ -45,7 +45,7 @@ public class Raid {
 					int ilife = Integer.parseInt(strs[5]);
 					
 //					Inimigo inim = new Inimigo(Imagem.inimigoUm,(int)CanvasGame.base.getX()/16-20,(int)CanvasGame.base.getY()/16-20);
-					Inimigo inim = new Inimigo(Imagem.inimigoUm/*,(int)CanvasGame.base.getX()/16-20,(int)CanvasGame.base.getY()/16-20*/);
+					Inimigo inim = new Inimigo(Imagem.inimigoUm,Constantes.INIMIGO1,Constantes.BASE_X,Constantes.BASE_Y);
 
 //					inim.setX(ix);
 //					inim.setY(iy);
@@ -56,7 +56,7 @@ public class Raid {
 //
 //					inim.setTipoAssasino(tipo);
 //					Inimigo inim2 = new Inimigo(Imagem.inimigoUm/*,(int)CanvasGame.base.getX()/16,(int)CanvasGame.base.getY()/16*/);
-//					inimigos.add(inim2);
+					Constantes.inimigos.add(inim);
 				
 				}
 			}

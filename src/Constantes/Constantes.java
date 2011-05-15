@@ -9,7 +9,6 @@ import java.util.LinkedList;
 
 import javax.imageio.ImageIO;
 
-import sun.applet.Main;
 
 import AbstractClasses.Objeto;
 import Armas.Projetil;
@@ -144,8 +143,7 @@ public class Constantes {
 	public static final int MOUSE_SIZEX = 40;
 
 	public static final double INIMIGO_CAMPO_VISAO1 = 200;
-
-
+	public static final int INIMIGO1 = 1;
 	public static final double TEMPO_ENTRE_RAIDS = 5000;
 
 
@@ -190,6 +188,24 @@ public class Constantes {
 	public static final int VELOCIDADE_TIRO=1300;
 
 	public static final int NUM_WAYPOINT_PRINCIPAL = 4;
+
+	public static int BASE_X ;
+
+	public static int BASE_Y;
+
+	public static boolean menuDeObstaculos=false;
+
+	public static boolean hitMiraSelecionador=false;
+
+	public static boolean hitMiraMenu=false;
+	
+	
+	//Options
+	
+	public static int totalParticulasSangue=20;
+
+
+
 
 
 	public static BufferedImage LoadImage(String filename){

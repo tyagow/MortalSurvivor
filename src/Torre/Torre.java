@@ -143,13 +143,13 @@ public class Torre extends Objeto{
 		}
 		if (menuAtivo.getEvoluiFire()) {
 
-			getArmaAtiva().setTempoEntreTirosMax(getArmaAtiva().getTempoEntreTirosMax() -3);
+			armaAtiva.tempoEntreTirosMax = (armaAtiva.tempoEntreTirosMax -3);
 			
 			menuAtivo.tratouBotaoFire();
 		}
 		if (menuAtivo.isEvoluiDano()) {
 
-			getArmaAtiva().setDano(getArmaAtiva().getDano()+1);
+			armaAtiva.dano=(armaAtiva.getDano()+1);
 			
 			menuAtivo.tratouBotaoDano();
 		}

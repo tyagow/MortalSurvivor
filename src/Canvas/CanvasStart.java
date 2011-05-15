@@ -1,12 +1,20 @@
 package Canvas;
 
 
+import java.applet.Applet;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -15,8 +23,9 @@ import Data.Imagem;
 import GameState.GamePanel;
 import Gerenciadores.GerenciadorDeSom;
 import Interface.Botao;
-import Interface.Menu;
-import Interface.MenuOptions;
+import Interface.FrameBase;
+import Interface.FrameStart;
+import Interface.FrameOptions;
 import Mouse.CursorMenu;
 import Mouse.Mira;
 
@@ -30,13 +39,13 @@ public class CanvasStart extends GCanvas{
 	BufferedImage img;
 	Imagem imgloader;
 	
-	Menu menuAtivo;
+	FrameBase frameAtivo;
 	private static Mira miraAtiva;
 
 	
 
-	private Menu menuOptions;
-	
+	private FrameBase menuOptions;
+	private FrameStart frameStart;
 	private static ArrayList<Botao> botoes= new ArrayList<Botao>();
 	public CanvasStart() {
 		// TODO Auto-generated constructor stub
@@ -52,16 +61,48 @@ public class CanvasStart extends GCanvas{
 		
 		setFonteAutores(new Font("Courier", Font.BOLD, 14));
 	 
+		frameStart=new FrameStart(0, 0, GamePanel.PWIDTH,GamePanel.PHEIGHT, Color.darkGray, -1);
 		
-		botoes.add(new Botao(null,"Play",50,100,120,25,false));
-		botoes.add(new Botao(null,"Score",50,150,120,25,false));
-		botoes.add(new Botao(null,"Help",50,200,120,25,false));
-		botoes.add(new Botao(null,"Options",50,250,120,25,false));
-		botoes.add(new Botao(null,"Exit",50,300,120,25,false));
-		menuOptions= new MenuOptions(250, 100, 200, 200, Color.darkGray, 9999);
+//		menuOptions= new FrameOptions(250, 0, GamePanel.PWIDTH-250,GamePanel.PHEIGHT, Color.darkGray, 9999);
 		
+		frameAtivo=frameStart;
 		setMiraAtiva(new CursorMenu());
 		
+//		
+//		FileOutputStream in;
+//		try {
+//			in = new FileOutputStream( ( "obstaculos.txt") );
+//			OutputStreamWriter out= new OutputStreamWriter(in);
+//			
+//			out.write("UHUHUHUHUUHHU",0,"UHUHUHUHUUHHU".length());
+//		
+//			out.close();
+//			
+//		} catch (FileNotFoundException e) {
+//			// TODO Auto-generated catch block
+//			System.out.println("arquivo nao achado");
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			System.out.println("write pau");
+//
+//			e.printStackTrace();
+//		}
+//		
+//		
+//		
+//		InputStream in2 = Data.Imagem.class.getResourceAsStream("obstaculos.txt");
+//		
+//		
+//		BufferedReader bf = new BufferedReader(new InputStreamReader(in2));
+//		
+//		try {
+//			System.out.println(bf.readLine());
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+
 
 
 	}
@@ -77,10 +118,9 @@ public class CanvasStart extends GCanvas{
 
 			dbg.drawImage(Imagem.logo, GamePanel.PWIDTH-100, GamePanel.PHEIGHT-110,100,110,null);
 			
-			if (menuAtivo!=null) 
-				menuAtivo.DesenhaSe(dbg, 0, 0);
-			dbg.setColor(new Color(50,50,50,100));
-			dbg.fillRect(0, 0, 250, GamePanel.PHEIGHT);
+			if (frameAtivo!=null) 
+				frameAtivo.DesenhaSe(dbg, 0, 0);
+
 			dbg.setColor(Color.yellow);
 			
 			//dbg.setFont(fonteAutores);
@@ -124,56 +164,29 @@ public class CanvasStart extends GCanvas{
 		// TODO Auto-generated method stub
 		Constantes.XTela=0;
 		Constantes.YTela=0;
-		if (menuAtivo!=null)
-			menuAtivo.SimulaSe((int)diftime);
+		if (frameAtivo!=null)
+			frameAtivo.SimulaSe((int)diftime);
 
 //		Iterator<Botao> it = botoes.iterator();
 //		while(it.hasNext()){
-			for (int x=0;x<botoes.size();x++) {
-	//				Botao b= (Botao) it.next();
-				Botao b= botoes.get(x);
-				
-				b.SimulaSe((int)diftime);			
-				if (b.ativo==true) {
-					trataBotao(b);
-					botoes.get(x).ativo=false;
-				}		
-			}
-		
+//			for (int x=0;x<botoes.size();x++) {
+//	//				Botao b= (Botao) it.next();
+//				Botao b= botoes.get(x);
+//				
+//				b.SimulaSe((int)diftime);			
+//				if (b.ativo==true) {
+//					trataBotao(b);
+//					botoes.get(x).ativo=false;
+//				}		
+//			}
+//		
 		
 	//	getMiraAtiva().SimulaSe((int)diftime);	
 
 		
 
 	}
-	private void trataBotao(Botao b) {
-		// TODO Auto-generated method stub
-		if (b.name.contains("Play") ) {
-			
-			
-			GamePanel.setCanvasAtivo(CanvasGame.instance);
-		
-			//setMiraAtiva(new MiraRedonda());
-			
-		}else if (b.name.contains("Options") ) {
-			if (menuAtivo!=menuOptions){
-				menuAtivo=menuOptions;
-			}
-			else {
-				menuAtivo=null;
-			}
-		}else if (b.name.contains("Exit") ) {
-			
-			System.exit(0);
-			
-		}else if (b.name.contains("Play") ) {
-			
-			GamePanel.setCanvasAtivo(CanvasGame.instance);
-			
-		}
-		
-		
-	}
+	
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
@@ -209,11 +222,11 @@ public class CanvasStart extends GCanvas{
 			
 			botoes.get(i).mouseMoved(e);
 		}
-		if (menuAtivo!=null)  {
-			for (int i=0;i<menuAtivo.botoes.size();i++) {
+		if (frameAtivo!=null)  {
+//			for (int i=0;i<menuAtivo.botoes.size();i++) {
 				
-				menuAtivo.botoes.get(i).mouseMoved(e);
-			}
+				frameAtivo.mouseMoved(e);
+//			}
 		}
 		
 		Constantes.mouseXTela=e.getX()+Constantes.XTela;
@@ -226,7 +239,8 @@ public class CanvasStart extends GCanvas{
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-
+		miraAtiva.X=e.getX();
+		miraAtiva.Y=e.getY();
 	
 	}
 
@@ -270,11 +284,11 @@ public class CanvasStart extends GCanvas{
 			
 			botoes.get(i).mousePressed(e);
 		}
-		if (menuAtivo!=null)  {
-			for (int i=0;i<menuAtivo.botoes.size();i++) {
+		if (frameAtivo!=null)  {
+		
 				
-				menuAtivo.botoes.get(i).mousePressed(e);
-			}
+				frameAtivo.mousePressed(e);
+			
 		}
 		
 }
@@ -298,11 +312,11 @@ public class CanvasStart extends GCanvas{
 			botoes.get(i).mouseClicked(e);
 		}
 		
-		if (menuAtivo!=null)  {
-			for (int i=0;i<menuAtivo.botoes.size();i++) {
+		if (frameAtivo!=null)  {
+	
 				
-				menuAtivo.botoes.get(i).mouseClicked(e);
-			}
+				frameAtivo.mouseClicked(e);
+			
 		}
 	}
 	public void setFonteAutores(Font fonteAutores) {

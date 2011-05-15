@@ -23,8 +23,7 @@ public class GerenciadorTorre extends Objeto {
 	public static SelecionadorDeTorre selecionadorDeTorre;
 	public static ArrayList<Torre> torres = new ArrayList<Torre>();
 	
-	public static boolean hitMiraMenu = false;
-	public static boolean hitMiraSelecionador = false;
+	
 	
 	private static int rangeMouse=20;
 	private static long tempoUltimaTorre=0;
@@ -214,23 +213,23 @@ public class GerenciadorTorre extends Objeto {
 	private void trataMouse() {
 		// TODO Auto-generated method stub
 		if (Constantes.colideQuadrado((int) selecionadorDeTorre.getX(),(int) selecionadorDeTorre.getY(), selecionadorDeTorre.getSizeX(), selecionadorDeTorre.getSizeY(), (int) CanvasGame.getMiraAtiva().getX(),(int) CanvasGame.getMiraAtiva().getY(), 1, 1)) {
-			hitMiraSelecionador = true;
+			Constantes.hitMiraSelecionador = true;
 		}else {
-			hitMiraSelecionador = false;
+			Constantes.hitMiraSelecionador = false;
 		}
 		
 		for(int i = 0; i < torres.size(); i++){
 			MenuTorre m = torres.get(i).getMenuAtivo();
 			if(m != null){
 				if (Constantes.colideQuadrado((int)m.getX(),(int) m.getY(),(int) m.getSizeX(),(int) m.getSizeY(), (int)CanvasGame.getMiraAtiva().getXMundo(),(int) CanvasGame.getMiraAtiva().getYMundo(), 1, 1)) {
-					hitMiraMenu=(true);
+					Constantes.hitMiraMenu=(true);
 					break;
 				}
 			}
-			hitMiraMenu=false;
+			Constantes.hitMiraMenu=false;
 		}
 		
-		if(hitMiraMenu || hitMiraSelecionador){
+		if(Constantes.hitMiraMenu || Constantes.hitMiraSelecionador){
 			CanvasGame.setMiraMenu();
 			
 		}else {

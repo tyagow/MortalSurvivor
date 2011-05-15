@@ -302,8 +302,13 @@ public class GerenciadorEfeitos extends Objeto implements Runnable {
 		Color cor;
 		int velx =(int) (Math.cos(ang)*800);
 		int vely=(int) (Math.sin(ang)*800);
-
-			int totalParticulas= dano+10;
+		int totalParticulas=0;
+			if (Constantes.totalParticulasSangue> 0) 
+				 totalParticulas= dano+Constantes.totalParticulasSangue;
+			else 
+				totalParticulas=0;
+			
+			
 			for(int B = 0; B < totalParticulas;B++){
 				int modv = GamePanel.rnd.nextInt(500)-100;
 				
