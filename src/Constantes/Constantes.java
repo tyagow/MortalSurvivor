@@ -64,7 +64,7 @@ public class Constantes {
 	public static final int METRALHADORA_dano=33;
 	public static final int METRALHADORA_peso=60;
 	public static final int METRALHADORA_round=30;
-	public static final int METRALHADORA_tempoEntreTiros=100;
+	public static final int METRALHADORA_tempoEntreTiros=150;
 	public static final int METRALHADORA_tempoRecarrega=1500;
 	public static final int METRALHADORA_valor=50;
 

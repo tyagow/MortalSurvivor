@@ -22,8 +22,8 @@ public class Minimap extends Objeto{
 	
 	public Minimap(){
 		
-		resizeX = (float) 70/(CanvasGame.tela.Largura)*4/5;
-		resizeY = (float) 60/(CanvasGame.tela.Altura)*4/5;
+		resizeX = (float) 70/(CanvasGame.tela.Largura);
+		resizeY = (float) 60/(CanvasGame.tela.Altura);
 //mapa em cima direita 
 //		X= GamePanel.PWIDTH- (int)((resizeX * CanvasGame.largura)/tamanhoMiniMap);
 //		Y=0;

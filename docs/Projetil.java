@@ -25,9 +25,9 @@ public class Projetil extends Objeto {
 		// TODO Auto-generated constructor stub
 		this.pai = pai;
 		this.ang = ang;
-	
-		this.setX(pai.getX());
-		this.setY(pai.getY());
+
+		this.setX(pai.X);
+		this.setY(pai.Y);
 		penetration=Arma.penetration;
 		trataTipo(_tipo);
 		
@@ -48,10 +48,10 @@ public class Projetil extends Objeto {
 		penetration=Arma.penetration;
 		trataTipo(_tipo);
 		
-		this.setDano(pai.getDano());
-		setVivo(true);
-		setSizeX(4);
-		setSizeY(2);
+		dano=(pai.dano);
+		vivo=(true);
+		sizeX=(4);
+		sizeY=(2);
 	
 	
 	}
@@ -92,7 +92,6 @@ public class Projetil extends Objeto {
 				if (Constantes.colidecircular(getX(), getY(),getSizeX()/2,in.getX(),in.getY(),in.getSizeX()/2)) {
 				
 					penetration--;
-					
 					Constantes.inimigos.get(j).recebeuDano(dano,tipo);
 				
 					if (penetration<=0) {

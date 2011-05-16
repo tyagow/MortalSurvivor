@@ -95,7 +95,7 @@ public class Explosao extends Particula {
 		
 			//dbg.rotate(ang);
 			dbg.translate((int)getX()-XMundo, (int)getY()-YMundo);
-			
+			dbg.rotate(ang);
 			//dbg.rotate(ang);
 			dbg.scale(diametro*1.0f, diametro*1.0f);
 			

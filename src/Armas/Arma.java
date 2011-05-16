@@ -9,26 +9,26 @@ public abstract class Arma  {
 	public static int penetration=1;
 	public int timerTempoEntreTiros;
 	public  int dano;
-	private int tempoRecarrega;
+	public int tempoRecarrega;
 	public  int peso;
 	public  int valor;
 	public  int round,mag;
 	public  int maxMag,maxRound;
-	private boolean recarregando;
+	public boolean recarregando;
 	boolean atirou;
 	public  double angulo;
-	private double X,Y;
-	private int sizeX,sizeY;
+	public double X,Y;
+	public int sizeX,sizeY;
 	public int tempoEntreTirosMax;
 
 	
-	private BufferedImage imagem;
-	private BufferedImage imagem_hud;
+	public BufferedImage imagem;
+	public BufferedImage imagem_hud;
 
-	private int tipo;
-	private int custoRange;
-	private int custoFire;
-	private int custoDano;
+	public int tipo;
+	public int custoRange;
+	public int custoFire;
+	public int custoDano;
 
 	public abstract void definePosicaoArma(double ang,double x2,double y2);
 

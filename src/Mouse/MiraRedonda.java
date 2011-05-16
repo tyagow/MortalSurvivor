@@ -18,11 +18,11 @@ public class  MiraRedonda extends Mira {
 	private int button;
 	public MiraRedonda() {
 		
-		setSizeX(Constantes.MOUSE_SIZEX);
-		setSizeY(Constantes.MOUSE_SIZEY);
-		setVivo(true);
-		setPressed(false);
-		setReleased(true);
+		sizeX=(Constantes.MOUSE_SIZEX);
+		sizeY=(Constantes.MOUSE_SIZEY);
+		vivo=(true);
+		pressed=(false);
+		released=(true);
 		mira = Imagem.mira1;
 		
 	}
@@ -31,8 +31,8 @@ public class  MiraRedonda extends Mira {
 	public void SimulaSe(int DiffTime) {
 
 		
-		setX(CanvasGame.getMousex());
-		setY(CanvasGame.getMousey());
+		X=(CanvasGame.getMousex());
+		Y=(CanvasGame.getMousey());
 			
 	}
 
@@ -40,15 +40,15 @@ public class  MiraRedonda extends Mira {
 	public void DesenhaSe(Graphics2D dbg, int XMundo, int YMundo) {
 		
 		dbg.setColor(Color.black);
-		dbg.drawOval((int)getX()-getSizeX()/2, (int)getY()-getSizeY()/2, getSizeX(), getSizeY());
-		dbg.drawLine((int)getX(), (int)getY()-getSizeY()/2-4, (int)getX(),(int)getY()-getSizeY()/4); 
-		dbg.drawLine((int)getX(), (int)getY()+getSizeY()/2+4, (int)getX(),(int)getY()+getSizeY()/4);
-		dbg.drawLine((int)getX()-getSizeX()/2-4, (int)getY(), (int)getX()-getSizeX()/4,(int)getY());
-		dbg.drawLine((int)getX()+getSizeX()/2+4, (int)getY(), (int)getX()+getSizeX()/4,(int)getY());
+		dbg.drawOval((int)X-sizeX/2, (int)Y-sizeY/2, sizeX, sizeY);
+		dbg.drawLine((int)X, (int)Y-sizeY/2-4, (int)X,(int)Y-sizeY/4); 
+		dbg.drawLine((int)X, (int)Y+sizeY/2+4, (int)X,(int)Y+sizeY/4);
+		dbg.drawLine((int)X-sizeX/2-4, (int)Y, (int)X-sizeX/4,(int)Y);
+		dbg.drawLine((int)X+sizeX/2+4, (int)Y, (int)X+sizeX/4,(int)Y);
 		
 	    dbg.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f));
-		dbg.drawLine((int)getX()-getSizeX()/4, (int)getY(), (int)getX()+getSizeX()/4,(int)getY());
-		dbg.drawLine((int)getX(), (int)getY()-getSizeY()/4, (int)getX(),(int)getY()+getSizeY()/4);
+		dbg.drawLine((int)X-sizeX/4, (int)Y, (int)X+sizeX/4,(int)Y);
+		dbg.drawLine((int)X, (int)Y-sizeY/4, (int)X,(int)Y+sizeY/4);
 
 
 	    dbg.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
@@ -87,11 +87,11 @@ public class  MiraRedonda extends Mira {
 
 	public double getXMundo() {
 		
-		return getX()+CanvasGame.tela.XTela;
+		return X+CanvasGame.tela.XTela;
 	}
 	public double getYMundo() {
 		
-		return getY()+CanvasGame.tela.YTela;
+		return Y+CanvasGame.tela.YTela;
 	}
 
 	public void setPressed(boolean pressed) {

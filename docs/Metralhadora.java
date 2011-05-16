@@ -20,18 +20,18 @@ public class Metralhadora extends Arma {
 	public int estado=0;
 	public Metralhadora() {
 		
-		setMaxMag(Constantes.METRALHADORA_mag);
+		maxMag=(Constantes.METRALHADORA_mag);
 
-		setTipo(2);
+		tipo=(2);
 		atirou=false;
-		setDano(Constantes.METRALHADORA_dano);
-		setMag(Constantes.METRALHADORA_mag);
-		setPeso(Constantes.METRALHADORA_peso);
-		setRound(Constantes.METRALHADORA_round);
-		setMaxRound(Constantes.METRALHADORA_round);
-		setTempoEntreTiros(0);
-		setTempoRecarrega(0);
-		setValor(Constantes.METRALHADORA_valor);
+		dano=(Constantes.METRALHADORA_dano);
+		mag=(Constantes.METRALHADORA_mag);
+		peso=(Constantes.METRALHADORA_peso);
+		round=(Constantes.METRALHADORA_round);
+		maxRound=(Constantes.METRALHADORA_round);
+		timerTempoEntreTiros=(0);
+		tempoRecarrega=(0);
+		valor=(Constantes.METRALHADORA_valor);
 	
 	
 		
@@ -44,23 +44,25 @@ public class Metralhadora extends Arma {
 		// TODO Auto-generated method stub
 		dbg.setColor(Color.black);
 		AffineTransform trans = dbg.getTransform();
-		dbg.translate(getX()-XMundo, getY()-YMundo);
-		dbg.rotate(getAngulo()-Math.PI/2);
-		//dbg.drawLine(0, 0, getSizeX(), 0);
-
-		dbg.drawImage(getImagem(), -getSizeX()/2-10, -getSizeY()/2-5, getSizeX()-2,getSizeY(),0,0,getSizeX(),getSizeY(),null);
+		dbg.translate(X-XMundo, X-YMundo);
+		dbg.rotate(angulo-Math.PI/2);
+		//dbg.drawLine(0, 0, sizeX, 0);
+		System.out.println("X"  + X);
+		System.out.println("Y"  + Y);
+		
+		dbg.drawImage(imagem, -sizeX/2-10, -sizeY/2-5, sizeX-2,sizeY,0,0,sizeX,sizeY,null);
 		dbg.setTransform(trans);
 		
 		if (estado==1) {
 			dbg.setColor(Color.LIGHT_GRAY);
-			dbg.fillRect(GamePanel.PWIDTH/2-50, GamePanel.PHEIGHT/2-205,(int)(getTempoRecarrega()*100/Constantes.METRALHADORA_tempoRecarrega) , 20);
+			dbg.fillRect(GamePanel.PWIDTH/2-50, GamePanel.PHEIGHT/2-205,(int)(tempoRecarrega*100/Constantes.METRALHADORA_tempoRecarrega) , 20);
 
 			dbg.setColor(Color.black);
 			dbg.drawRect(GamePanel.PWIDTH/2-51, GamePanel.PHEIGHT/2-206, 103, 21);
 		}
 		
-		dbg.drawString("Round: "+getRound(),5 , 20);
-		dbg.drawString("mag: "+getMag(),5 , 30);
+		dbg.drawString("Round: "+round,5 , 20);
+		dbg.drawString("mag: "+mag,5 , 30);
 		
 	}
 	
@@ -78,24 +80,24 @@ public class Metralhadora extends Arma {
 	
 	private void calculaIA(int DiffTime) {
 		// TODO Auto-generated method stub
-		setTempoEntreTiros(getTempoEntreTiros() + DiffTime);
+	timerTempoEntreTiros+=DiffTime;
 	
 		
-		if (getRound()>0) 
+		if (round>0) 
 			estado=0;
 		else estado=1;
 			
 		if (estado==0) {
-			setRecarregando(false);
+			recarregando=(false);
 			
 
 
 			
-			if (getTempoEntreTiros()>=Constantes.METRALHADORA_tempoEntreTiros) {
+			if (timerTempoEntreTiros>=Constantes.METRALHADORA_tempoEntreTiros) {
 				
 					if (atirou) {	
 							atira();
-							setTempoEntreTiros(0);
+							timerTempoEntreTiros=(0);
 					}
 				}
 				
@@ -106,19 +108,19 @@ public class Metralhadora extends Arma {
 		
 		if (estado==1) {
 			
-			if (getMag()>0) {
+			if (mag>0) {
 
-				setTempoRecarrega(getTempoRecarrega() + DiffTime);
+				tempoRecarrega+= DiffTime;
 				
-				setRecarregando(true);
+				recarregando=(true);
 			
 					
-				if (getTempoRecarrega()>=Constantes.METRALHADORA_tempoRecarrega) {
+				if (tempoRecarrega>=Constantes.METRALHADORA_tempoRecarrega) {
 					
-					if (getMag() >=1) {
-						setTempoRecarrega(0);
-						setRound(Constantes.METRALHADORA_round);
-						setMag(getMag() - 1);
+					if (mag >=1) {
+						tempoRecarrega=(0);
+						round=(Constantes.METRALHADORA_round);
+						mag=(mag - 1);
 						estado=0;
 					}
 				}
@@ -129,9 +131,9 @@ public class Metralhadora extends Arma {
 		}
 		if (estado==2) {
 			
-			if (getRound()>0) 
+			if (round>0) 
 				estado=0;
-			setRecarregando(false);
+			recarregando=(false);
 
 			
 		}
@@ -142,9 +144,9 @@ public class Metralhadora extends Arma {
 	@Override
 	public void definePosicaoArma(double ang,double startX,double startY) {
 		// TODO Auto-generated method stub
-		setAngulo(ang);
-		setX(startX);
-		setY(startY);
+		angulo=(ang);
+		X=(startX);
+		Y=(startY);
 
 	}
 	
@@ -154,10 +156,9 @@ public class Metralhadora extends Arma {
 		// TODO Auto-generated method stub
 		
 		if (temMunicao()) {
-			setRound(getRound() - 1);
-		//	System.out.println("Constantes.TIPO_ASSASINO_PLAYER  "+ Constantes.TIPO_ASSASINO_PLAYER );
-			Constantes.projeteis.add( new Projetil (this,angulo,1));
-			GerenciadorDeSom.m4a.run();
+			round=(round - 1);
+			Constantes.projeteis.add( new Projetil (this,angulo,Constantes.TIPO_ASSASINO_PLAYER ));
+			GerenciadorDeSom.tiroAK();
 		}
 		
 	}
@@ -166,7 +167,7 @@ public class Metralhadora extends Arma {
 	private boolean temMunicao() {
 		// TODO Auto-generated method stub
 		
-		if (getRound()<1) {
+		if (round<1) {
 			semMunicao=true;
 			return false;
 			

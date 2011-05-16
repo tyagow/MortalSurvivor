@@ -134,21 +134,21 @@ private void calculaIA(int DiffTime) {
 		if(estado == 0){
 			
 			estado=trataEstado(estado);
-			System.out.println("1");
+			//System.out.println("1");
 		}
 		
 		if (estado == 1) {
-			System.out.println("2");
+			//System.out.println("2");
 
 			estado=trataEstado(estado);
 		}
 		if (estado == 2) {
-			System.out.println("3");
+			//System.out.println("3");
 
 			estado=trataEstado(estado);
 		}
 		if (estado == 3) {
-			System.out.println("4");
+			//System.out.println("4");
 
 			estado=trataEstado(estado);
 		}
@@ -342,14 +342,15 @@ private void calculaIA(int DiffTime) {
 
 
 
-	public void recebeuDano(int dano,int tipo) {
+	public void recebeuDano(int dano,int _tipo) {
+		tipoAssasino=_tipo;
 		if (getLife()>0)
 			
 			CanvasGame.gerenciadorEfeitos.ativaSangue(getX(),getY(),ang,(int)dano);
 		
 		if (life-dano<=0) {
 			
-			morreu(tipo);
+			morreu(_tipo);
 		}else  {
 			life=- dano;
 		}
@@ -359,11 +360,12 @@ private void calculaIA(int DiffTime) {
 				
 	}
 
-	public void morreu(int tipo) {
+	public void morreu(int _tipo) {
 		// TODO Auto-generated method stub
 		
 		life=0;	
-		tipoAssasino=tipo;
+		
+		tipoAssasino=_tipo;
 		vivo=false;
 	}
 

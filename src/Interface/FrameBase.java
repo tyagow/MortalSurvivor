@@ -25,19 +25,19 @@ public abstract class FrameBase extends Objeto {
 	public ArrayList<Botao> botoes = new ArrayList<Botao>();
 	public boolean selecionado;
 	
-	public FrameBase (int _x,int _y,int _sizeX,int _sizeY, Color cor, int _tempoVida) {
+	public FrameBase (int _x,int _y,int _sizeX,int _sizeY, Color _cor, int _tempoVida) {
 		
 		X=(_x);
 		Y=(_y);
 		sizeX=(_sizeX);
 		sizeY=(_sizeY);
-		setCor(cor);
-		setVivo(true);
-		setTempoVida(_tempoVida);
-		setR(cor.getRed());
-		setG(cor.getGreen());
-		setB(cor.getBlue());
-		setAlpha(100);
+		cor =_cor;
+		vivo=(true);
+		tempoVida=(_tempoVida);
+		r=(cor.getRed());
+		g=(cor.getGreen());
+		b=(cor.getBlue());
+		alpha=(100);
 	}
 
 
@@ -54,7 +54,7 @@ public abstract class FrameBase extends Objeto {
 		
 		dbg.fillRect((int)getX()+1-XMundo,(int)getY()-YMundo+1, getSizeX()-2, getSizeY()-2);
 		
-		Iterator<Botao> it = getBotoes().iterator();
+		Iterator<Botao> it = botoes.iterator();
 		while(it.hasNext()){
 			Botao bot= it.next();
 			
@@ -214,78 +214,5 @@ public void keyReleased(KeyEvent e ) {
 }
 
 	
-	public void setCor(Color cor) {
-		this.cor = cor;
-	}
-	public Color getCor() {
-		return cor;
-	}
-	public void setTempoVida(int tempoVida) {
-		this.tempoVida = tempoVida;
-	}
-	public int getTempoVida() {
-		return tempoVida;
-	}
-//	public void setBotoes(ArrayList<Botao> botoes) {
-//		this.botoes = botoes;
-//	}
-	public ArrayList<Botao> getBotoes() {
-		return botoes;
-	}
-
-
-	public void setAtivo(boolean ativo) {
-		this.ativo = ativo;
-	}
-
-
-	public boolean isAtivo() {
-		return ativo;
-	}
-
-
-	public void setBotoes(ArrayList<Botao> botoes) {
-		this.botoes = botoes;
-	}
-
-
-	public void setAlpha(int alpha) {
-		this.alpha = alpha;
-	}
-
-
-	public int getAlpha() {
-		return alpha;
-	}
-
-
-	public void setR(int r) {
-		this.r = r;
-	}
-
-
-	public int getR() {
-		return r;
-	}
-
-
-	public void setB(int b) {
-		this.b = b;
-	}
-
-
-	public int getB() {
-		return b;
-	}
-
-
-	public void setG(int g) {
-		this.g = g;
-	}
-
-
-	public int getG() {
-		return g;
-	}
 
 }

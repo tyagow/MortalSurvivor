@@ -151,9 +151,9 @@ public class GerenciadorHud extends Objeto {
 		oldFont=dbg.getFont();
 		dbg.setFont(fontXp);
 		dbg.setColor(Color.red);
-		dbg.drawString("XP: "+getXpHud(), GamePanel.PWIDTH/2, 20);
+		dbg.drawString("XP: "+xpHud, GamePanel.PWIDTH/2-30, 50);
 		dbg.setColor(Color.black);
-		dbg.drawString("XP: "+getXpHud(), GamePanel.PWIDTH/2-2, 20-2);
+		dbg.drawString("XP: "+xpHud, GamePanel.PWIDTH/2-32, 50-2);
 		dbg.setFont(oldFont);	
 		
 	
@@ -165,8 +165,8 @@ public class GerenciadorHud extends Objeto {
 		Font f =  dbg.getFont();
 		dbg.setFont(Constantes.FonteNormal);
 		
-		int round = slotHudArma.getArmaAtiva().getRound();
-		int mag = slotHudArma.getArmaAtiva().getMag();
+		int round = slotHudArma.armaAtiva.round;
+		int mag = slotHudArma.armaAtiva.mag;
 		int _x = (int)slotHudArma.getX()+slotHudArma.getSizeX()-25;
 		int _y = (int)slotHudArma.getY()+slotHudArma.getSizeY()-35;
 		dbg.setColor(Color.black);

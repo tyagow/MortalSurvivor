@@ -5,7 +5,6 @@ import java.awt.geom.AffineTransform;
 
 import Constantes.Constantes;
 import Data.Imagem;
-import Gerenciadores.GerenciadorEfeitos;
 import Personagem.Inimigo;
 
 
@@ -15,23 +14,23 @@ public class Faca extends Arma {
 	private int estado;
 	private boolean soltouTiro;
 	private double oldAng;
-	private int alcanceAtaque=20;
+	private double alcanceAtaque=50;
 	private boolean atirando;
 
 	public Faca() {
-		setTipo(0);
+		tipo=(0);
 		atirou=false;
-		setDano(Constantes.FACA_dano);
-		setPeso(Constantes.FACA_peso);
-		setRound(Constantes.FACA_round);
-		setTempoEntreTiros(0);
-		setTempoRecarrega(0);
-		setValor(Constantes.FACA_valor);
+		dano=(Constantes.FACA_dano);
+		peso=(Constantes.FACA_peso);
+		round=(Constantes.FACA_round);
+		timerTempoEntreTiros=(0);
+		tempoRecarrega=(0);
+		valor=(Constantes.FACA_valor);
 	
-		setImagem(Imagem.faca);
-		setImagem_hud(Imagem.faca);
-		setSizeX(getImagem().getWidth());
-		setSizeY(getImagem().getHeight());
+		imagem=(Imagem.faca);
+		imagem_hud=(Imagem.faca);
+		sizeX=(imagem.getWidth());
+		sizeY=(imagem.getHeight());
 		
 		
 	}
@@ -40,40 +39,37 @@ public class Faca extends Arma {
 	public void definePosicaoArma(double ang,double startX,double startY) {
 		// TODO Auto-generated method stub
 		
-		setAngulo(ang);
+		angulo=(ang);
 		oldAng=ang;
-		setX(startX);
-		setY(startY);
+		X=(startX);
+		Y=(startY);
 
 	}
 
 	@Override
 	public void DesenhaSe(Graphics2D dbg, int XMundo, int YMundo) {
-
+		// TODO Auto-generated method stub
 			dbg.setColor(Color.black);
 			AffineTransform trans = dbg.getTransform();
-			dbg.translate(getX()-XMundo, getY()-YMundo);
+			dbg.translate(X-XMundo, Y-YMundo);
 			if(estado==1)
 				dbg.rotate(oldAng);
 			else 
 				dbg.rotate(angulo);
 			
-			dbg.drawImage(getImagem(), -getSizeX()/2+8, -getSizeY()/2, getSizeX()-2,getSizeY(),getSizeX(),getSizeY(),0,0,null);
+			dbg.drawImage(imagem, -sizeX/2+8, -sizeY/2, sizeX-2,sizeY,sizeX,sizeY,0,0,null);
 
 			//dbg.drawLine(0, 0, (int)alcanceAtaque/2, 0);
-			//dbg.drawOval(0/*(int)Math.cos(getAngulo())*50*/,-25/*(int) Math.sin(getAngulo())*50*/,(int) alcanceAtaque,(int)alcanceAtaque);(int)(+Math.cos(angulo)*20),(int)(Math.sin(angulo)*20)
+			//dbg.drawOval(0/*(int)Math.cos(getAngulo())*50*/,-25/*(int) Math.sin(getAngulo())*50*/,(int) alcanceAtaque,(int)alcanceAtaque);
 //			
 			dbg.setTransform(trans);
-			dbg.setColor(Color.red);
-				//getX(), getY(),alcanceAtaque,in.getX(),in.getY(),in.getSizeX()/2
-
-		//	dbg.fillOval((int)(X-XMundo+Math.cos(angulo)*20)-13,(int)( Y-YMundo+Math.sin(angulo)*20)-13, alcanceAtaque,alcanceAtaque);	//getX(), getY(),alcanceAtaque,in.getX(),in.getY(),in.getSizeX()/2
+			
 			if (estado==1) {
 //				dbg.setColor(Color.LIGHT_GRAY);
 //				dbg.fillRect(GamePanel.PWIDTH/2-50, GamePanel.PHEIGHT/2-205,(int)(tempoRecarrega*100/Constantes.PISTOLA_tempoRecarrega) , 20);
 
 				dbg.setColor(Color.black);
-				//dbg.drawOval((int)(getX()-alcanceAtaque/2), (int)(getY()-alcanceAtaque/2), (int)alcanceAtaque,(int)alcanceAtaque);
+				dbg.drawOval((int)(X-alcanceAtaque/2), (int)(Y-alcanceAtaque/2), (int)alcanceAtaque,(int)alcanceAtaque);
 				
 			}
 			
@@ -89,20 +85,20 @@ public class Faca extends Arma {
 		// TODO Auto-generated method stub
 		
 		
-		setTempoEntreTiros(getTempoEntreTiros() + Difftime);
-		setTempoRecarrega(getTempoRecarrega() + Difftime);
+		timerTempoEntreTiros+=( Difftime);
+		tempoRecarrega+=( Difftime);
 		
 
 			
 		if (estado==0) {
-			oldAng=getAngulo();
+			oldAng=angulo;
 		
-			if (getTempoEntreTiros()>=Constantes.FACA_tempoEntreTiros) {
+			if (timerTempoEntreTiros>=Constantes.FACA_tempoEntreTiros) {
 				
 				if (atirou&&soltouTiro) {	
 					soltouTiro=false;
 					atira();
-					setTempoEntreTiros(0);
+					timerTempoEntreTiros=(0);
 					
 				}
 				
@@ -139,8 +135,8 @@ public class Faca extends Arma {
 				
 			procuraInimigos();
 			
-			if (getTempoRecarrega()>=Constantes.FACA_tempoAtaque) {
-				setTempoRecarrega(0);
+			if (tempoRecarrega>=Constantes.FACA_tempoAtaque) {
+				tempoRecarrega=(0);
 				estado=0;	
 			}
 				
@@ -165,17 +161,16 @@ public class Faca extends Arma {
 			for (int j = 0;j<Constantes.inimigos.size();j++) {
 				Inimigo in = Constantes.inimigos.get(j);
 				
-//(int)(X-XMundo+Math.cos(angulo)*20),(int)( Y-YMundo+Math.sin(angulo)*20)
-				if (Constantes.colidecircular((int)(X+Math.cos(angulo+Math.PI/2)*20)-13, (int)( Y+Math.sin(angulo+Math.PI/2)*20)-13,alcanceAtaque,in.getX(),in.getY(),in.getSizeX()/2)) {
+
+				if (Constantes.colidecircular(X, Y,alcanceAtaque,in.X,in.Y,in.sizeX/2)) {
 				
 					penetration--;
-					Constantes.inimigos.get(j).recebeuDano(getDano(),1);
+					Constantes.inimigos.get(j).recebeuDano(dano,1);
 					//CanvasGame.gerenciadorEfeitos.ativaSangue(getX(),getY(),getAngulo(),(int)getDano());
-				GerenciadorEfeitos.criaEfeitoFaca((X+Math.cos(angulo)*20)-13, Y+Math.sin(angulo)*20-13, angulo);
-				//X-XMundo+Math.cos(angulo)*20)-13,(int)( Y-YMundo+Math.sin(angulo)*20)-13
-						//break;
-					
-				}
+				
+				
+						break;
+					}
 			}
 			
 //		}
@@ -183,7 +178,7 @@ public class Faca extends Arma {
 
 	private void atira() {
 		// TODO Auto-generated method stub
-		setAngulo(getAngulo() - (Math.PI/2));
+		angulo-= (Math.PI/2);
 		estado=1;
 	}
 

@@ -42,7 +42,7 @@ public class Heroi extends Objeto {
 	private static Arma armaMelee=new Faca();
 	private static Arma armaPrimaria=new M4();
 	private static Arma armaSecundaria=new Deagle();
-	private static Arma armaAtiva=getArmaSecundaria();
+	private static Arma armaAtiva=armaSecundaria;
 	private static Arma armaGranada=new He();
 	
 	private static Arma ultimaArma;
@@ -79,7 +79,7 @@ public class Heroi extends Objeto {
 	private void resetArmas() {
 	
 		armaPrimaria.resetaTiros();
-		getArmaSecundaria().resetaTiros();
+		armaSecundaria.resetaTiros();
 		armaGranada.resetaTiros();
 	}
 	@Override
@@ -93,12 +93,12 @@ public class Heroi extends Objeto {
 			
 			trataMovimentacao(DiffTime);
 
-			if (getX()+(getSizeX()>>1) >=larguraMapa ||getX()-getSizeX()/2-1<=0||colisaoBase(DiffTime)) {
+			if (X+(sizeX>>1) >=larguraMapa ||getX()-getSizeX()/2-1<=0||colisaoBase(DiffTime)) {
 				
-				X=(getOldx());
+				X=(oldx);
 			
 			}
-			if ( getY()+getSizeY()/2+1>=alturaMapa || getY()-getSizeY()/2-1 <=0  )
+			if ( Y+sizeY/2+1>=alturaMapa || Y-sizeY/2-1 <=0  )
 				Y=(getOldy());
 			
 			
@@ -204,7 +204,7 @@ public class Heroi extends Objeto {
 				armaAtiva=ultimaArma;
 				ultimaArma=temp;
 				
-				setArma(armaAtiva.getTipo());
+				setArma(armaAtiva.tipo);
 				
 				ARMA_ANTERIOR=false;
 			}
@@ -248,7 +248,7 @@ public class Heroi extends Objeto {
 			break;
 		}
 		
-		if (armaAtiva.isRecarregando()) {
+		if (armaAtiva.recarregando) {
 			frameY=0;
 			
 		}
@@ -361,11 +361,11 @@ public class Heroi extends Objeto {
 //		System.out.println(" angulo dif final"+anguloDif);
 
 		if(anguloDif<80){
-			vel = VelMaxFrente-armaAtiva.getPeso();
+			vel = VelMaxFrente-armaAtiva.peso;
 		}else if(anguloDif<140){
-			vel = VelMaxLado-armaAtiva.getPeso();
+			vel = VelMaxLado-armaAtiva.peso;
 		}else{
-			vel = VelMaxTras-armaAtiva.getPeso();
+			vel = VelMaxTras-armaAtiva.peso;
 		}
 	}
 	

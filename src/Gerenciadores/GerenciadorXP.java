@@ -58,7 +58,7 @@ public class GerenciadorXP extends Objeto {
 
 			dbg.setColor(Color.red);
 			dbg.setFont(Constantes.fonteBig);
-			dbg.drawString("Fast Kill", GamePanel.PWIDTH/2-20,45 );
+			dbg.drawString("Fast Kill", GamePanel.PWIDTH/2-40,GamePanel.PHEIGHT-larguraHudFastKill/2-20 );
 			
 			dbg.setStroke(stk);
 
@@ -76,6 +76,8 @@ public class GerenciadorXP extends Objeto {
 
 	public static void ganhouXp(double x,double y,int tipoAssasino) {
 		int _xp;
+		
+		//System.out.println("tipoAssasino" + tipoAssasino);
 		boolean extraXp=false;
 		if (tipoAssasino==Constantes.TIPO_ASSASINO_PLAYER) {
 			_xp=Constantes.GANHO_XP_PLAYER;

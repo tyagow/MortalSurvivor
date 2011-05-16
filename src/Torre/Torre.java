@@ -36,7 +36,7 @@ public class Torre extends Objeto{
 	int pmy;
 	int pmx;
 	
-	private	Arma armaAtiva;
+	public	Arma armaAtiva;
 	private MenuTorre menuAtivo; //mudei para menu torre mas o certo eh menu somente ... resolver depois
 
 	private MenuTorre menuStatusTorre;
@@ -88,12 +88,7 @@ public class Torre extends Objeto{
 		// TODO Auto-generated method stub
 		getArmaAtiva().DesenhaSe(dbg, XMundo, YMundo);
 		
-		if (menuAtivo!=null) {
-			dbg.setColor(Color.red);
-			dbg.drawOval((int)getX()-getRange()/2-XMundo, (int)getY()-getRange()/2-YMundo, getRange(), getRange());
-			menuAtivo.DesenhaSe(dbg, XMundo, YMundo);
-
-		}
+	
 		AffineTransform trans = dbg.getTransform();
 		dbg.translate(getX()-XMundo, getY()-YMundo);
 		dbg.rotate(ang);
@@ -110,7 +105,15 @@ public class Torre extends Objeto{
 		}
 		dbg.setTransform(trans);
 		
-
+		if (menuAtivo!=null) {
+			menuAtivo.DesenhaSe(dbg, XMundo, YMundo);
+			dbg.setColor(Color.red);
+			if (menuAtivo.ativaRange)
+				dbg.drawOval((int)getX()-getRange()/2-XMundo, (int)getY()-getRange()/2-YMundo, getRange(), getRange());
+			
+			
+		}
+		
 }
 	@Override
 	public void SimulaSe(int DiffTime) {
@@ -149,7 +152,7 @@ public class Torre extends Objeto{
 		}
 		if (menuAtivo.isEvoluiDano()) {
 
-			armaAtiva.dano=(armaAtiva.getDano()+1);
+			armaAtiva.dano+=1;
 			
 			menuAtivo.tratouBotaoDano();
 		}

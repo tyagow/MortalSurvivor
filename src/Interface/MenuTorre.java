@@ -23,9 +23,11 @@ public class MenuTorre extends FrameBase {
 
 	
 	
-	private boolean evoluiRange;
-	private boolean evoluiFire;
-	private boolean evoluiDano;
+	public boolean evoluiRange;
+	public boolean evoluiFire;
+	public boolean evoluiDano;
+	
+	public boolean ativaRange=false;
 
 	
 	public MenuTorre(int x, int y, int sizeX, int sizeY, Color cor,int _tempoVida, Torre pai) {
@@ -35,21 +37,15 @@ public class MenuTorre extends FrameBase {
 		setTorrePai(pai);
 		setRangeAtivo(false);
 		setTimerSelecionado(0);
-		setTempoVida(_tempoVida);
-		setBotoes(criaBotoesStatusTorre());
+		tempoVida=(_tempoVida);
+		botoes=(criaBotoesStatusTorre());
 		
 	}
 	
 	
 	@Override
 	public void SimulaSe(int DiffTime) {
-		if (Constantes.colideQuadrado((int)getX(),(int)getY(),getSizeX(),getSizeY(),(int) CanvasGame.miraAtiva.X + CanvasGame.miraAtiva.XTela,(int) CanvasGame.miraAtiva.Y+CanvasGame.miraAtiva.YTela,2,2 )) {
-			selecionado=true;
-			
-		}
-		else {
-			selecionado=false;
-		}
+	
 		
 		setTimerSelecionado(getTimerSelecionado() + DiffTime);
 		
@@ -57,29 +53,48 @@ public class MenuTorre extends FrameBase {
 			timerSelecionado=0;
 		}
 		
-		if (tempoVida != -1 && getTimerSelecionado() >= getTempoVida()+10000) {
+		if (tempoVida != -1 && getTimerSelecionado() >= tempoVida) {
 			
 			setVivo(false);
 			setTimerSelecionado(0);
 		}
-		Iterator<Botao> it = getBotoes().iterator();
+		Iterator<Botao> it = botoes.iterator();
 		while(it.hasNext()){
 			Botao bt = it.next();
 			bt.SimulaSe((int)DiffTime);
 			bt.mousex=Constantes.mouseXTela;
 			bt.mousex=Constantes.mouseYTela;
+			trataBotaoSelecionado(bt);
 
 			if (bt.ativo==true) {
 				trataBotao(bt);
 			}
+			
+			
 		}
 		
 	
 		
 	}
+	private void trataBotaoSelecionado(Botao _bt) {
+
+			
+			if (_bt.name == "range")
+				ativaRange = _bt.selecionado;
+		
+		
+	}
+
+
 	@Override
 	public void mouseMoved(MouseEvent e) {
-		
+		if (Constantes.colideQuadrado((int)X,(int)Y,sizeX,sizeY,(int) e.getX() + Constantes.XTela,(int) e.getY()+Constantes.YTela,2,2 )) {
+			selecionado=true;
+			
+		}
+		else {
+			selecionado=false;
+		}
 
 		for (int i=0;i<botoes.size();i++) {
 			
@@ -114,53 +129,52 @@ public class MenuTorre extends FrameBase {
 
 
 
-//	@Override
-//	public void DesenhaSe(Graphics2D dbg, int xMundo, int yMundo) {
-//		// TODO Auto-generated method stub
-//		
-//		//desenha menu
-//		dbg.setColor(Color.black);
-////		dbg.drawRect((int)getX()-xMundo,(int) (getY()-yMundo), getSizeX(),getSizeY());
-//		
-//		dbg.setColor(new Color(r,g,b,alpha));
-//		dbg.fillRect((int)getX()-xMundo+1,(int) (getY()-yMundo)+1, getSizeX()-1,getSizeY()-1);
-//
-//		// range
-//			dbg.setColor(Color.red);
-//			//dbg.drawOval((int)getX()-torrePai.getRange()/2-xMundo, (int)getY()-torrePai.getRange()/2-yMundo, torrePai.getRange(), torrePai.getRange());
-//
+	@Override
+	public void DesenhaSe(Graphics2D dbg, int xMundo, int yMundo) {
+		// TODO Auto-generated method stub
+		
+		//desenha menu
+		dbg.setColor(Color.black);
+//		dbg.drawRect((int)getX()-xMundo,(int) (getY()-yMundo), getSizeX(),getSizeY());
+		
+		dbg.setColor(new Color(r,g,b,alpha));
+		dbg.fillRect((int)getX()-xMundo+1,(int) (getY()-yMundo)+1, getSizeX()-1,getSizeY()-1);
+
+		// range
+			dbg.setColor(Color.red);
+			//dbg.drawOval((int)getX()-torrePai.getRange()/2-xMundo, (int)getY()-torrePai.getRange()/2-yMundo, torrePai.getRange(), torrePai.getRange());
 //		//desenha botoes
-//		Iterator<Botao> it = getBotoes().iterator();
-//		while(it.hasNext()){
-//			Botao bt = it.next();
-//			bt.DesenhaSe(dbg, xMundo, yMundo);
-//			trataDesenhoBotao(dbg,bt,xMundo,yMundo);
-//
-//		}
-//		dbg.setColor(Color.black);
-//		
-//	
-//		
-//		//dbg.drawString(torrePai., x, y)
-//		
-//	}
+	Iterator<Botao> it = botoes.iterator();
+	while(it.hasNext()){
+			Botao bt = it.next();
+			bt.DesenhaSe(dbg, xMundo, yMundo);
+			trataDesenhoBotao(dbg,bt,xMundo,yMundo);
+
+		}
+		dbg.setColor(Color.black);
+		
+	
+		
+		//dbg.drawString(torrePai., x, y)
+		
+	}
 	
 	private void trataDesenhoBotao(Graphics2D dbg,Botao bt,int XTela,int YTela) {
 		// TODO Auto-generated method stub
 		dbg.setFont(Constantes.FonteNormal);
 		if (bt.name=="range") {
 			dbg.setColor(Color.white);
-			dbg.drawString("$"+torrePai.getArmaAtiva().getCustoRange(), (int)bt.getX()+bt.getSizeX()+10-XTela,(int) bt.getY()+bt.getSizeY()-2-YTela);
+			dbg.drawString("$"+torrePai.armaAtiva.custoRange, (int)bt.getX()+bt.getSizeX()+10-XTela,(int) bt.getY()+bt.getSizeY()-2-YTela);
 			
 		}
 		if (bt.name=="fire") {
 			dbg.setColor(Color.white);
-			dbg.drawString("$"+torrePai.getArmaAtiva().getCustoFire(), (int)bt.getX()+bt.getSizeX()+10-XTela,(int) bt.getY()+bt.getSizeY()-2-YTela);
+			dbg.drawString("$"+torrePai.armaAtiva.custoFire, (int)bt.getX()+bt.getSizeX()+10-XTela,(int) bt.getY()+bt.getSizeY()-2-YTela);
 			
 		}
 		if (bt.name=="dano") {
 			dbg.setColor(Color.white);
-			dbg.drawString("$"+torrePai.getArmaAtiva().getCustoDano(), (int)bt.getX()+bt.getSizeX()+10-XTela,(int) bt.getY()+bt.getSizeY()-2-YTela);
+			dbg.drawString("$"+torrePai.armaAtiva.custoDano, (int)bt.getX()+bt.getSizeX()+10-XTela,(int) bt.getY()+bt.getSizeY()-2-YTela);
 			
 		}
 	}

@@ -10,7 +10,7 @@ import Constantes.Constantes;
 public class SlotTorre extends Objeto{
 
 	private BufferedImage AnimeSet;
-	private Arma armaAtiva;
+	public Arma armaAtiva;
 	public boolean ativo;
 	private boolean selecionado;
 	
@@ -57,7 +57,7 @@ public class SlotTorre extends Objeto{
 	}
 
 	public void setSlot(Arma _armaAtiva){
-		setAnimeSet(_armaAtiva.getImagem_hud());
+		setAnimeSet(_armaAtiva.imagem_hud);
 		setArmaAtiva(_armaAtiva);
 	}
 

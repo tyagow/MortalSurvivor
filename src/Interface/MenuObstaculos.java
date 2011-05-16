@@ -60,7 +60,7 @@ private Color corBotaoMove = Color.white;
 			vivo=(false);
 			timerSelecionado=(0);
 		}
-		Iterator<Botao> it = getBotoes().iterator();
+		Iterator<Botao> it = botoes.iterator();
 		while(it.hasNext()){
 			Botao bt = it.next();
 			bt.SimulaSe((int)DiffTime);
@@ -101,16 +101,18 @@ private Color corBotaoMove = Color.white;
 			//dbg.drawOval((int)getX()-torrePai.getRange()/2-xMundo, (int)getY()-torrePai.getRange()/2-yMundo, torrePai.getRange(), torrePai.getRange());
 
 		//desenha botoes
-		Iterator<Botao> it = getBotoes().iterator();
+		Iterator<Botao> it = botoes.iterator();
 		while(it.hasNext()){
 			Botao bt = it.next();
 			bt.DesenhaSe(dbg, xMundo, yMundo);
-			trataDesenhoBotao(dbg,bt,xMundo,yMundo);
+		
 
 		}
 		dbg.setColor(Color.black);
 		if (obs !=null) {
 			obs.DesenhaSe(dbg, xMundo, yMundo);
+			dbg.setColor(Color.white);
+			dbg.drawRect((int)((obs.X-10)/16)*16-xMundo,(int) ((obs.Y-10)/16)*16-yMundo, obs.sizeX, obs.sizeY);
 		}
 	
 		
@@ -131,28 +133,6 @@ private Color corBotaoMove = Color.white;
 		
 		
 		}
-
-
-
-	private void trataDesenhoBotao(Graphics2D dbg,Botao bt,int XTela,int YTela) {
-		// TODO Auto-generated method stub
-		dbg.setFont(Constantes.FonteNormal);
-		if (bt.name=="range") {
-			dbg.setColor(Color.white);
-//			dbg.drawString("$"+torrePai.getArmaAtiva().getCustoRange(), (int)bt.getX()+bt.getSizeX()+10-XTela,(int) bt.getY()+bt.getSizeY()-2-YTela);
-			
-		}
-		if (bt.name=="fire") {
-			dbg.setColor(Color.white);
-//			dbg.drawString("$"+torrePai.getArmaAtiva().getCustoFire(), (int)bt.getX()+bt.getSizeX()+10-XTela,(int) bt.getY()+bt.getSizeY()-2-YTela);
-			
-		}
-		if (bt.name=="dano") {
-			dbg.setColor(Color.white);
-//			dbg.drawString("$"+torrePai.getArmaAtiva().getCustoDano(), (int)bt.getX()+bt.getSizeX()+10-XTela,(int) bt.getY()+bt.getSizeY()-2-YTela);
-			
-		}
-	}
 
 
 	private ArrayList<Botao> criaBotoesStatusTorre() {
@@ -200,6 +180,9 @@ private Color corBotaoMove = Color.white;
 			if (mX == 0 && mY == 0) {
 				Constantes.wayPoints.add(new WayPoint(e.getX()+Constantes.XTela, e.getY()+Constantes.YTela, 16, 16));
 			}else {
+				obs.X = ((int)(obs.X+5)/16)*16;
+
+				obs.Y = ((int)(obs.Y+5)/16)*16;
 				GerenciadorObstaculos.obstaculos.add (obs );
 			}
 			
@@ -238,12 +221,44 @@ private Color corBotaoMove = Color.white;
 		}else if (selecionado) {
 			trataColisaoMenu(e);
 		}else {
-			obs = new Obstaculo(e.getX(), e.getY(), 32, 32, mX, mY);
+			if (mX>=0&&mY>=0) {
 			
+				if (e.getButton() == MouseEvent.BUTTON1)
+					obs = new Obstaculo(e.getX()+Constantes.XTela, e.getY()+Constantes.YTela, 32, 32, mX, mY);
+				else {
+					
+				if (tentaApagarObstaculo(e.getX(),e.getY())) {
+					System.out.println("Obstaculo Apagado");
+				}else {
+					System.out.println("Obstaculo nao Apagado");
+
+				}
+				
+				}
+			}
 		}
 		
 
 	}
+
+	private boolean tentaApagarObstaculo(int x, int y) {
+
+		for (int i = 0 ;i<GerenciadorObstaculos.obstaculos.size();i++) {
+			
+			if (Constantes.colidecircular(x+Constantes.XTela, y+Constantes.YTela, 2,(int)GerenciadorObstaculos.obstaculos.get(i).X ,(int)GerenciadorObstaculos.obstaculos.get(i).Y,GerenciadorObstaculos.obstaculos.get(i).sizeX/2)) {
+				
+				GerenciadorObstaculos.obstaculos.remove(i);
+				return true;
+			}
+			
+			
+			
+		}
+		return false;
+	
+	}
+	
+
 
 	public void mouseDragged(MouseEvent e) {
 		// TODO Auto-generated method stub
@@ -252,8 +267,8 @@ private Color corBotaoMove = Color.white;
 			Y=e.getY();
 		}
 		if (obs!=null) {
-			obs.X = e.getX()+Constantes.XTela;
-			obs.Y = e.getY()+Constantes.YTela;
+			obs.X = e.getX()+obs.sizeX/2+Constantes.XTela;
+			obs.Y = e.getY()+obs.sizeY/2+Constantes.YTela;
 		}
 			
 	}
