@@ -9,6 +9,7 @@ import java.util.Observable;
 import AbstractClasses.Objeto;
 import Canvas.CanvasGame;
 import Constantes.Constantes;
+import Data.Imagem;
 import GameState.GamePanel;
 import Gerenciadores.GerenciadorObstaculos;
 import Gerenciadores.GerenciadorRespawn;
@@ -29,8 +30,8 @@ public class Inimigo extends Objeto {
 	private int estado;
 	private double ang;
 	private double campoDeVisao;
-	private int frameX=0;
-	private int frameY=1;
+	private int frameX;
+	private int frameY;
 	BufferedImage img;
 	int velx;
 	int vely;
@@ -43,26 +44,43 @@ public class Inimigo extends Objeto {
 	private int objSecundarioX=-1;
 	private int objSecundarioY=-1;
 	private boolean primeiraVez=true;
-	public Inimigo(BufferedImage img,int _tipo,int _objX,int _objY) {
+	public Inimigo(int _tipo,int _objX,int _objY) {
 		objX=_objX;
 		objY=_objY;
 		tipo=_tipo;
-		this.img=img;
 		larguraMapa=CanvasGame.tela.Largura*16;
 		alturaMapa=CanvasGame.tela.Altura*16;
 		 colidiuObstaculo = false;
 		X=(GamePanel.rnd.nextInt(alturaMapa));//+alturaMapa*(-2));
 		Y=(GamePanel.rnd.nextInt(larguraMapa));//+alturaMapa*(-2));
 		
-		sizeX=(img.getWidth()/2);
-		sizeY=(img.getHeight()/3);
+		
 		dano = 10;
 		vel=100;
-		life=(maximoVida);
 		vivo=(true);
 		estado=0;
 		campoDeVisao=Constantes.INIMIGO_CAMPO_VISAO1;
-
+		
+		switch (_tipo) {
+			case 1:
+				img = Imagem.inimigoUm;
+				frameX=0;
+				frameY=1;
+				sizeX=32;
+				sizeY=32;
+				break;
+			case 2:
+				img = Imagem.inimigoDois;
+				frameX=0;
+				frameY=0;
+				sizeX=32;
+				sizeY=32;
+			default:
+				break;
+		}
+		
+		
+		
 		// TODO Auto-generated constructor stub
 	}
 
@@ -354,11 +372,11 @@ private void calculaIA(int DiffTime) {
 			
 			morreu(_tipo);
 		}else  {
-			life=- dano;
+			life-= dano;
 		}
 	
 
-
+		System.out.println(dano);
 				
 	}
 

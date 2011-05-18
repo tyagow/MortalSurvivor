@@ -67,7 +67,7 @@ public class Texto extends Objeto {
 //		else alpha-=1.0f*DiffTime/1000.0f;
 
 			size+=VelocidadeAumenta*DiffTime/1000.0f;
-			System.out.println("opa");
+			//System.out.println("opa");
 			time+=DiffTime;
 			X-=((VelocidadeAumenta*DiffTime/1000.0f));
 			Y-=((VelocidadeAumenta*DiffTime/1000.0f));

@@ -45,7 +45,7 @@ public class Raid {
 					int ilife = Integer.parseInt(strs[5]);
 					
 //					Inimigo inim = new Inimigo(Imagem.inimigoUm,(int)CanvasGame.base.getX()/16-20,(int)CanvasGame.base.getY()/16-20);
-					Inimigo inim = new Inimigo(Imagem.inimigoUm,tipo,Constantes.BASE_X,Constantes.BASE_Y);
+					Inimigo inim = new Inimigo(tipo,Constantes.BASE_X,Constantes.BASE_Y);
 
 					inim.X=(ix);
 					inim.Y=(iy);
@@ -56,7 +56,6 @@ public class Raid {
 //					inim.setTipoAssasino(tipo);
 //					Inimigo inim2 = new Inimigo(Imagem.inimigoUm/*,(int)CanvasGame.base.getX()/16,(int)CanvasGame.base.getY()/16*/);
 					Constantes.inimigos.add(inim);
-				
 				}
 			}
 		} catch (IOException e1) {
