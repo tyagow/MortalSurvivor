@@ -1,6 +1,7 @@
 package Constantes;
 
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -187,7 +188,9 @@ public class Constantes {
 	//Projetil
 	public static final int VELOCIDADE_TIRO=1300;
 
-	public static final int NUM_WAYPOINT_PRINCIPAL = 4;
+	public static final int NUM_WAYPOINT_PRINCIPAL = 3;
+
+	public static final int HE_dano_TEMPOVIDA = 2000;
 
 	public static int BASE_X ;
 
@@ -204,8 +207,17 @@ public class Constantes {
 	
 	public static int totalParticulasSangue=20;
 
+	public static boolean miraDoJogo=true;
 
+	public static int baseLife;
 
+	public static boolean DADOS_miraDoJogoOval=true;
+
+	public static Color DADOS_miraCor= Color.black;
+
+	public static int DADOS_miraSize=20;
+
+	public static boolean EVENT_atualizaMira=true;
 
 
 	public static BufferedImage LoadImage(String filename){

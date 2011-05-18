@@ -52,7 +52,7 @@ public class GerenciadorHud extends Objeto {
 		getHudArma()[0].setX(xHudArmas+40);
 		getHudArma()[0].setY(yHudArmas+10);
 		getHudArma()[0].setSlot(Heroi.getArmaMelee());
-		getHudArma()[0].setAtivo(true);
+		getHudArma()[0].ativo=(true);
 
 
 		
@@ -60,21 +60,21 @@ public class GerenciadorHud extends Objeto {
 		getHudArma()[1].setX(hudArma[0].getX()+5+hudArma[0].getSizeX());
 		getHudArma()[1].setY(yHudArmas+10);
 		getHudArma()[1].setSlot(Heroi.getArmaSecundaria());
-		getHudArma()[1].setAtivo(false);
+		getHudArma()[1].ativo=(false);
 		
 		
 		getHudArma()[2] = new SlotTorre();
 		getHudArma()[2].setX(hudArma[1].getX()+5+hudArma[1].getSizeX());
 		getHudArma()[2].setY(yHudArmas+10);
 		getHudArma()[2].setSlot(Heroi.getArmaPrimaria());
-		getHudArma()[2].setAtivo(false);
+		getHudArma()[2].ativo=(false);
 		
 		
 		getHudArma()[3] = new SlotTorre();
 		getHudArma()[3].setX(hudArma[2].getX()+5+hudArma[2].getSizeX());
 		getHudArma()[3].setY(yHudArmas+10);
 		getHudArma()[3].setSlot(Heroi.getArmaGranada());
-		getHudArma()[3].setAtivo(false);
+		getHudArma()[3].ativo=(false);
 	
 
 	}
@@ -118,10 +118,10 @@ public class GerenciadorHud extends Objeto {
 		for (int j =0;j<hudArma.length;j++) {
 			
 			if (j!=i)	{
-				hudArma[j].setAtivo(false);
+				hudArma[j].ativo=(false);
 			}
 			else {
-				hudArma[j].setAtivo(true);
+				hudArma[j].ativo=(true);
 
 			}
 		
@@ -155,6 +155,10 @@ public class GerenciadorHud extends Objeto {
 		dbg.setColor(Color.black);
 		dbg.drawString("XP: "+xpHud, GamePanel.PWIDTH/2-32, 50-2);
 		dbg.setFont(oldFont);	
+		//LIFE
+		dbg.drawRect((int)GamePanel.PWIDTH/2-150, (int)5, 300, 25);
+		dbg.setColor(Color.lightGray);
+		dbg.fillRect((int)GamePanel.PWIDTH/2-149, (int)6, (int)(Constantes.baseLife*300/Constantes.BASE_LIFE_1)-2, 23);
 		
 	
 		

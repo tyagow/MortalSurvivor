@@ -11,14 +11,15 @@ import GameState.GamePanel;
 
 public class Texto extends Objeto {
 	private int xp;
-	double size=8;
+	public double size=8;
 	private int time;
-	private int tipo;
+	public int tipo;
 	private int VelocidadeAumenta;
 	private int tempoVida;
 	public String text;
 	public float alpha = 1.0f;
-	Font big;
+	public Font big;
+	Color cor;
 	public Texto(int xp,double x,double y){
 		
 		setX(x);
@@ -37,44 +38,44 @@ public class Texto extends Objeto {
 		setY(GamePanel.PHEIGHT/2);
 		setVivo(true);
 		tipo=2;
-		tempoVida=300;
-		VelocidadeAumenta=70;
+		tempoVida=-1;
+		//VelocidadeAumenta=70;
 		big= new Font("SansSerif", Font.BOLD, (int) size);
 
 	}
 
-	public Texto(double x, double y, double life) {
+	public Texto(double x, double y, double _life) {
 		// TODO Auto-generated constructor stub
-		this.setX(x);
-		this.setY(y);
-		this.xp=xp;
-		setVivo(true);
+		X=(x);
+		Y=(y);
+		vivo=(true);
 		tipo=3;
 		tempoVida=200;
-		VelocidadeAumenta=20;
-		this.setLife((int) life);
+		VelocidadeAumenta=10;
+		life=((int) _life);
 		
 	}
 	@Override
 	public void SimulaSe(int DiffTime) {
 		// TODO Auto-generated method stub
-		
+
+		if (tipo !=-1 ) {
+			big= new Font("SansSerif", Font.BOLD, (int) size);
 
 			alpha-=0.4f*DiffTime/1000.0f;
 			if (alpha<0) alpha =0;
 //		else alpha-=1.0f*DiffTime/1000.0f;
+
+			size+=VelocidadeAumenta*DiffTime/1000.0f;
+			System.out.println("opa");
+			time+=DiffTime;
+			X-=((VelocidadeAumenta*DiffTime/1000.0f));
+			Y-=((VelocidadeAumenta*DiffTime/1000.0f));
 		
-		
-		size+=VelocidadeAumenta*DiffTime/1000.0f;
-		time+=DiffTime;
-		setX(getX() - (VelocidadeAumenta*DiffTime/1000.0f));
-		setY(getY() - (VelocidadeAumenta*DiffTime/1000.0f));
-		
-		if (time/tempoVida>3){
-			setVivo(false);
-			
+			if (time/tempoVida>3){
+				vivo=(false);
+			}
 		}
-		big= new Font("SansSerif", Font.BOLD, (int) size);
 		
 			
 	}
@@ -102,21 +103,19 @@ public class Texto extends Objeto {
 				
 			}
 			
-//			if (tipo==2) {
-//				
-//
-//				dbg.setColor(Color.red);
-//			    dbg.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
-//
-//				dbg.drawString("+Level UP "+GamePanel.minhaNave.nivel, (int)X, (int)Y);
-//							
-//				dbg.setColor(Color.yellow);
-//		
-//				dbg.drawString("+Level UP "+GamePanel.minhaNave.nivel, (int)X-5, (int)Y-5);
-//			    dbg.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
-//
-//			
-//		}		
+			if (tipo==-1) {
+				
+
+				dbg.setColor(cor);
+			    dbg.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
+
+				dbg.drawString(text, (int)X, (int)Y);
+							
+		
+			    dbg.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
+
+			
+		}		
 			
 			if (tipo==3) {
 			

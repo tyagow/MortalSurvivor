@@ -8,9 +8,10 @@ import java.util.Iterator;
 
 public class FrameOptions extends FrameBase {
 	FrameOptionsVideo frameVideo;
+	FrameOptionsGame frameGame;
 	public FrameOptions(int _x, int _y, int sizeX, int sizeY, Color cor, int _tempoVida) {
 		super(_x, _y, sizeX, sizeY, cor, _tempoVida);
-
+		frameGame=new  FrameOptionsGame(_x, _y+80, sizeX, sizeY-80, cor, _tempoVida);
 		frameVideo=new FrameOptionsVideo(_x, _y+80, sizeX, sizeY-80, cor, _tempoVida);
 		criaBotoes();
 		alpha=100;
@@ -72,21 +73,35 @@ public class FrameOptions extends FrameBase {
 		// TODO Auto-generated method stub
 
 		if (b.name.contains("Video") ) {
-		
-			if (!menuAtivo.contains(frameVideo)) {
-					menuAtivo.add(frameVideo);
-			}	
-				else {
-					
-					menuAtivo.remove(frameVideo);
-				}
+			frameAtivo=frameVideo;
+//		
+//			if (!frames.contains(frameVideo)) {
+//				frameVideo.ativo=true;
+//				frames.add(frameVideo);
+//			}	
+//				else {
+//					frameVideo.ativo=false;
+//				}
 				
 			
 	
 		}
 		else if (b.name.contains("Options") ) {
 			
-		
+			
+		}
+		else if (b.name.contains("Game") ) {
+			
+			frameAtivo=frameGame;
+//			if (!frames.contains(frameGame)) {
+//				frameGame.ativo=true;
+//				frames.add(frameGame);
+//			}	
+//				else {
+//					frameGame.ativo=false;
+//				}
+				
+			
 		}
 		
 	}
@@ -94,8 +109,9 @@ public class FrameOptions extends FrameBase {
 	private void criaBotoes() {
 		// TODO Auto-generated method stubB
 
-		botoes.add(new Botao(null,"Video",(int)getX()+30,(int)getY()+30,90,18,false));
-		botoes.add(new Botao(null,"Som",(int)getX()+130+5,(int)getY()+30,90,18,false));
+		botoes.add(new Botao(null,"Video",(int)X+30,(int)Y+30,90,18,false));
+		botoes.add(new Botao(null,"Som",(int)X+130+5,(int)Y+30,90,18,false));
+		botoes.add(new Botao(null,"Game",(int)X+230+5,(int)Y+30,90,18,false));
 //		getBotoes().add(new Botao(null,"",(int)getX()+10,(int)getY()+110,120,25,false));
 //		getBotoes().add(new Botao(null,"Options",(int)getX()+10,(int)getY()+160,120,25,false));
 //		getBotoes().add(new Botao(null,"Exit",(int)getX()+10,(int)getY()+210,120,25,false));

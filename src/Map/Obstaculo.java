@@ -7,7 +7,7 @@ import AbstractClasses.Objeto;
 
 public class Obstaculo extends Objeto {
 
-int tileSetLinha, tileSetColuna;
+public int tileSetLinha, tileSetColuna;
 
 	public Obstaculo(int _x, int _y,int _sizeX,int _sizeY,int _tileSetColuna,int _tileSetLinha) {
 
@@ -40,7 +40,10 @@ int tileSetLinha, tileSetColuna;
 
 			dbg.drawImage(Data.Imagem.obstaculos,(int) getX() - xTela - getSizeX()/2,(int) getY() - yTela - getSizeY()/2,(int) getX() + getSizeX() - xTela - getSizeX()/2,(int) getY() + getSizeY() - yTela - getSizeY()/2, (tileSetColuna*32), (tileSetLinha*32), tileSetColuna*32 + 32, tileSetLinha*32 + 32, null);
 			//dbg.drawRect((int)getX() - xTela, (int)getY() - yTela, getSizeX(), getSizeY());
-			
+			if (Constantes.Constantes.testeGradeColisao) {
+				dbg.setColor(Color.RED);
+				dbg.fillRect(((int)getX()-sizeX/2)-xTela,(int) (getY()-sizeY/2)-yTela, sizeX, sizeY);
+			}
 		}else {
 			if (Constantes.Constantes.testeGradeColisao) {
 				dbg.setColor(Color.RED);

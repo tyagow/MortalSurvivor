@@ -213,7 +213,7 @@ public class GerenciadorDeRaids {
 			raids.add(raid20);
 			numRaid++;
 
-			CanvasGame.setEndGame(true);
+			CanvasGame.endGame =(true);
 		break;
 		
 		
@@ -230,10 +230,7 @@ public class GerenciadorDeRaids {
 		return raids;
 	}
 
-	public static boolean acabouRaids() {
-		
-		return raids.isEmpty();
-	}
+	
 
 	public void reset() {
 		raids.clear();

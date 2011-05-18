@@ -18,12 +18,16 @@ public abstract class FrameBase extends Objeto {
 	public boolean ativo;
 	public int tempoVida;
 	public Color cor;
-	LinkedList<FrameBase>menuAtivo= new LinkedList<FrameBase>();
+	public ArrayList<FrameBase>frames= new ArrayList<FrameBase>();
 
 	public int r,g,b,alpha;
 	
 	public ArrayList<Botao> botoes = new ArrayList<Botao>();
+	public ArrayList<Objeto> objetos = new ArrayList<Objeto>();
+
 	public boolean selecionado;
+	public boolean frameDeTela=true;
+	public FrameBase frameAtivo;
 	
 	public FrameBase (int _x,int _y,int _sizeX,int _sizeY, Color _cor, int _tempoVida) {
 		
@@ -49,38 +53,97 @@ public abstract class FrameBase extends Objeto {
 	
 		dbg.setColor(Color.white);
 	//	dbg.drawRect((int)getX()-XMundo,(int)getY()-YMundo, getSizeX(), getSizeY());
-		
-		dbg.setColor(new Color(r,g,b,alpha));
-		
-		dbg.fillRect((int)getX()+1-XMundo,(int)getY()-YMundo+1, getSizeX()-2, getSizeY()-2);
-		
-		Iterator<Botao> it = botoes.iterator();
-		while(it.hasNext()){
-			Botao bot= it.next();
-			
-			bot.DesenhaSe(dbg, XMundo, YMundo);
-			
-	
-		
-		}
-		Iterator<FrameBase> it2 = menuAtivo.iterator();
 
-		while(it2.hasNext()){
-			FrameBase _frame= it2.next();
+		if (!frameDeTela) {
+			dbg.setColor(new Color(r,g,b,alpha));
+			dbg.fillRect((int)X+1-XMundo,(int)Y-YMundo+1, sizeX-2, sizeY-2);
+		
+			Iterator<Botao> it = botoes.iterator();
+			while(it.hasNext()){
+				Botao bot= it.next();
+				
+				bot.DesenhaSe(dbg, XMundo, YMundo);
+				
+		
 			
-			_frame.DesenhaSe(dbg, XMundo, YMundo);
+			}
+			Iterator<Objeto> it3 = objetos.iterator();
 			
+			while(it3.hasNext()){
+				Objeto ob= it3.next();
+				
+				ob.DesenhaSe(dbg, 0, 0);
+				
+		
+			
+			}
+			if (frameAtivo!=null)
+				frameAtivo.DesenhaSe(dbg, XMundo, YMundo);
+
+			Iterator<FrameBase> it2 = frames.iterator();
 	
+			while(it2.hasNext()){
+				FrameBase _frame= it2.next();
+				
+				_frame.DesenhaSe(dbg, XMundo, YMundo);
+				
 		
+			
+			}
+		
+		}else {
+			
+			
+			dbg.setColor(new Color(r,g,b,alpha));
+			dbg.fillRect((int)X+1,(int)Y+1, sizeX-2, sizeY-2);
+		
+			Iterator<Botao> it = botoes.iterator();
+			while(it.hasNext()){
+				Botao bot= it.next();
+				
+				bot.DesenhaSe(dbg, 0, 0);
+				
+		
+			
+			}
+			
+			
+		Iterator<Objeto> it3 = objetos.iterator();
+			
+			while(it3.hasNext()){
+				Objeto ob= it3.next();
+				
+				ob.DesenhaSe(dbg, 0, 0);
+				
+		
+			
+			}
+			if(frameAtivo!=null) 
+				frameAtivo.DesenhaSe(dbg, XMundo, YMundo);
+
+			
+			Iterator<FrameBase> it2 = frames.iterator();
+	
+			while(it2.hasNext()){
+				FrameBase _frame= it2.next();
+				
+				_frame.DesenhaSe(dbg, 0, 0);
+				
+		
+			
+			}
+		
+			
 		}
-		
-		
 		
 
 	}
 	@Override
 	public void SimulaSe(int DiffTime) {
 		// TODO Auto-generated method stub
+		if(frameAtivo!=null) 
+			frameAtivo.SimulaSe(DiffTime);
+		
 		for (int x=0;x<botoes.size();x++) {
 			Botao b= botoes.get(x);
 			
@@ -92,23 +155,49 @@ public abstract class FrameBase extends Objeto {
 			}		
 		}
 		
-		Iterator<FrameBase> it3 = menuAtivo.iterator();
+		for (int x=0;x<objetos.size();x++) {
+			
+			Objeto b= objetos.get(x);	
+			b.SimulaSe((int)DiffTime);			
+		
+		}
+		
+		Iterator<FrameBase> it3 = frames.iterator();
 		while(it3.hasNext()){
 			FrameBase _frame= it3.next();
 			
 			_frame.SimulaSe(DiffTime);
+			if (!_frame.ativo) {
+				it3.remove();
+				
+			}
 		}
 		
+		Constantes.miraDoJogo=false;
+		frameDeTela=false;
+		
+		calculaIA(DiffTime);
 		}
+	
+	
+public void calculaIA(int DiffTime) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
 protected abstract void trataBotao(Botao b2);
 
 
 public void mouseClicked(MouseEvent e) {
+	if (frameAtivo!=null)
+		frameAtivo.mouseClicked(e);
+	
 	for (int i=0;i<botoes.size();i++) {
 		
 		botoes.get(i).mouseClicked(e);
 	}
-	Iterator<FrameBase> it3 = menuAtivo.iterator();
+	Iterator<FrameBase> it3 = frames.iterator();
 	while(it3.hasNext()){
 		FrameBase _frame= it3.next();
 		
@@ -122,7 +211,7 @@ public void mouseClicked(MouseEvent e) {
 			
 			botoes.get(i).mousePressed(e);
 		}
-		Iterator<FrameBase> it3 = menuAtivo.iterator();
+		Iterator<FrameBase> it3 = frames.iterator();
 		while(it3.hasNext()){
 			FrameBase _frame= it3.next();
 			
@@ -131,11 +220,14 @@ public void mouseClicked(MouseEvent e) {
 			
 	}
 	public void mouseReleased(MouseEvent e) {
+		
+		if (frameAtivo!=null)
+			frameAtivo.mouseReleased(e);
 		for (int i=0;i<botoes.size();i++) {
 			
 			botoes.get(i).mouseReleased(e);
 		}
-		Iterator<FrameBase> it3 = menuAtivo.iterator();
+		Iterator<FrameBase> it3 = frames.iterator();
 		while(it3.hasNext()){
 			FrameBase _frame= it3.next();
 			
@@ -145,6 +237,8 @@ public void mouseClicked(MouseEvent e) {
 
 
 public void mouseMoved(MouseEvent e) {
+		if (frameAtivo!=null)
+			frameAtivo.mouseMoved(e);
 		
 		if (Constantes.colideQuadrado((int)getX(),(int)getY(),getSizeX(),getSizeY(), (int)e.getX(),(int)e.getY() ,2,2 )) {
 			selecionado=true;
@@ -159,7 +253,7 @@ public void mouseMoved(MouseEvent e) {
 			botoes.get(i).mouseMoved(e);
 		}
 		
-		Iterator<FrameBase> it3 = menuAtivo.iterator();
+		Iterator<FrameBase> it3 = frames.iterator();
 		while(it3.hasNext()){
 			FrameBase _frame= it3.next();
 			
@@ -170,13 +264,18 @@ public void mouseMoved(MouseEvent e) {
 		
 	
 	}
+
+public void mouseDragged(MouseEvent e) {
+	// TODO Auto-generated method stub
 	
+}
 
 
 public
 void keyPressed(KeyEvent e) {
 	// TODO Auto-generated method stub
-	
+	if (frameAtivo!=null)
+		frameAtivo.keyPressed(e);
 	
 	int keyCode = e.getKeyCode();
 	if(keyCode == KeyEvent.VK_0){
@@ -185,7 +284,7 @@ void keyPressed(KeyEvent e) {
 	
 	}	
 
-	Iterator<FrameBase> it3 = menuAtivo.iterator();
+	Iterator<FrameBase> it3 = frames.iterator();
 	while(it3.hasNext()){
 		FrameBase _frame= it3.next();
 		
@@ -198,6 +297,8 @@ void keyPressed(KeyEvent e) {
 
 
 public void keyReleased(KeyEvent e ) {
+	if (frameAtivo!=null)
+		frameAtivo.keyReleased(e);
 	int keyCode = e.getKeyCode();
 	
 	if(keyCode == KeyEvent.VK_F6){
@@ -205,7 +306,7 @@ public void keyReleased(KeyEvent e ) {
 	
 	}
 	
-	Iterator<FrameBase> it3 = menuAtivo.iterator();
+	Iterator<FrameBase> it3 = frames.iterator();
 	while(it3.hasNext()){
 		FrameBase _frame= it3.next();
 		

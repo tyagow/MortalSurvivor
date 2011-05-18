@@ -68,20 +68,20 @@ public abstract class  Mira extends Objeto {
 
 	}
 
-	public abstract void trataClickMouse1();
+	public  void trataClickMouse1(){};
 
-	public abstract void trataClickMouse2() ;
+	public  void trataClickMouse2() {};
 	
 	
 	public double getXMundo() {
 		// TODO Auto-generated method stub
 		
-		return getX()+CanvasGame.tela.XTela;
+		return X+CanvasGame.tela.XTela;
 	}
 	public double getYMundo() {
 		// TODO Auto-generated method stub
 		
-		return getY()+CanvasGame.tela.YTela;
+		return Y+CanvasGame.tela.YTela;
 	}
 
 	public void setPressed(boolean pressed) {

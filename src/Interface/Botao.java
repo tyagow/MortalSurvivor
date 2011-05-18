@@ -25,6 +25,9 @@ public class Botao extends Objeto {
 	private boolean oldPressed;
 	public int mousex;
 	public int mousey;
+	public Color cor;
+	public Color corText;
+	
 	public Botao(BufferedImage img,String _name, int _x,int _y,int _sizeX,int _fontSize, boolean _isOval) {
 		
 		imagem = img;
@@ -32,14 +35,14 @@ public class Botao extends Objeto {
 		setVivo(true);
 		ativo=false;
 		selecionado=false;
-		setSizeX(_sizeX);
+		sizeX=(_sizeX);
 
 		font =  new Font("SansSerif", Font.BOLD, (int) _fontSize);
 		
-		if (_isOval) 
-			setSizeY(_sizeX/2);
+		if (isOval) 
+			sizeY=(_sizeX/2);
 		else 
-			setSizeY(_sizeX/3);
+			sizeY=(_sizeX/3);
 
 		name=_name;
 		X=_x;
@@ -62,10 +65,18 @@ public class Botao extends Objeto {
 				timerAtivo=0;
 			}
 		}
+		
+		caluculaIA(DiffTime);
 	}
 
 	
 	
+	public void caluculaIA(int DiffTime) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
 	private void trataClickBotao() {
 //		if(!oldIsMousePressed)
 //			ativaBotao();	
@@ -113,6 +124,9 @@ public class Botao extends Objeto {
 				else
 					dbg.setColor(new Color(50,50,50,200));
 				
+				if (cor !=null)
+					dbg.setColor(cor);
+				
 				dbg.fillRect((int)X+1-XMundo,(int)Y-YMundo+1, getSizeX()-2, getSizeY()-2);
 				
 		
@@ -125,7 +139,9 @@ public class Botao extends Objeto {
 					dbg.setColor(Color.white);
 				}
 		
-		
+				if (corText!=null)
+					dbg.setColor(corText);
+				
 				dbg.drawString(name,(int) X+getSizeX()/2-XMundo-name.length()/2*((dbg.getFont().getSize()*2)/3),(int) Y+getSizeY()/2+(dbg.getFont().getSize()/2)-YMundo);
 
 			}
@@ -134,13 +150,9 @@ public class Botao extends Objeto {
 	}
 public void mouseClicked(MouseEvent e) {
 
-
-		if (Constantes.colideQuadrado((int)X,(int)Y,getSizeX(),getSizeY(), Constantes.mouseXTela,Constantes.mouseYTela,2,2 )) {
-
+	if (selecionado)
 		ativo=true;
-	
-		}
-	}
+}
 	
 	public void mousePressed(MouseEvent e) {
 //		if (Constantes.colideQuadrado((int)X,(int)Y,getSizeX(),getSizeY(), (int)e.X,(int)e.Y ,2,2 )) {

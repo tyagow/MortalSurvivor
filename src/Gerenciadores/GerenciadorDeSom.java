@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import Som.Sound;
 import Som.ThreadSom;
 
 import AbstractClasses.Objeto;
@@ -18,13 +19,16 @@ public class GerenciadorDeSom extends Objeto {
 	public static ThreadSom m4a;
 	public static  ThreadSom de;
 	public static  ThreadSom fundo;
-	public static  AudioClip akA;
+	
+	public static ThreadSom he;  
+
 	 static SoundList soundList;  
-	 
+	public static  AudioClip akA;
+
 	 static AudioClip onceClip;
 	AudioClip loopClip;  
 	  
-	  URL codeBase;  
+	  URL codeBase;
 	  static String ak_ = "ak47.wav";
 	  
 	public GerenciadorDeSom() {
@@ -32,9 +36,11 @@ public class GerenciadorDeSom extends Objeto {
 		ak=new ThreadSom("/sound/ak47.wav");
 		m4a=new ThreadSom("/sound/m4a.wav");
 		de=new ThreadSom("/sound/de.wav");
+		he=new ThreadSom("/sound/explode6.wav");
+
 		//fundo =new ThreadSom("mainMusic.wav");
 		
-		startLoadingSounds();
+	//	startLoadingSounds();
 		
 	}
 	public static void tiroAK() {
@@ -48,7 +54,7 @@ public class GerenciadorDeSom extends Objeto {
 	 void startLoadingSounds() {  
 		    //Start asynchronous sound loading.  
 		    try {  
-		      codeBase = new URL("file:" + System.getProperty("user.dir") + "/");  
+		      codeBase = new URL("http://" + System.getProperty("user.dir") + "/");  
 		    } catch (MalformedURLException e) {  
 		      System.err.println(e.getMessage());  
 		    }  

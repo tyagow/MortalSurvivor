@@ -200,16 +200,19 @@ public class GerenciadorEfeitos extends Objeto implements Runnable {
 		
 		//dbg.drawString(""+FPS, 50, 10);
 
+
+		
+	
+	}
+
+	public void DesenhaLayerDois(Graphics2D dbg, int XMundo, int YMundo) {
 		for(int i = 0; i < Constantes.efeitos.size();i++){
 			
 			Objeto proj = (Objeto) Constantes.efeitos.get(i);
 			proj.DesenhaSe(dbg,XMundo,YMundo);
 	
 		}
-		
-	
 	}
-	
 	
 
 	public synchronized static void verificaParticulas() {

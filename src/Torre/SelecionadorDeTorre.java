@@ -36,25 +36,25 @@ public class SelecionadorDeTorre extends Objeto {
 		slotsTorre[0].setX(Constantes.SLOT_UM_X);
 		slotsTorre[0].setY(Constantes.SLOT_UM_Y);
 		slotsTorre[0].setSlot(new ArmaUmTorre(Imagem.TORRE_UM_ANIMESET));
-		slotsTorre[0].setAtivo(true);
+		slotsTorre[0].ativo=(true);
 		
 		slotsTorre[1] = new SlotTorre();
 		slotsTorre[1].setX(Constantes.SLOT_DOIS_X);
 		slotsTorre[1].setY(Constantes.SLOT_DOIS_Y);
 		slotsTorre[1].setSlot( new ArmaDoisTorre(Imagem.TORRE_DOIS_ANIMESET));
-		slotsTorre[1].setAtivo(false);
+		slotsTorre[1].ativo=(false);
 
 		slotsTorre[2] = new SlotTorre();
 		slotsTorre[2].setX(Constantes.SLOT_TRES_X);
 		slotsTorre[2].setY(Constantes.SLOT_TRES_Y);
 		slotsTorre[2].setSlot(new ArmaTresTorre(Imagem.TORRE_TRES_ANIMESET));
-		slotsTorre[2].setAtivo(false);
+		slotsTorre[2].ativo=(false);
 
 		slotsTorre[3] = new SlotTorre();
 		slotsTorre[3].setX(Constantes.SLOT_QUATRO_X);
 		slotsTorre[3].setY(Constantes.SLOT_QUATRO_Y);
 		slotsTorre[3].setSlot( new ArmaUmTorre(Imagem.TORRE_UM_ANIMESET));
-		slotsTorre[3].setAtivo(false);
+		slotsTorre[3].ativo=(false);
 		
 		
 	//	System.out.println(new Torre(slotsTorre[0].getAnimeSet(),slotsTorre[0].getArmaAtiva(),0,0));
@@ -65,32 +65,32 @@ public class SelecionadorDeTorre extends Objeto {
 		// TODO Auto-generated method stub
 //		System.out.println(slotsTorre[0].isAtivo());
 
-		for(int i = 0; i < 4; i++){
-			if (Constantes.colideQuadrado((int)slotsTorre[i].getX(), (int)slotsTorre[i].getY(), slotsTorre[i].getSizeX(), slotsTorre[i].getSizeY(), (int)CanvasGame.getMiraAtiva().getX(), (int)CanvasGame.getMiraAtiva().getY(), 1, 1 )) {
-				if (!slotsTorre[i].isAtivo()) {
-					if (CanvasGame.getMiraAtiva().isPressed() && !oldIsMousePressed) {
-							slotsTorre[i].setAtivo(true);
-							//torreAtiva=new Torre(slotsTorre[i].getAnimeSet(),slotsTorre[i].getArmaAtiva(),0,0);
-						
-							
-								//System.out.println(new Torre(slotsTorre[0].getAnimeSet(),slotsTorre[0].getArmaAtiva(),0,0));
-
-							//System.out.println(slotsTorre[i].getArmaAtiva());
-							for(int j = 0; j < 4; j++){
-								if(i != j){
-									slotsTorre[j].setAtivo(false);
-								}
-							}
-					}
-				}
-				slotsTorre[i].setSelecionado(true);
-			}else {
-				slotsTorre[i].setSelecionado(false);
-			}
-			
-		}
-				
-		oldIsMousePressed = CanvasGame.getMiraAtiva().isPressed();		
+//		for(int i = 0; i < 4; i++){
+//			if (Constantes.colideQuadrado((int)slotsTorre[i].getX(), (int)slotsTorre[i].getY(), slotsTorre[i].getSizeX(), slotsTorre[i].getSizeY(), (int)CanvasGame.getMiraAtiva().getX(), (int)CanvasGame.getMiraAtiva().getY(), 1, 1 )) {
+//				if (!slotsTorre[i].isAtivo()) {
+//					if (CanvasGame.miraAtiva.pressed && !oldIsMousePressed) {
+//							slotsTorre[i].setAtivo(true);
+//							//torreAtiva=new Torre(slotsTorre[i].getAnimeSet(),slotsTorre[i].getArmaAtiva(),0,0);
+//						
+//							
+//								//System.out.println(new Torre(slotsTorre[0].getAnimeSet(),slotsTorre[0].getArmaAtiva(),0,0));
+//
+//							//System.out.println(slotsTorre[i].getArmaAtiva());
+//							for(int j = 0; j < 4; j++){
+//								if(i != j){
+//									slotsTorre[j].setAtivo(false);
+//								}
+//							}
+//					}
+//				}
+//				slotsTorre[i].setSelecionado(true);
+//			}else {
+//				slotsTorre[i].setSelecionado(false);
+//			}
+//			
+//		}
+//				
+//		oldIsMousePressed = CanvasGame.getMiraAtiva().isPressed();		
 	}
 
 	@Override
@@ -117,9 +117,35 @@ public class SelecionadorDeTorre extends Objeto {
 
 
 	public void mouseClicked(MouseEvent e) {
+		
 		for(int i = 0; i < 4; i++){
-			slotsTorre[i].mouseClicked(e);
+			if (Constantes.colideQuadrado((int)slotsTorre[i].getX(), (int)slotsTorre[i].getY(), slotsTorre[i].getSizeX(), slotsTorre[i].getSizeY(), e.getX(), e.getY(), 1, 1 )) {
+				if (!slotsTorre[i].ativo) {
+							slotsTorre[i].ativo=(true);
+							//torreAtiva=new Torre(slotsTorre[i].getAnimeSet(),slotsTorre[i].getArmaAtiva(),0,0);
+						
+							
+								//System.out.println(new Torre(slotsTorre[0].getAnimeSet(),slotsTorre[0].getArmaAtiva(),0,0));
+
+							//System.out.println(slotsTorre[i].getArmaAtiva());
+							for(int j = 0; j < 4; j++){
+								if(i != j){
+									slotsTorre[j].ativo=(false);
+								}
+							}
+					}
+				
+				slotsTorre[i].selecionado=(true);
+			}else {
+				slotsTorre[i].selecionado=(false);
+			}
+			
 		}
+				
+		
+//		for(int i = 0; i < 4; i++){
+//			slotsTorre[i].mouseClicked(e);
+//		}
 	}
 
 	public void mouseReleased(MouseEvent e) {
@@ -129,6 +155,17 @@ public class SelecionadorDeTorre extends Objeto {
 	}
 
 	public void mouseMoved(MouseEvent e) {
+		
+		for(int i = 0; i < 4; i++){
+			if (Constantes.colideQuadrado((int)slotsTorre[i].getX(), (int)slotsTorre[i].getY(), slotsTorre[i].getSizeX(), slotsTorre[i].getSizeY(), e.getX(), e.getY(), 1, 1 )) {
+					
+				slotsTorre[i].selecionado=(true);
+			}else {
+				slotsTorre[i].selecionado=(false);
+			}
+			
+		}
+		
 		for(int i = 0; i < 4; i++){
 			slotsTorre[i].mouseMoved(e);
 		}

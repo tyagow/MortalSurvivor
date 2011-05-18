@@ -3,6 +3,7 @@ package Personagem;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
@@ -259,16 +260,15 @@ public class Heroi extends Objeto {
 		setOldx((int) X);
 		setOldy((int) Y);
 		
-			setX(getX() + (Math.cos(angMovimentacao)*vel*DiffTime/1000.0f)); 
-			setY(getY() - (Math.sin(angMovimentacao)*vel*DiffTime/1000.0f)); 	
+			X+=(+(Math.cos(angMovimentacao)*vel*DiffTime/1000.0f)); 
+			Y-=((Math.sin(angMovimentacao)*vel*DiffTime/1000.0f)); 	
 
 		
 	}
 	private void trataMiraDoPersonagem() {
-		// TODO Auto-generated method stub
 		
-		double difX =CanvasGame.getMiraAtiva().getXMundo()-getX();
-		double difY =CanvasGame.getMiraAtiva().getYMundo()-getY();
+		double difX =CanvasGame.miraAtiva.getXMundo()-X;
+		double difY =CanvasGame.miraAtiva.getYMundo()-Y;
 		
 		ang = Math.atan2(difY, difX);
 	}
@@ -459,5 +459,48 @@ public class Heroi extends Objeto {
 	}
 	public final static int getIdxArmaMelee() {
 		return IDX_ARMA_MELEE;
+	}
+	public void keyPressed(KeyEvent e) {
+		// TODO Auto-generated method stub
+		int keyCode = e.getKeyCode();
+		if(keyCode == KeyEvent.VK_Q){
+			ARMA_ANTERIOR=true;
+		}
+		if(keyCode == KeyEvent.VK_F){
+			HE=true;
+		}
+		if(keyCode == KeyEvent.VK_W){
+			UP=true;
+		}
+		if(keyCode == KeyEvent.VK_S){
+			DOWN=true;
+		}
+		if(keyCode == KeyEvent.VK_A){
+			LEFT=true;
+		}
+		if(keyCode == KeyEvent.VK_D){
+			RIGHT=true;
+		}
+		if(keyCode == KeyEvent.VK_1){
+			MELEE=true;
+		}
+		if(keyCode == KeyEvent.VK_2){
+			SECUNDARIA=true;
+		}
+		
+	}
+	public void keyReleased(int keyCode) {
+		if(keyCode == KeyEvent.VK_W){
+			UP=false;
+		}
+		if(keyCode == KeyEvent.VK_S){
+			DOWN=false;
+		}
+		if(keyCode == KeyEvent.VK_A){
+			LEFT=false;
+		}
+		if(keyCode == KeyEvent.VK_D){
+			RIGHT=false;
+		}		
 	}	
 }

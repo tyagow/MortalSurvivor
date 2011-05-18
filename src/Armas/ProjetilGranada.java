@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 
 import Canvas.CanvasGame;
 import Constantes.Constantes;
+import Gerenciadores.GerenciadorDeSom;
 import Personagem.Inimigo;
 import Som.Sound;
 
@@ -17,6 +18,7 @@ public class ProjetilGranada extends Projetil {
 		int distancia;
 		BufferedImage imagem;
 		private double angDesenho;
+		int timerVida=0;
 		
 	public ProjetilGranada(Arma pai, double ang, int tipo,BufferedImage img) {
 		super(pai, ang, tipo);
@@ -27,24 +29,29 @@ public class ProjetilGranada extends Projetil {
 		 objY=(int)( CanvasGame.getMiraAtiva().getYMundo());
 		 
 		 
-		 
-		 
-		vel=500;
-		setSizeX(img.getWidth());
-		setSizeY(img.getHeight());
+		 double difX = (objX-X);
+		 double difY = (objY-Y);
+		 int dist = (int)Math.sqrt(difX*difX+difY*difY);
+		 if (dist >600)
+			 dist = 600;
+		 if (dist <200)
+			 dist =200;
+		 vel=dist;
+		sizeX=(img.getWidth());
+		sizeY=(img.getHeight());
 		// TODO Auto-generated constructor stub
 	}
 
 		
 		@Override
 		public void SimulaSe(int DiffTime) {
-			// TODO Auto-generated method stub
-			setOldx((int)getX());
-			setOldy((int)getY());
-			setX(getX() + (Math.cos(ang)*vel*DiffTime/1000.0f));
-			setY(getY() + (Math.sin(ang)*vel*DiffTime/1000.0f));
+			timerVida+=DiffTime;
+			oldx=((int)X);
+			oldy=((int)Y);
+			X+=((Math.cos(ang)*vel*DiffTime/1000.0f));
+			Y+=((Math.sin(ang)*vel*DiffTime/1000.0f));
 	
-			boolean chegouObjetivo;
+			boolean chegouObjetivo=false;
 			
 			boolean oX;
 			boolean oY;
@@ -64,18 +71,18 @@ public class ProjetilGranada extends Projetil {
 			//chegouObjetivo=oX&&oY;
 			
 			   
-			   chegouObjetivo=Constantes.colidecircular(getX(), getY(), 5, objX, objY, 5);
+			 //  chegouObjetivo=Constantes.colidecircular(X, Y, 2, objX, objY, 2);
 			//Constantes.colidecircular(getX(), getY(), 5, objX, objY, 5);
 		
 			
-			vel-=DiffTime/1000.0f;
+			vel-=2*DiffTime/1000.0f;
 			angDesenho += Math.PI*DiffTime/1000.0f;
 			
 			
 //			for (int i = 0;i<GerenciadorDeRaids.getRaids().size();i++) {
 //				Raid ra = GerenciadorDeRaids.getRaids().get(i);
 //			
-				for (int j = 0;j<Constantes.inimigos.size();j++) {
+	/*			for (int j = 0;j<Constantes.inimigos.size();j++) {
 					Inimigo in = Constantes.inimigos.get(j);
 					
 
@@ -89,20 +96,24 @@ public class ProjetilGranada extends Projetil {
 						
 					}
 				}
-				
+			*/	
 //			}
 
 		
 			
-			if((int)getX()<0||(int)getX()>=(CanvasGame.largura)|| (int)getY()<0||(int)getY()>=(CanvasGame.altura) ||chegouObjetivo) {
+			if((int)X<0||(int)X>=(CanvasGame.largura)|| (int)Y<0||(int)Y>=(CanvasGame.altura) ||chegouObjetivo) {
 				
-				setVivo(false);
+				vivo=(false);
 				
 			}
+			
+			if (timerVida>= Constantes.HE_dano_TEMPOVIDA)
+				vivo=false;
+			
 			if (!isVivo()) {
-				CanvasGame.gerenciadorEfeitos.explosao(getX(),getY(),100,100);
+				CanvasGame.gerenciadorEfeitos.explosao(X,Y,100,100);
 
-				Sound.music("sound/explode6.wav",false);
+				GerenciadorDeSom.he.run();
 			}
 			
 		

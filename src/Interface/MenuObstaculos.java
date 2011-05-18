@@ -48,9 +48,9 @@ private Color corBotaoMove = Color.white;
 	
 	@Override
 	public void SimulaSe(int DiffTime) {
-	
+		Constantes.miraDoJogo = false;
 		timerSelecionado += DiffTime;
-		CanvasGame.setMiraMenu();
+//		CanvasGame.setMiraMenu();
 		if (selecionado) {
 			timerSelecionado=0;
 		}
@@ -114,7 +114,7 @@ private Color corBotaoMove = Color.white;
 			dbg.setColor(Color.white);
 			dbg.drawRect((int)((obs.X-10)/16)*16-xMundo,(int) ((obs.Y-10)/16)*16-yMundo, obs.sizeX, obs.sizeY);
 		}
-	
+		dbg.drawString(Constantes.wayPoints.size()+"", (int)X+16, (int)Y+32);
 		
 		//dbg.drawString(torrePai., x, y)
 		
@@ -178,7 +178,19 @@ private Color corBotaoMove = Color.white;
 		corBotaoMove=Color.white;
 		if (obs !=null) {
 			if (mX == 0 && mY == 0) {
-				Constantes.wayPoints.add(new WayPoint(e.getX()+Constantes.XTela, e.getY()+Constantes.YTela, 16, 16));
+				
+				int i = Constantes.wayPoints.size();
+				
+				WayPoint  aux  = new WayPoint(e.getX()+Constantes.XTela+16, e.getY()+Constantes.YTela+16, 32, 32);
+				aux.index=i;
+				aux.indexNextTarget=i+3;
+				aux.X = ((int)(aux.X+5)/16)*16;
+
+				aux.Y = ((int)(aux.Y+5)/16)*16;
+				
+				Constantes.wayPoints.add(aux);
+			
+				
 			}else {
 				obs.X = ((int)(obs.X+5)/16)*16;
 

@@ -10,11 +10,12 @@ import GameState.GamePanel;
 
 
 public class FrameStart extends FrameBase {
-	FrameOptions frameOptions;
+	static FrameOptions  frameOptions;
+	
 	public FrameStart(int _x, int _y, int sizeX, int sizeY, Color cor, int _tempoVida) {
 		super(_x, _y, sizeX, sizeY, cor, _tempoVida);
 		frameOptions= new FrameOptions(250, 0, GamePanel.PWIDTH-250,GamePanel.PHEIGHT, Color.darkGray, 9999);
-	
+		ativo=true;
 		criaBotoes();
 		alpha=100;
 	}
@@ -48,7 +49,7 @@ public class FrameStart extends FrameBase {
 			bot.DesenhaSe(dbg, XMundo, YMundo);
 
 		}
-		Iterator<FrameBase> it2 = menuAtivo.iterator();
+		Iterator<FrameBase> it2 = frames.iterator();
 		while(it2.hasNext()){
 			FrameBase _frame= it2.next();
 			
@@ -85,18 +86,17 @@ protected void trataBotao(Botao b) {
 	if (b.name.contains("Play") ) {
 		
 
-		GamePanel.setCanvasAtivo(CanvasGame.instance);
+		GamePanel.canvasAtivo=(CanvasGame.instance);
 	
 
 		
 	}else if (b.name.contains("Options") ) {
-		if (!menuAtivo.contains(frameOptions)) {
-			
-			menuAtivo.add(frameOptions);
+		if (!frames.contains(frameOptions)) {
+			frameOptions.ativo=true;
+			frames.add(frameOptions);
 	}	
 		else {
-			
-			menuAtivo.remove(frameOptions);
+			frameOptions.ativo=false;
 		}
 		
 	}else if (b.name.contains("Exit") ) {

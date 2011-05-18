@@ -23,7 +23,7 @@ public class Base extends Objeto {
 	double timerAura;
 	int xAura, yAura, alpha;
 	boolean soma = true;
-
+//	public  static int life;
 	BufferedImage img;
 	
 	public Base(int _x, int _y, BufferedImage _img){
@@ -51,6 +51,7 @@ public class Base extends Objeto {
 	
 	@Override
 	public void SimulaSe(int DiffTime) {
+		Constantes.baseLife = life;
 		if(!auraAtiva){
 			timerAura += DiffTime;
 		}
@@ -74,10 +75,6 @@ public class Base extends Objeto {
 		
 		
 		Color corAnterior = dbg.getColor();
-		//LIFE
-		dbg.drawRect((int)GamePanel.PWIDTH/2-150, (int)5, 300, 25);
-		dbg.setColor(Color.lightGray);
-		dbg.fillRect((int)GamePanel.PWIDTH/2-149, (int)6, (int)(life*300/Constantes.BASE_LIFE_1)-2, 23);
 		//BASE
 		dbg.setColor(Color.ORANGE);
 			//dbg.fillOval((int)X-getSizeX()/2-XMundo,(int) (-getSizeY()/2-YMundo), getSizeX(),getSizeY());
@@ -104,6 +101,7 @@ public class Base extends Objeto {
 			
 			
 		}
+
 		dbg.setColor(corAnterior);
 		
 

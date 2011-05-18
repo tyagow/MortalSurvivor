@@ -28,11 +28,11 @@ public class Minimap extends Objeto{
 //		X= GamePanel.PWIDTH- (int)((resizeX * CanvasGame.largura)/tamanhoMiniMap);
 //		Y=0;
 		// mapa em baixo esquerda
-		setX(0);
-		setY(GamePanel.PHEIGHT - (int)((resizeY * CanvasGame.altura)/tamanhoMiniMap));
+		X=(0);
+		Y=(GamePanel.PHEIGHT - (int)((resizeY * CanvasGame.altura)/tamanhoMiniMap));
 //		
-		setSizeX((int) (resizeX * CanvasGame.largura/tamanhoMiniMap));
-		setSizeY((int) (resizeY * CanvasGame.altura/tamanhoMiniMap));
+		sizeX=((int) (resizeX * CanvasGame.largura/tamanhoMiniMap));
+		sizeY=((int) (resizeY * CanvasGame.altura/tamanhoMiniMap));
 	}
 	
 	@Override
@@ -74,15 +74,17 @@ public class Minimap extends Objeto{
 		for (int k=0;k<GerenciadorObstaculos.getObstaculos().size();k++)
 		{
 			Obstaculo obs = GerenciadorObstaculos.getObstaculos().get(k);
-			double xM = (resizeX * obs.getX()*16/tamanhoMiniMap + this.getX());
-			double yM = (resizeY * obs.getY()*16/tamanhoMiniMap + this.getY());
+			double xM = (resizeX * obs.X/tamanhoMiniMap + this.getX());
+			double yM = (resizeY * obs.Y/tamanhoMiniMap + this.getY());
+			int lM = (int)(resizeY * obs.sizeX/tamanhoMiniMap );
+			int aM = (int)(resizeY * obs.sizeY/tamanhoMiniMap );
 
-			dbg.fillOval((int)xM-2, (int)yM-2, 4, 4);
+			dbg.fillRect((int)(xM-lM/2), (int)(yM-aM/2), lM+1, aM+1);
 			
 		}
 		dbg.setColor(Color.black);
 		if ( CanvasGame.getMiraAtiva()!=null)
-			dbg.drawOval((int)(resizeX * CanvasGame.getMiraAtiva().getXMundo()/6+getX()), (int)(resizeY * CanvasGame.getMiraAtiva().getYMundo()/6+getY()), 2, 2);
+			dbg.drawOval((int)(resizeX * CanvasGame.miraAtiva.getXMundo()/6+getX()), (int)(resizeY * CanvasGame.getMiraAtiva().getYMundo()/6+getY()), 2, 2);
 		dbg.setColor(Color.red);
 
 		

@@ -19,9 +19,9 @@ public class Inimigo extends Objeto {
 	
 	int objX,objY;
 	int dano;
-	private double vel;
+	public double vel;
 	private int tempoEntreAtaque;
-	private int maximoVida=50;
+	public int maximoVida;
 	private int maxVel=100;
 	public int tipoAssasino;
 	private int larguraMapa;
@@ -42,6 +42,7 @@ public class Inimigo extends Objeto {
 	private boolean colidiuObstaculo;
 	private int objSecundarioX=-1;
 	private int objSecundarioY=-1;
+	private boolean primeiraVez=true;
 	public Inimigo(BufferedImage img,int _tipo,int _objX,int _objY) {
 		objX=_objX;
 		objY=_objY;
@@ -120,10 +121,11 @@ public class Inimigo extends Objeto {
 		dbg.fillRect((int)px-getSizeX()/2-5+1, (int)py-16-getSizeY()/2, (int)(getLife()*30/maximoVida)-1, 9);
 	
 //		if(Constantes.colidecircular(getX(), getY(),getSizeX(),target.getX()+target.sizeX/2,target.getY()+target.sizeY/2,target.getSizeX()/2)){
-		dbg.drawOval((int)getX()-sizeX/2-XMundo,(int) getY()-sizeY/2-YMundo, sizeX, sizeX);
-		if (target!=null)
+		if (target!=null&&Constantes.menuDeObstaculos) {
+			dbg.drawOval((int)getX()-sizeX/2-XMundo,(int) getY()-sizeY/2-YMundo, sizeX, sizeX);
 			dbg.drawOval((int)target.getX()-target.sizeX/2-XMundo,(int)target.getY()-target.sizeY/2-YMundo, target.sizeX, target.sizeX);
-
+		}
+		
 	
 	}
 	
@@ -372,12 +374,17 @@ private void calculaIA(int DiffTime) {
 		
 	private int procuraCaminho(int _estado){
 
-
+		
 		if (target==null ) {
-			carregaTargetProximo();
+			if (primeiraVez) {
+				carregaPrimeiroTarget();
+				primeiraVez=false;
+				return _estado;
+			}else
+				carregaTargetProximo();
 			return _estado;
 		}else {
-	
+						
 			return verificaTarget(_estado);
 		}
 
@@ -391,7 +398,7 @@ private int verificaTarget(int _estado) {
 	 ang =  Math.atan2(difY, difX);
 
 
-	if(Constantes.colidecircular(getX(), getY(),getSizeX()/2,target.getX(),target.getY(),target.getSizeX()/2)){		
+	if(Constantes.colideQuadrado((int)X-sizeX/2, (int)Y-sizeY/2,sizeX,sizeY,(int)target.X-target.sizeX/2,(int)target.Y-target.sizeY/2,target.sizeX,target.sizeY)){		
 
 		return  trataColisaoTarget(target,_estado);
 			

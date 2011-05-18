@@ -212,29 +212,28 @@ public class GerenciadorTorre extends Objeto {
 	
 	private void trataMouse() {
 		// TODO Auto-generated method stub
-		if (Constantes.colideQuadrado((int) selecionadorDeTorre.getX(),(int) selecionadorDeTorre.getY(), selecionadorDeTorre.getSizeX(), selecionadorDeTorre.getSizeY(), (int) CanvasGame.getMiraAtiva().getX(),(int) CanvasGame.getMiraAtiva().getY(), 1, 1)) {
-			Constantes.hitMiraSelecionador = true;
-		}else {
-			Constantes.hitMiraSelecionador = false;
+		if (Constantes.colideQuadrado((int) selecionadorDeTorre.getX(),(int) selecionadorDeTorre.getY(), selecionadorDeTorre.getSizeX(), selecionadorDeTorre.getSizeY(), (int) CanvasGame.miraAtiva.getX(),(int) CanvasGame.miraAtiva.getY(), 1, 1)) {
+			Constantes.miraDoJogo = false;
+			System.out.println("colidiu selecionador");
 		}
-		
+//		else {
+//			Constantes.hitMiraSelecionador = false;
+//		}
+//		
 		for(int i = 0; i < torres.size(); i++){
-			MenuTorre m = torres.get(i).getMenuAtivo();
+			MenuTorre m = torres.get(i).menuAtivo;
 			if(m != null){
-				if (Constantes.colideQuadrado((int)m.getX(),(int) m.getY(),(int) m.getSizeX(),(int) m.getSizeY(), (int)CanvasGame.getMiraAtiva().getXMundo(),(int) CanvasGame.getMiraAtiva().getYMundo(), 1, 1)) {
-					Constantes.hitMiraMenu=(true);
+				if (Constantes.colideQuadrado((int)m.getX(),(int) m.getY(),(int) m.getSizeX(),(int) m.getSizeY(), (int)CanvasGame.miraAtiva.getXMundo(),(int) CanvasGame.miraAtiva.getYMundo(), 1, 1)) {
+					Constantes.miraDoJogo = false;
+					System.out.println("torre");
+
 					break;
 				}
 			}
-			Constantes.hitMiraMenu=false;
+//			Constantes.hitMiraMenu=false;
 		}
 		
-		if(Constantes.hitMiraMenu || Constantes.hitMiraSelecionador){
-			CanvasGame.setMiraMenu();
-			
-		}else {
-			CanvasGame.setMiraJogo();
-		}
+
 	}
 
 

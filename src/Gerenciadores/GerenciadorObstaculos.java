@@ -54,17 +54,17 @@ public class GerenciadorObstaculos extends Objeto  {
 		carregaObstaculos();
 		carregaGradeColisao();
 	
+		
 	}
 
 
 	private void carregaObstaculos() {
-		
-		addObstaculos(20*16, 10*16, 32, 32, 0, 1);
-		addObstaculos(22*16, 10*16, 32, 32, 13, 1);
-		addObstaculos(20*16, 12*16, 32, 32, 15, 0);
-		
+//		
 
-		loadWayPoints();
+//		
+		loadObstaculos("data/obstaculosFaseUm.csv");
+		
+		loadWayPoints("data/wayFaseUm.csv");
 		
 	}
 
@@ -103,11 +103,12 @@ public class GerenciadorObstaculos extends Objeto  {
 		
 		if (menuAtivo!=null) {
 			Constantes.hitMiraMenu= true;
-			CanvasGame.setMiraMenu();
+			Constantes.miraDoJogo=false;
 		}
-		else {
-			CanvasGame.setMiraJogo();
-		}		
+//		else {
+////			CanvasGame.setMiraJogo();
+//			Constantes.miraDoJogo=true;
+//		}		
 	}
 
 
@@ -124,11 +125,13 @@ public class GerenciadorObstaculos extends Objeto  {
 			
 			
 		}
-		for (int i = 0; i<Constantes.wayPoints.size();i++) {
-			Constantes.wayPoints.get(i).DesenhaSe(dbg, XMundo, YMundo);
-			
-			//System.out.println("ola");
-		} 
+		if(Constantes.menuDeObstaculos){
+			for (int i = 0; i<Constantes.wayPoints.size();i++) {
+				Constantes.wayPoints.get(i).DesenhaSe(dbg, XMundo, YMundo);
+				
+				//System.out.println("ola");
+			} 
+		}
 //		for (int i=0;i<largura;i++) {
 //		
 //			for (int j=0;j<altura;j++) {
@@ -194,167 +197,130 @@ public class GerenciadorObstaculos extends Objeto  {
 		
 	}
 	public static void addObstaculos(int _x,int _y,int _sizeX,int _sizeY,int tileSetColuna, int tileSetLinha) {
-		
-		obstaculos.add(new Obstaculo(_x, _y, _sizeX, _sizeY, tileSetColuna, tileSetLinha));
 	
+		obstaculos.add(new Obstaculo(_x, _y, _sizeX, _sizeY, tileSetColuna, tileSetLinha));
+	}
 		
 		
-//		for (int i =0;i< _sizeX/16;i++) {
-//			for (int j =0;j< _sizeY/16;i++) {
-//				
-//				mapa[_x/16+i][_y/16+j] = 0;
-//				
-//				
-//			}
-//			
-//		}
-//		
-//		
+	public void loadWayPoints(String filename) {
 		
 		
-		
-//		
-//		int x = _x;
-//		int y = _y;
-//			
-//		int sizeX;
-//		int sizeY;
-////		
-////		if (_sizeX%16>0)
-////			sizeX= _sizeX>>4+1;
-////			else
-////				sizeX= _sizeX>>4;
-////				
-////		if (_sizeY%16>0)
-////			sizeY= _sizeY>>4+1;
-////		else
-////			sizeY= _sizeY>>4;
-////						
-//
-//			
-//			sizeX= _sizeX;
-//			sizeY= _sizeY;
-//
-//		if (sizeX>2){
-//			x=x-sizeX/2;
-//			setxIgualUm(false);
-//		}
-//		else setxIgualUm(true);
-//		
-//		if (sizeY>1){
-//			y=y-sizeY/2;
-//			setyIgualUm(false);
-//		}
-//		else setyIgualUm(true);
-//		
-//		int indX;
-//		if (_sizeX<33)
-//			indX=0;
-//		else 
-//			indX=1;
-//		
-//		
-//		int indY;
-//		if (_sizeY<33)
-//			indY=0;
-//		else 
-//			indY=1;
-//		
-//		for (int i = 0;i<=sizeY-indY;i++) {
-//			for (int j = 0;j<=sizeX-indX;j++) {
-//			
-//				getObstaculos().add(new Obstaculo(x+j, y+i,0,0));
-//				getMapa()[x+j][y+i]=1;
-//			}
-//		
-//			
-//		}
-//		
-				
 
-			
-		}
+		InputStream in = Data.Imagem.class.getResourceAsStream(filename);
 		
 		
+		BufferedReader bf = new BufferedReader(new InputStreamReader(in));
 		
-			
+		String str = "";
 		
-		
-		
-//			int d =0;
-//			int e=0;
-//		
-//		Obstaculo obs;
-//		for (int i=0;i<sizeX;i++) {
-//			for (int j=0;j<sizeY;j++) {
-//				if (i==0&&j==0) {
-//					obs = new Obstaculo(x, _y); 
-//				}else { 
-//					if (i%2==0) {
-//						d++;
-//						obs =new Obstaculo(x+d,y);
-//						
-//						}
-//					else /*(i%2!=0)*/ {
-//						e++;
-//						obs =new Obstaculo(x-e,y);
-//						
-//						}
-//					obstaculos.add(obs);	
-//				}
-//				
-//				
-//				}
-//			
-//		}
-		
-		
-	public void loadWayPoints() {
+	
 		WayPoint aux;
+		//
+int i =0;
 
-		int wayX = (largura*16)/2-21;
-		int wayY = 100;
-		int waySizeX = 42;
-		int waySizeY = 42;
-		 aux = new WayPoint( wayX,wayY,waySizeX,waySizeY );
-		 aux.indexNextTarget = 1;
-
-		Constantes.wayPoints.add(aux);
-		
-		 wayX = largura*16-42-100;
-		 wayY = (altura*16)/2-21;
-		 waySizeX = 42;
-		 waySizeY = 42;
-		 aux = new WayPoint( wayX,wayY,waySizeX,waySizeY );
-		 aux.indexNextTarget = 2;
-
-			Constantes.wayPoints.add(aux);		
-		
-		 wayX = (largura*16)/2-21;
-		 wayY = (altura*16)-42;
-		 waySizeX = 42;
-		 waySizeY = 42;
-		 aux = new WayPoint( wayX,wayY,waySizeX,waySizeY );
-		 aux.indexNextTarget = 3;
-
-			Constantes.wayPoints.add(aux);		
-		
-			wayX = 0;
-			 wayY = (altura*16)/2;
-			 waySizeX = 42;
-			 waySizeY = 42;
-			 aux = new WayPoint( wayX,wayY,waySizeX,waySizeY );
-			 aux.indexNextTarget = 0;
-
-				Constantes.wayPoints.add(aux);
+		try {
+			while((str = bf.readLine())!=null){
+				if(str.charAt(0)!='#'){
+					String strs[] = str.split(";");
+					
+					int codigo = Integer.parseInt(strs[0]); 
+					int wayX = Integer.parseInt(strs[1])*16;
+					int wayY = Integer.parseInt(strs[2])*16;
+					int waySizeX = Integer.parseInt(strs[3])*16;
+					int waySizeY = Integer.parseInt(strs[4])*16;
+					int _indexNextTarget = Integer.parseInt(strs[5]);
 				
-		
-			
-			
-//			for (int i = 0 ; i <Constantes.Constantes.wayPoints.size();i++) {
+					 aux = new WayPoint( wayX,wayY,waySizeX,waySizeY );
+					 aux.indexNextTarget = _indexNextTarget;
+					 aux.index = i;
+					 i++;
+					 Constantes.wayPoints.add (aux);
+					System.out.println(Integer.parseInt(strs[0])+";"+Integer.parseInt(strs[1])+";"+Integer.parseInt(strs[2])+";"+Integer.parseInt(strs[3])+";"+Integer.parseInt(strs[4])+";"+Integer.parseInt(strs[5])); //					addObstaculos(20*16, 10*16, 32, 32, 0, 1);
+
+				
+				}
+			}
+		}catch (Exception e) {
+			System.out.println(e.getMessage());		
+}
+//		WayPoint aux;
+//
+//		int wayX = (largura*16)/2-21;
+//		int wayY = 100;
+//		int waySizeX = 42;
+//		int waySizeY = 42;
+//		 aux = new WayPoint( wayX,wayY,waySizeX,waySizeY );
+//		 aux.indexNextTarget = 1;
+//
+//		Constantes.wayPoints.add(aux);
+//		
+//		 wayX = largura*16-42-100;
+//		 wayY = (altura*16)/2-21;
+//		 waySizeX = 42;
+//		 waySizeY = 42;
+//		 aux = new WayPoint( wayX,wayY,waySizeX,waySizeY );
+//		 aux.indexNextTarget = 2;
+//
+//			Constantes.wayPoints.add(aux);		
+//		
+//		 wayX = (largura*16)/2-21;
+//		 wayY = (altura*16)-42;
+//		 waySizeX = 42;
+//		 waySizeY = 42;
+//		 aux = new WayPoint( wayX,wayY,waySizeX,waySizeY );
+//		 aux.indexNextTarget = 3;
+//
+//			Constantes.wayPoints.add(aux);		
+//		
+//			wayX = 0;
+//			 wayY = (altura*16)/2;
+//			 waySizeX = 42;
+//			 waySizeY = 42;
+//			 aux = new WayPoint( wayX,wayY,waySizeX,waySizeY );
+//			 aux.indexNextTarget = 0;
+//
+//				Constantes.wayPoints.add(aux);
 //				
-//				Constantes.Constantes.wayPoints.get(i).indexNextTarget=i;
-//			}
+		
+	
+	}
+	public void loadObstaculos(String filename){
+		
+		InputStream in = Data.Imagem.class.getResourceAsStream(filename);
+		
+		
+		BufferedReader bf = new BufferedReader(new InputStreamReader(in));
+		
+		String str = "";
+		
+	
+	
+
+		try {
+			while((str = bf.readLine())!=null){
+				if(str.charAt(0)!='#'){
+					String strs[] = str.split(";");
+					
+					int codigo = Integer.parseInt(strs[0]); 
+					int _x = Integer.parseInt(strs[1]);
+					int _y = Integer.parseInt(strs[2]);
+					int _sizeX = Integer.parseInt(strs[3]);
+					int _sizeY = Integer.parseInt(strs[4]);
+					int tileSetColuna = Integer.parseInt(strs[5]);
+					int tileSetLinha = Integer.parseInt(strs[6]);
+
+					
+					System.out.println(Integer.parseInt(strs[0])+";"+Integer.parseInt(strs[1])+";"+Integer.parseInt(strs[2])+";"+Integer.parseInt(strs[3])+";"+Integer.parseInt(strs[4])+";"+Integer.parseInt(strs[5])+";"+Integer.parseInt(strs[6])); //					addObstaculos(20*16, 10*16, 32, 32, 0, 1);
+//					addObstaculos(22*16, 10*16, 32, 32, 13, 1);
+//					addObstaculos(20*16, 12*16, 32, 32, 15, 0);
+					
+					addObstaculos(_x, _y, _sizeX, _sizeY, tileSetColuna, tileSetLinha);
+				
+				}
+			}
+		}catch (Exception e) {
+			System.out.println(e.getMessage());		
+}
 	}
 
 

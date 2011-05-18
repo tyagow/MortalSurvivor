@@ -37,7 +37,7 @@ public class Torre extends Objeto{
 	int pmx;
 	
 	public	Arma armaAtiva;
-	private MenuTorre menuAtivo; //mudei para menu torre mas o certo eh menu somente ... resolver depois
+	public  MenuTorre menuAtivo; //mudei para menu torre mas o certo eh menu somente ... resolver depois
 
 	private MenuTorre menuStatusTorre;
 	Color cor;
