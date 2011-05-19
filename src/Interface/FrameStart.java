@@ -11,10 +11,12 @@ import GameState.GamePanel;
 
 public class FrameStart extends FrameBase {
 	static FrameOptions  frameOptions;
-	
+	static FrameHelp frameHelp;
 	public FrameStart(int _x, int _y, int sizeX, int sizeY, Color cor, int _tempoVida) {
 		super(_x, _y, sizeX, sizeY, cor, _tempoVida);
-		frameOptions= new FrameOptions(250, 0, GamePanel.PWIDTH-250,GamePanel.PHEIGHT, Color.darkGray, 9999);
+		frameOptions= new FrameOptions(250, 0, GamePanel.PWIDTH-250,GamePanel.PHEIGHT, Color.darkGray, -1);
+		frameHelp= new FrameHelp(250, 0, GamePanel.PWIDTH-250,GamePanel.PHEIGHT, Color.darkGray, -1);
+		
 		ativo=true;
 		criaBotoes();
 		alpha=100;
@@ -103,10 +105,15 @@ protected void trataBotao(Botao b) {
 		
 		System.exit(0);
 		
-	}else if (b.name.contains("Play") ) {
+	}else if (b.name.contains("Help") ) {
 		
-		GamePanel.setCanvasAtivo(CanvasGame.instance);
-		
+		if (!frames.contains(frameHelp)) {
+			frameHelp.ativo=true;
+			frames.add(frameHelp);
+	}	
+		else {
+			frameHelp.ativo=false;
+		}
 	}
 	
 	

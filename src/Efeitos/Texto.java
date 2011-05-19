@@ -19,7 +19,7 @@ public class Texto extends Objeto {
 	public String text;
 	public float alpha = 1.0f;
 	public Font big;
-	Color cor;
+	public Color cor;
 	public Texto(int xp,double x,double y){
 		
 		setX(x);
@@ -67,7 +67,6 @@ public class Texto extends Objeto {
 //		else alpha-=1.0f*DiffTime/1000.0f;
 
 			size+=VelocidadeAumenta*DiffTime/1000.0f;
-			System.out.println("opa");
 			time+=DiffTime;
 			X-=((VelocidadeAumenta*DiffTime/1000.0f));
 			Y-=((VelocidadeAumenta*DiffTime/1000.0f));

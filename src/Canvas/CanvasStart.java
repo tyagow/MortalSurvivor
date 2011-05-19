@@ -46,6 +46,8 @@ public class CanvasStart extends GCanvas{
 
 	private FrameBase menuOptions;
 	private FrameStart frameStart;
+	
+	
 	private static ArrayList<Botao> botoes= new ArrayList<Botao>();
 	public CanvasStart() {
 		// TODO Auto-generated constructor stub

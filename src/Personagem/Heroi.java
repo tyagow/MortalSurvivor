@@ -88,23 +88,26 @@ public class Heroi extends Objeto {
 		// TODO Auto-generated method stub
 	
 		
-		if (isVivo()) {
-			calculaIA(DiffTime);
+		if (vivo) {
 
 			
 			trataMovimentacao(DiffTime);
+			
+			calculaIA(DiffTime);
 
-			if (X+(sizeX>>1) >=larguraMapa ||getX()-getSizeX()/2-1<=0||colisaoBase(DiffTime)) {
+			calculaAnguloVelocidade();
+			trataDirecaoMovimentacao();
+		
+			trataMiraDoPersonagem();
 				
-				X=(oldx);
-			
-			}
-			if ( Y+sizeY/2+1>=alturaMapa || Y-sizeY/2-1 <=0  )
-				Y=(getOldy());
-			
+			trataInputMouse();
+			trataTrocaArma();
+			calculaAnimacao();
 			
 			armaAtiva.definePosicaoArma(ang, getX(), getY());
 			armaAtiva.SimulaSe(DiffTime);
+			if (life<0)
+				vivo=(false);
 		}
 
 	}
@@ -137,20 +140,19 @@ public class Heroi extends Objeto {
 	}
 	private void calculaIA(int DiffTime) {
 		// TODO Auto-generated method stub
+		
 
-		if (getLife()<0)
-			setVivo(false);
-		
-		calculaAnguloVelocidade();
-		trataDirecaoMovimentacao();
-		
-		
-		
-		trataMiraDoPersonagem();
+		if (X+(sizeX>>1) >=larguraMapa ||X-sizeX/2-1<=0||colisaoBase(DiffTime)) {
 			
-		trataInputMouse();
-		trataTrocaArma();
-		calculaAnimacao();
+			X=(oldx);
+		
+		}
+		if ( Y+sizeY/2+1>=alturaMapa || Y-sizeY/2-1 <=0 ||colisaoBase(DiffTime) )
+			Y=(oldy);
+		
+	
+		
+
 			
 		
 		
@@ -170,7 +172,7 @@ public class Heroi extends Objeto {
 			
 			
 			armaAtiva=armaPrimaria;
-			setArma(IDX_ARMA_PRIMARIA);
+			arma=(IDX_ARMA_PRIMARIA);
 			PRIMARIA=false;
 		}
 		else if (SECUNDARIA)  {
@@ -182,7 +184,7 @@ public class Heroi extends Objeto {
 			ultimaArma=armaAtiva;
 			armaAtiva=getArmaSecundaria();
 			SECUNDARIA=false;
-			setArma(IDX_ARMA_SECUNDARIA);
+			arma=(IDX_ARMA_SECUNDARIA);
 		}
 		else if (MELEE) {
 		if (armaAtiva!=null) {
@@ -226,7 +228,7 @@ public class Heroi extends Objeto {
 	private void calculaAnimacao() {
 		// TODO Auto-generated method stub
 		
-		switch (getArma()) {
+		switch (arma) {
 		case IDX_ARMA_MELEE:
 			frameX=0;
 			frameY=2;
@@ -257,8 +259,9 @@ public class Heroi extends Objeto {
 	}
 	private void trataMovimentacao(int DiffTime) {
 		// TODO Auto-generated method stub
-		setOldx((int) X);
-		setOldy((int) Y);
+		oldx=((int) X);
+
+		oldy=((int) Y);
 		
 			X+=(+(Math.cos(angMovimentacao)*vel*DiffTime/1000.0f)); 
 			Y-=((Math.sin(angMovimentacao)*vel*DiffTime/1000.0f)); 	
@@ -276,7 +279,7 @@ public class Heroi extends Objeto {
 	private boolean colisaoBase(int DiffTime) {
 		
 
-		if (Constantes.colidecircular(getX(), getY(), getSizeX()/2, CanvasGame.base.getX(), CanvasGame.base.getY(), CanvasGame.base.getSizeX()/2)) {	
+		if (Constantes.colidecircular(X, Y, sizeX/2, CanvasGame.base.X, CanvasGame.base.Y, CanvasGame.base.sizeX/2)) {	
 			
 			//trataColisaoBase(DiffTime);
 			return true;

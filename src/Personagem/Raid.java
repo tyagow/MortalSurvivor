@@ -50,6 +50,7 @@ public class Raid {
 					inim.X=(ix);
 					inim.Y=(iy);
 					inim.vel=(iv);
+					inim.maxVel=iv;
 					inim.maximoVida=ilife;
 					inim.life=(ilife);
 

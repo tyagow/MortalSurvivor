@@ -219,7 +219,6 @@ public class Constantes {
 
 	public static boolean EVENT_atualizaMira=true;
 
-
 	public static BufferedImage LoadImage(String filename){
 		BufferedImage image = null;
 		
