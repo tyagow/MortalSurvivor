@@ -50,7 +50,7 @@ public class GerenciadorEfeitos extends Objeto implements Runnable {
 		diffTimeParticulas=0;
 		manchasSangue= new BufferedImage(CanvasGame.tela.Largura*16, CanvasGame.tela.Altura*16, BufferedImage.TYPE_INT_ARGB);
 		manchas = manchasSangue.createGraphics();
-		Constantes.particulas.clear();
+		Constantes.particulasSangue.clear();
 		Constantes.particulasDesenha.clear();
 		Constantes.particulasExplosao.clear();
 		Constantes.efeitos.clear();
@@ -66,7 +66,7 @@ public class GerenciadorEfeitos extends Objeto implements Runnable {
 		
 	}
 
-	public synchronized void setParticulasDesenha(LinkedList<Particula> aux ) {
+	public synchronized void setParticulasDesenha(LinkedList<Sangue> aux ) {
 		
 		Constantes.particulasDesenha=aux;
 		
@@ -91,9 +91,9 @@ public class GerenciadorEfeitos extends Objeto implements Runnable {
 				}
 			}
 			
-			Iterator<Particula> itP = Constantes.particulas.iterator();
+			Iterator<Sangue> itP = Constantes.particulasSangue.iterator();
 			while(itP.hasNext()){
-				Particula part= itP.next();
+				Sangue part= itP.next();
 			
 				part.SimulaSe((int)DiffTime);
 				
@@ -143,17 +143,17 @@ public class GerenciadorEfeitos extends Objeto implements Runnable {
 		
 		while(running) {
 				
-			for(int i = 0; i < Constantes.particulas.size();i++){
-				Particula part =  Constantes.particulas.get(i);
+			for(int i = 0; i < Constantes.particulasSangue.size();i++){
+				Sangue part =  Constantes.particulasSangue.get(i);
 				part.SimulaSe((int)DiffTime);
 				if(part.isVivo()==false) {
 					
-					Constantes.particulas.remove(i);
+					Constantes.particulasSangue.remove(i);
 					desenhaSangue(part);
 				}
 			}
 			
-			setParticulasDesenha(Constantes.particulas);
+			setParticulasDesenha(Constantes.particulasSangue);
 
 				
 			try {
@@ -184,9 +184,9 @@ public class GerenciadorEfeitos extends Objeto implements Runnable {
 
 		dbg.drawImage(manchasSangue, -XMundo,-YMundo, manchasSangue.getWidth()-XMundo, manchasSangue.getHeight()-YMundo, 0, 0, CanvasGame.largura, CanvasGame.altura, null);
 		
-		Iterator<Particula> itP = Constantes.particulasDesenha.iterator();
+		Iterator<Sangue> itP = Constantes.particulasDesenha.iterator();
 		while(itP.hasNext()){
-			Particula part= itP.next();
+			Sangue part= itP.next();
 			part.DesenhaSe(dbg,XMundo,YMundo);
 			
 		}	
@@ -220,8 +220,8 @@ public class GerenciadorEfeitos extends Objeto implements Runnable {
 		//System.out.println("oi");
 //		Iterator<Particula> it = particulas.iterator();
 //		while(it.hasNext()){
-		for(int i = 0; i < Constantes.particulas.size();i++){
-			Particula part =  Constantes.particulas.get(i);
+		for(int i = 0; i < Constantes.particulasSangue.size();i++){
+			Sangue part =  Constantes.particulasSangue.get(i);
 //			part.SimulaSe(50/*(int)DiffTime*/);
 //			if(part.isVivo()==false) {
 //				efeitos.remove();
@@ -233,7 +233,7 @@ public class GerenciadorEfeitos extends Objeto implements Runnable {
 			//System.out.println(diffTimeParticulas+ "   ");
 			if(part.isVivo()==false) {
 				
-				Constantes.particulas.remove(i);
+				Constantes.particulasSangue.remove(i);
 				desenhaSangue(part);
 //				//chamaThreadDesenhaSangue(part);
 			}
@@ -241,7 +241,7 @@ public class GerenciadorEfeitos extends Objeto implements Runnable {
 	}
 
 
-	private static void chamaThreadDesenhaSangue(final Particula part) {
+	private static void chamaThreadDesenhaSangue(final Sangue part) {
 		// TODO Auto-generated method stub
 		new Thread(){
 			 @Override
@@ -279,15 +279,15 @@ public class GerenciadorEfeitos extends Objeto implements Runnable {
 			 }
 		 }.start();
 	}
-	private  static void desenhaSangue(Particula part) {
+	private  static void desenhaSangue(Sangue part) {
 		// TODO Auto-generated method stub
-		int alpha;
-		if (part.getAlpha()-40<0)
-			alpha = 0;
-		else alpha= part.getAlpha()-40;
+//		int alpha;
+//		if (part.getAlpha()-40<0)
+//			alpha = 0;
+//		else alpha= part.getAlpha()-40;
 		
-		manchas.setColor(new Color(255,0,0,alpha));
-		manchas.fillOval((int)part.getX(),(int) part.getY(), part.getSizeX(), part.getSizeY());
+		manchas.setColor(part.cor);
+		manchas.fillOval((int)part.X,(int) part.Y, part.sizeX, part.sizeY);
 
 		
 	}
@@ -301,7 +301,7 @@ public class GerenciadorEfeitos extends Objeto implements Runnable {
 		
 	}
 	
-	public void ativaSangue (double x, double y, double ang, int dano) {
+	public void ativaSangue (double x, double y, double ang, int dano, int tipo) {
 		Color cor;
 		int velx =(int) (Math.cos(ang)*800);
 		int vely=(int) (Math.sin(ang)*800);
@@ -357,9 +357,16 @@ public class GerenciadorEfeitos extends Objeto implements Runnable {
 				pvx = (int)(pvx*(0.01+0.25*GamePanel.rnd.nextFloat()));
 				pvy = (int)(pvy*(0.01+0.25*GamePanel.rnd.nextFloat()));
 				
-	
+				if (tipo!=2)
 					cor = Color.red;
-					
+				else 
+				{
+					if (GamePanel.rnd.nextBoolean())
+						cor = Color.cyan;
+					else
+						cor = Color.green;
+				
+				}
 				switch (GamePanel.rnd.nextInt(8)) {
 					case 0:
 						pvx = -pvx;
@@ -376,7 +383,7 @@ public class GerenciadorEfeitos extends Objeto implements Runnable {
 					   
 				}
 				
-				Constantes.particulas.add((Particula)new Sangue(x,y,-pvx,-pvy,GamePanel.rnd.nextInt(100)+100,cor));
+				Constantes.particulasSangue.add(new Sangue(x,y,-pvx,-pvy,GamePanel.rnd.nextInt(100)+100,cor));
 			}
 //			int modv = GamePanel.rnd.nextInt(300);
 //			

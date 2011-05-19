@@ -324,7 +324,7 @@ private void trataEstado() {
 		tipoAssasino=_tipo;
 		if (life>0)
 			
-			CanvasGame.gerenciadorEfeitos.ativaSangue(X,Y,ang,(int)dano);
+			CanvasGame.gerenciadorEfeitos.ativaSangue(X,Y,ang,(int)dano,tipo);
 		
 		if (life-dano<=0) {
 			

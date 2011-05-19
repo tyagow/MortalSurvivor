@@ -142,12 +142,12 @@ public class Heroi extends Objeto {
 		// TODO Auto-generated method stub
 		
 
-		if (X+(sizeX>>1) >=larguraMapa ||X-sizeX/2-1<=0||colisaoBase(DiffTime)) {
+		if (X+(sizeX>>1) >=larguraMapa ||X-sizeX/2-1<=0||colisaoBaseX()) {
 			
 			X=(oldx);
 		
 		}
-		if ( Y+sizeY/2+1>=alturaMapa || Y-sizeY/2-1 <=0 ||colisaoBase(DiffTime) )
+		if ( Y+sizeY/2+1>=alturaMapa || Y-sizeY/2-1 <=0 ||colisaoBaseY() )
 			Y=(oldy);
 		
 	
@@ -156,6 +156,21 @@ public class Heroi extends Objeto {
 			
 		
 		
+	}
+	private boolean colisaoBaseY() {
+		// TODO Auto-generated method stub
+		
+		if (Constantes.colideQuadradoUni(Y,sizeY,CanvasGame.base.Y,CanvasGame.base.sizeY)) //&&CanvasGame.base.Y+CanvasGame.base.sizeY<Y)
+			return true;
+		else 
+			return false;
+
+	}
+	private boolean colisaoBaseX() {
+		if (Constantes.colideQuadradoUni(X,sizeX,CanvasGame.base.X,CanvasGame.base.sizeX)) // &&CanvasGame.base.Y+CanvasGame.base.sizeY<Y)
+			return true;
+		else 
+			return false;
 	}
 	private void trataTrocaArma() {
 		// TODO Auto-generated method stub

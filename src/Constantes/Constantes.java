@@ -14,6 +14,7 @@ import javax.imageio.ImageIO;
 import AbstractClasses.Objeto;
 import Armas.Projetil;
 import Efeitos.Particula;
+import Efeitos.Sangue;
 import GameState.GamePanel;
 import Map.WayPoint;
 import Personagem.Inimigo;
@@ -26,10 +27,10 @@ public class Constantes {
 	public static ArrayList<Inimigo> inimigos = new ArrayList<Inimigo>();
 	public static ArrayList<Projetil> projeteis = new ArrayList<Projetil>();
 
-	public static LinkedList<Particula> particulas = new LinkedList<Particula>();
+	public static LinkedList<Sangue> particulasSangue = new LinkedList<Sangue>();
 	public static LinkedList<Particula> particulasExplosao = new LinkedList<Particula>();
 
-	public static LinkedList<Particula> particulasDesenha = new LinkedList<Particula>();
+	public static LinkedList<Sangue> particulasDesenha = new LinkedList<Sangue>();
 	public static LinkedList<Objeto> efeitos = new LinkedList<Objeto>();
 	
 	public static int XTela,YTela;
@@ -256,6 +257,13 @@ public class Constantes {
 			return false;
 		return true;
 	}
+
+	public static boolean colideQuadradoUni(double x1,  int sizeX1,  double x2,  int sizeX2){
+		if(((x1+sizeX1<x2 || x1>x2+sizeX2)))
+			return false;
+		return true;
+	}
+
 
 
 

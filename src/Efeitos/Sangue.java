@@ -9,7 +9,7 @@ import GameState.GamePanel;
 
 public class Sangue extends Particula {
 	
-	Color cor =  null;
+	public Color cor =  null;
 	
 	int r,g,b;
 	
