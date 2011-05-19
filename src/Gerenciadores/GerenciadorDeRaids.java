@@ -14,8 +14,6 @@ public class GerenciadorDeRaids {
 	
 	private static ArrayList<Raid> raids = new ArrayList<Raid>();
 	
-	
-	
 	int numRaid = 1;
 	public static int tempoEntreRaids;
 	public boolean fim=false;
