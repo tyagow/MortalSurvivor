@@ -9,6 +9,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -18,14 +20,19 @@ import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 import Constantes.Constantes;
 import Data.Imagem;
 import GameState.GamePanel;
 import Gerenciadores.GerenciadorDeSom;
+import Gerenciadores.GerenciadorObstaculos;
 import Interface.Botao;
 import Interface.FrameBase;
 import Interface.FrameStart;
 import Interface.FrameOptions;
+import Map.Obstaculo;
 import Mouse.CursorMenu;
 import Mouse.Mira;
 
@@ -70,6 +77,9 @@ public class CanvasStart extends GCanvas{
 		frameAtivo=frameStart;
 		setMiraAtiva(new CursorMenu());
 		
+		
+		
+
 //		
 //		FileOutputStream in;
 //		try {

@@ -4,18 +4,29 @@ package Constantes;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.image.BufferedImage;
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
 import javax.imageio.ImageIO;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
+import sun.applet.Main;
 
 
 import AbstractClasses.Objeto;
 import Armas.Projetil;
+import Canvas.CanvasGame;
 import Efeitos.Particula;
 import Efeitos.Sangue;
 import GameState.GamePanel;
+import Gerenciadores.GerenciadorObstaculos;
+import Map.Obstaculo;
 import Map.WayPoint;
 import Personagem.Inimigo;
 
@@ -259,12 +270,61 @@ public class Constantes {
 	}
 
 	public static boolean colideQuadradoUni(double x1,  int sizeX1,  double x2,  int sizeX2){
-		if(((x1+sizeX1<x2 || x1>x2+sizeX2)))
+		if(((x1+sizeX1<x2 || x2+sizeX2<x1)))
 			return false;
 		return true;
 	}
+	
+	public static void saveObstaculosInFile() {
+		JFileChooser fc = new JFileChooser();
+	
+	    fc.setCurrentDirectory(new File("tmp.tmp"));//new File(getClass().getResource("palm.png").getFile()));
+	
+		FileNameExtensionFilter filter = new FileNameExtensionFilter("Arquivos de Caminhos", "csv");
+		
+		fc.setFileFilter(filter);
+	
 
+		int returnVal = fc.showSaveDialog(GamePanel.instance);
+		if (returnVal == JFileChooser.APPROVE_OPTION) {
+	   
+			File file = fc.getSelectedFile();
+		
+			System.out.println(" file "+file);
+			System.out.println(Main.class.getResource("obstaculos.csv"));
+			
+		    FileOutputStream out = null;
+		    try {
+					out =  new FileOutputStream(file);
+				} catch (FileNotFoundException e1) {
+					e1.printStackTrace();
+				}
+				
+			
+				DataOutputStream dataout = new DataOutputStream(out);
+				try {		
+					dataout.writeBytes("#Codigo;posX;posY;sizeX;sizeY;tileSetColuna;tileSetLinha");
+					for (int i=0;i<GerenciadorObstaculos.obstaculos.size();i++) {
+						
+						
+						Obstaculo obs = GerenciadorObstaculos.obstaculos.get(i);
+						
+						if (obs.X!=CanvasGame.base.X&&obs.Y!=CanvasGame.base.Y)
+							dataout.writeBytes(i+";"+(int)obs.X+";"+(int)obs.Y+";"+(int)obs.sizeX+";"+(int)obs.sizeY+";"+(int)obs.tileSetColuna+";"+(int)obs.tileSetLinha+""+System.getProperty("line.separator"));
+		
+					}
+					
+					dataout.close();
+					out.close();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+					}
+				
+			} else {
+				System.out.println("Open command cancelled by user.");
+			}
 
-
+	}
 
 }
