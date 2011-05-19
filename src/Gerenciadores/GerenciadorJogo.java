@@ -5,27 +5,33 @@ import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
+import shop.FrameShop;
+
 import AbstractClasses.Objeto;
 import Canvas.CanvasGame;
 import Constantes.Constantes;
 import GameState.GamePanel;
+import Interface.FrameBase;
 import Interface.FramePause;
 
 public class GerenciadorJogo extends Objeto  {
 
-	FramePause framePause;
+	static FramePause framePause;
+	static FrameShop frameShop;
+	public static FrameBase frameAtivo;
+		
 	public static float velocidadeJogo;
 	
 	public GerenciadorJogo(){
 		
-		inicializaFramePause();
+		inicializaFrames();
 		
 		
 		
 		
 	}
 	
-	private void inicializaFramePause() {
+	private void inicializaFrames() {
 		int _sizeX= GamePanel.PWIDTH/2;
 		int _sizeY= GamePanel.PHEIGHT;
 		
@@ -33,13 +39,26 @@ public class GerenciadorJogo extends Objeto  {
 		int _y= 0;
 		
 		
-		framePause= new FramePause(_x, _y, _sizeX, _sizeY, Color.DARK_GRAY, -1);		
+		framePause= new FramePause(_x, _y, _sizeX, _sizeY, Color.DARK_GRAY, -1);	
+		
+		
+		 _sizeX= GamePanel.PWIDTH;
+		 _sizeY= GamePanel.PHEIGHT;
+		
+		 _x= 0;
+		 _y= 0;
+		
+		
+		 frameShop= new FrameShop(_x, _y, _sizeX, _sizeY, Color.darkGray, -1);	
+		
+		
+		
 	}
 
 	public void SimulaSe(int DiffTime, float _velocidadeJogo2) {
 		velocidadeJogo=_velocidadeJogo2;
-		if (velocidadeJogo == 0) {
-			framePause.SimulaSe(DiffTime);
+		if (frameAtivo!=null) {
+			frameAtivo.SimulaSe(DiffTime);
 			
 		}
 		trataMiraMouse();
@@ -62,8 +81,8 @@ public class GerenciadorJogo extends Objeto  {
 	@Override
 	public void DesenhaSe(Graphics2D dbg, int XMundo, int YMundo) {
 		// TODO Auto-generated method stub
-		if (velocidadeJogo == 0) {
-			framePause.DesenhaSe(dbg, 0, 0);
+		if (frameAtivo!=null) {
+			frameAtivo.DesenhaSe(dbg, 0, 0);
 		}
 		
 		
@@ -77,47 +96,70 @@ public class GerenciadorJogo extends Objeto  {
 		int keyCode = e.getKeyCode();
 		if(keyCode == KeyEvent.VK_ESCAPE){
 			
+			frameAtivo=framePause;
 			CanvasGame.velocidadeJogo = 0;
 			//inicializaFramePause();
 			
 		}
 		
-		if (velocidadeJogo == 0) {
-			framePause.keyPressed(e);
+//		if(keyCode == KeyEvent.VK_SHIFT){
+//			
+//			frameAtivo=frameShop;
+//			CanvasGame.velocidadeJogo = 0;
+//			//inicializaFramePause();
+//			
+//		}
+		
+		if (frameAtivo!=null) {
+			frameAtivo.keyPressed(e);
 		}
 	}
 
 	
 	public void keyReleased(KeyEvent e) {
-		if (velocidadeJogo == 0) {
-			framePause.keyReleased(e);
-		}
 		
+		int keyCode = e.getKeyCode();
+
+		if (frameAtivo!=null) {
+			frameAtivo.keyReleased(e);
+		}
+		if(keyCode == KeyEvent.VK_SHIFT){
+			if (frameAtivo==(FrameBase)frameShop) {
+				frameAtivo=null;
+				CanvasGame.velocidadeJogo = 1;
+				velocidadeJogo=1;
+			}else {
+				frameAtivo=frameShop;
+				CanvasGame.velocidadeJogo = 0;
+				velocidadeJogo=0;
+			}
+				
+		}
 	}
 
 	public void mouseMoved(MouseEvent e) {
-		if (velocidadeJogo == 0) {
-			framePause.mouseMoved(e);
+		if (frameAtivo!=null) {
+			frameAtivo.mouseMoved(e);
 		}
 	}
 
 	public void mouseDragged(MouseEvent e) {
-		if (velocidadeJogo == 0) {
-			framePause.mouseDragged(e);
+		if (frameAtivo!=null) {
+			frameAtivo.mouseDragged(e);
 		}		
 	}
 
 	
 	public void mouseReleased(MouseEvent e) {
-		if (velocidadeJogo == 0) {
-			framePause.mouseReleased(e);
+		if (frameAtivo!=null) {
+			frameAtivo.mouseReleased(e);
 		}			
 	}
 
 	
 	public void mousePressed(MouseEvent e) {
-		if (velocidadeJogo == 0) {
-			framePause.mousePressed(e);
+		if (frameAtivo!=null) {
+			frameAtivo.mousePressed(e);
 		}		
 	}
 
@@ -125,8 +167,8 @@ public class GerenciadorJogo extends Objeto  {
 
 	
 	public void mouseClicked(MouseEvent e) {
-		if (velocidadeJogo == 0) {
-			framePause.mouseClicked(e);
+		if (frameAtivo!=null) {
+			frameAtivo.mouseClicked(e);
 		}		
 	}
 

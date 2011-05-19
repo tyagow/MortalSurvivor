@@ -173,8 +173,7 @@ public void mouseClicked(MouseEvent e) {
 
 	public void mouseMoved(MouseEvent e) {
 
-
-		if (Constantes.colideQuadrado((int)X,(int)Y,getSizeX(),getSizeY(),Constantes.mouseXTela,Constantes.mouseYTela,2,2 )) {
+		if (Constantes.colideQuadrado((int)X,(int)Y,getSizeX(),getSizeY(),e.getX()+Constantes.XTela,e.getY()+Constantes.YTela,2,2 )) {
 			selecionado=true;
 			
 		}

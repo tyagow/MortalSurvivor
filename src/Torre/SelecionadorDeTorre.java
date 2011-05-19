@@ -4,29 +4,26 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Stroke;
 import java.awt.event.MouseEvent;
-import java.lang.reflect.Array;
 
 
 import AbstractClasses.Objeto;
 import Armas.ArmaDoisTorre;
 import Armas.ArmaTresTorre;
 import Armas.ArmaUmTorre;
-import Canvas.CanvasGame;
 import Constantes.Constantes;
 import Data.Imagem;
 
 public class SelecionadorDeTorre extends Objeto {
 
 	public SlotTorre[] slotsTorre;
-	private boolean oldIsMousePressed;
 	public Torre torreAtiva;
 
 	public SelecionadorDeTorre(){
-		setX(Constantes.SELECIONADOR_DE_TORRE_X);
-		setY(Constantes.SELECIONADOR_DE_TORRE_Y);
-		setSizeX(Constantes.SELECIONADOR_DE_TORRE_SIZEX);
-		setSizeY(Constantes.SELECIONADOR_DE_TORRE_SIZEY);
-		setVivo(true);
+		X=(Constantes.SELECIONADOR_DE_TORRE_X);
+		Y=(Constantes.SELECIONADOR_DE_TORRE_Y);
+		sizeX=(Constantes.SELECIONADOR_DE_TORRE_SIZEX);
+		sizeY=(Constantes.SELECIONADOR_DE_TORRE_SIZEY);
+		vivo=(true);
 		
 		
 		

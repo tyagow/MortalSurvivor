@@ -90,19 +90,17 @@ public class MenuTorre extends FrameBase {
 	public void mouseMoved(MouseEvent e) {
 		if (Constantes.colideQuadrado((int)X,(int)Y,sizeX,sizeY,(int) e.getX() + Constantes.XTela,(int) e.getY()+Constantes.YTela,2,2 )) {
 			selecionado=true;
-			
 		}
 		else {
 			selecionado=false;
 		}
 
 		for (int i=0;i<botoes.size();i++) {
-			
 			botoes.get(i).mouseMoved(e);
-			
-			botoes.get(i).mousex = e.getX()+Constantes.XTela;
-
-			botoes.get(i).mousey = e.getY()+Constantes.YTela;
+//			
+//			botoes.get(i).mousex = e.getX()+Constantes.XTela;
+//
+//			botoes.get(i).mousey = e.getY()+Constantes.YTela;
 			
 		
 }

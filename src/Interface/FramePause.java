@@ -49,6 +49,7 @@ public class FramePause extends FrameBase {
 		if (b.name.contains("voltar") ) {
 				CanvasGame.velocidadeJogo = 1;
 				GerenciadorJogo.velocidadeJogo = 1;
+				GerenciadorJogo.frameAtivo=null;
 	
 		}
 		else if (b.name.contains("recomecar") ) {

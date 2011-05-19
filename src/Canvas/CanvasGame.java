@@ -193,16 +193,18 @@ public class CanvasGame extends GCanvas {
 		
 		heroi.DesenhaSe(dbg, Constantes.XTela, Constantes.YTela);
 		gerenciadorEfeitos.DesenhaLayerDois(dbg, Constantes.XTela, Constantes.YTela);
-		if (getMiraAtiva()!=null)
-			getMiraAtiva().DesenhaSe(dbg, Constantes.XTela, Constantes.YTela);
 		gerenciadorRespawn.DesenhaSe(dbg, Constantes.XTela, Constantes.YTela);
 		minimap.DesenhaSe(dbg, Constantes.XTela, Constantes.YTela);
 
 		gerenciadorHud.DesenhaSe(dbg, Constantes.XTela, Constantes.YTela);
 
 		gerenciadorXP.DesenhaSe(dbg, Constantes.XTela, Constantes.YTela);
+
 		gameManager.DesenhaSe(dbg, Constantes.XTela, Constantes.XTela);
 
+		if (getMiraAtiva()!=null)
+			getMiraAtiva().DesenhaSe(dbg, Constantes.XTela, Constantes.YTela);
+		
 	}
 	
 	
@@ -317,10 +319,7 @@ public class CanvasGame extends GCanvas {
 				
 			}	
 		}	
-//		if(keyCode == KeyEvent.VK_ESCAPE){
-//			GamePanel.setCanvasAtivo(new CanvasMenu());
-//		}
-		
+
 	
 		if(keyCode == KeyEvent.VK_3){
 			GerenciadorTorre.adicionaTorre((int)getMousex()+tela.XTela,(int)getMousey()+tela.YTela);
