@@ -97,11 +97,14 @@ public void SimulaSe(int DiffTime) {
 	
 			oldx=((int)X);
 			oldy=((int)Y);
+			
+			velx=(int) (Math.cos(ang)*vel);
+			vely=(int) (Math.sin(ang)*vel);
 	
 			X+= (velx*DiffTime/1000.0f);
 			Y+= (vely*DiffTime/1000.0f);
-			 velx=(int) (Math.cos(ang)*vel);
-			 vely=(int) (Math.sin(ang)*vel);
+			
+
 		
 			calculaIA(DiffTime);
 	
@@ -142,16 +145,20 @@ public void DesenhaSe(Graphics2D dbg, int XMundo, int YMundo) {
 	
 	}
 	
+	int iatimer = 0;
 private void calculaIA(int DiffTime) {
 		// TODO Auto-generated method stub
 //		System.out.println("vel"+vel);
 //		
 //		System.out.println("velx"+velx);
 		tempoEntreAtaque+=DiffTime;
+		iatimer+=DiffTime;
 		
-		
-		maquinaEstados();
-		trataEstado();
+		if(iatimer>160){
+			maquinaEstados();
+			trataEstado();
+			iatimer  = 0;
+		}
 
 //		estado=trataEstado(estado);
 //		if(estado == 0){
@@ -186,12 +193,12 @@ private void calculaIA(int DiffTime) {
 		
 		switch (estado) {
 		case DESVIAR_OBSTACULO:
-			if (!verificaColisaoObstaculo())
+			if (!verificaColisaoObstaculo()||!verificaSeparacao())
 				estado=ATRAS_BASE;
 			break;	
 			
 		case ATRAS_BASE:
-			if (verificaColisaoObstaculo())
+			if (verificaColisaoObstaculo()||verificaSeparacao())
 				estado=DESVIAR_OBSTACULO;
 			if(Constantes.colidecircular(X, Y,campoDeVisao,CanvasGame.heroi.X,CanvasGame.heroi.Y,CanvasGame.heroi.sizeX/2)){
 			
@@ -199,7 +206,7 @@ private void calculaIA(int DiffTime) {
 			}
 			break;
 		case ATRAS_HEROI:
-			if (verificaColisaoObstaculo())
+			if (verificaColisaoObstaculo()||verificaSeparacao())
 				estado=DESVIAR_OBSTACULO;
 			else {
 				if(!Constantes.colidecircular(X, Y,campoDeVisao,CanvasGame.heroi.X,CanvasGame.heroi.Y,CanvasGame.heroi.sizeX/2))
@@ -260,54 +267,65 @@ private void trataEstado() {
 
 	private void estadoDesviaObstaculo() {
 
+
 	
-	
-			colidiuObstaculo=verificaColisaoObstaculo();
-		 
-			
-			if(verificaColisaoObstaculo()){
-				double tempx = X;
-				double tempy = Y;
-				X = oldx;
-				
-				
 				colidiuObstaculo=verificaColisaoObstaculo();
-
+			 		
 				if(verificaColisaoObstaculo()){
-					Y = oldy;
-					X = tempx;
+					double tempx = X;
+					double tempy = Y;
+					X = oldx;
 					
-					colidiuObstaculo=verificaColisaoObstaculo();
-
+	
 					if(verificaColisaoObstaculo()){
-						X = oldx;
 						Y = oldy;
-						ang=angAux;
-						 velx=(int) (Math.cos(ang)*vel);
-						 vely=(int) (Math.sin(ang)*vel);
-						 vel=maxVel;
-			
+						X = tempx;
+	
+						if(verificaColisaoObstaculo()){
+							X = oldx;
+							Y = oldy;
+							
+							ang=ang+Math.PI;
+							 vel=maxVel;
+				
+						}else{
+							 vel=maxVel;
+						}
 					}else{
-						 velx = (int)vel;
-						 vely = 0;
 						 vel=maxVel;
 					}
+					
 				}else{
-					 velx = 0;
-					 vely =(int)vel;
 					 vel=maxVel;
 				}
-				
-			}else{
-				 velx=(int) (Math.cos(ang)*vel);
-				 vely=(int) (Math.sin(ang)*vel);
-				 vel=maxVel;
+
+		
+	
+//			
+			if (verificaColisaoBase()) {
+				X=oldx;
+				Y=oldy;
 			}
-
-
+			
+			
+		
+			
 		}
 
 
+
+	private boolean verificaColisaoBase() {
+		
+
+				if (Constantes.colideQuadrado(X-sizeX/2, Y-sizeY/2, sizeX, sizeY,objX-CanvasGame.base.sizeX/2, objY-CanvasGame.base.sizeY/2,CanvasGame.base.sizeX,CanvasGame.base.sizeY/2)) {
+//					if (objX!=(int)CanvasGame.base.X&&objY!=(int)CanvasGame.base.Y)
+						return true;
+//				
+				}			
+	
+					return false;
+		}
+	
 
 	private boolean verificaColisaoObstaculo() {
 		for (int i =0; i < GerenciadorObstaculos.obstaculos.size();i++) {
@@ -318,6 +336,38 @@ private void trataEstado() {
 			}			
 		} 
 				return false;
+	}
+	private boolean verificaSeparacao() {
+//		
+//		for (int i =0; i < Constantes.inimigos.size();i++) {
+//			Inimigo ob = Constantes.inimigos.get(i);
+////			if (Constantes.colidecircular(X, Y, sizeX/4, ob.X, ob.Y, ob.sizeX/4)) {
+//				double dx =  X-ob.X;
+//				double  dy = Y-ob.Y;
+//				
+//				int r = sizeX ;
+//				double d2 = dx*dx + dy*dy;
+//				
+//				if (d2<r*r) {
+//				
+//					ang = Math.atan2(dy, dx);
+//					vel=maxVel*2;
+//					return true;
+//				}else {
+//					vel=maxVel;
+//				}
+				
+//				
+//				ang = ob.ang+Math.PI;
+//				
+//				X=oldx;
+//				Y=oldy;
+//				vel=maxVel+50;
+//				return true;
+//			}			
+//		} 
+		vel=maxVel;
+		return false;
 	}
 
 	public void recebeuDano(int dano,int _tipo) {
@@ -373,7 +423,7 @@ private void verificaTarget() {
 	double difX = target.X - X;
 	double difY = target.Y - Y;
 	 ang =  Math.atan2(difY, difX);
-	 angAux = Math.atan2(difY, difX)-Math.PI/2;
+	 angAux = Math.atan2(difY, difX);
 
 	if(Constantes.colideQuadrado((int)X-sizeX/2, (int)Y-sizeY/2,sizeX,sizeY,(int)target.X-target.sizeX/2,(int)target.Y-target.sizeY/2,target.sizeX,target.sizeY)){		
 
@@ -450,7 +500,7 @@ private void carregaTargetProximo() {
 			   int dy = (int)(target.Y - Y);
 			   
 			   ang = Math.atan2(dy, dx);
-				 angAux = Math.atan2(dy, dx)+Math.PI/2;
+				 angAux = Math.atan2(dy, dx);
 
 			
 		
@@ -484,7 +534,7 @@ private void carregaPrimeiroTarget() {
 				   int dy = (int)(target.Y - Y);
 				   
 				   ang = Math.atan2(dy, dx);
-					 angAux = Math.atan2(dy, dx)+Math.PI/2;
+					 angAux = Math.atan2(dy, dx);
 
 				
 			}
@@ -510,7 +560,7 @@ private void irAtrasDoHeroi(){
 		double difX = CanvasGame.heroi.X - X;
 		double difY = CanvasGame.heroi.Y - Y;
 		 ang =  Math.atan2(difY, difX);
-		 angAux = Math.atan2(difY, difX)+Math.PI/2;
+		 angAux = Math.atan2(difY, difX);
 
 
 		if(Constantes.colidecircular(X, Y,sizeX/2,CanvasGame.heroi.X,CanvasGame.heroi.Y,CanvasGame.heroi.sizeX/2)){

@@ -157,7 +157,7 @@ public class Constantes {
 
 	public static final double INIMIGO_CAMPO_VISAO1 = 200;
 	public static final int INIMIGO1 = 1;
-	public static final double TEMPO_ENTRE_RAIDS = 5000;
+	public static final double TEMPO_ENTRE_RAIDS = 20000;
 
 
 	public static final double MINIMAP_X = 50;
@@ -263,14 +263,14 @@ public class Constantes {
 		return false;
 	}
 	
-	public static boolean colideQuadrado(int x1, int y1, int sizeX1, int sizeY1, int x2, int y2, int sizeX2, int sizeY2){
-		if(((x1+sizeX1<x2 || x1>x2+sizeX2)) || ((y1+sizeY1<y2 || y1>y2+sizeY2)))
+	public static boolean colideQuadrado(double x, double y, int sizeX1, int sizeY1, double x2, double y2, int sizeX2, int sizeY2){
+		if(((x+sizeX1<x2 || x>x2+sizeX2)) || ((y+sizeY1<y2 || y>y2+sizeY2)))
 			return false;
 		return true;
 	}
 
 	public static boolean colideQuadradoUni(double x1,  int sizeX1,  double x2,  int sizeX2){
-		if(((x1+sizeX1<x2 || x2+sizeX2<x1)))
+		if(((x1+sizeX1<x2 || x1>x2+sizeX2)))
 			return false;
 		return true;
 	}

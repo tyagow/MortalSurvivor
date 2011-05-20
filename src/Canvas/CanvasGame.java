@@ -337,7 +337,8 @@ public class CanvasGame extends GCanvas {
 			GerenciadorTorre.adicionaTorre((int)getMousex()+tela.XTela,(int)getMousey()+tela.YTela);
 		}	
 		if(keyCode == KeyEvent.VK_4){
-			GamePanel.setCanvasAtivo(new CanvasGame());
+//			GamePanel.setCanvasAtivo(new CanvasGame());
+			velocidadeJogo=2;
 		}
 		
 	
@@ -352,6 +353,10 @@ public class CanvasGame extends GCanvas {
 		if(keyCode == KeyEvent.VK_0){
 			Constantes.testeGradeColisao=false;
 		}	
+		if(keyCode == KeyEvent.VK_4){
+//			GamePanel.setCanvasAtivo(new CanvasGame());
+			velocidadeJogo=1;
+		}
 		if(keyCode == KeyEvent.VK_F6){
 			if (Constantes.menuDeObstaculos){
 				Constantes.menuDeObstaculos=false;

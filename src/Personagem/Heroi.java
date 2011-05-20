@@ -16,6 +16,7 @@ import Armas.He;
 import Armas.M4;
 import Canvas.CanvasGame;
 import Constantes.Constantes;
+import Gerenciadores.GerenciadorObstaculos;
 
 
 public class Heroi extends Objeto {
@@ -85,7 +86,6 @@ public class Heroi extends Objeto {
 	}
 	@Override
 	public void SimulaSe(int DiffTime) {
-		// TODO Auto-generated method stub
 	
 		
 		if (vivo) {
@@ -115,7 +115,6 @@ public class Heroi extends Objeto {
 
 	@Override
 	public void DesenhaSe(Graphics2D dbg, int XMundo, int YMundo) {
-		// TODO Auto-generated method stub
 		if (isVivo()) {
 			armaAtiva.DesenhaSe(dbg, XMundo, YMundo);
 			dbg.setColor(cor);
@@ -139,18 +138,53 @@ public class Heroi extends Objeto {
 
 	}
 	private void calculaIA(int DiffTime) {
-		// TODO Auto-generated method stub
 		
 
-		if (X+(sizeX>>1) >=larguraMapa ||X-sizeX/2-1<=0||colisaoBaseX()) {
+		if (X+(sizeX>>1) >=larguraMapa ||X-sizeX/2-1<=0||colisaoBase()) {
 			
 			X=(oldx);
 		
 		}
-		if ( Y+sizeY/2+1>=alturaMapa || Y-sizeY/2-1 <=0 ||colisaoBaseY() )
+		if ( Y+sizeY/2+1>=alturaMapa || Y-sizeY/2-1 <=0 ||colisaoBase() )
 			Y=(oldy);
 		
-	
+		
+		for (int i=0;i<GerenciadorObstaculos.obstaculos.size();i++) {
+		
+			
+			if (Constantes.colideQuadrado(X-sizeX/2,Y-sizeY/2,sizeX,sizeY,GerenciadorObstaculos.obstaculos.get(i).X-GerenciadorObstaculos.obstaculos.get(i).sizeX/2,GerenciadorObstaculos.obstaculos.get(i).Y-GerenciadorObstaculos.obstaculos.get(i).sizeY/2,GerenciadorObstaculos.obstaculos.get(i).sizeX,GerenciadorObstaculos.obstaculos.get(i).sizeY)) { // &&CanvasGame.base.Y+CanvasGame.base.sizeY<Y)
+//				
+//				double tempX=X;
+				System.out.println("X" +  X);
+				System.out.println("oldx" +  oldx);
+				X=oldx;
+				Y=oldy;
+				
+//				if (Constantes.colideQuadrado(X-sizeX/2,Y-sizeY/2,sizeX,sizeY,GerenciadorObstaculos.obstaculos.get(i).X-GerenciadorObstaculos.obstaculos.get(i).sizeX/2,GerenciadorObstaculos.obstaculos.get(i).Y-GerenciadorObstaculos.obstaculos.get(i).sizeY/2,GerenciadorObstaculos.obstaculos.get(i).sizeX,GerenciadorObstaculos.obstaculos.get(i).sizeY)) { // &&CanvasGame.base.Y+CanvasGame.base.sizeY<Y)
+//					
+//					X=tempX;
+//					Y=oldx;
+//
+//					if (Constantes.colideQuadrado(X-sizeX/2,Y-sizeY/2,sizeX,sizeY,GerenciadorObstaculos.obstaculos.get(i).X-GerenciadorObstaculos.obstaculos.get(i).sizeX/2,GerenciadorObstaculos.obstaculos.get(i).Y-GerenciadorObstaculos.obstaculos.get(i).sizeY/2,GerenciadorObstaculos.obstaculos.get(i).sizeX,GerenciadorObstaculos.obstaculos.get(i).sizeY)) { // &&CanvasGame.base.Y+CanvasGame.base.sizeY<Y)
+//						
+//					X=oldx;
+//					Y=oldy;
+//					}
+//					
+//					
+//					
+				}				
+//				
+//				
+//			}
+//			if (Constantes.colideQuadrado(X-sizeX/2,Y-sizeY/2,sizeX,sizeY,GerenciadorObstaculos.obstaculos.get(i).X-GerenciadorObstaculos.obstaculos.get(i).sizeX/2,GerenciadorObstaculos.obstaculos.get(i).Y-GerenciadorObstaculos.obstaculos.get(i).sizeY/2,GerenciadorObstaculos.obstaculos.get(i).sizeX,GerenciadorObstaculos.obstaculos.get(i).sizeY)) { // &&CanvasGame.base.Y+CanvasGame.base.sizeY<Y)
+//			
+//				X=oldx;
+//				Y=oldy;
+//			break;	
+//			}
+			
+		}
 		
 
 			
@@ -159,18 +193,16 @@ public class Heroi extends Objeto {
 	}
 	private boolean colisaoBaseY() {
 		// TODO Auto-generated method stub
-		
-		if (Constantes.colideQuadradoUni(Y,sizeY,CanvasGame.base.Y,CanvasGame.base.sizeY)) //&&CanvasGame.base.Y+CanvasGame.base.sizeY<Y)
-			return true;
-		else 
+//		
+//		if (Constantes.colideQuadradoUni(Y,sizeY,CanvasGame.base.Y,CanvasGame.base.sizeY)) //&&CanvasGame.base.Y+CanvasGame.base.sizeY<Y)
+//			return true;
+//		else 
 			return false;
 
 	}
-	private boolean colisaoBaseX() {
-		if (Constantes.colideQuadradoUni(X,sizeX,CanvasGame.base.X,CanvasGame.base.sizeX)) // &&CanvasGame.base.Y+CanvasGame.base.sizeY<Y)
-			return true;
-		else 
-			return false;
+	private boolean colisaoBase() {
+		return (Constantes.colideQuadrado(X-sizeX/2,Y-sizeY/2,sizeX,sizeY,CanvasGame.base.X-CanvasGame.base.sizeX/2,CanvasGame.base.Y-CanvasGame.base.sizeY/2,CanvasGame.base.sizeX,CanvasGame.base.sizeY)); // &&CanvasGame.base.Y+CanvasGame.base.sizeY<Y)
+
 	}
 	private void trataTrocaArma() {
 		// TODO Auto-generated method stub

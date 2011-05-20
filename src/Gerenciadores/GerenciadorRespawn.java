@@ -5,7 +5,9 @@ import java.awt.Graphics2D;
 
 import AbstractClasses.Objeto;
 import Canvas.CanvasGame;
+import Constantes.Constantes;
 import GameState.GamePanel;
+import Map.Obstaculo;
 
 
 public class GerenciadorRespawn extends Objeto {
@@ -13,7 +15,17 @@ public class GerenciadorRespawn extends Objeto {
 	int timerRespawn=0;
 	int tempoDeRespawn=2000;
 	private static boolean respawn=false;
-	
+	public boolean verificaColisaoObstaculo() {
+		for (int i =0; i < GerenciadorObstaculos.obstaculos.size();i++) {
+			Obstaculo ob = GerenciadorObstaculos.obstaculos.get(i);
+			if (Constantes.colidecircular(X, Y, sizeX/2, ob.X, ob.Y, ob.sizeX/2)) {
+				return true;
+			
+			}			
+		} 
+				return false;
+		
+	}
 	@Override
 	public void SimulaSe(int DiffTime) {
 		// TODO Auto-generated method stub
@@ -24,7 +36,15 @@ public class GerenciadorRespawn extends Objeto {
 			timerRespawn+=DiffTime;
 			
 			if (timerRespawn>=tempoDeRespawn) {
-				CanvasGame.heroi.respaw(GamePanel.rnd.nextInt(GamePanel.PWIDTH/2)+100, GamePanel.rnd.nextInt(GamePanel.PHEIGHT/2)+100);
+				
+				
+				
+				CanvasGame.heroi.respaw(260,400);
+//				while (verificaColisaoObstaculo()) {
+//					CanvasGame.heroi.respaw(GamePanel.rnd.nextInt(GamePanel.PWIDTH), GamePanel.rnd.nextInt(GamePanel.PHEIGHT));
+//
+//				}
+				
 				timerRespawn=0;
 				setRespawn(false);
 			}
