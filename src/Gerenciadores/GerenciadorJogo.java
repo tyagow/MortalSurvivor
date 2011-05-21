@@ -123,18 +123,18 @@ public class GerenciadorJogo extends Objeto  {
 		if (frameAtivo!=null) {
 			frameAtivo.keyReleased(e);
 		}
-		if(keyCode == KeyEvent.VK_SHIFT){
-			if (frameAtivo==(FrameBase)frameShop) {
-				frameAtivo=null;
-				CanvasGame.velocidadeJogo = 1;
-				velocidadeJogo=1;
-			}else {
-				frameAtivo=frameShop;
-				CanvasGame.velocidadeJogo = 0;
-				velocidadeJogo=0;
-			}
-				
-		}
+//		if(keyCode == KeyEvent.VK_SHIFT){
+//			if (frameAtivo==(FrameBase)frameShop) {
+//				frameAtivo=null;
+//				CanvasGame.velocidadeJogo = 1;
+//				velocidadeJogo=1;
+//			}else {
+//				frameAtivo=frameShop;
+//				CanvasGame.velocidadeJogo = 0;
+//				velocidadeJogo=0;
+//			}
+//				
+//		}
 	}
 
 	public void mouseMoved(MouseEvent e) {

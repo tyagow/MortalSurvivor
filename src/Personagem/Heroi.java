@@ -16,6 +16,7 @@ import Armas.He;
 import Armas.M4;
 import Canvas.CanvasGame;
 import Constantes.Constantes;
+import Data.Imagem;
 import Gerenciadores.GerenciadorObstaculos;
 
 
@@ -59,6 +60,8 @@ public class Heroi extends Objeto {
 	private int larguraMapa,alturaMapa;
 	
 	private BufferedImage imagem;
+	private BufferedImage imagemLegs;
+
 	private int frameX=1;
 	private int frameY=0;
 	private static int arma;
@@ -66,6 +69,7 @@ public class Heroi extends Objeto {
 	
 	public Heroi(int x,int y,BufferedImage img) {
 		this.imagem= img ;
+		imagemLegs=Imagem.legs;
 		cor=Color.black;
 		this.setX(x);
 		this.setY(y);
@@ -124,8 +128,11 @@ public class Heroi extends Objeto {
 			AffineTransform trans = dbg.getTransform();
 			dbg.translate(px, py);
 			dbg.rotate(ang+(Math.PI*0.5));
-			dbg.drawImage(imagem, -getSizeX()/2,-getSizeX()/2,getSizeX()/2,getSizeY()/2,getSizeX()*frameX,getSizeY()*frameY,getSizeX()*frameX+getSizeX(),getSizeY()*frameY+getSizeY(),null);
+			dbg.drawImage(imagemLegs, 0,0,sizeX/2,sizeY/2,sizeX*frameX,sizeY*frameX,sizeX*frameY+sizeX,sizeY*frameX+sizeY,null);
+
+			dbg.drawImage(imagem, -sizeX/2,-sizeX/2,sizeX/2,sizeY/2,sizeX*frameX,sizeY*frameY,sizeX*frameX+sizeX,sizeY*frameY+sizeY,null);
 //		dbg.drawImage(AnimeSet,-14,-18,sizeX-10,sizeY-14,sizeX*frame+start,startY,(sizeX*frame)+sizeX+start,(startY)+sizeY,null);
+//			dbg.drawImage(imagemLegs, -sizeX/2,-sizeX/2,sizeX/2,sizeY/2,sizeX*frameX,sizeY*frameX,sizeX*frameY+sizeX,sizeY*frameX+sizeY,null);
 
 			dbg.setTransform(trans);
 
@@ -155,8 +162,8 @@ public class Heroi extends Objeto {
 			if (Constantes.colideQuadrado(X-sizeX/2,Y-sizeY/2,sizeX,sizeY,GerenciadorObstaculos.obstaculos.get(i).X-GerenciadorObstaculos.obstaculos.get(i).sizeX/2,GerenciadorObstaculos.obstaculos.get(i).Y-GerenciadorObstaculos.obstaculos.get(i).sizeY/2,GerenciadorObstaculos.obstaculos.get(i).sizeX,GerenciadorObstaculos.obstaculos.get(i).sizeY)) { // &&CanvasGame.base.Y+CanvasGame.base.sizeY<Y)
 //				
 //				double tempX=X;
-				System.out.println("X" +  X);
-				System.out.println("oldx" +  oldx);
+//				System.out.println("X" +  X);
+//				System.out.println("oldx" +  oldx);
 				X=oldx;
 				Y=oldy;
 				

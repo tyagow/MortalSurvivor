@@ -29,6 +29,7 @@ public class Texto extends Objeto {
 		tipo=1;
 		tempoVida=200;
 		VelocidadeAumenta=20;
+		size=14;
 		big= new Font("SansSerif", Font.BOLD, (int) size);
 		
 	}
@@ -66,10 +67,10 @@ public class Texto extends Objeto {
 			if (alpha<0) alpha =0;
 //		else alpha-=1.0f*DiffTime/1000.0f;
 
-			size+=VelocidadeAumenta*DiffTime/1000.0f;
+			//size+=VelocidadeAumenta*DiffTime/1000.0f;
 
 			time+=DiffTime;
-			X-=((VelocidadeAumenta*DiffTime/1000.0f));
+			//X-=((VelocidadeAumenta*DiffTime/1000.0f));
 			Y-=((VelocidadeAumenta*DiffTime/1000.0f));
 		
 			if (time/tempoVida>3){
@@ -93,13 +94,13 @@ public class Texto extends Objeto {
 				dbg.setFont(big);
 				dbg.setColor(Color.black);
 				
-//			    dbg.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
-				dbg.drawString("+"+xp+" XP ", (int)getX()-XMundo, (int)getY()-YMundo);
+			    dbg.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
+				dbg.drawString("+"+xp+" XP ", (int)X-XMundo, (int)getY()-YMundo);
 							
 				dbg.setColor(Color.yellow);
 		
 				dbg.drawString("+"+xp+" XP ", (int)getX()-2-XMundo, (int)getY()-2-YMundo);
-//			    dbg.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
+			    dbg.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
 				
 			}
 			

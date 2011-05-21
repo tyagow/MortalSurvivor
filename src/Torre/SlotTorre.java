@@ -6,6 +6,7 @@ import Constantes.Constantes;
 public class SlotTorre extends ObjetoImage{
 
 	public Arma armaAtiva;
+	public Torre torre;
 
 	
 	public SlotTorre() {
@@ -20,6 +21,7 @@ public class SlotTorre extends ObjetoImage{
 	public void setSlot(Arma _armaAtiva){
 		AnimeSet=(_armaAtiva.imagem_hud);
 		armaAtiva=(_armaAtiva);
+		torre = new Torre ( AnimeSet,armaAtiva,0,0);
 	}
 
 }

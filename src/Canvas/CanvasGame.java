@@ -101,6 +101,8 @@ public class CanvasGame extends GCanvas {
 	static Imagem loadImagem;
 
 	public static boolean miraDoJogoSelecionada;
+
+	public static boolean separacaoInimigos=false;
 	
 
 	
@@ -316,6 +318,7 @@ public class CanvasGame extends GCanvas {
 		gameManager.keyPressed(e);
 		if(keyCode == KeyEvent.VK_0){
 			Constantes.testeGradeColisao=true;
+			CanvasGame.separacaoInimigos=true;
 		}		
 		if(keyCode == KeyEvent.VK_8){
 			for (int i=0;i<GerenciadorObstaculos.obstaculos.size();i++) {
@@ -332,15 +335,19 @@ public class CanvasGame extends GCanvas {
 			}	
 		}	
 
-	
+
 		if(keyCode == KeyEvent.VK_3){
-			GerenciadorTorre.adicionaTorre((int)getMousex()+tela.XTela,(int)getMousey()+tela.YTela);
+			GerenciadorTorre.adicionaTorre((int)mousex+tela.XTela,(int)mousey+tela.YTela,32,32);
 		}	
+		
 		if(keyCode == KeyEvent.VK_4){
 //			GamePanel.setCanvasAtivo(new CanvasGame());
 			velocidadeJogo=2;
 		}
-		
+
+		if(keyCode == KeyEvent.VK_SHIFT){
+			Constantes.EVENT_contruirTorre=true;
+		}	
 	
 	}
 
@@ -352,6 +359,8 @@ public class CanvasGame extends GCanvas {
 		
 		if(keyCode == KeyEvent.VK_0){
 			Constantes.testeGradeColisao=false;
+			CanvasGame.separacaoInimigos=false;
+
 		}	
 		if(keyCode == KeyEvent.VK_4){
 //			GamePanel.setCanvasAtivo(new CanvasGame());
@@ -368,6 +377,9 @@ public class CanvasGame extends GCanvas {
 				Constantes.miraDoJogo=false;			}
 		
 		}
+		if(keyCode == KeyEvent.VK_SHIFT){
+			Constantes.EVENT_contruirTorre=false;
+		}	
 
 	}
 
@@ -377,8 +389,8 @@ public class CanvasGame extends GCanvas {
 		setMousex(e.getX());
 		setMousey(e.getY());
 		
-		Constantes.mouseXTela=e.getX()+Constantes.XTela;
-		Constantes.mouseYTela=e.getY()+Constantes.YTela;
+		Constantes.mouseXTela=e.getX()+tela.XTela;
+		Constantes.mouseYTela=e.getY()+tela.YTela;
 
 		gerenciadorTorre.mouseMoved(e);
 		gerenciadorObstaculos.mouseMoved(e);
@@ -438,7 +450,7 @@ public class CanvasGame extends GCanvas {
 			
 			}
 		else if (button == MouseEvent.BUTTON3) {
-			getMiraAtiva().trataClickMouse2();
+//			getMiraAtiva().trataClickMouse2();
 			heroi.PRIMARIA=true;
 
 		

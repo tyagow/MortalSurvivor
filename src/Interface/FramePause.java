@@ -3,7 +3,6 @@ package Interface;
 import java.awt.Color;
 
 import Canvas.CanvasGame;
-import Constantes.Constantes;
 import GameState.GamePanel;
 import Gerenciadores.GerenciadorJogo;
 
@@ -20,15 +19,12 @@ public class FramePause extends FrameBase {
 	
 	@Override
 	public void calculaIA(int DiffTime) {
+
 		frameDeTela=true;
-//		X=Constantes.XTela+GamePanel.PWIDTH/2-sizeX/2;
-//		Y=Constantes.YTela;
-		
 		
 	}
 
 	private void criaBotoes() {
-		// TODO Auto-generated method stubB
 		
 		int sizeButton = 200;
 		
@@ -53,10 +49,16 @@ public class FramePause extends FrameBase {
 	
 		}
 		else if (b.name.contains("recomecar") ) {
-			GamePanel.canvasAtivo=(new CanvasGame());			
+			GamePanel.canvasAtivo=(new CanvasGame());	
+			GerenciadorJogo.velocidadeJogo = 1;
+			GerenciadorJogo.frameAtivo=null;
 		}
 		else if (b.name.contains("main") ) {
-			System.out.println("main");
+			GamePanel.canvasAtivo=GamePanel.canvasStart;
+			GerenciadorJogo.velocidadeJogo = 1;
+			GerenciadorJogo.frameAtivo=null;
+
+			
 
 			
 		}

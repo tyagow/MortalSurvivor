@@ -323,13 +323,18 @@ int i =0;
 	}
 
 
-	public static boolean colidiuObstaculo(int mousex, int mousey) {
+	public static boolean colidiuObstaculo(double _x, double _y,int _sizeX,int _sizeY) {
 		// TODO Auto-generated method stub
-		if (getMapa()[mousex>>4][mousey>>4]==0) {
-			return false;
-		}else 
-			return true;
 		
+		for (int i=0;i<obstaculos.size();i++) {
+			if (Constantes.colideQuadrado(_x, _y, _sizeX, _sizeY,obstaculos.get(i).X, obstaculos.get(i).Y, obstaculos.get(i).sizeX, obstaculos.get(i).sizeY)) {
+				return true;
+			}
+		
+		}
+		
+				return false;
+			
 		
 		
 	}

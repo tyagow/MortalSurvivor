@@ -15,7 +15,7 @@ import Data.Imagem;
 
 public class SelecionadorDeTorre extends Objeto {
 
-	public SlotTorre[] slotsTorre;
+	public static SlotTorre[] slotsTorre;
 	public Torre torreAtiva;
 
 	public SelecionadorDeTorre(){

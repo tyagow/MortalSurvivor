@@ -142,7 +142,7 @@ public class Botao extends Objeto {
 				if (corText!=null)
 					dbg.setColor(corText);
 				
-				dbg.drawString(name,(int) X+getSizeX()/2-XMundo-name.length()/2*((dbg.getFont().getSize()*2)/3),(int) Y+getSizeY()/2+(dbg.getFont().getSize()/2)-YMundo);
+				dbg.drawString(name,(int) X+getSizeX()/2-2-XMundo-name.length()/2*((dbg.getFont().getSize()*2)/3),(int) Y+getSizeY()/2+(dbg.getFont().getSize()/2)-YMundo);
 
 			}
 		}

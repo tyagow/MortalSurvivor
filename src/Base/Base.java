@@ -41,7 +41,7 @@ public class Base extends Objeto {
 
 		vivo=true;
 		life=Constantes.BASE_LIFE_1;
-		GerenciadorObstaculos.addObstaculos((int)(X),(int)(Y),getSizeX(),getSizeY(),0,0 );
+		GerenciadorObstaculos.addObstaculos((int)(X),(int)(Y),sizeX,sizeY,0,0 );
 		
 		auraAtiva = true;
 		timerAura = 0;

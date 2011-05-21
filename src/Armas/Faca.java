@@ -67,7 +67,7 @@ public class Faca extends Arma {
 			dbg.setColor(Color.red);
 				//getX(), getY(),alcanceAtaque,in.getX(),in.getY(),in.getSizeX()/2
 
-		//	dbg.fillOval((int)(X-XMundo+Math.cos(angulo)*20)-13,(int)( Y-YMundo+Math.sin(angulo)*20)-13, alcanceAtaque,alcanceAtaque);	//getX(), getY(),alcanceAtaque,in.getX(),in.getY(),in.getSizeX()/2
+//			dbg.fillOval((int)(X-XMundo+Math.cos(angulo)*20)-13,(int)( Y-YMundo+Math.sin(angulo)*20)-13, alcanceAtaque,alcanceAtaque);	//getX(), getY(),alcanceAtaque,in.getX(),in.getY(),in.getSizeX()/2
 			if (estado==1) {
 //				dbg.setColor(Color.LIGHT_GRAY);
 //				dbg.fillRect(GamePanel.PWIDTH/2-50, GamePanel.PHEIGHT/2-205,(int)(tempoRecarrega*100/Constantes.PISTOLA_tempoRecarrega) , 20);
@@ -101,6 +101,8 @@ public class Faca extends Arma {
 				
 				if (atirou&&soltouTiro) {	
 					soltouTiro=false;
+					GerenciadorEfeitos.criaEfeitoFaca((X+Math.cos(angulo)*20)-13, Y+Math.sin(angulo)*20-13, angulo);
+
 					atira();
 					setTempoEntreTiros(0);
 					
@@ -161,7 +163,7 @@ public class Faca extends Arma {
 		// TODO Auto-generated method stub
 //		for (int i = 0;i<GerenciadorDeRaids.getRaids().size();i++) {
 //			Raid ra = GerenciadorDeRaids.getRaids().get(i);
-		
+		boolean atigiuInimigo = false;
 			for (int j = 0;j<Constantes.inimigos.size();j++) {
 				Inimigo in = Constantes.inimigos.get(j);
 				
@@ -171,13 +173,14 @@ public class Faca extends Arma {
 					penetration--;
 					Constantes.inimigos.get(j).recebeuDano(getDano(),1);
 					//CanvasGame.gerenciadorEfeitos.ativaSangue(getX(),getY(),getAngulo(),(int)getDano());
-				GerenciadorEfeitos.criaEfeitoFaca((X+Math.cos(angulo)*20)-13, Y+Math.sin(angulo)*20-13, angulo);
 				//X-XMundo+Math.cos(angulo)*20)-13,(int)( Y-YMundo+Math.sin(angulo)*20)-13
 						//break;
-					
+					atigiuInimigo=true;
 				}
 			}
 			
+	
+
 //		}
 	}
 

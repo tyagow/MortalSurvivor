@@ -56,9 +56,9 @@ public class Torre extends Objeto{
 		
 		AnimeSet=_AnimeSet;
 		if (AnimeSet.getWidth() <16)
-			setSizeX(16);
+			sizeX=(16);
 		else
-			setSizeX(AnimeSet.getWidth());
+			sizeX=(AnimeSet.getWidth());
 
 		if (AnimeSet.getHeight() <16) {
 			setSizeY(16);
@@ -66,8 +66,8 @@ public class Torre extends Objeto{
 		else
 			setSizeY(AnimeSet.getHeight());
 
-		setX(x/16*16+getSizeX()/2);
-		setY(y/16*16+getSizeY()/2);	
+		X=(x/32*32+sizeX/2);
+		Y=(y/32*32+sizeY/2);	
 		contruindo=true;
 		setArmaAtiva(arma);
 		cor = Color.cyan;
@@ -75,7 +75,7 @@ public class Torre extends Objeto{
 		ang=0;
 		menuAtivo=null;
 		
-		GerenciadorObstaculos.addObstaculos((int)getX(),(int)getY(),getSizeX(),getSizeY(),0,0);
+		GerenciadorObstaculos.addObstaculos((int)X,(int)Y,sizeY,sizeY,0,0);
 		
 		menuStatusTorre=new MenuTorre(x, y, Constantes.HUD_TORRE_SIZEX, Constantes.HUD_TORRE_SIZEY, (Color.LIGHT_GRAY), 2000, this);
 
@@ -86,7 +86,7 @@ public class Torre extends Objeto{
 
 	public void DesenhaSe(Graphics2D dbg,int XMundo,int YMundo) {
 		// TODO Auto-generated method stub
-		getArmaAtiva().DesenhaSe(dbg, XMundo, YMundo);
+		armaAtiva.DesenhaSe(dbg, XMundo, YMundo);
 		
 	
 		AffineTransform trans = dbg.getTransform();
@@ -139,25 +139,25 @@ public class Torre extends Objeto{
 	private void trataMenuAtivo() {
 		
 		// TODO Auto-generated method stub
-		if (menuAtivo.getEvoluiRange()) {
+		if (menuAtivo.evoluiRange) {
 
 			range+=10;
 			menuAtivo.tratouBotaoRange();
 		}
-		if (menuAtivo.getEvoluiFire()) {
+		if (menuAtivo.evoluiFire) {
 
 			armaAtiva.tempoEntreTirosMax = (armaAtiva.tempoEntreTirosMax -3);
 			
 			menuAtivo.tratouBotaoFire();
 		}
-		if (menuAtivo.isEvoluiDano()) {
+		if (menuAtivo.evoluiDano) {
 
 			armaAtiva.dano+=1;
 			
 			menuAtivo.tratouBotaoDano();
 		}
 		
-		if (!menuAtivo.isVivo()) {
+		if (!menuAtivo.vivo) {
 			controleCursor=false;
 			menuAtivo= null;
 		}

@@ -28,8 +28,8 @@ public class Sangue extends Particula {
 		this.tempototal = 0;
 		
 		this.cor = cor;
-		setSizeX(GamePanel.rnd.nextInt(6)+3);
-		setSizeY(GamePanel.rnd.nextInt(6)+3);
+		sizeX=(GamePanel.rnd.nextInt(6)+3);
+		sizeY=(GamePanel.rnd.nextInt(6)+3);
 		
 		r = cor.getRed();
 		g = cor.getGreen();

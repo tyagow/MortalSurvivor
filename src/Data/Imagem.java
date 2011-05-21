@@ -33,6 +33,8 @@ public class Imagem {
 	public static BufferedImage efeitoFaca;
 	public static BufferedImage inimigoDois;
 
+	public static BufferedImage legs;
+
 	public static Imagem instance;
 	
 	public Imagem() {
@@ -43,6 +45,9 @@ public class Imagem {
 			inimigoUm =Constantes.LoadImage("img/zombie.png");
 			inimigoDois =Constantes.LoadImage("img/vortigaunt.png");				
 
+			legs =Constantes.LoadImage("img/legs.png");				
+
+			
 			tileset = Constantes.LoadImage("img/Bridge.png");
 			mira1= Constantes.LoadImage("img/mira1.png");	
 			explosao = Constantes.LoadImage("img/explosao.png");

@@ -12,6 +12,7 @@ import AbstractClasses.Objeto;
 import Canvas.CanvasGame;
 import Constantes.Constantes;
 import Data.Imagem;
+import Efeitos.EfeitoFaca;
 import Efeitos.Explosao;
 import Efeitos.Particula;
 import Efeitos.Sangue;
@@ -110,7 +111,7 @@ public class GerenciadorEfeitos extends Objeto implements Runnable {
 			
 				part.SimulaSe((int)DiffTime);
 				
-				if (!part.isVivo()) {
+				if (!part.vivo) {
 					//desenhaSangue(part);
 					itP2.remove();
 				}
@@ -295,8 +296,7 @@ public class GerenciadorEfeitos extends Objeto implements Runnable {
 	public static void criaEfeitoFaca(double x,double y,double ang) {
 	
 		
-
-	
+		Constantes.particulasExplosao.add(new EfeitoFaca(x, y, ang, 1000, Imagem.efeitoFaca));
 		
 		
 	}
@@ -474,7 +474,7 @@ public void explosao(double x, double y, int velx, int vely) {
 						break;
 					case 2:
 						pvx = velx + modv;
-						pvy = -vely + modv;
+						pvy = -vely - modv;
 						break;
 					case 3:
 						pvx = -velx - modv;
@@ -486,7 +486,7 @@ public void explosao(double x, double y, int velx, int vely) {
 				
 				pvx = (int)(pvx*(0.1+0.25*GamePanel.rnd.nextFloat()));
 				pvy = (int)(pvy*(0.1+0.25*GamePanel.rnd.nextFloat()));
-				part = (Particula)new Explosao(x,y,pvx/4,pvy/4,GamePanel.rnd.nextInt(500)+200,Imagem.explosao,Imagem.explosao2);
+				part = (Particula)new Explosao(x,y,pvx/2,pvy/2,GamePanel.rnd.nextInt(500)+200,Imagem.explosao,Imagem.explosao2);
 				
 			
 				Constantes.particulasExplosao.add(part);

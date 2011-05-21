@@ -33,10 +33,10 @@ public class MenuTorre extends FrameBase {
 	public MenuTorre(int x, int y, int sizeX, int sizeY, Color cor,int _tempoVida, Torre pai) {
 		super(x-sizeX/2-5, y-sizeY-5, sizeX, sizeY, cor, _tempoVida);
 		// TODO Auto-generated constructor 
-		setEvoluiRange(false);
-		setTorrePai(pai);
-		setRangeAtivo(false);
-		setTimerSelecionado(0);
+		evoluiRange=(false);
+		torrePai=(pai);
+		rangeAtivo=(false);
+		timerSelecionado=(0);
 		tempoVida=(_tempoVida);
 		botoes=(criaBotoesStatusTorre());
 		
@@ -47,16 +47,16 @@ public class MenuTorre extends FrameBase {
 	public void SimulaSe(int DiffTime) {
 	
 		
-		setTimerSelecionado(getTimerSelecionado() + DiffTime);
+		timerSelecionado=(timerSelecionado + DiffTime);
 		
 		if (selecionado) {
 			timerSelecionado=0;
 		}
 		
-		if (tempoVida != -1 && getTimerSelecionado() >= tempoVida) {
+		if (tempoVida != -1 && timerSelecionado >= tempoVida) {
 			
 			setVivo(false);
-			setTimerSelecionado(0);
+			timerSelecionado=(0);
 		}
 		Iterator<Botao> it = botoes.iterator();
 		while(it.hasNext()){
@@ -192,95 +192,95 @@ public class MenuTorre extends FrameBase {
 
 	private void trataBotaoRange() {
 		// TODO Auto-generated method stub
-			setEvoluiRange(true);
+			evoluiRange=(true);
 			
 		
 	}
 
 
 	public void tratouBotaoRange() {
-		setEvoluiRange(false);		
+		evoluiRange=(false);		
 	}
 
-
-	private void setEvoluiRange(boolean evoluiRange) {
-		this.evoluiRange = evoluiRange;
-	}
-
-
-	public boolean getEvoluiRange() {
-		return evoluiRange;
-	}
-
-
-	public void setRangeAtivo(boolean rangeAtivo) {
-		this.rangeAtivo = rangeAtivo;
-	}
-
-
-	public boolean isRangeAtivo() {
-		return rangeAtivo;
-	}
+//
+//	private void setEvoluiRange(boolean evoluiRange) {
+//		this.evoluiRange = evoluiRange;
+//	}
+//
+//
+//	public boolean getEvoluiRange() {
+//		return evoluiRange;
+//	}
+//
+//
+//	public void setRangeAtivo(boolean rangeAtivo) {
+//		this.rangeAtivo = rangeAtivo;
+//	}
+//
+//
+//	public boolean isRangeAtivo() {
+//		return rangeAtivo;
+//	}
 
 	
 	private void trataBotaoDano() {
 		// TODO Auto-generated method stub
-		setEvoluiDano(true);
+		evoluiDano=(true);
 	}	
 	public void tratouBotaoDano() {
 		// TODO Auto-generated method stub
-		setEvoluiDano(false);
+		evoluiDano=(false);
 	}
 
 
 	private void trataBotaoFire() {
 		// TODO Auto-generated method stub
-		setEvoluiFire(true);
+		evoluiFire=(true);
 	}
 	public void tratouBotaoFire() {
 		// TODO Auto-generated method stub
-		setEvoluiFire(false);
+		evoluiFire=(false);
 	}
 
-	public void setTorrePai(Torre torrePai) {
-		this.torrePai = torrePai;
-	}
+//	public void setTorrePai(Torre torrePai) {
+//		this.torrePai = torrePai;
+//	}
+//
+//
+//	public Torre getTorrePai() {
+//		return torrePai;
+//	}
+//	
 
 
-	public Torre getTorrePai() {
-		return torrePai;
-	}
-	
-
-
-	public void setTimerSelecionado(int timerSelecionado) {
-		this.timerSelecionado = timerSelecionado;
-	}
-
-
-	public int getTimerSelecionado() {
-		return timerSelecionado;
-	}
-
-
-	public void setEvoluiFire(boolean evoluiFire) {
-		this.evoluiFire = evoluiFire;
-	}
-
-
-	public boolean getEvoluiFire() {
-		return evoluiFire;
-	}
-
-
-	public void setEvoluiDano(boolean evoluiDano) {
-		this.evoluiDano = evoluiDano;
-	}
-
-
-	public boolean isEvoluiDano() {
-		return evoluiDano;
-	}
+//	public void setTimerSelecionado(int timerSelecionado) {
+//		this.timerSelecionado = timerSelecionado;
+//	}
+//
+//
+//	public int getTimerSelecionado() {
+//		return timerSelecionado;
+//	}
+//
+//
+//	public void setEvoluiFire(boolean evoluiFire) {
+//		this.evoluiFire = evoluiFire;
+//	}
+//
+//
+//	public boolean getEvoluiFire() {
+//		return evoluiFire;
+//	}
+//
+//
+//	public void setEvoluiDano(boolean evoluiDano) {
+//		this.evoluiDano = evoluiDano;
+//	}
+//
+//
+//	public boolean isEvoluiDano() {
+//		return evoluiDano;
+//	}
 
 
 }

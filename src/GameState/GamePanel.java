@@ -50,7 +50,7 @@ long tempoinicial = 0;
 long tempototal = 0;
 
 private static CanvasGame canvasGame;
-private static CanvasStart canvasInicio;
+public static CanvasStart canvasStart;
 
 public GamePanel()
 {
@@ -157,7 +157,7 @@ addMouseListener(new MouseListener() {
 	});
 
 	
-	canvasInicio = (new CanvasStart());
+	canvasStart = (new CanvasStart());
 	canvasGame = (new CanvasGame());
 	canvasAtivo =(getCanvasInicio());
 	
@@ -274,11 +274,11 @@ public static CanvasGame getCanvasGame() {
 }
 
 public static void setCanvasInicio(CanvasStart canvasInicio) {
-	GamePanel.canvasInicio = canvasInicio;
+	GamePanel.canvasStart = canvasInicio;
 }
 
 public static CanvasStart getCanvasInicio() {
-	return canvasInicio;
+	return canvasStart;
 }
 
 }

@@ -12,6 +12,16 @@ import GameState.GamePanel;
 public class FrameStart extends FrameBase {
 	static FrameOptions  frameOptions;
 	static FrameHelp frameHelp;
+	
+	
+	public final String botaoPlay = "Play";
+	public final String botaoHelp = "Help";
+	public final String botaoOptions = "Options";
+	public final String botaoScore = "Score";
+	public final String botaoExit = "Exit";
+	
+	
+	
 	public FrameStart(int _x, int _y, int sizeX, int sizeY, Color cor, int _tempoVida) {
 		super(_x, _y, sizeX, sizeY, cor, _tempoVida);
 		frameOptions= new FrameOptions(250, 0, GamePanel.PWIDTH-250,GamePanel.PHEIGHT, Color.darkGray, -1);
@@ -69,11 +79,11 @@ public class FrameStart extends FrameBase {
 		// TODO Auto-generated method stubB
 
 		
-		botoes.add(new Botao(null,"Play",50,100,120,25,false));
-		botoes.add(new Botao(null,"Score",50,150,120,25,false));
-		botoes.add(new Botao(null,"Help",50,200,120,25,false));
-		botoes.add(new Botao(null,"Options",50,250,120,25,false));
-		botoes.add(new Botao(null,"Exit",50,300,120,25,false));
+		botoes.add(new Botao(null,botaoPlay,50,100,120,25,false));
+		botoes.add(new Botao(null,botaoScore,50,150,120,25,false));
+		botoes.add(new Botao(null,botaoHelp,50,200,120,25,false));
+		botoes.add(new Botao(null,botaoOptions,50,250,120,25,false));
+		botoes.add(new Botao(null,botaoExit,50,300,120,25,false));
 //		getBotoesMenu().add(new Botao(null,"Video",(int)getX()+30,(int)getY()+30,90,18,false));
 //		getBotoesMenu().add(new Botao(null,"Som",(int)getX()+130+5,(int)getY()+30,90,18,false));
 //		getBotoes().add(new Botao(null,"",(int)getX()+10,(int)getY()+110,120,25,false));
@@ -85,14 +95,14 @@ public class FrameStart extends FrameBase {
 @Override
 protected void trataBotao(Botao b) {
 	// TODO Auto-generated method stub
-	if (b.name.contains("Play") ) {
+	if (b.name.contains(botaoPlay) ) {
 		
 
 		GamePanel.canvasAtivo=(CanvasGame.instance);
 	
 
 		
-	}else if (b.name.contains("Options") ) {
+	}else if (b.name.contains(botaoOptions) ) {
 		if (!frames.contains(frameOptions)) {
 			frameOptions.ativo=true;
 			frames.add(frameOptions);
@@ -101,11 +111,11 @@ protected void trataBotao(Botao b) {
 			frameOptions.ativo=false;
 		}
 		
-	}else if (b.name.contains("Exit") ) {
+	}else if (b.name.contains(botaoExit) ) {
 		
 		System.exit(0);
 		
-	}else if (b.name.contains("Help") ) {
+	}else if (b.name.contains(botaoHelp) ) {
 		
 		if (!frames.contains(frameHelp)) {
 			frameHelp.ativo=true;
