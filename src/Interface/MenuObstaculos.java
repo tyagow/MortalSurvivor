@@ -13,6 +13,7 @@ import Map.Obstaculo;
 import Map.WayPoint;
 import Torre.Torre;
 
+import AbstractClasses.Objeto;
 import Canvas.CanvasGame;
 import Constantes.Constantes;
 import Gerenciadores.GerenciadorObstaculos;
@@ -20,7 +21,6 @@ import Gerenciadores.GerenciadorObstaculos;
 
 public class MenuObstaculos extends FrameBase {
 
-	private int timerSelecionado;
 	
 BufferedImage img;
 	
@@ -34,44 +34,54 @@ private boolean moveMenu;
 private Obstaculo obs;
 
 private Color corBotaoMove = Color.white;
-	
+
+private String botaoSaveWay="Save wayPoint";
+
+private String botaoSaveObs="Save Obstaculos";
+
+private String botaoEditWay="Edit way";
+
+private String botaoEditObs="Edit Obs";
+
+private static BotaoTela SaveWay;
+
+private static BotaoTela SaveObs;
+private static BotaoTela EditWay;
+
+private static BotaoTela EditObs;
+
 	public MenuObstaculos(int x, int y, int sizeX, int sizeY, Color cor,int _tempoVida,BufferedImage charset) {
 		super(x-sizeX/2-5, y-sizeY-5, sizeX, sizeY, cor, _tempoVida);
 		img = charset;
 		// TODO Auto-generated constructor 
-		timerSelecionado=(0);
 		tempoVida=(_tempoVida);
 //			botoes=(criaBotoesStatusTorre());
+		criaBotoes();
 		
 	}
 	
 	
 	@Override
 	public void SimulaSe(int DiffTime) {
+		super.SimulaSe(DiffTime);
+		
+		SaveWay.X=X;
+		SaveWay.Y=Y-60;
+		
+
+		EditWay.X=X;
+		EditWay.Y=Y-100;
+		
+
+		EditObs.X=X+160;
+		EditObs.Y=Y-100;
+		
+		
+		SaveObs.X=X+160;
+		SaveObs.Y=Y-60;
 		Constantes.miraDoJogo = false;
-		timerSelecionado += DiffTime;
-//		CanvasGame.setMiraMenu();
-		if (selecionado) {
-			timerSelecionado=0;
-		}
-		
-		if (tempoVida != -1 && timerSelecionado >= tempoVida+10000) {
-			
-			vivo=(false);
-			timerSelecionado=(0);
-		}
-		Iterator<Botao> it = botoes.iterator();
-		while(it.hasNext()){
-			Botao bt = it.next();
-			bt.SimulaSe((int)DiffTime);
+//		System.out.println("numero de obstaculos" + GerenciadorObstaculos.obstaculos.size());
 
-
-			if (bt.ativo==true) {
-//				trataBotao(bt);
-			}
-		}
-		
-	
 		
 	}
 
@@ -100,16 +110,48 @@ private Color corBotaoMove = Color.white;
 			dbg.setColor(Color.red);
 			//dbg.drawOval((int)getX()-torrePai.getRange()/2-xMundo, (int)getY()-torrePai.getRange()/2-yMundo, torrePai.getRange(), torrePai.getRange());
 
-		//desenha botoes
-		Iterator<Botao> it = botoes.iterator();
-		while(it.hasNext()){
-			Botao bt = it.next();
-			bt.DesenhaSe(dbg, xMundo, yMundo);
+//		desenha botoes
+//			dbg.setColor(new Color(r,g,b,alpha));
+//			dbg.fillRect((int)X+1,(int)Y+1, sizeX-2, sizeY-2);
 		
+			Iterator<Botao> it = botoes.iterator();
+			while(it.hasNext()){
+				Botao bot= it.next();
+				
+				bot.DesenhaSe(dbg, 0, 0);
+				
+		
+			
+			}
+			
+			
+		Iterator<Objeto> it3 = objetos.iterator();
+			
+			while(it3.hasNext()){
+				Objeto ob= it3.next();
+				
+				ob.DesenhaSe(dbg, 0, 0);
+				
+		
+			
+			}
+			if(frameAtivo!=null) 
+				frameAtivo.DesenhaSe(dbg, xMundo, yMundo);
 
-		}
+			
+			Iterator<FrameBase> it2 = frames.iterator();
+	
+			while(it2.hasNext()){
+				FrameBase _frame= it2.next();
+				
+				_frame.DesenhaSe(dbg, 0, 0);
+				
+		
+			
+			}
 		dbg.setColor(Color.black);
-		if (obs !=null) {
+		
+		if (obs !=null&&Constantes.editarObstaculo) {
 			obs.DesenhaSe(dbg, xMundo, yMundo);
 			dbg.setColor(Color.white);
 			dbg.drawRect((int)((obs.X-10)/16)*16-xMundo,(int) ((obs.Y-10)/16)*16-yMundo, obs.sizeX, obs.sizeY);
@@ -135,19 +177,27 @@ private Color corBotaoMove = Color.white;
 		}
 
 
-	private ArrayList<Botao> criaBotoesStatusTorre() {
-		// TODO Auto-generated method stub
-		ArrayList<Botao>aux = new ArrayList<Botao>();
+	private void criaBotoes() {
+
+		SaveWay = (new BotaoTela(null,botaoSaveWay,(int)X,(int)Y-80,160,16,false));
+		SaveWay.sizeY=30;
+		SaveObs = (new BotaoTela(null,botaoSaveObs,(int)X+160,(int)Y-80,160,16,false));
+		SaveObs.sizeY=30;
 		
-	
-		aux.add(new Botao(null,"range",(int)getX()+10,(int)getY()+10,40,12,false));
-		aux.add(new Botao(null,"fire",(int)getX()+10,(int)getY()+35,40,12,false));
-		aux.add(new Botao(null,"dano",(int)getX()+10,(int)getY()+60,40,12,false));
+		EditWay=new BotaoTela(null,botaoEditWay,(int)X,(int)Y-80,160,16,false);
+		EditWay.sizeY=30;
+		EditObs=new BotaoTela(null,botaoEditObs,(int)X,(int)Y-80,160,16,false);
+		EditObs.sizeY=30;
+		botoes.add(EditObs);
+		botoes.add(EditWay);
+		botoes.add(SaveObs);
+		botoes.add(SaveWay);
 		
-		return aux;
+		
 	}
 	@Override
 	public void mouseMoved(MouseEvent e) {
+
 		
 		if (Constantes.colideQuadrado((int)getX(),(int)getY(),getSizeX()-1,getSizeY()-1,(int)e.getX(),(int) e.getY(),1,1 )) {
 			selecionado=true;
@@ -162,10 +212,7 @@ private Color corBotaoMove = Color.white;
 		for (int i=0;i<botoes.size();i++) {
 			
 			botoes.get(i).mouseMoved(e);
-			
-			botoes.get(i).mousex = e.getX()+Constantes.XTela;
 
-			botoes.get(i).mousey = e.getY()+Constantes.YTela;
 			
 		
 		}
@@ -174,6 +221,26 @@ private Color corBotaoMove = Color.white;
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
+		boolean aux =true;
+
+//		for (int i=0;i<botoes.size();i++) {
+//			if (botoes.get(i).selecionado) {
+//				aux = false;
+//				break;
+//			}			
+//		}
+		if (aux) {
+			moveMenu=false;
+			
+			if (Constantes.editarObstaculo) {
+				System.out.println("tentacriarobstaculo");
+				tentaCriarObstaculo(e);
+			}
+		}
+	
+	}
+
+	private void tentaCriarObstaculo(MouseEvent e) {
 		moveMenu=false;
 		corBotaoMove=Color.white;
 		if (obs !=null) {
@@ -183,7 +250,7 @@ private Color corBotaoMove = Color.white;
 				
 				WayPoint  aux  = new WayPoint(e.getX()+Constantes.XTela+16, e.getY()+Constantes.YTela+16, 32, 32);
 				aux.index=i;
-				aux.indexNextTarget=i+3;
+				aux.indexNextTarget=-1;
 				aux.X = ((int)(aux.X+5)/16)*16;
 
 				aux.Y = ((int)(aux.Y+5)/16)*16;
@@ -191,7 +258,7 @@ private Color corBotaoMove = Color.white;
 				Constantes.wayPoints.add(aux);
 			
 				
-			}else {
+			}else if (Constantes.editarObstaculo){
 				obs.X = ((int)(obs.X+5)/16)*16;
 
 				obs.Y = ((int)(obs.Y+5)/16)*16;
@@ -199,14 +266,21 @@ private Color corBotaoMove = Color.white;
 			}
 			
 			obs=null;
-		}
+		}		
 	}
+
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
 
+	for (int i=0;i<botoes.size();i++) {
+			
+			botoes.get(i).mouseClicked(e);
+
+			
 		
+		}
 		
 	}
 
@@ -218,39 +292,41 @@ private Color corBotaoMove = Color.white;
 		
 	}
 
-
-
-	
-
-
-
 	private void trataMousePressed(MouseEvent e) {
- 
-		
-		if (Constantes.colidecircular(X-10, Y-10, 4, e.getX(),e.getY(), 4)) {
-			moveMenu=true;
-			corBotaoMove=Color.blue;
-		}else if (selecionado) {
-			trataColisaoMenu(e);
-		}else {
-			if (mX>=0&&mY>=0) {
+		boolean aux = true;
+		for (int i=0;i<botoes.size();i++) {
+			if (botoes.get(i).selecionado) {
+				aux = false;
+				break;
+			}			
+		}
+		if (aux) {
 			
-				if (e.getButton() == MouseEvent.BUTTON1)
-					obs = new Obstaculo(e.getX()+Constantes.XTela, e.getY()+Constantes.YTela, 32, 32, mX, mY);
-				else {
-					
-				if (tentaApagarObstaculo(e.getX(),e.getY())) {
-					System.out.println("Obstaculo Apagado");
-				}else {
-					System.out.println("Obstaculo nao Apagado");
-
-				}
+			if (Constantes.colidecircular(X-10, Y-10, 4, e.getX(),e.getY(), 4)) {
+				moveMenu=true;
+				corBotaoMove=Color.blue;
+			}else if (selecionado) {
+				trataColisaoMenu(e);
+			}else {
 				
+				if (mX>=0&&mY>=0&&Constantes.editarObstaculo) {
+				
+					if (e.getButton() == MouseEvent.BUTTON1)
+						obs = new Obstaculo(e.getX()+Constantes.XTela, e.getY()+Constantes.YTela, 32, 32, mX, mY);
+					else {
+						
+					if (tentaApagarObstaculo(e.getX(),e.getY())) {
+						System.out.println("Obstaculo Apagado");
+					}else {
+						System.out.println("Obstaculo nao Apagado");
+	
+					}
+					
+					}
 				}
 			}
-		}
 		
-
+		}
 	}
 
 	private boolean tentaApagarObstaculo(int x, int y) {
@@ -287,8 +363,30 @@ private Color corBotaoMove = Color.white;
 
 
 	@Override
-	protected void trataBotao(Botao b2) {
-		// TODO Auto-generated method stub
+	protected void trataBotao(Botao b) {
+
+		if (b.name.contains(botaoSaveObs) ) {
+			System.out.println("teste");
+			Constantes.saveObstaculosInFile();
+	
+		}
+		else if (b.name.contains(botaoSaveWay) ) {
+			Constantes.saveWayPointInFile();
+
+			
+		}	else if (b.name.contains(botaoEditObs) ) {
+			Constantes.editarObstaculo=true;
+			Constantes.editarWay=false;
+			
+	
+			
+			
+		}	else if (b.name.contains(botaoEditWay) ) {
+			Constantes.editarObstaculo=false;
+			Constantes.editarWay=true;
+
+
+		}
 		
 	}
 

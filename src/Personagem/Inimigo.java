@@ -13,8 +13,10 @@ import Data.Imagem;
 import GameState.GamePanel;
 import Gerenciadores.GerenciadorObstaculos;
 import Gerenciadores.GerenciadorRespawn;
+import Gerenciadores.GerenciadorTorre;
 import Map.Obstaculo;
 import Map.WayPoint;
+import Torre.Torre;
 
 public class Inimigo extends Objeto {
 	
@@ -68,6 +70,9 @@ public class Inimigo extends Objeto {
 
 		vivo=(true);
 		estado=0;
+		
+		
+		
 		campoDeVisao=Constantes.INIMIGO_CAMPO_VISAO1;
 		
 		switch (_tipo) {
@@ -139,7 +144,8 @@ public void DesenhaSe(Graphics2D dbg, int XMundo, int YMundo) {
 	
 //		if(Constantes.colidecircular(getX(), getY(),getSizeX(),target.getX()+target.sizeX/2,target.getY()+target.sizeY/2,target.getSizeX()/2)){
 		if (target!=null&&Constantes.menuDeObstaculos) {
-			dbg.drawOval((int)getX()-sizeX/2-XMundo,(int) getY()-sizeY/2-YMundo, sizeX, sizeX);
+			
+			dbg.drawOval((int)X-sizeX/2-XMundo,(int) Y-sizeY/2-YMundo, sizeX, sizeX);
 			dbg.drawOval((int)target.getX()-target.sizeX/2-XMundo,(int)target.getY()-target.sizeY/2-YMundo, target.sizeX, target.sizeX);
 		}
 		
@@ -155,36 +161,13 @@ private void calculaIA(int DiffTime) {
 		tempoEntreAtaque+=DiffTime;
 		iatimer+=DiffTime;
 		
-		if(iatimer>260){
+		if(iatimer>200){
 			maquinaEstados();
 			trataEstado();
 			iatimer  = 0;
 		}
 
-//		estado=trataEstado(estado);
-//		if(estado == 0){
-//			
-//			estado=trataEstado(estado);
-//			//System.out.println("1");
-//		}
-//		
-//		if (estado == 1) {
-//			//System.out.println("2");
-//
-//			estado=trataEstado(estado);
-//		}
-//		if (estado == 2) {
-//			//System.out.println("3");
-//
-//			estado=trataEstado(estado);
-//		}
-//		if (estado == 3) {
-//			//System.out.println("4");
-//
-//			estado=trataEstado(estado);
-//		}
-//		
-//		estado=0;
+
 		
 	}
 		
@@ -194,12 +177,12 @@ private void calculaIA(int DiffTime) {
 		
 		switch (estado) {
 		case DESVIAR_OBSTACULO:
-			if (!verificaColisaoObstaculo()||!verificaSeparacao())
+			if (!verificaColisaoObstaculo()||!verificaSeparacao()||verificaColisaoTorre())
 				estado=ATRAS_BASE;
 			break;	
 			
 		case ATRAS_BASE:
-			if (verificaColisaoObstaculo()||verificaSeparacao())
+			if (verificaColisaoObstaculo()||verificaSeparacao()||verificaColisaoTorre())
 				estado=DESVIAR_OBSTACULO;
 			else if(Constantes.colidecircular(X, Y,campoDeVisao,CanvasGame.heroi.X,CanvasGame.heroi.Y,CanvasGame.heroi.sizeX/2)){
 			
@@ -207,7 +190,7 @@ private void calculaIA(int DiffTime) {
 			}
 			break;
 		case ATRAS_HEROI:
-			if (verificaColisaoObstaculo()||verificaSeparacao())
+			if (verificaColisaoObstaculo()||verificaSeparacao()||verificaColisaoTorre())
 				estado=DESVIAR_OBSTACULO;
 			else {
 				if(!Constantes.colidecircular(X, Y,campoDeVisao,CanvasGame.heroi.X,CanvasGame.heroi.Y,CanvasGame.heroi.sizeX/2))
@@ -273,17 +256,17 @@ private void trataEstado() {
 	
 				colidiuObstaculo=verificaColisaoObstaculo();
 			 		
-				if(verificaColisaoObstaculo()){
+				if(verificaColisaoObstaculo()||verificaColisaoTorre()){
 					double tempx = X;
 					double tempy = Y;
 					X = oldx;
 					
 	
-					if(verificaColisaoObstaculo()){
+					if(verificaColisaoObstaculo()||verificaColisaoTorre()){
 						Y = oldy;
 						X = tempx;
 	
-						if(verificaColisaoObstaculo()){
+						if(verificaColisaoObstaculo()||verificaColisaoTorre()){
 							X = oldx;
 							Y = oldy;
 							
@@ -333,6 +316,17 @@ private void trataEstado() {
 	private boolean verificaColisaoObstaculo() {
 		for (int i =0; i < GerenciadorObstaculos.obstaculos.size();i++) {
 			Obstaculo ob = GerenciadorObstaculos.obstaculos.get(i);
+			if (Constantes.colidecircular(X, Y, sizeX/2, ob.X, ob.Y, ob.sizeX/2)) {
+				return true;
+			
+			}			
+		} 
+				return false;
+	}
+	
+	private boolean verificaColisaoTorre() {
+		for (int i =0; i < GerenciadorTorre.torres.size();i++) {
+			Torre ob = GerenciadorTorre.torres.get(i);
 			if (Constantes.colidecircular(X, Y, sizeX/2, ob.X, ob.Y, ob.sizeX/2)) {
 				return true;
 			

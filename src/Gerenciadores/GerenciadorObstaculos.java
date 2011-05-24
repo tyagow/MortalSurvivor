@@ -6,6 +6,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,6 +16,9 @@ import java.io.OutputStreamWriter;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Iterator;
+
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import AbstractClasses.Objeto;
 import Canvas.CanvasGame;
@@ -62,9 +67,9 @@ public class GerenciadorObstaculos extends Objeto  {
 //		
 
 //		
-		loadObstaculos("data/obstaculosFaseUm.csv");
+		//loadObstaculos("data/obstaculosFaseUm.csv");
 		
-		loadWayPoints("data/wayFaseUm.csv");
+	//	loadWayPoints("data/wayFaseUm.csv");
 		
 	}
 
@@ -72,6 +77,10 @@ public class GerenciadorObstaculos extends Objeto  {
 	@Override
 	public void SimulaSe(int DiffTime) {
 		if (Constantes.menuDeObstaculos) {
+			
+				for (int i = 0; i<Constantes.wayPoints.size();i++) {
+					Constantes.wayPoints.get(i).SimulaSe(DiffTime);
+				} 
 			
 			menuAtivo=menuObstaculos ;
 			
@@ -117,9 +126,7 @@ public class GerenciadorObstaculos extends Objeto  {
 		// TODO Auto-generated method stub
 		
 		//System.out.println(obstaculos.size());
-		if (menuAtivo!=null) {
-			menuAtivo.DesenhaSe(dbg, XMundo, YMundo);
-		}
+
 		for (int i = 0; i<obstaculos.size();i++) {
 			obstaculos.get(i).DesenhaSe(dbg, XMundo, YMundo);
 			
@@ -131,6 +138,10 @@ public class GerenciadorObstaculos extends Objeto  {
 				
 				//System.out.println("ola");
 			} 
+		}
+		
+		if (menuAtivo!=null) {
+			menuAtivo.DesenhaSe(dbg, XMundo, YMundo);
 		}
 //		for (int i=0;i<largura;i++) {
 //		
@@ -191,7 +202,7 @@ public class GerenciadorObstaculos extends Objeto  {
 		Iterator<Obstaculo> it = getObstaculos().iterator();
 		while(it.hasNext()){
 			Obstaculo part = it.next();
-			getMapa()[(int)part.getX()][(int)part.getY()]=1;
+			mapa[(int)part.X][(int)part.Y]=1;
 
 		}
 		
@@ -216,7 +227,7 @@ public class GerenciadorObstaculos extends Objeto  {
 	
 		WayPoint aux;
 		//
-int i =0;
+		int i =0;
 
 		try {
 			while((str = bf.readLine())!=null){
@@ -243,49 +254,11 @@ int i =0;
 		}catch (Exception e) {
 			System.out.println(e.getMessage());		
 }
-//		WayPoint aux;
-//
-//		int wayX = (largura*16)/2-21;
-//		int wayY = 100;
-//		int waySizeX = 42;
-//		int waySizeY = 42;
-//		 aux = new WayPoint( wayX,wayY,waySizeX,waySizeY );
-//		 aux.indexNextTarget = 1;
-//
-//		Constantes.wayPoints.add(aux);
-//		
-//		 wayX = largura*16-42-100;
-//		 wayY = (altura*16)/2-21;
-//		 waySizeX = 42;
-//		 waySizeY = 42;
-//		 aux = new WayPoint( wayX,wayY,waySizeX,waySizeY );
-//		 aux.indexNextTarget = 2;
-//
-//			Constantes.wayPoints.add(aux);		
-//		
-//		 wayX = (largura*16)/2-21;
-//		 wayY = (altura*16)-42;
-//		 waySizeX = 42;
-//		 waySizeY = 42;
-//		 aux = new WayPoint( wayX,wayY,waySizeX,waySizeY );
-//		 aux.indexNextTarget = 3;
-//
-//			Constantes.wayPoints.add(aux);		
-//		
-//			wayX = 0;
-//			 wayY = (altura*16)/2;
-//			 waySizeX = 42;
-//			 waySizeY = 42;
-//			 aux = new WayPoint( wayX,wayY,waySizeX,waySizeY );
-//			 aux.indexNextTarget = 0;
-//
-//				Constantes.wayPoints.add(aux);
-//				
-		
+
 	
 	}
 	public void loadObstaculos(String filename){
-		
+		int i=0;
 		InputStream in = Data.Imagem.class.getResourceAsStream(filename);
 		
 		
@@ -309,11 +282,13 @@ int i =0;
 					int tileSetLinha = Integer.parseInt(strs[6]);
 
 					
-					System.out.println(Integer.parseInt(strs[0])+";"+Integer.parseInt(strs[1])+";"+Integer.parseInt(strs[2])+";"+Integer.parseInt(strs[3])+";"+Integer.parseInt(strs[4])+";"+Integer.parseInt(strs[5])+";"+Integer.parseInt(strs[6])); //					addObstaculos(20*16, 10*16, 32, 32, 0, 1);
+				//	System.out.println(Integer.parseInt(strs[0])+";"+Integer.parseInt(strs[1])+";"+Integer.parseInt(strs[2])+";"+Integer.parseInt(strs[3])+";"+Integer.parseInt(strs[4])+";"+Integer.parseInt(strs[5])+";"+Integer.parseInt(strs[6])); //					addObstaculos(20*16, 10*16, 32, 32, 0, 1);
 //					addObstaculos(22*16, 10*16, 32, 32, 13, 1);
 //					addObstaculos(20*16, 12*16, 32, 32, 15, 0);
 					
 					addObstaculos(_x, _y, _sizeX, _sizeY, tileSetColuna, tileSetLinha);
+					System.out.println(i);
+					i++;
 				
 				}
 			}
@@ -338,8 +313,8 @@ int i =0;
 		
 		
 	}
-
-
+	
+	
 	public static ArrayList<Obstaculo> getObstaculos() {
 		return obstaculos;
 	}
@@ -424,6 +399,19 @@ int i =0;
 		// TODO Auto-generated method stub
 		if (menuAtivo!=null)
 			menuAtivo.mouseMoved(e);
+		
+		if (Constantes.menuDeObstaculos) {
+			
+			for (int i =0;i<Constantes.wayPoints.size();i++) {
+				
+				Constantes.wayPoints.get(i).mouseMoved(e);
+				
+			}
+			
+		}
+			
+			
+			
 	}
 
 
@@ -431,6 +419,17 @@ int i =0;
 		// TODO Auto-generated method stub
 		if (menuAtivo!=null)
 			menuAtivo.mouseReleased(e);
+		
+		
+		if (Constantes.menuDeObstaculos) {
+			
+			for (int i =0;i<Constantes.wayPoints.size();i++) {
+				
+				Constantes.wayPoints.get(i).mouseReleased(e);
+				
+			}
+			
+		}
 	}
 
 
@@ -438,6 +437,16 @@ int i =0;
 		// TODO Auto-generated method stub
 		if (menuAtivo!=null)
 			menuAtivo.mouseClicked(e);
+		
+		if (Constantes.menuDeObstaculos) {
+			
+			for (int i =0;i<Constantes.wayPoints.size();i++) {
+				
+				Constantes.wayPoints.get(i).mouseClicked(e);
+				
+			}
+			
+		}
 	}
 
 
@@ -445,6 +454,16 @@ int i =0;
 		// TODO Auto-generated method stub
 		if (menuAtivo!=null)
 			menuAtivo.mousePressed(e);
+		
+		if (Constantes.menuDeObstaculos) {
+			
+			for (int i =0;i<Constantes.wayPoints.size();i++) {
+				
+				Constantes.wayPoints.get(i).mousePressed(e);
+				
+			}
+			
+		}
 	}
 
 
@@ -452,45 +471,19 @@ int i =0;
 		// TODO Auto-generated method stub
 		if (menuAtivo!=null)
 			menuAtivo.mouseDragged(e);
+		
+		if (Constantes.menuDeObstaculos) {
+			
+			for (int i =0;i<Constantes.wayPoints.size();i++) {
+				
+				Constantes.wayPoints.get(i).mouseDragged(e);
+				
+			}
+			
+		}
 	}
 	
-	public void saveObstaculos(int cod, String nome) throws IOException  
-		   {  
-		
-		FileOutputStream in = new FileOutputStream("obstaculos");
-		
-		OutputStreamWriter out= new OutputStreamWriter(in);
-		
-		
-		
-//		for (int i=0;i<obstaculos.size();i++) {
-//		
-//			
-//			String str = obstaculos.get(i).toSave();
-//			out.write(str)
-//			out.w
-//		}
-//		      FileOutputStream out;  
-//		        
-//		      PrintStream p;  
-//		        
-//		      try  
-//		      {  
-//		         out = new FileOutputStream("arq.txt");  
-//		        
-//		         p = new PrintStream(out);  
-//		           
-//		         p.write(cod + " " + nome + '\n');  
-//		        
-//		         p.close();  
-//		      }  
-//		      catch(Exception e)     
-//		      {  
-//		         System.err.println(e);  
-//		      }     
-  }  
 
-	
 
 
 

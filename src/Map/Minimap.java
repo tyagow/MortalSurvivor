@@ -10,7 +10,9 @@ import Canvas.CanvasGame;
 import Constantes.Constantes;
 import GameState.GamePanel;
 import Gerenciadores.GerenciadorObstaculos;
+import Gerenciadores.GerenciadorTorre;
 import Personagem.Inimigo;
+import Torre.Torre;
 
 
 public class Minimap extends Objeto{
@@ -71,19 +73,35 @@ public class Minimap extends Objeto{
 
 			
 			dbg.setColor(Color.yellow);
-		for (int k=0;k<GerenciadorObstaculos.getObstaculos().size();k++)
+		for (int k=0;k<GerenciadorObstaculos.obstaculos.size();k++)
 		{
-			Obstaculo obs = GerenciadorObstaculos.getObstaculos().get(k);
-			double xM = (resizeX * obs.X/tamanhoMiniMap + this.getX());
-			double yM = (resizeY * obs.Y/tamanhoMiniMap + this.getY());
+			Obstaculo obs = GerenciadorObstaculos.obstaculos.get(k);
+			double xM = (resizeX * obs.X/tamanhoMiniMap + this.X);
+			double yM = (resizeY * obs.Y/tamanhoMiniMap + this.Y);
 			int lM = (int)(resizeY * obs.sizeX/tamanhoMiniMap );
 			int aM = (int)(resizeY * obs.sizeY/tamanhoMiniMap );
 
 			dbg.fillRect((int)(xM-lM/2), (int)(yM-aM/2), lM+1, aM+1);
 			
 		}
+		
+		dbg.setColor(Color.green);
+
+		for (int k=0;k<GerenciadorTorre.torres.size();k++)
+		{
+			Torre obs = GerenciadorTorre.torres.get(k);
+			double xM = (resizeX * obs.X/tamanhoMiniMap + this.X);
+			double yM = (resizeY * obs.Y/tamanhoMiniMap + this.Y);
+			int lM = (int)(resizeY * obs.sizeX/tamanhoMiniMap );
+			int aM = (int)(resizeY * obs.sizeY/tamanhoMiniMap );
+
+			dbg.fillRect((int)(xM-lM/2), (int)(yM-aM/2), lM+1, aM+1);
+			
+		}
+		
+		
 		dbg.setColor(Color.black);
-		if ( CanvasGame.getMiraAtiva()!=null)
+		if ( CanvasGame.miraAtiva!=null)
 			dbg.drawOval((int)(resizeX * CanvasGame.miraAtiva.getXMundo()/6+getX()), (int)(resizeY * CanvasGame.getMiraAtiva().getYMundo()/6+getY()), 2, 2);
 		dbg.setColor(Color.red);
 

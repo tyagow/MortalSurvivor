@@ -157,15 +157,18 @@ public class GerenciadorTorre extends Objeto {
 									
 							torres.add(new Torre(Imagem.TORRE_DOIS_ANIMESET,new ArmaDoisTorre(Imagem.TORRE_DOIS_ANIMESET),x,y));
 
+
 						break;
 						case 2: // torre tres
 							
 							torres.add(new Torre(Imagem.TORRE_TRES_ANIMESET,new ArmaTresTorre(Imagem.TORRE_TRES_ANIMESET),x,y));
 
+
 								break;	
 						case 3: // torre um
 							
 							torres.add(new Torre(Imagem.TORRE_UM_ANIMESET,new ArmaUmTorre(Imagem.TORRE_UM_ANIMESET),x,y));
+
 
 								break;	
 

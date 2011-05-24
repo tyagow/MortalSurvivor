@@ -17,8 +17,8 @@ import Canvas.GCanvas;
 public class GamePanel extends Canvas implements Runnable
 {
 
-public static final int PWIDTH = 800;
-public static final int PHEIGHT = 592;
+public static final int PWIDTH = 1600;
+public static final int PHEIGHT = 900;
 private Thread animator;
 private boolean running = false;
 

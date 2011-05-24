@@ -75,8 +75,6 @@ public class Torre extends Objeto{
 		ang=0;
 		menuAtivo=null;
 		
-		GerenciadorObstaculos.addObstaculos((int)X,(int)Y,sizeY,sizeY,0,0);
-		
 		menuStatusTorre=new MenuTorre(x, y, Constantes.HUD_TORRE_SIZEX, Constantes.HUD_TORRE_SIZEY, (Color.LIGHT_GRAY), 2000, this);
 
 		setVivo(true);

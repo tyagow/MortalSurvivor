@@ -388,7 +388,7 @@ public class CanvasGame extends GCanvas {
 		// TODO Auto-generated method stub
 		setMousex(e.getX());
 		setMousey(e.getY());
-		
+		base.mouseMoved(e);
 		Constantes.mouseXTela=e.getX()+tela.XTela;
 		Constantes.mouseYTela=e.getY()+tela.YTela;
 
@@ -406,6 +406,8 @@ public class CanvasGame extends GCanvas {
 		setMousey(e.getY());
 		gerenciadorObstaculos. mouseDragged(e);
 		gameManager.mouseDragged(e);
+		base.mouseDragged(e);
+
 
 	}
 
@@ -430,6 +432,7 @@ public class CanvasGame extends GCanvas {
 		gerenciadorTorre.mouseReleased(e);
 		gerenciadorObstaculos.mouseReleased(e);
 		gameManager.mouseReleased(e);
+		base.mouseReleased(e);
 
 	}
 
@@ -453,9 +456,9 @@ public class CanvasGame extends GCanvas {
 //			getMiraAtiva().trataClickMouse2();
 			heroi.PRIMARIA=true;
 
-		
-}
-		
+			}
+		base.mousePressed(e);
+
 	}
 
 	@Override
@@ -479,6 +482,7 @@ public class CanvasGame extends GCanvas {
 		gerenciadorTorre.mouseClicked(e);
 		gerenciadorObstaculos.mouseClicked(e);
 		gameManager.mouseClicked(e);
+		base.mouseClicked(e);
 
 	}
 

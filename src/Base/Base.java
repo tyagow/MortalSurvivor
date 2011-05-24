@@ -5,6 +5,9 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.util.EventListener;
 
@@ -19,7 +22,8 @@ import Gerenciadores.GerenciadorObstaculos;
 
 public class Base extends Objeto {
 
-	boolean auraAtiva;
+	boolean auraAtiva,selecionado;
+	
 	double timerAura;
 	int xAura, yAura, alpha;
 	boolean soma = true;
@@ -105,6 +109,61 @@ public class Base extends Objeto {
 		dbg.setColor(corAnterior);
 		
 
+	}
+
+	
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
+	public void mousePressed(MouseEvent e) {
+		
+	}
+
+	
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
+	public void mouseDragged(MouseEvent e) {
+		
+		if (selecionado&&Constantes.editarWay) {
+			X = e.getX()+Constantes.XTela;
+			Y = e.getY()+Constantes.YTela;
+			xAura = (int)X - Constantes.AURA_BASE_DIAMETRO/2;
+			yAura = (int)Y - Constantes.AURA_BASE_DIAMETRO/2;
+
+		}
+	}
+
+	
+	public void mouseMoved(MouseEvent e) {
+
+		if (Constantes.colidecircular(X, Y, sizeX/2,e.getX()+Constantes.XTela,  e.getY()+Constantes.YTela, 1)) {
+			
+			selecionado = true;
+			
+		}else {
+			selecionado=false;
+		}
+		
+		
 	}
 
 
