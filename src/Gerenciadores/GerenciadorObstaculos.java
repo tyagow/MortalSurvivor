@@ -67,9 +67,9 @@ public class GerenciadorObstaculos extends Objeto  {
 //		
 
 //		
-		//loadObstaculos("data/obstaculosFaseUm.csv");
+		loadObstaculos("data/obstaculosFaseUm.csv");
 		
-	//	loadWayPoints("data/wayFaseUm.csv");
+		loadWayPoints("data/wayFaseUm.csv");
 		
 	}
 

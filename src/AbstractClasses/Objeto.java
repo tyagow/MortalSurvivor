@@ -10,6 +10,13 @@ public abstract class Objeto {
 	
 	public abstract void SimulaSe(int DiffTime);
 	public abstract void DesenhaSe(Graphics2D dbg,int XMundo,int YMundo);
+	
+	
+	
+	
+	
+	
+	
 	public void setX(double x) {
 		X = x;
 	}

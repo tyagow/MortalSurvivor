@@ -80,7 +80,6 @@ public class GerenciadorJogo extends Objeto  {
 
 	@Override
 	public void DesenhaSe(Graphics2D dbg, int XMundo, int YMundo) {
-		// TODO Auto-generated method stub
 		if (frameAtivo!=null) {
 			frameAtivo.DesenhaSe(dbg, 0, 0);
 		}
@@ -102,7 +101,7 @@ public class GerenciadorJogo extends Objeto  {
 			
 		}
 		
-//		if(keyCode == KeyEvent.VK_SHIFT){
+//		if(keyCode == KeyEvent.VK_B){
 //			
 //			frameAtivo=frameShop;
 //			CanvasGame.velocidadeJogo = 0;
@@ -123,18 +122,19 @@ public class GerenciadorJogo extends Objeto  {
 		if (frameAtivo!=null) {
 			frameAtivo.keyReleased(e);
 		}
-//		if(keyCode == KeyEvent.VK_SHIFT){
-//			if (frameAtivo==(FrameBase)frameShop) {
-//				frameAtivo=null;
-//				CanvasGame.velocidadeJogo = 1;
-//				velocidadeJogo=1;
-//			}else {
-//				frameAtivo=frameShop;
-//				CanvasGame.velocidadeJogo = 0;
-//				velocidadeJogo=0;
-//			}
-//				
-//		}
+		if(keyCode == KeyEvent.VK_B){
+			if (frameAtivo==(FrameBase)frameShop) {
+				frameAtivo=null;
+				CanvasGame.velocidadeJogo = 1;
+				velocidadeJogo=1;
+			}
+			else {
+				frameAtivo=frameShop;
+				CanvasGame.velocidadeJogo = 0;
+				velocidadeJogo=0;
+			}
+				
+		}
 	}
 
 	public void mouseMoved(MouseEvent e) {
@@ -174,7 +174,6 @@ public class GerenciadorJogo extends Objeto  {
 
 	@Override
 	public void SimulaSe(int DiffTime) {
-		// TODO Auto-generated method stub
 		
 	}
 	
