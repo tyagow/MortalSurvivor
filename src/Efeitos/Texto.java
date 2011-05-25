@@ -123,11 +123,11 @@ public class Texto extends Objeto {
 			dbg.setColor(Color.DARK_GRAY);
 			
 		    dbg.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
-			dbg.drawString("+"+(int)getLife()+" life ", (int)getX(), (int)getY());
+			dbg.drawString("+"+(int)life+" life ", (int)getX(), (int)getY());
 						
 			dbg.setColor(Color.green);
 	
-			dbg.drawString("+"+(int)getLife()+" life ", (int)getX()-3, (int)getY()-3);
+			dbg.drawString("+"+(int)life+" life ", (int)getX()-3, (int)getY()-3);
 		    dbg.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
 		    //System.out.println(alpha);
 

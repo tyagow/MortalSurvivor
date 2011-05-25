@@ -100,7 +100,7 @@ public class WayPoint extends Objeto  {
 		mY=e.getY()+Constantes.YTela;
 	}
 	
-	public void mouseClicked(MouseEvent e) {
+	public void mouseReleased(MouseEvent e) {
 		if (Constantes.editarWay) {
 			if (!Constantes.editandoWayPoint) {
 				if (mouseOver) {
@@ -122,6 +122,7 @@ public class WayPoint extends Objeto  {
 					{
 						ativo=false;
 						Constantes.editandoWayPoint=false;
+//						Constantes.editandoWayPointIndex=-1;
 					}else {
 						ativo=false;
 					}
@@ -178,14 +179,17 @@ public class WayPoint extends Objeto  {
 		
 	}
 	
-	public void mouseReleased(MouseEvent e) {
+	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
 	
 	public void mouseDragged(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+
+		mX=e.getX()+Constantes.XTela;
+		mY=e.getY()+Constantes.YTela;
 	}
+			
+	
 
 }

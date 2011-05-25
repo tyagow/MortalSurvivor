@@ -17,8 +17,8 @@ public class Estrela {
 	public Estrela(int[][] _mapa) {
 		// TODO Auto-generated constructor stub
 		mapa = _mapa;
-		largura = GerenciadorObstaculos.getLargura();
-		altura=GerenciadorObstaculos.getAltura();
+		largura = GerenciadorObstaculos.largura;
+		altura=GerenciadorObstaculos.altura;
 	}
 
 	public List<Nodo> MontaEstrela(int x, int y, int objx, int objy) {

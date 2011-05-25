@@ -105,8 +105,8 @@ public class Minimap extends Objeto{
 			dbg.drawOval((int)(resizeX * CanvasGame.miraAtiva.getXMundo()/6+getX()), (int)(resizeY * CanvasGame.getMiraAtiva().getYMundo()/6+getY()), 2, 2);
 		dbg.setColor(Color.red);
 
-		
-		dbg.fillRect((int)(resizeX * CanvasGame.base.X/6+X-CanvasGame.base.sizeX/2/6), (int)(resizeY * CanvasGame.base.Y/6+Y-CanvasGame.base.sizeY/2/6), CanvasGame.base.sizeX/6, CanvasGame.base.sizeY/6);
+		if (CanvasGame.base!=null)
+			dbg.fillRect((int)(resizeX * CanvasGame.base.X/6+X-CanvasGame.base.sizeX/2/6), (int)(resizeY * CanvasGame.base.Y/6+Y-CanvasGame.base.sizeY/2/6), CanvasGame.base.sizeX/6, CanvasGame.base.sizeY/6);
 		
 		
 		dbg.fillOval((int)(resizeX * CanvasGame.heroi.X/6+X), (int)(resizeY * CanvasGame.heroi.Y/6+Y), 4, 4);

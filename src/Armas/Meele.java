@@ -2,14 +2,16 @@ package Armas;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
 
 import Constantes.Constantes;
 import Data.Imagem;
 import Gerenciadores.GerenciadorEfeitos;
 import Personagem.Inimigo;
+import Som.ThreadSom;
 
 
-public class Faca extends Arma {
+public class Meele extends Arma {
 	
 	
 	private int estado;
@@ -17,8 +19,16 @@ public class Faca extends Arma {
 	private double oldAng;
 	private int alcanceAtaque=20;
 	private boolean atirando;
-
-	public Faca() {
+	private ThreadSom tiro;
+	private ThreadSom tiroHit;
+	
+	public Meele(BufferedImage img1, BufferedImage img2,ThreadSom _tiro,ThreadSom _tiroHit) {
+		tiro=_tiro;
+		tiro=_tiroHit;
+		imagem =img1;
+		imagem_hud = img2;
+		
+		
 		setTipo(0);
 		atirou=false;
 		setDano(Constantes.FACA_dano);
@@ -28,8 +38,11 @@ public class Faca extends Arma {
 		setTempoRecarrega(0);
 		setValor(Constantes.FACA_valor);
 	
-		setImagem(Imagem.faca);
-		setImagem_hud(Imagem.faca);
+//		imagem=(Imagem.faca);
+	//	imagem_hud=(Imagem.faca);
+		
+		
+		
 		setSizeX(getImagem().getWidth());
 		setSizeY(getImagem().getHeight());
 		
@@ -181,7 +194,12 @@ public class Faca extends Arma {
 					atigiuInimigo=true;
 				}
 			}
-			
+			if (atigiuInimigo) {
+				if (tiroHit!=null) {
+					
+					tiroHit.run();
+				}
+				}
 	
 
 //		}
@@ -190,7 +208,11 @@ public class Faca extends Arma {
 	private void atira() {
 		// TODO Auto-generated method stub
 		setAngulo(getAngulo() - (Math.PI/2));
-		estado=1;
+		estado=1;	
+		if (tiro!=null) {
+			
+			tiro.run();
+		}
 	}
 
 	@Override

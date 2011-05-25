@@ -29,6 +29,8 @@ public class Base extends Objeto {
 	boolean soma = true;
 //	public  static int life;
 	BufferedImage img;
+
+
 	
 	public Base(int _x, int _y, BufferedImage _img){
 
@@ -45,7 +47,7 @@ public class Base extends Objeto {
 
 		vivo=true;
 		life=Constantes.BASE_LIFE_1;
-		GerenciadorObstaculos.addObstaculos((int)(X),(int)(Y),sizeX,sizeY,0,0 );
+//		GerenciadorObstaculos.addObstaculos((int)(X),(int)(Y),sizeX,sizeY,0,0 );
 		
 		auraAtiva = true;
 		timerAura = 0;
@@ -55,7 +57,7 @@ public class Base extends Objeto {
 	
 	@Override
 	public void SimulaSe(int DiffTime) {
-		Constantes.baseLife = life;
+		Constantes.baseLife = (int) life;
 		if(!auraAtiva){
 			timerAura += DiffTime;
 		}
@@ -71,7 +73,7 @@ public class Base extends Objeto {
 			auraAtiva = false;
 		}
 					
-		if (getLife() <0)
+		if (life <0)
 			setLife(0);
 	}
 	@Override

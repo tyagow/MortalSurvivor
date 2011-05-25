@@ -1,6 +1,9 @@
 package shop;
 
 import java.awt.Color;
+import java.util.ArrayList;
+
+import com.sun.org.apache.bcel.internal.generic.NEW;
 
 import Interface.Botao;
 import Interface.BotaoTela;
@@ -10,6 +13,9 @@ import Interface.FrameBase;
 public class FrameShop extends FrameBase {
 	FrameShopArma frameShopArma;
 	FrameShopTorre frameShopTorre;
+	
+	
+	ArrayList<SlotInterativo> armas = new ArrayList<SlotInterativo>() ;
 	
 	public FrameShop(int _x, int _y, int sizeX, int sizeY, Color cor, int _tempoVida) {
 		super(_x, _y, sizeX, sizeY, cor, _tempoVida);
@@ -26,17 +32,9 @@ public class FrameShop extends FrameBase {
 		// TODO Auto-generated method stub
 
 		if (b.name.contains("Armas") ) {
-//			frameAtivo=frameVideo;
-//		
-//			if (!frames.contains(frameVideo)) {
-//				frameVideo.ativo=true;
-//				frames.add(frameVideo);
-//			}	
-//				else {
-//					frameVideo.ativo=false;
-//				}
-				
-			
+		
+			frameAtivo=frameShopArma;
+
 	
 		}
 		else if (b.name.contains("Torres") ) {

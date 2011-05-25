@@ -69,17 +69,17 @@ public class Projetil extends Objeto {
 	@Override
 	public void SimulaSe(int DiffTime) {
 		// TODO Auto-generated method stub
-		setOldx((int)getX());
-		setOldy((int)getY());
+		oldx=((int)getX());
+		oldy=((int)getY());
 		
 		setX(getX() + (Math.cos(ang)*vel*DiffTime/1000.0f));
 		setY(getY() + (Math.sin(ang)*vel*DiffTime/1000.0f));
 		
 		if((int)getX()<0||(int)getX()>=(CanvasGame.largura)|| (int)getY()<0||(int)getY()>=(CanvasGame.altura)) {
 			
-			setX(getOldx());
-			setY(getOldy());
-			setVivo(false);
+			X=(oldx);
+			Y=(oldy);
+			vivo=(false);
 			
 		}
 //		for (int i = 0;i<GerenciadorDeRaids.getRaids().size();i++) {

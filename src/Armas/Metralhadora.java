@@ -4,10 +4,13 @@ package Armas;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
 
 import Constantes.Constantes;
 import GameState.GamePanel;
 import Gerenciadores.GerenciadorDeSom;
+import Som.ThreadExecutar;
+import Som.ThreadSom;
 
 
 public class Metralhadora extends Arma {
@@ -18,8 +21,16 @@ public class Metralhadora extends Arma {
 	
 		
 	public int estado=0;
-	public Metralhadora() {
+	private ThreadSom tiro;
+	
+	
+	public Metralhadora(BufferedImage img1, BufferedImage img2,ThreadSom _tiro) {
 		
+		imagem =img1;
+		imagem_hud = img2;
+		tiro=_tiro;
+		sizeX=imagem.getWidth();
+		sizeY=imagem.getHeight();
 		setMaxMag(Constantes.METRALHADORA_mag);
 
 		setTipo(2);
@@ -157,7 +168,7 @@ public class Metralhadora extends Arma {
 			setRound(getRound() - 1);
 		//	System.out.println("Constantes.TIPO_ASSASINO_PLAYER  "+ Constantes.TIPO_ASSASINO_PLAYER );
 			Constantes.projeteis.add( new Projetil (this,angulo,1));
-			GerenciadorDeSom.m4a.run();
+			tiro.run();
 		}
 		
 	}

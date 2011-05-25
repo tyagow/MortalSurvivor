@@ -223,17 +223,16 @@ private static BotaoTela EditObs;
 		// TODO Auto-generated method stub
 		boolean aux =true;
 
-//		for (int i=0;i<botoes.size();i++) {
-//			if (botoes.get(i).selecionado) {
-//				aux = false;
-//				break;
-//			}			
-//		}
+		for (int i=0;i<botoes.size();i++) {
+			if (botoes.get(i).selecionado) {
+				aux = false;
+				break;
+			}			
+		}
 		if (aux) {
 			moveMenu=false;
 			
 			if (Constantes.editarObstaculo) {
-				System.out.println("tentacriarobstaculo");
 				tentaCriarObstaculo(e);
 			}
 		}
@@ -258,7 +257,7 @@ private static BotaoTela EditObs;
 				Constantes.wayPoints.add(aux);
 			
 				
-			}else if (Constantes.editarObstaculo){
+			}else {
 				obs.X = ((int)(obs.X+5)/16)*16;
 
 				obs.Y = ((int)(obs.Y+5)/16)*16;
@@ -366,12 +365,11 @@ private static BotaoTela EditObs;
 	protected void trataBotao(Botao b) {
 
 		if (b.name.contains(botaoSaveObs) ) {
-			System.out.println("teste");
-			Constantes.saveObstaculosInFile();
+			GerenciadorObstaculos.saveObstaculosInFile();
 	
 		}
 		else if (b.name.contains(botaoSaveWay) ) {
-			Constantes.saveWayPointInFile();
+			GerenciadorObstaculos.saveWayPointInFile();
 
 			
 		}	else if (b.name.contains(botaoEditObs) ) {

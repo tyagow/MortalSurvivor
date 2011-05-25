@@ -31,7 +31,8 @@ public class Raid {
 		
 	
 		ativo=true;
-		
+		int _tipo=0;
+		int respaw =0;
 		try {
 			while((str = bf.readLine())!=null){
 				if(str.charAt(0)!='#'){
@@ -46,7 +47,18 @@ public class Raid {
 					
 //					Inimigo inim = new Inimigo(Imagem.inimigoUm,(int)CanvasGame.base.getX()/16-20,(int)CanvasGame.base.getY()/16-20);
 					Inimigo inim = new Inimigo(tipo,Constantes.BASE_X,Constantes.BASE_Y);
-
+					
+					if (_tipo!=tipo) {
+						
+						if (respaw+1 <Constantes.quantidadeRespawInimigo) {
+							respaw++;
+							
+						}else {
+							respaw=0;
+						}
+						
+					}
+					
 					inim.X=(ix);
 					inim.Y=(iy);
 					inim.vel=(iv);

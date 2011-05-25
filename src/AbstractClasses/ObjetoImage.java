@@ -2,11 +2,13 @@ package AbstractClasses;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 
 import Armas.Arma;
 import Constantes.Constantes;
-public class ObjetoImage extends Objeto{
+public class ObjetoImage extends Objeto {
 
 	public BufferedImage AnimeSet;
 	public boolean ativo;
@@ -49,10 +51,14 @@ public class ObjetoImage extends Objeto{
 		
 		
 		dbg.drawImage(AnimeSet, null, (int)getX() +getSizeX()/2-AnimeSet.getWidth()/2, (int)getY()+getSizeY()/2-AnimeSet.getHeight()/2+3 );
-		dbg.drawRect((int)getX(), (int)getY(), getSizeX(), getSizeY());
+		
+		DesenhaSeLayerDois(dbg,XMundo,YMundo);
 
 	}
 
+	public  void DesenhaSeLayerDois(Graphics2D dbg, int xMundo, int yMundo) {
+		
+	}
 	public void mouseClicked(MouseEvent e) {
 		
 	}
@@ -62,6 +68,20 @@ public class ObjetoImage extends Objeto{
 	}
 
 	public void mouseMoved(MouseEvent e) {
+		
+	}
+	public void mouseEntered(MouseEvent e) {
+		
+	}
+	public void mouseExited(MouseEvent e) {
+		
+	}
+	
+	public void mousePressed(MouseEvent e) {
+		
+	}
+	
+	public void mouseDragged(MouseEvent arg0) {
 		
 	}
 }

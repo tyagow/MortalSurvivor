@@ -5,7 +5,7 @@ import java.awt.Graphics2D;
 public abstract class Objeto {
 	public int sizeX,sizeY;
 	public double X,Y;
-	public int life, oldx, oldy;
+	public double life, oldx, oldy;
 	public boolean vivo;
 	
 	public abstract void SimulaSe(int DiffTime);
@@ -45,21 +45,11 @@ public abstract class Objeto {
 	public void setOldy(int oldy) {
 		this.oldy = oldy;
 	}
-	public int getOldy() {
-		return oldy;
-	}
+
 	public void setLife(int life) {
 		this.life = life;
 	}
-	public int getLife() {
-		return life;
-	}
-	public void setOldx(int oldx) {
-		this.oldx = oldx;
-	}
-	public int getOldx() {
-		return oldx;
-	}
+
 	public void setVivo(boolean vivo) {
 		this.vivo = vivo;
 	}

@@ -8,8 +8,10 @@ import java.awt.event.MouseEvent;
 import shop.FrameShop;
 
 import AbstractClasses.Objeto;
+import Base.Base;
 import Canvas.CanvasGame;
 import Constantes.Constantes;
+import Data.Imagem;
 import GameState.GamePanel;
 import Interface.FrameBase;
 import Interface.FramePause;
@@ -175,6 +177,11 @@ public class GerenciadorJogo extends Objeto  {
 	@Override
 	public void SimulaSe(int DiffTime) {
 		
+	}
+
+	public static void criaBase(int _x, int _y) {
+		CanvasGame.base = new Base(_x, _y, Imagem.base);
+		CanvasGame.base.life= Constantes.BASE_LIFE_1;
 	}
 	
 	

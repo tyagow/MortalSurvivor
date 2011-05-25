@@ -4,10 +4,12 @@ package Armas;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
 
 import Constantes.Constantes;
 import GameState.GamePanel;
 import Gerenciadores.GerenciadorDeSom;
+import Som.ThreadSom;
 
 
 public class Pistola extends Arma {
@@ -16,9 +18,14 @@ public class Pistola extends Arma {
 	private boolean soltouTiro=true;
 	private boolean semMunicao=false;
 	
-		
+	private ThreadSom tiro;
 	public int estado=0;
-	public Pistola() {
+	public Pistola(BufferedImage img1, BufferedImage img2,ThreadSom _tiro) {
+		tiro=_tiro;
+		imagem =img1;
+		imagem_hud = img2;
+		sizeX=imagem.getWidth();
+		sizeY=imagem.getHeight();
 		setMaxMag(Constantes.PISTOLA_mag);
 
 		setTipo(1);
@@ -44,23 +51,23 @@ public class Pistola extends Arma {
 		// TODO Auto-generated method stub
 		dbg.setColor(Color.black);
 		AffineTransform trans = dbg.getTransform();
-		dbg.translate(getX()-XMundo, getY()-YMundo);
-		dbg.rotate(getAngulo()-Math.PI/2);
+		dbg.translate(X-XMundo, Y-YMundo);
+		dbg.rotate(angulo-Math.PI/2);
 		//dbg.drawLine(0, 0, getSizeX(), 0);
 
-		dbg.drawImage(getImagem(), -getSizeX()/2-10, -getSizeY()/2-5, getSizeX()-2,getSizeY(),0,0,getSizeX(),getSizeY(),null);
+		dbg.drawImage(imagem, -sizeX/2-10, -sizeY/2-5, sizeX-2,sizeY,0,0,sizeX,sizeY,null);
 		dbg.setTransform(trans);
 		
 		if (estado==1) {
 			dbg.setColor(Color.LIGHT_GRAY);
-			dbg.fillRect(GamePanel.PWIDTH/2-50, GamePanel.PHEIGHT/2-205,(int)(getTempoRecarrega()*100/Constantes.PISTOLA_tempoRecarrega) , 20);
+			dbg.fillRect(GamePanel.PWIDTH/2-50, GamePanel.PHEIGHT/2-205,(int)(tempoRecarrega*100/Constantes.PISTOLA_tempoRecarrega) , 20);
 
 			dbg.setColor(Color.black);
 			dbg.drawRect(GamePanel.PWIDTH/2-51, GamePanel.PHEIGHT/2-206, 103, 21);
 		}
 		
-		dbg.drawString("Round: "+getRound(),5 , 20);
-		dbg.drawString("mag: "+getMag(),5 , 30);
+		dbg.drawString("Round: "+round,5 , 20);
+		dbg.drawString("mag: "+mag,5 , 30);
 		
 	}
 	
@@ -161,7 +168,7 @@ public class Pistola extends Arma {
 		if (temMunicao()) {
 			setRound(getRound() - 1);
 			Constantes.projeteis.add( new Projetil (this,getAngulo(),Constantes.TIPO_ASSASINO_PLAYER ));
-			GerenciadorDeSom.de.run();
+			tiro.run();
 //			Sound.music("sound/de.wav",false);
 		}
 		

@@ -47,11 +47,11 @@ public class GerenciadorDeRaids {
 			carregaPrimeiraRaid();
 			
 		}
-		if (tempoEntreRaids > Constantes.TEMPO_ENTRE_RAIDS&&!CanvasGame.endGame){
-			
-				trataInicializacaoRaid(numRaid);
-				tempoEntreRaids=0;
-		}		
+//		if (tempoEntreRaids > Constantes.TEMPO_ENTRE_RAIDS&&!CanvasGame.endGame){
+//			
+//				trataInicializacaoRaid(numRaid);
+//				tempoEntreRaids=0;
+//		}		
 			
 			
 //		}else for(int i = 0; i < raids.size(); i++){
@@ -75,7 +75,7 @@ public class GerenciadorDeRaids {
 			
 			inim.SimulaSe((int)DiffTime);
 			
-			if(!inim.isVivo()){
+			if(!inim.vivo){
 				Constantes.inimigos.remove(i);
 				GerenciadorXP.ganhouXp(inim.getX(), inim.getY(),inim.tipoAssasino );
 			}

@@ -1,5 +1,7 @@
 package Torre;
 
+import java.awt.Graphics2D;
+
 import AbstractClasses.ObjetoImage;
 import Armas.Arma;
 import Constantes.Constantes;
@@ -23,5 +25,10 @@ public class SlotTorre extends ObjetoImage{
 		armaAtiva=(_armaAtiva);
 		torre = new Torre ( AnimeSet,armaAtiva,0,0);
 	}
+	
+	@Override
+	public void DesenhaSeLayerDois(Graphics2D dbg, int xMundo, int yMundo) {
+		dbg.drawRect((int)getX(), (int)getY(), getSizeX(), getSizeY());
 
+	}
 }

@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import Gerenciadores.GerenciadorArma;
 import Interface.Botao;
 import Interface.FrameBase;
 
@@ -17,6 +18,9 @@ public class FrameShopArma extends FrameBase {
 
 		criaBotoes();
 		alpha=100;
+		
+		
+		int totalArmas = GerenciadorArma.meele.size();
 	}
 	
 

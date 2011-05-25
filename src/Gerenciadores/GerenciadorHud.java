@@ -47,34 +47,34 @@ public class GerenciadorHud extends Objeto {
 		
 		
 		
-		setHudArma(new SlotTorre[4]);
-		getHudArma()[0] = new SlotTorre();
-		getHudArma()[0].setX(xHudArmas+40);
-		getHudArma()[0].setY(yHudArmas+10);
-		getHudArma()[0].setSlot(Heroi.getArmaMelee());
-		getHudArma()[0].ativo=(true);
+		hudArma=(new SlotTorre[4]);
+		hudArma[0] = new SlotTorre();
+		hudArma[0].setX(xHudArmas+40);
+		hudArma[0].setY(yHudArmas+10);
+		hudArma[0].setSlot(Heroi.getArmaMelee());
+		hudArma[0].ativo=(true);
 
 
 		
-		getHudArma()[1] = new SlotTorre();
-		getHudArma()[1].setX(hudArma[0].getX()+5+hudArma[0].getSizeX());
-		getHudArma()[1].setY(yHudArmas+10);
-		getHudArma()[1].setSlot(Heroi.getArmaSecundaria());
-		getHudArma()[1].ativo=(false);
+		hudArma[1] = new SlotTorre();
+		hudArma[1].setX(hudArma[0].getX()+5+hudArma[0].getSizeX());
+		hudArma[1].setY(yHudArmas+10);
+		hudArma[1].setSlot(Heroi.getArmaSecundaria());
+		hudArma[1].ativo=(false);
 		
 		
-		getHudArma()[2] = new SlotTorre();
-		getHudArma()[2].setX(hudArma[1].getX()+5+hudArma[1].getSizeX());
-		getHudArma()[2].setY(yHudArmas+10);
-		getHudArma()[2].setSlot(Heroi.getArmaPrimaria());
-		getHudArma()[2].ativo=(false);
+		hudArma[2] = new SlotTorre();
+		hudArma[2].setX(hudArma[1].getX()+5+hudArma[1].getSizeX());
+		hudArma[2].setY(yHudArmas+10);
+		hudArma[2].setSlot(Heroi.getArmaPrimaria());
+		hudArma[2].ativo=(false);
 		
 		
-		getHudArma()[3] = new SlotTorre();
-		getHudArma()[3].setX(hudArma[2].getX()+5+hudArma[2].getSizeX());
-		getHudArma()[3].setY(yHudArmas+10);
-		getHudArma()[3].setSlot(Heroi.getArmaGranada());
-		getHudArma()[3].ativo=(false);
+		hudArma[3] = new SlotTorre();
+		hudArma[3].setX(hudArma[2].getX()+5+hudArma[2].getSizeX());
+		hudArma[3].setY(yHudArmas+10);
+		hudArma[3].setSlot(Heroi.getArmaGranada());
+		hudArma[3].ativo=(false);
 	
 
 	}
@@ -139,7 +139,7 @@ public class GerenciadorHud extends Objeto {
 		dbg.fillRect(xHudArmas, yHudArmas, sizeXHudArmas, sizeYHudArmas);
 	    dbg.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
 	    dbg.setStroke(stk);
-		for(int i = 0; i < getHudArma().length; i++){
+		for(int i = 0; i < hudArma.length; i++){
 			hudArma[i].DesenhaSe(dbg, XTela, YTela);
 			desenhaQuantidadeTiros(dbg,hudArma[i]);
 		}
@@ -188,9 +188,7 @@ public class GerenciadorHud extends Objeto {
 	public void setHudArma(SlotTorre[] _hudArma) {
 		this.hudArma = _hudArma;
 	}
-	public SlotTorre[] getHudArma() {
-		return hudArma;
-	}
+
 	public static void setBotoes(LinkedList<Botao> botoes) {
 		GerenciadorHud.botoes = botoes;
 	}

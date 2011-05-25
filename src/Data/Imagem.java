@@ -14,20 +14,26 @@ public class Imagem {
 	public static BufferedImage mira1;
 	public static BufferedImage inimigoUm;
 	public static BufferedImage logo;
-	public static BufferedImage he;
 	public static BufferedImage fundoCidade;
 	public static BufferedImage TORRE_UM_ANIMESET;
 	public static BufferedImage TORRE_DOIS_ANIMESET;
 	public static BufferedImage TORRE_TRES_ANIMESET;
 	public static BufferedImage explosao;
 	public static BufferedImage explosao2;
-	public static BufferedImage deagle;
+	
+//*********************************ARMAS ****************************************
 	public static BufferedImage m4;
-	public static BufferedImage deagle_hud;
 	public static BufferedImage m4_hud;
+	public static BufferedImage ak47;
+	public static BufferedImage ak47_hud;
+	public static BufferedImage deagle;
+	public static BufferedImage deagle_hud;
 	public static BufferedImage faca;
-	public static BufferedImage heroiUm;
+	public static BufferedImage he;
 	public static BufferedImage he_hud;
+//************************************************************************************
+	
+	public static BufferedImage heroiUm;
 	public static BufferedImage botaoUm;
 	public static BufferedImage base;
 	public static BufferedImage efeitoFaca;
@@ -59,11 +65,13 @@ public class Imagem {
 
 			deagle= Constantes.LoadImage("img/deagle.png");
 			m4=Constantes.LoadImage("img/m4a.png");
-			deagle_hud=Constantes.LoadImage("img/deagle_hud.png");
 			m4_hud=Constantes.LoadImage("img/m4_hud.png");
+			ak47=Constantes.LoadImage("img/ak47.png");
+			ak47_hud=Constantes.LoadImage("img/ak47_hud.png");
+
+			deagle_hud=Constantes.LoadImage("img/deagle_hud.png");
 			he = Constantes.LoadImage("img/he.png");
 			he_hud = Constantes.LoadImage("img/he_hud.png");
-			
 			faca =Constantes.LoadImage("img/knife.png");
 			
 			

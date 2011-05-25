@@ -21,7 +21,7 @@ import Torre.Torre;
 public class Inimigo extends Objeto {
 	
 	private static final int ATRAS_BASE = 2;
-	private static final int DESVIAR_OBSTACULO = 0;
+	private static final int TRATAR_COLISAO = 0;
 	private static final int ATRAS_HEROI = 1;
 
 	int objX,objY;
@@ -100,23 +100,33 @@ public class Inimigo extends Objeto {
 
 public void SimulaSe(int DiffTime) {
 		// TODO Auto-generated method stub	
-	
-			oldx=((int)X);
-			oldy=((int)Y);
+//	System.out.println("-----------------");
+//	System.out.println("oldx"+oldx);
+//	System.out.println("oldy"+oldy);
+
+			oldx=(X);
+			oldy=(Y);
 			
 			velx=(int) (Math.cos(ang)*vel);
 			vely=(int) (Math.sin(ang)*vel);
-	
+//			System.out.println("antes mover X"+X);
+//			System.out.println("antes mover Y"+Y);
 			X+= (velx*DiffTime/1000.0f);
 			Y+= (vely*DiffTime/1000.0f);
-			
-
+//			System.out.println("antes ia X"+X);
+//			System.out.println("antes ia Y"+Y);
 		
-			calculaIA(DiffTime);
-	
+
 			
+			calculaIA(DiffTime);
+			
+			
+//			System.out.println("depois ia X"+X);
+//			System.out.println("depois ia Y"+Y);
+
+	
 			if (life<0) {
-				setVivo(false);	
+				vivo=(false);	
 			}			
 
 	}
@@ -161,7 +171,7 @@ private void calculaIA(int DiffTime) {
 		tempoEntreAtaque+=DiffTime;
 		iatimer+=DiffTime;
 		
-		if(iatimer>200){
+		if(iatimer>100){
 			maquinaEstados();
 			trataEstado();
 			iatimer  = 0;
@@ -176,22 +186,26 @@ private void calculaIA(int DiffTime) {
 		
 		
 		switch (estado) {
-		case DESVIAR_OBSTACULO:
-			if (!verificaColisaoObstaculo()||!verificaSeparacao()||verificaColisaoTorre())
-				estado=ATRAS_BASE;
+		case TRATAR_COLISAO:
+			//if (!verificaColisaoObstaculo()||!verificaSeparacao()||verificaColisaoTorre())
+				if (!verificaColisao())
+					estado=ATRAS_BASE;
 			break;	
 			
 		case ATRAS_BASE:
-			if (verificaColisaoObstaculo()||verificaSeparacao()||verificaColisaoTorre())
-				estado=DESVIAR_OBSTACULO;
+		//	if (verificaColisaoObstaculo()||verificaSeparacao()||verificaColisaoTorre()||verificaColisaoBase())
+			if (verificaColisao())
+				estado=TRATAR_COLISAO;
 			else if(Constantes.colidecircular(X, Y,campoDeVisao,CanvasGame.heroi.X,CanvasGame.heroi.Y,CanvasGame.heroi.sizeX/2)){
 			
 				estado=ATRAS_HEROI;
 			}
 			break;
 		case ATRAS_HEROI:
-			if (verificaColisaoObstaculo()||verificaSeparacao()||verificaColisaoTorre())
-				estado=DESVIAR_OBSTACULO;
+			//if (verificaColisaoObstaculo()||verificaSeparacao()||verificaColisaoTorre()||verificaColisaoBase())
+			if (verificaColisao())
+	
+				estado=TRATAR_COLISAO;
 			else {
 				if(!Constantes.colidecircular(X, Y,campoDeVisao,CanvasGame.heroi.X,CanvasGame.heroi.Y,CanvasGame.heroi.sizeX/2))
 					estado=ATRAS_BASE;
@@ -205,9 +219,12 @@ private void calculaIA(int DiffTime) {
 
 private void trataEstado() {
 			switch (estado) {
-			case DESVIAR_OBSTACULO:
+			case TRATAR_COLISAO:
 				
-				estadoDesviaObstaculo();
+				trataColisaoMapa() ;
+				System.out.println("tratacolisaoMapa");
+				
+				
 				break;
 			case ATRAS_HEROI:
 				
@@ -220,6 +237,48 @@ private void trataEstado() {
 			}
 		
 		}
+	private void trataColisaoMapa() {
+			boolean aux = true;
+			int bx = (int)(X/32); 
+			int by = (int)(Y/32);
+			int bxold = (int)(oldx/32); 
+			int byold = (int)(oldy/32);
+			
+			if(GerenciadorObstaculos.mapa[by][bx]==1){
+				
+				if(GerenciadorObstaculos.mapa[byold][bx]==0){
+					Y = oldy;
+				}else if(GerenciadorObstaculos.mapa[by][bxold]==0){
+					X = oldx;
+				}else{
+					Y = oldy;
+					X = oldx;
+					aux=false;
+				}
+		}
+	//return aux;			
+	}
+	private boolean verificaColisao() {
+		int bx = (int)(X/32); 
+		int by = (int)(Y/32);
+		if (GerenciadorObstaculos.largura*32>X&&X>0 && GerenciadorObstaculos.altura*32>Y&&Y>0 ) {
+			
+			System.out.println(GerenciadorObstaculos.mapa[by][bx]);
+			System.out.println("bx " + bx);
+			System.out.println("by " + by);
+			
+			if(GerenciadorObstaculos.mapa[by][bx]==1){
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+		else {
+			return  false;
+		}
+//return aux;			
+}
 
 
 	private void estadoFollowBase() {
@@ -250,28 +309,35 @@ private void trataEstado() {
 
 	}
 
-	private void estadoDesviaObstaculo() {
+/*	private void estadoDesviaObstaculo() {
 
 
 	
 				colidiuObstaculo=verificaColisaoObstaculo();
 			 		
-				if(verificaColisaoObstaculo()||verificaColisaoTorre()){
+				if(verificaColisaoObstaculo()||verificaColisaoTorre()||verificaColisaoBase() ){
 					double tempx = X;
 					double tempy = Y;
 					X = oldx;
+					System.out.println("colidi tempx = " + tempx);
+					System.out.println("colidi X com oldx = " + X);
 					
+					System.out.println("colidi e vo em y");
+
 	
-					if(verificaColisaoObstaculo()||verificaColisaoTorre()){
+					if(verificaColisaoObstaculo()||verificaColisaoTorre()||verificaColisaoBase()){
 						Y = oldy;
 						X = tempx;
-	
-						if(verificaColisaoObstaculo()||verificaColisaoTorre()){
+						System.out.println("colidi e vo em X");
+
+
+						if(verificaColisaoObstaculo()||verificaColisaoTorre()||verificaColisaoBase()){
 							X = oldx;
 							Y = oldy;
-							
+							System.out.println("colidi e fudeu");
+
 							ang=ang+Math.PI;
-							 vel=maxVel;
+							 //vel=maxVel;
 				
 						}else{
 							 vel=maxVel;
@@ -298,15 +364,17 @@ private void trataEstado() {
 			
 		}
 
-
+*/
 
 	private boolean verificaColisaoBase() {
 		
 
-				if (Constantes.colideQuadrado(X-sizeX/2, Y-sizeY/2, sizeX, sizeY,objX-CanvasGame.base.sizeX/2, objY-CanvasGame.base.sizeY/2,CanvasGame.base.sizeX,CanvasGame.base.sizeY/2)) {
+				if (Constantes.colidecircular(X, Y, sizeX/2, CanvasGame.base.X, CanvasGame.base.Y,CanvasGame.base.sizeX/2)) {
 //					if (objX!=(int)CanvasGame.base.X&&objY!=(int)CanvasGame.base.Y)
-						return true;
-//				
+					System.out.println("colidiu base");	
+
+					return true;
+//				sysou//
 				}			
 	
 					return false;
@@ -360,7 +428,7 @@ private void trataEstado() {
 	//					if (GamePanel.rnd.nextBoolean())
 						 X=oldx;
 						 Y=oldy;
-							ang = Math.atan2(dy, dx)+Math.PI/2;//ob.ang+Math.PI/2;
+							ang = Math.atan2(dy, dx)+Math.PI;//ob.ang+Math.PI/2;
 	//					else 
 	//						ang = ob.ang-Math.PI/2;
 						

@@ -1,6 +1,5 @@
 package Constantes;
 
-
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.image.BufferedImage;
@@ -240,6 +239,8 @@ public class Constantes {
 	public static boolean editarObstaculo=false;
 	public static boolean editarWay=false;
 
+	public static int quantidadeRespawInimigo=3;
+
 
 	public static BufferedImage LoadImage(String filename){
 		BufferedImage image = null;
@@ -285,116 +286,6 @@ public class Constantes {
 		return true;
 	}
 	
-	public static void saveObstaculosInFile() {
-		JFileChooser fc = new JFileChooser();
 	
-	    fc.setCurrentDirectory(new File("tmp.tmp"));//new File(getClass().getResource("palm.png").getFile()));
-	
-		FileNameExtensionFilter filter = new FileNameExtensionFilter("Arquivos de Caminhos", "csv");
-		
-		fc.setFileFilter(filter);
-	
-
-		int returnVal = fc.showSaveDialog(GamePanel.instance);
-		if (returnVal == JFileChooser.APPROVE_OPTION) {
-	   
-			File file = fc.getSelectedFile();
-		
-			System.out.println(" file "+file);
-	
-			
-		    FileOutputStream out = null;
-		    try {
-					out =  new FileOutputStream(file);
-				} catch (FileNotFoundException e1) {
-					e1.printStackTrace();
-				}
-				
-			
-				DataOutputStream dataout = new DataOutputStream(out);
-				try {		
-					dataout.writeBytes("#Codigo;posX;posY;sizeX;sizeY;tileSetColuna;tileSetLinha"+""+System.getProperty("line.separator"));
-					for (int i=0;i<GerenciadorObstaculos.obstaculos.size();i++) {
-						
-						
-						Obstaculo obs = GerenciadorObstaculos.obstaculos.get(i);
-						
-						if (obs.X!=CanvasGame.base.X&&obs.Y!=CanvasGame.base.Y) {
-						
-							if (i<GerenciadorObstaculos.obstaculos.size()-1)
-								dataout.writeBytes(i+";"+(int)obs.X+";"+(int)obs.Y+";"+(int)obs.sizeX+";"+(int)obs.sizeY+";"+(int)obs.tileSetColuna+";"+(int)obs.tileSetLinha+""+System.getProperty("line.separator"));
-							else 
-								dataout.writeBytes(i+";"+(int)obs.X+";"+(int)obs.Y+";"+(int)obs.sizeX+";"+(int)obs.sizeY+";"+(int)obs.tileSetColuna+";"+(int)obs.tileSetLinha);
-
-						}
-					}
-					
-					dataout.close();
-					out.close();
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-					}
-				
-			} else {
-				System.out.println("Open command cancelled by user.");
-			}
-
-	}
-	
-	
-	public static void saveWayPointInFile() {
-		JFileChooser fc = new JFileChooser();
-	
-	    fc.setCurrentDirectory(new File("tmp.tmp"));//new File(getClass().getResource("palm.png").getFile()));
-	
-		FileNameExtensionFilter filter = new FileNameExtensionFilter("Arquivos de Caminhos", "csv");
-		
-		fc.setFileFilter(filter);
-	
-
-		int returnVal = fc.showSaveDialog(GamePanel.instance);
-		if (returnVal == JFileChooser.APPROVE_OPTION) {
-	   
-			File file = fc.getSelectedFile();
-		
-			System.out.println(" file "+file);
-		
-			
-		    FileOutputStream out = null;
-		    try {
-					out =  new FileOutputStream(file);
-				} catch (FileNotFoundException e1) {
-					e1.printStackTrace();
-				}
-				
-			
-				DataOutputStream dataout = new DataOutputStream(out);
-				try {		
-					dataout.writeBytes("#Codigo;wayX;wayY;wausizeX;waysizeY;_indexNextTarget"+""+System.getProperty("line.separator"));
-					for (int i=0;i<Constantes.wayPoints.size();i++) {
-						
-						
-						WayPoint obs = Constantes.wayPoints.get(i);
-						if (i<Constantes.wayPoints.size()-1) {
-							dataout.writeBytes(i+";"+(int)obs.X+";"+(int)obs.Y+";"+(int)obs.sizeX+";"+(int)obs.sizeY+";"+(int)obs.indexNextTarget+""+System.getProperty("line.separator"));
-						}else {
-							dataout.writeBytes(i+";"+(int)obs.X+";"+(int)obs.Y+";"+(int)obs.sizeX+";"+(int)obs.sizeY+";"+(int)obs.indexNextTarget);
-
-						}
-					}
-					
-					dataout.close();
-					out.close();
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-					}
-				
-			} else {
-				System.out.println("Open command cancelled by user.");
-			}
-
-	}
 
 }

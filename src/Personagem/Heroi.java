@@ -10,13 +10,12 @@ import java.awt.image.BufferedImage;
 
 import AbstractClasses.Objeto;
 import Armas.Arma;
-import Armas.Deagle;
-import Armas.Faca;
+import Armas.Meele;
 import Armas.He;
-import Armas.M4;
 import Canvas.CanvasGame;
 import Constantes.Constantes;
 import Data.Imagem;
+import Gerenciadores.GerenciadorArma;
 import Gerenciadores.GerenciadorObstaculos;
 
 
@@ -42,9 +41,9 @@ public class Heroi extends Objeto {
 	private boolean Atira=false;
 	private int maximoVida=100;
 	
-	private static Arma armaMelee=new Faca();
-	private static Arma armaPrimaria=new M4();
-	private static Arma armaSecundaria=new Deagle();
+	private static Arma armaMelee=GerenciadorArma.meele.get(GerenciadorArma.FACA);
+	private static Arma armaPrimaria=GerenciadorArma.primaria.get(GerenciadorArma.m4);
+	private static Arma armaSecundaria=GerenciadorArma.secundaria.get(GerenciadorArma.DE);
 	private static Arma armaAtiva=armaSecundaria;
 	private static Arma armaGranada=new He();
 	
@@ -67,12 +66,12 @@ public class Heroi extends Objeto {
 	private static int arma;
 	
 	
-	public Heroi(int x,int y,BufferedImage img) {
+	public Heroi(int _x,int _y,BufferedImage img) {
 		this.imagem= img ;
 		imagemLegs=Imagem.legs;
 		cor=Color.black;
-		this.setX(x);
-		this.setY(y);
+		X=(_x);
+		Y=(_y);
 		setSizeX(imagem.getWidth()/2);
 		setSizeY(imagem.getHeight()/3);
 		setLife(100);
@@ -80,6 +79,9 @@ public class Heroi extends Objeto {
 		larguraMapa=CanvasGame.tela.Largura*16;
 		alturaMapa=CanvasGame.tela.Altura*16;
 		resetArmas();
+		armaMelee=GerenciadorArma.meele.get(GerenciadorArma.FACA);
+		armaPrimaria=GerenciadorArma.primaria.get(GerenciadorArma.m4);
+		armaSecundaria=GerenciadorArma.secundaria.get(GerenciadorArma.DE);
 		
 	}
 	private void resetArmas() {
@@ -108,7 +110,7 @@ public class Heroi extends Objeto {
 			trataTrocaArma();
 			calculaAnimacao();
 			
-			armaAtiva.definePosicaoArma(ang, getX(), getY());
+			armaAtiva.definePosicaoArma(ang, X, Y);
 			armaAtiva.SimulaSe(DiffTime);
 			if (life<0)
 				vivo=(false);
@@ -140,23 +142,23 @@ public class Heroi extends Objeto {
 			///// VIDA TEMPORARIO ## FAZER HUD
 			dbg.drawRect((int)px-getSizeX()/2-5, (int)py-getSizeY()/2-17, 30, 10);
 			dbg.setColor(Color.green);
-			dbg.fillRect((int)px-getSizeX()/2-5+1, (int)py-16-getSizeY()/2, (int)(getLife()*30/maximoVida)-1, 9);
+			dbg.fillRect((int)px-getSizeX()/2-5+1, (int)py-16-getSizeY()/2, (int)(life*30/maximoVida)-1, 9);
 		}
 
 	}
 	private void calculaIA(int DiffTime) {
 		
-
-		if (X+(sizeX>>1) >=larguraMapa ||X-sizeX/2-1<=0||colisaoBase()) {
+		if (CanvasGame.base!=null) {
+			if (X+(sizeX>>1) >=larguraMapa ||X-sizeX/2-1<=0||colisaoBase()) {
+				
+				X=(oldx);
 			
-			X=(oldx);
-		
+			}
+			if ( Y+sizeY/2+1>=alturaMapa || Y-sizeY/2-1 <=0 ||colisaoBase() )
+				Y=(oldy);
 		}
-		if ( Y+sizeY/2+1>=alturaMapa || Y-sizeY/2-1 <=0 ||colisaoBase() )
-			Y=(oldy);
-		
-		
-		for (int i=0;i<GerenciadorObstaculos.obstaculos.size();i++) {
+		trataColisaoMapa();
+		/*for (int i=0;i<GerenciadorObstaculos.obstaculos.size();i++) {
 		
 			
 			if (Constantes.colideQuadrado(X-sizeX/2,Y-sizeY/2,sizeX,sizeY,GerenciadorObstaculos.obstaculos.get(i).X-GerenciadorObstaculos.obstaculos.get(i).sizeX/2,GerenciadorObstaculos.obstaculos.get(i).Y-GerenciadorObstaculos.obstaculos.get(i).sizeY/2,GerenciadorObstaculos.obstaculos.get(i).sizeX,GerenciadorObstaculos.obstaculos.get(i).sizeY)) { // &&CanvasGame.base.Y+CanvasGame.base.sizeY<Y)
@@ -193,11 +195,31 @@ public class Heroi extends Objeto {
 			
 		}
 		
-
+*/
 			
 		
 		
 	}
+	
+	private void trataColisaoMapa() {
+		int bx = (int)(X/32); 
+		int by = (int)(Y/32);
+		int bxold = (int)(oldx/32); 
+		int byold = (int)(oldy/32);
+		
+		if(GerenciadorObstaculos.mapa[by][bx]==1){
+			
+			if(GerenciadorObstaculos.mapa[byold][bx]==0){
+				Y = oldy;
+			}else if(GerenciadorObstaculos.mapa[by][bxold]==0){
+				X = oldx;
+			}else{
+				Y = oldy;
+				X = oldx;
+			}
+	}
+//return aux;			
+}
 	private boolean colisaoBaseY() {
 		// TODO Auto-generated method stub
 //		
