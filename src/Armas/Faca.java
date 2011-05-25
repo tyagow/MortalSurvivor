@@ -49,8 +49,10 @@ public class Faca extends Arma {
 
 	@Override
 	public void DesenhaSe(Graphics2D dbg, int XMundo, int YMundo) {
-
+			
+	
 			dbg.setColor(Color.black);
+			
 			AffineTransform trans = dbg.getTransform();
 			dbg.translate(getX()-XMundo, getY()-YMundo);
 			if(estado==1)
@@ -168,7 +170,8 @@ public class Faca extends Arma {
 				Inimigo in = Constantes.inimigos.get(j);
 				
 //(int)(X-XMundo+Math.cos(angulo)*20),(int)( Y-YMundo+Math.sin(angulo)*20)
-				if (Constantes.colidecircular((int)(X+Math.cos(angulo+Math.PI/2)*20)-13, (int)( Y+Math.sin(angulo+Math.PI/2)*20)-13,alcanceAtaque,in.getX(),in.getY(),in.getSizeX()/2)) {
+				
+				if (Constantes.colidecircular((int)(X+Math.cos(angulo+Math.PI/2)*20), (int)( Y+Math.sin(angulo+Math.PI/2)*20),alcanceAtaque,in.getX(),in.getY(),in.getSizeX()/2)) {
 				
 					penetration--;
 					Constantes.inimigos.get(j).recebeuDano(getDano(),1);
