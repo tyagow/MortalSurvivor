@@ -203,6 +203,13 @@ public void mouseClicked(MouseEvent e) {
 		
 		_frame.mouseClicked(e);
 	}
+	Iterator<Objeto> it4 = objetos.iterator();
+	while(it4.hasNext()){
+		Objeto ob= it4.next();
+		
+		ob.mouseClicked(e);
+	}
+	
 	
 		
 	}
@@ -217,7 +224,13 @@ public void mouseClicked(MouseEvent e) {
 			
 			_frame.mousePressed(e);
 		}
+		Iterator<Objeto> it4 = objetos.iterator();
+		while(it4.hasNext()){
+			Objeto ob= it4.next();
 			
+			ob.mousePressed(e);
+		}
+		
 	}
 	public void mouseReleased(MouseEvent e) {
 		
@@ -233,6 +246,12 @@ public void mouseClicked(MouseEvent e) {
 			
 			_frame.mouseReleased(e);
 		}	
+		Iterator<Objeto> it4 = objetos.iterator();
+		while(it4.hasNext()){
+			Objeto ob= it4.next();
+			
+			ob.mouseReleased(e);
+		}
 	}
 
 
@@ -260,7 +279,12 @@ public void mouseMoved(MouseEvent e) {
 			_frame.mouseMoved(e);
 		}	
 		
-		
+		Iterator<Objeto> it4 = objetos.iterator();
+		while(it4.hasNext()){
+			Objeto ob= it4.next();
+			
+			ob.mouseMoved(e);
+		}
 		
 	
 	}
@@ -312,6 +336,7 @@ public void keyReleased(KeyEvent e ) {
 		
 		_frame.keyReleased(e);
 	}	
+	
 }
 
 	

@@ -1,5 +1,6 @@
 package AbstractClasses;
 import java.awt.Graphics2D;
+import java.awt.event.MouseEvent;
 
 
 public abstract class Objeto {
@@ -56,5 +57,29 @@ public abstract class Objeto {
 	public boolean isVivo() {
 		return vivo;
 	}
+	public void mouseClicked(MouseEvent e) {
+		
+	}
+
+	public void mouseReleased(MouseEvent e) {
+		
+	}
+
+	public void mouseMoved(MouseEvent e) {
+		
+	}
+	public void mouseEntered(MouseEvent e) {
+		
+	}
+	public void mouseExited(MouseEvent e) {
+		
+	}
 	
+	public void mousePressed(MouseEvent e) {
+		
+	}
+	
+	public void mouseDragged(MouseEvent arg0) {
+		
+	}
 }

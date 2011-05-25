@@ -5,6 +5,9 @@ import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import com.sun.accessibility.internal.resources.accessibility;
+
+import Data.Imagem;
 import Gerenciadores.GerenciadorArma;
 import Interface.Botao;
 import Interface.FrameBase;
@@ -12,15 +15,18 @@ import Interface.FrameBase;
 
 public class FrameShopArma extends FrameBase {
 
+	ArrayList<SlotInterativo> armas = new ArrayList<SlotInterativo>();
 	
 	public FrameShopArma(int _x, int _y, int sizeX, int sizeY, Color cor, int _tempoVida) {
 		super(_x, _y, sizeX, sizeY, cor, _tempoVida);
 
-		criaBotoes();
-		alpha=100;
+//		criaBotoes();
+		alpha=200;
 		
+		armas.add (new SlotInterativo((int)X+20,(int)Y+20,32,32,Imagem.ak47_hud));
+	
+		objetos.add(armas.get(0));
 		
-		int totalArmas = GerenciadorArma.meele.size();
 	}
 	
 
