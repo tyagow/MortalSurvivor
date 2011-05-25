@@ -296,7 +296,7 @@ public class GerenciadorEfeitos extends Objeto implements Runnable {
 	public static void criaEfeitoFaca(double x,double y,double ang) {
 	
 		
-		Constantes.particulasExplosao.add(new EfeitoFaca(x, y, ang, 1000, Imagem.efeitoFaca));
+		Constantes.particulasExplosao.add(new EfeitoFaca(x, y, ang, 300, Imagem.efeitoFaca));
 		
 		
 	}
