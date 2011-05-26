@@ -130,7 +130,6 @@ public class CanvasGame extends GCanvas {
 		gerenciadorTorre = new GerenciadorTorre();
 		gerenciadorEfeitos = new GerenciadorEfeitos();
 		gerenciadorRespawn= new GerenciadorRespawn();
-		gerenciadorHud=new GerenciadorHud();
 		gerenciadorDeRaids= new GerenciadorDeRaids();
 		gameManager=new GerenciadorJogo();
 		gerenciadorXP=new GerenciadorXP();
@@ -152,12 +151,13 @@ public class CanvasGame extends GCanvas {
 		gerenciadorObstaculos.reset();
 		Constantes.inimigos.clear();
 		gerenciadorDeRaids.reset();
-		gerenciadorHud.reset();
 		gerenciadorEfeitos.reset();
 		gerenciadorXP.reset();
 		
 		heroi=new Heroi(GamePanel.PWIDTH/2, GamePanel.PHEIGHT/2,Imagem.heroiUm);
-		
+		gerenciadorHud=new GerenciadorHud();
+		gerenciadorHud.reset();
+
 
 		
 			ContiuaJogo=true;

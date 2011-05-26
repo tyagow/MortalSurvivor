@@ -41,11 +41,11 @@ public class Heroi extends Objeto {
 	private boolean Atira=false;
 	private int maximoVida=100;
 	
-	private static Arma armaMelee=GerenciadorArma.meele.get(GerenciadorArma.FACA);
-	private static Arma armaPrimaria=GerenciadorArma.primaria.get(GerenciadorArma.m4);
-	private static Arma armaSecundaria=GerenciadorArma.secundaria.get(GerenciadorArma.DE);
+	private static Arma armaMelee=GerenciadorArma.meeleAtiva;//GerenciadorArma.armas.get(GerenciadorArma.FACA);
+	private static Arma armaPrimaria=GerenciadorArma.primariaAtiva; //armas.get(GerenciadorArma.m4);
+	private static Arma armaSecundaria=GerenciadorArma.secundariaAtiva;//armas.get(GerenciadorArma.DE);
 	private static Arma armaAtiva=armaSecundaria;
-	private static Arma armaGranada=new He();
+	private static Arma armaEspecial=GerenciadorArma.especialAtiva;//armas.get(GerenciadorArma.HE);
 	
 	private static Arma ultimaArma;
 
@@ -78,17 +78,26 @@ public class Heroi extends Objeto {
 		setVivo(true);
 		larguraMapa=CanvasGame.tela.Largura*16;
 		alturaMapa=CanvasGame.tela.Altura*16;
+		
+		
+		armaMelee=GerenciadorArma.meeleAtiva;//armas.get(GerenciadorArma.FACA);
+		armaPrimaria=GerenciadorArma.primariaAtiva;////armas.get(GerenciadorArma.m4);
+		armaSecundaria=GerenciadorArma.secundariaAtiva;
+		armaEspecial=GerenciadorArma.especialAtiva;//GerenciadorArma.armas.get(GerenciadorArma.HE);
+		
+		
+		//System.out.println(armaSecundaria.imagem);
+		
 		resetArmas();
-		armaMelee=GerenciadorArma.meele.get(GerenciadorArma.FACA);
-		armaPrimaria=GerenciadorArma.primaria.get(GerenciadorArma.m4);
-		armaSecundaria=GerenciadorArma.secundaria.get(GerenciadorArma.DE);
+
 		
 	}
 	private void resetArmas() {
 	
 		armaPrimaria.resetaTiros();
 		armaSecundaria.resetaTiros();
-		armaGranada.resetaTiros();
+		armaEspecial.resetaTiros();
+		
 	}
 	@Override
 	public void SimulaSe(int DiffTime) {
@@ -207,11 +216,11 @@ public class Heroi extends Objeto {
 		int bxold = (int)(oldx/32); 
 		int byold = (int)(oldy/32);
 		
-		if(GerenciadorObstaculos.mapa[by][bx]==1){
+		if(GerenciadorObstaculos.mapa[bx][by]==1){
 			
-			if(GerenciadorObstaculos.mapa[byold][bx]==0){
+			if(GerenciadorObstaculos.mapa[bx][byold]==0){
 				Y = oldy;
-			}else if(GerenciadorObstaculos.mapa[by][bxold]==0){
+			}else if(GerenciadorObstaculos.mapa[bxold][by]==0){
 				X = oldx;
 			}else{
 				Y = oldy;
@@ -294,7 +303,7 @@ public class Heroi extends Objeto {
 				}
 				
 				ultimaArma=armaAtiva;
-				armaAtiva=armaGranada;
+				armaAtiva=armaEspecial;
 				
 				setArma(IDX_ARMA_GRANADA);
 				
@@ -497,7 +506,7 @@ public class Heroi extends Objeto {
 		
 		armaPrimaria.recarrega();
 		getArmaSecundaria().recarrega();
-		armaGranada.recarrega();
+		armaEspecial.recarrega();
 
 		
 	}
@@ -528,7 +537,7 @@ public class Heroi extends Objeto {
 	}
 	public static Arma getArmaGranada() {
 		// TODO Auto-generated method stub
-		return armaGranada;
+		return armaEspecial;
 	}
 	public void setArma(int arma) {
 		this.arma = arma;

@@ -18,16 +18,14 @@ public class Pistola extends Arma {
 	private boolean soltouTiro=true;
 	private boolean semMunicao=false;
 	
-	private ThreadSom tiro;
 	public int estado=0;
-	public Pistola(BufferedImage img1, BufferedImage img2,ThreadSom _tiro) {
-		tiro=_tiro;
-		imagem =img1;
-		imagem_hud = img2;
-		sizeX=imagem.getWidth();
-		sizeY=imagem.getHeight();
-		setMaxMag(Constantes.PISTOLA_mag);
+	
+	public Pistola(BufferedImage img1,BufferedImage img2,ThreadSom _tiro,ThreadSom _tiroHit) {
+		super(img1,img2,_tiro,_tiroHit);
 
+		
+		
+		setMaxMag(Constantes.PISTOLA_mag);
 		setTipo(1);
 		atirou=false;
 		setDano(Constantes.PISTOLA_dano);

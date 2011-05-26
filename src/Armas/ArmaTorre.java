@@ -7,10 +7,19 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 
 import GameState.GamePanel;
+import Som.ThreadSom;
 
 
 
 public abstract class ArmaTorre extends Arma {
+
+	public ArmaTorre(BufferedImage img1, BufferedImage img2, ThreadSom _tiro,
+			ThreadSom _tiroHit) {
+		super(img1, img2, _tiro, _tiroHit);
+		// TODO Auto-generated constructor stub
+	}
+
+
 
 	int tempoRecarrega;
 

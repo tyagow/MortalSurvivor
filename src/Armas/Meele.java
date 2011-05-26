@@ -22,11 +22,14 @@ public class Meele extends Arma {
 	private ThreadSom tiro;
 	private ThreadSom tiroHit;
 	
-	public Meele(BufferedImage img1, BufferedImage img2,ThreadSom _tiro,ThreadSom _tiroHit) {
-		tiro=_tiro;
-		tiro=_tiroHit;
+	public Meele(BufferedImage img1,BufferedImage img2,ThreadSom _tiro,ThreadSom _tiroHit) {
+		super(img1,img2,_tiro,_tiroHit);		
 		imagem =img1;
 		imagem_hud = img2;
+		tiro=_tiro;
+		tiroHit=_tiroHit;
+		sizeX=imagem.getWidth();
+		sizeY=imagem.getHeight();
 		
 		
 		setTipo(0);

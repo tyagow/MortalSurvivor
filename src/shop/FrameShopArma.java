@@ -22,10 +22,34 @@ public class FrameShopArma extends FrameBase {
 
 //		criaBotoes();
 		alpha=200;
-		
-		armas.add (new SlotInterativo((int)X+20,(int)Y+20,32,32,Imagem.ak47_hud));
-	
+		for (int i=0;i<GerenciadorArma.armas.size();i++){
+			
+			armas.add (new SlotInterativo((int)X+150,(int)Y+50,74,48,Imagem.ak47_hud));
+			
+			armas.add (new SlotInterativo((int)X+250,(int)Y+50,74,48,Imagem.m4_hud));
+			
+			
+			armas.add (new SlotInterativo((int)X+150,(int)Y+150,74,48,Imagem.deagle_hud));
+			
+			armas.add (new SlotInterativo((int)X+150,(int)Y+250,74,48,Imagem.he_hud));
+				
+			
+			armas.add (new SlotInterativo((int)X+150,(int)Y+350,74,48,Imagem.faca));
+			
+			
+			
+			
+		}
 		objetos.add(armas.get(0));
+		objetos.add(armas.get(1));
+		objetos.add(armas.get(2));
+		objetos.add(armas.get(3));
+		objetos.add(armas.get(4));
+		objetos.add(armas.get(5));
+
+
+		
+		
 		
 	}
 	

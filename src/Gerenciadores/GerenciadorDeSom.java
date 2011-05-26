@@ -6,6 +6,8 @@ import java.awt.Graphics2D;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import javax.sound.sampled.AudioFormat;
+
 import Som.Sound;
 import Som.ThreadSom;
 
@@ -32,7 +34,7 @@ public class GerenciadorDeSom extends Objeto {
 	  static String ak_ = "ak47.wav";
 	  
 	public GerenciadorDeSom() {
-	
+
 		ak=new ThreadSom("/sound/ak47.wav");
 		m4a=new ThreadSom("/sound/m4a.wav");
 		de=new ThreadSom("/sound/de.wav");

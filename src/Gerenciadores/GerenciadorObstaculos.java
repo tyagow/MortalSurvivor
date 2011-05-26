@@ -159,12 +159,12 @@ public class GerenciadorObstaculos extends Objeto  {
 //		}
 //		
 	
-		
-		for (int i=0;i<largura;i++)
-			for (int j =0;j<altura;j++)
-				if (mapa[i][j]== 1 ) {
-					dbg.fillRect(i*32-XMundo, j*32-YMundo, 32, 32);
-				}
+//		
+//		for (int i=0;i<largura;i++)
+//			for (int j =0;j<altura;j++)
+//				if (mapa[i][j]== 1 ) {
+//					dbg.fillRect(i*32-XMundo, j*32-YMundo, 32, 32);
+//				}
 		
 	
 	

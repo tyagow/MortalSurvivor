@@ -21,7 +21,14 @@ public class SlotTorre extends ObjetoImage{
 	}
 
 	public void setSlot(Arma _armaAtiva){
-		AnimeSet=(_armaAtiva.imagem_hud);
+		
+		if (_armaAtiva.imagem_hud!=null)
+			AnimeSet=(_armaAtiva.imagem_hud);
+		else {
+			AnimeSet=(_armaAtiva.imagem);
+
+		}
+		
 		armaAtiva=(_armaAtiva);
 		torre = new Torre ( AnimeSet,armaAtiva,0,0);
 	}

@@ -32,25 +32,25 @@ public class SelecionadorDeTorre extends Objeto {
 		slotsTorre[0] = new SlotTorre();
 		slotsTorre[0].setX(Constantes.SLOT_UM_X);
 		slotsTorre[0].setY(Constantes.SLOT_UM_Y);
-		slotsTorre[0].setSlot(new ArmaUmTorre(Imagem.TORRE_UM_ANIMESET));
+		slotsTorre[0].setSlot(new ArmaUmTorre(Imagem.TORRE_UM_ANIMESET,Imagem.TORRE_UM_ANIMESET,null,null));
 		slotsTorre[0].ativo=(true);
 		
 		slotsTorre[1] = new SlotTorre();
 		slotsTorre[1].setX(Constantes.SLOT_DOIS_X);
 		slotsTorre[1].setY(Constantes.SLOT_DOIS_Y);
-		slotsTorre[1].setSlot( new ArmaDoisTorre(Imagem.TORRE_DOIS_ANIMESET));
+		slotsTorre[1].setSlot( new ArmaDoisTorre(Imagem.TORRE_DOIS_ANIMESET,Imagem.TORRE_DOIS_ANIMESET,null,null));
 		slotsTorre[1].ativo=(false);
 
 		slotsTorre[2] = new SlotTorre();
 		slotsTorre[2].setX(Constantes.SLOT_TRES_X);
 		slotsTorre[2].setY(Constantes.SLOT_TRES_Y);
-		slotsTorre[2].setSlot(new ArmaTresTorre(Imagem.TORRE_TRES_ANIMESET));
+		slotsTorre[2].setSlot(new ArmaTresTorre(Imagem.TORRE_TRES_ANIMESET,Imagem.TORRE_TRES_ANIMESET,null,null));
 		slotsTorre[2].ativo=(false);
 
 		slotsTorre[3] = new SlotTorre();
 		slotsTorre[3].setX(Constantes.SLOT_QUATRO_X);
 		slotsTorre[3].setY(Constantes.SLOT_QUATRO_Y);
-		slotsTorre[3].setSlot( new ArmaUmTorre(Imagem.TORRE_UM_ANIMESET));
+		slotsTorre[3].setSlot( new ArmaUmTorre(Imagem.TORRE_UM_ANIMESET,Imagem.TORRE_UM_ANIMESET,null,null));
 		slotsTorre[3].ativo=(false);
 		
 		

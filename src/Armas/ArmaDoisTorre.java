@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 
 import Constantes.Constantes;
 import Gerenciadores.GerenciadorDeSom;
+import Som.ThreadSom;
 
 
 
@@ -12,17 +13,16 @@ public class ArmaDoisTorre extends ArmaTorre {
 
 
 	public int estado=0;
-	public ArmaDoisTorre(BufferedImage img) {
-		
+	public ArmaDoisTorre(BufferedImage img1,BufferedImage img2,ThreadSom _tiro,ThreadSom _tiroHit) {
+		super(img1,img2,_tiro,_tiroHit);
+
 		setMaxRound(Constantes.TORRE_ARMA_DOIS_round);
 		tempoRecarrega=Constantes.TORRE_ARMA_DOIS_tempoRecarrega;
 		setTempoEntreTirosMax(Constantes.TORRE_ARMA_UM_tempoEntreTiros);
 		setMaxMag(Constantes.TORRE_ARMA_DOIS_mag);
 	
 		atirou=false;
-		setImagem_hud(img);
 
-		setImagem(img);
 		setDano(Constantes.TORRE_ARMA_DOIS_dano);
 		setMag(Constantes.TORRE_ARMA_DOIS_mag);
 		setRound(Constantes.TORRE_ARMA_DOIS_round);

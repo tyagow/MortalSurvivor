@@ -4,10 +4,12 @@ package Armas;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
 
 import Constantes.Constantes;
 import Data.Imagem;
 import GameState.GamePanel;
+import Som.ThreadSom;
 
 
 public class He extends Arma {
@@ -18,8 +20,20 @@ public class He extends Arma {
 	
 		
 	public int estado=0;
-	public He() {
-		setMaxMag(Constantes.HE_mag);
+	private ThreadSom tiro;
+	
+	
+	public He(BufferedImage img1,BufferedImage img2,ThreadSom _tiro,ThreadSom _tiroHit) {
+		super(img1,img2,_tiro,_tiroHit);		
+		
+		imagem =img1;
+		imagem_hud = img2;
+		tiro=_tiro;
+		sizeX=imagem.getWidth();
+		sizeY=imagem.getHeight();
+		
+		
+		maxMag=(Constantes.HE_mag);
 		setMaxRound(Constantes.HE_round);
 
 		setTipo(1);
@@ -32,10 +46,7 @@ public class He extends Arma {
 		setTempoRecarrega(0);
 		setValor(Constantes.HE_valor);
 	
-		setImagem(Imagem.he);
-		setImagem_hud(Imagem.he_hud);
-		setSizeX(getImagem().getWidth());
-		setSizeY(getImagem().getHeight());
+
 		
 
 		

@@ -4,6 +4,7 @@ import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 
 import Armas.Arma;
@@ -40,17 +41,24 @@ public class ObjetoImage extends Objeto {
 	public void DesenhaSe(Graphics2D dbg, int XMundo, int YMundo) {
 		// TODO Auto-generated method stub
 		if(selecionado){
-			dbg.setColor(Color.red);
+			dbg.setColor(Color.white);
 		}else{
-			dbg.setColor(Color.black);
+			dbg.setColor(Color.lightGray);
 		}
 		
 		if(ativo){
 			dbg.setColor(Color.green);
 		}
+	
+		
+		dbg.fillRect((int)X,(int) Y, sizeX, sizeY);
 		
 		
-		dbg.drawImage(AnimeSet, null, (int)getX() +getSizeX()/2-AnimeSet.getWidth()/2, (int)getY()+getSizeY()/2-AnimeSet.getHeight()/2+3 );
+		AffineTransform trans = dbg.getTransform();
+		
+//		dbg.scale(1.4, 1.4);
+		dbg.drawImage(AnimeSet,null, (int)(X +10), (int)(Y+10)  );//(int)X,(int)Y,(int)X+sizeX,(int)Y+sizeY,0,0,AnimeSet.getWidth(),AnimeSet.getHeight(),null);//
+		dbg.setTransform(trans);
 		
 		DesenhaSeLayerDois(dbg,XMundo,YMundo);
 

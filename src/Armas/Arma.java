@@ -3,6 +3,8 @@ package Armas;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
+import Som.ThreadSom;
+
 
 public abstract class Arma  {
 	
@@ -29,7 +31,19 @@ public abstract class Arma  {
 	public int custoRange;
 	public int custoFire;
 	public int custoDano;
-
+	
+	public ThreadSom tiro;
+	public ThreadSom tiroHit;
+	
+	public Arma(BufferedImage img1, BufferedImage img2,ThreadSom _tiro,ThreadSom _tiroHit) {
+		imagem =img1;
+		imagem_hud = img2;
+		tiro=_tiro;
+		tiroHit=_tiroHit;
+		sizeX=imagem.getWidth();
+		sizeY=imagem.getHeight();
+			}
+	 
 	public abstract void definePosicaoArma(double ang,double x2,double y2);
 
 	public abstract void DesenhaSe(Graphics2D dbg, int XMundo, int YMundo);

@@ -150,24 +150,24 @@ public class GerenciadorTorre extends Objeto {
 						switch (i) {
 						case 0: // torre um
 							
-							torres.add(new Torre(Imagem.TORRE_UM_ANIMESET,new ArmaUmTorre(Imagem.TORRE_UM_ANIMESET),x,y));
+							torres.add(new Torre(Imagem.TORRE_UM_ANIMESET,new ArmaUmTorre(Imagem.TORRE_UM_ANIMESET, null, null, null),x,y));
 
 								break;	
 						case 1: // torre dois
 									
-							torres.add(new Torre(Imagem.TORRE_DOIS_ANIMESET,new ArmaDoisTorre(Imagem.TORRE_DOIS_ANIMESET),x,y));
+							torres.add(new Torre(Imagem.TORRE_DOIS_ANIMESET,new ArmaDoisTorre(Imagem.TORRE_DOIS_ANIMESET, null, null, null),x,y));
 
 
 						break;
 						case 2: // torre tres
 							
-							torres.add(new Torre(Imagem.TORRE_TRES_ANIMESET,new ArmaTresTorre(Imagem.TORRE_TRES_ANIMESET),x,y));
+							torres.add(new Torre(Imagem.TORRE_TRES_ANIMESET,new ArmaTresTorre(Imagem.TORRE_TRES_ANIMESET, null, null, null),x,y));
 
 
 								break;	
 						case 3: // torre um
 							
-							torres.add(new Torre(Imagem.TORRE_UM_ANIMESET,new ArmaUmTorre(Imagem.TORRE_UM_ANIMESET),x,y));
+							torres.add(new Torre(Imagem.TORRE_UM_ANIMESET,new ArmaUmTorre(Imagem.TORRE_UM_ANIMESET, null, null, null),x,y));
 
 
 								break;	

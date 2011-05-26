@@ -61,7 +61,12 @@ public class CanvasStart extends GCanvas{
 		Constantes.XTela=0;
 		Constantes.YTela=0;
 		
-		loader = new GerenciadorDeSom();
+		try {
+			loader = new GerenciadorDeSom();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		imgloader = new Imagem();
 		setFonteLogo(new Font("Courier", Font.BOLD, 60));

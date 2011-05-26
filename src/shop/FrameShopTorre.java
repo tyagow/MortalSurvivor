@@ -30,21 +30,21 @@ public class FrameShopTorre extends FrameBase {
 		slotsTorre = new SlotTorre();
 		slotsTorre.X=(X+50);
 		slotsTorre.Y=(Y+100);
-		slotsTorre.setSlot(new ArmaUmTorre(Imagem.TORRE_UM_ANIMESET));
+		slotsTorre.setSlot(new ArmaUmTorre(Imagem.TORRE_UM_ANIMESET, null, null, null));
 		slotsTorre.ativo=(true);
 		objetos.add(slotsTorre);
 		
 		slotsTorreDois = new SlotTorre();
 		slotsTorreDois.X=(X+50);
 		slotsTorreDois.Y=(Y+200);
-		slotsTorreDois.setSlot( new ArmaDoisTorre(Imagem.TORRE_DOIS_ANIMESET));
+		slotsTorreDois.setSlot( new ArmaDoisTorre(Imagem.TORRE_DOIS_ANIMESET, null, null, null));
 		slotsTorreDois.ativo=(false);
 		objetos.add(slotsTorreDois);
 		
 		slotsTorreTres = new SlotTorre();
 		slotsTorreTres.X=(X+50);
 		slotsTorreTres.Y=(Y+300);
-		slotsTorreTres.setSlot(new ArmaTresTorre(Imagem.TORRE_TRES_ANIMESET));
+		slotsTorreTres.setSlot(new ArmaTresTorre(Imagem.TORRE_TRES_ANIMESET, null, null, null));
 		slotsTorreTres.ativo=(false);
 		objetos.add(slotsTorreTres);
 		

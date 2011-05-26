@@ -4,24 +4,22 @@ import java.awt.image.BufferedImage;
 
 import Constantes.Constantes;
 import Gerenciadores.GerenciadorDeSom;
+import Som.ThreadSom;
 
 
 public class ArmaTresTorre extends ArmaTorre {
 
 	
 	public int estado=0;
-	public ArmaTresTorre(BufferedImage img) {
+	public ArmaTresTorre(BufferedImage img1,BufferedImage img2,ThreadSom _tiro,ThreadSom _tiroHit) {
+		super(img1,img2,_tiro,_tiroHit);
 		
-	
-		
-		setImagem_hud(img);
 
 		setMaxRound(Constantes.TORRE_ARMA_TRES_round);
 		tempoRecarrega=Constantes.TORRE_ARMA_TRES_tempoRecarrega;
 		setTempoEntreTirosMax(Constantes.TORRE_ARMA_UM_tempoEntreTiros);
 		setMaxMag(Constantes.TORRE_ARMA_TRES_mag);
 		atirou=false;
-		setImagem(img);
 		setDano(Constantes.TORRE_ARMA_TRES_dano);
 		setMag(Constantes.TORRE_ARMA_TRES_mag);
 		setRound(Constantes.TORRE_ARMA_TRES_round);

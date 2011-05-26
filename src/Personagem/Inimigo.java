@@ -119,7 +119,9 @@ public void SimulaSe(int DiffTime) {
 
 			
 			calculaIA(DiffTime);
-			
+			if (GerenciadorObstaculos.largura*32>X&&X>0 && GerenciadorObstaculos.altura*32>Y&&Y>0 ) {
+				trataColisaoMapa() ;
+			}
 			
 //			System.out.println("depois ia X"+X);
 //			System.out.println("depois ia Y"+Y);
@@ -194,22 +196,24 @@ private void calculaIA(int DiffTime) {
 			
 		case ATRAS_BASE:
 		//	if (verificaColisaoObstaculo()||verificaSeparacao()||verificaColisaoTorre()||verificaColisaoBase())
-			if (verificaColisao())
-				estado=TRATAR_COLISAO;
-			else if(Constantes.colidecircular(X, Y,campoDeVisao,CanvasGame.heroi.X,CanvasGame.heroi.Y,CanvasGame.heroi.sizeX/2)){
+//			if (verificaColisao())
+//				estado=TRATAR_COLISAO;
+//			else 
+				if(Constantes.colidecircular(X, Y,campoDeVisao,CanvasGame.heroi.X,CanvasGame.heroi.Y,CanvasGame.heroi.sizeX/2)){
 			
-				estado=ATRAS_HEROI;
-			}
+					estado=ATRAS_HEROI;
+				}
+//			}
 			break;
 		case ATRAS_HEROI:
 			//if (verificaColisaoObstaculo()||verificaSeparacao()||verificaColisaoTorre()||verificaColisaoBase())
-			if (verificaColisao())
-	
-				estado=TRATAR_COLISAO;
-			else {
+//			if (verificaColisao())
+//	
+//				estado=TRATAR_COLISAO;
+//			else {
 				if(!Constantes.colidecircular(X, Y,campoDeVisao,CanvasGame.heroi.X,CanvasGame.heroi.Y,CanvasGame.heroi.sizeX/2))
 					estado=ATRAS_BASE;
-			}
+//			}
 
 			
 			break;
@@ -238,21 +242,23 @@ private void trataEstado() {
 		
 		}
 	private void trataColisaoMapa() {
+		
 			boolean aux = true;
 			int bx = (int)(X/32); 
 			int by = (int)(Y/32);
 			int bxold = (int)(oldx/32); 
 			int byold = (int)(oldy/32);
 			
-			if(GerenciadorObstaculos.mapa[by][bx]==1){
+			if(GerenciadorObstaculos.mapa[bx][by]==1){
 				
-				if(GerenciadorObstaculos.mapa[byold][bx]==0){
+				if(GerenciadorObstaculos.mapa[bx][byold]==0){
 					Y = oldy;
-				}else if(GerenciadorObstaculos.mapa[by][bxold]==0){
+				}else if(GerenciadorObstaculos.mapa[bxold][by]==0){
 					X = oldx;
 				}else{
 					Y = oldy;
 					X = oldx;
+				
 					aux=false;
 				}
 		}

@@ -41,7 +41,12 @@ public class CanvasMenu extends GCanvas{
 	public CanvasMenu() {
 		// TODO Auto-generated constructor stub
 		
-		loader = new GerenciadorDeSom();
+		try {
+			loader = new GerenciadorDeSom();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		imgloader = new Imagem();
 		setFonteLogo(new Font("Courier", Font.BOLD, 60));
