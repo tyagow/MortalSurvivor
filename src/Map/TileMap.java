@@ -18,7 +18,7 @@ import java.io.*;
  */
 public class TileMap {
     
-    public Image TileSet = null;
+    public Image tileSet = null;
     
     public int XTela;
     public int YTela;
@@ -30,17 +30,18 @@ public class TileMap {
     
     int [][][]mapa;           		
             		
-    public TileMap(Image tileset,int tilestelaX,int tilestelaY){
+    public TileMap(Image _tileset,int tilestelaX,int tilestelaY){
         NTileX = tilestelaX;
         NTileY = tilestelaY;
-        TileSet = tileset;
+        tileSet = _tileset;
         XTela = 0;
         YTela = 0;
-        TilePLinhaTileset = TileSet.getWidth(null) >>4;
+        TilePLinhaTileset = tileSet.getWidth(null) >>4;
     }
     
-    public void AbreMapa(String nomemapa){
+    public void AbreMapa(String nomemapa, Image _tileset){
             	
+    	tileSet = _tileset;
 	try{
     		InputStream In = getClass().getResourceAsStream(nomemapa);
     
@@ -54,6 +55,8 @@ public class TileMap {
     		int Versao = data.readInt(); // lê Versao
         	Largura = ReadCInt(data);    // lê Largura
         	Altura = ReadCInt(data);	// lê Largura
+        	System.out.println(Largura+"    largura");
+        	System.out.println(Altura+"    Altura");
         	
 //        	System.out.println(" Largura "+Largura);
 //        	
@@ -176,7 +179,7 @@ public class TileMap {
 	            	
 	                int tilex = (mapa[z][j+(YTela>>4)][i+(XTela>>4)]%TilePLinhaTileset)<<4;
 	                int tiley = (mapa[z][j+(YTela>>4)][i+(XTela>>4)]/TilePLinhaTileset)<<4;
-	                dbg.drawImage(TileSet,(i<<4)-offx,(j<<4)-offy,(i<<4)+16-offx,(j<<4)+16-offy,tilex,tiley,tilex+16,tiley+16,null);
+	                dbg.drawImage(tileSet,(i<<4)-offx,(j<<4)-offy,(i<<4)+16-offx,(j<<4)+16-offy,tilex,tiley,tilex+16,tiley+16,null);
 	                
 	            }
 	        }

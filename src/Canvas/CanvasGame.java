@@ -109,10 +109,12 @@ public class CanvasGame extends GCanvas {
 	
 	public CanvasGame() {
 		instance = this;
-		tela = new TileMap(Imagem.tileset, GamePanel.PWIDTH/16, GamePanel.PHEIGHT/16);
-		tela.AbreMapa("60x601.map");
-		largura = tela.Largura*16;
-		altura = tela.Altura*16;
+		tela = new TileMap(Imagem.tileSetMapaUm, GamePanel.PWIDTH/16, GamePanel.PHEIGHT/16);
+
+		
+//		
+//		
+		
 		inicializaFase();
 		recarregaFase();
 		
@@ -124,6 +126,8 @@ public class CanvasGame extends GCanvas {
 
 	private void inicializaFase() {
 		GerenciadorArma.carregaArmas();
+		
+		gameManager=new GerenciadorJogo();
 
 		gerenciadorObstaculos=new GerenciadorObstaculos();
 		//base = new Base(500, 500, Imagem.base);
@@ -131,7 +135,6 @@ public class CanvasGame extends GCanvas {
 		gerenciadorEfeitos = new GerenciadorEfeitos();
 		gerenciadorRespawn= new GerenciadorRespawn();
 		gerenciadorDeRaids= new GerenciadorDeRaids();
-		gameManager=new GerenciadorJogo();
 		gerenciadorXP=new GerenciadorXP();
 		miraJogo= new MiraJogo();
 		miraMenu=new CursorMenuTorre();
@@ -160,7 +163,7 @@ public class CanvasGame extends GCanvas {
 
 
 		
-			ContiuaJogo=true;
+		ContiuaJogo=true;
 	}
 
 

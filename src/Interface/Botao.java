@@ -145,7 +145,10 @@ public class Botao extends Objeto {
 				dbg.drawString(name,(int) X+getSizeX()/2-2-XMundo-name.length()/2*((dbg.getFont().getSize()*2)/3),(int) Y+getSizeY()/2+(dbg.getFont().getSize()/2)-YMundo);
 
 			}
-		}
+		} else{
+			dbg.drawImage(imagem,(int) X,(int) Y,(int) X+30, (int) Y+30, 0, 0, imagem.getWidth(), imagem.getHeight(), null);
+		}			//dbg.drawImage(imagem, -sizeX/2,-sizeX/2,sizeX/2,sizeY/2,sizeX*frameX,sizeY*frameY,sizeX*frameX+sizeX,sizeY*frameY+sizeY,null);
+
 		dbg.setFont(temp);
 	}
 public void mouseClicked(MouseEvent e) {

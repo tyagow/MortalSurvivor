@@ -43,12 +43,22 @@ private String botaoEditWay="Edit way";
 
 private String botaoEditObs="Edit Obs";
 
+private String botaoResetWay="Reset way";
+
+private String botaoResetObs="Reset Obs";
+
 private static BotaoTela SaveWay;
 
 private static BotaoTela SaveObs;
 private static BotaoTela EditWay;
 
 private static BotaoTela EditObs;
+
+private static BotaoTela resetWay;
+
+private static BotaoTela resetObs;
+
+
 
 	public MenuObstaculos(int x, int y, int sizeX, int sizeY, Color cor,int _tempoVida,BufferedImage charset) {
 		super(x-sizeX/2-5, y-sizeY-5, sizeX, sizeY, cor, _tempoVida);
@@ -68,6 +78,8 @@ private static BotaoTela EditObs;
 		SaveWay.X=X;
 		SaveWay.Y=Y-60;
 		
+		resetWay.X=X+320;
+		resetWay.Y=Y-60;
 
 		EditWay.X=X;
 		EditWay.Y=Y-100;
@@ -76,6 +88,8 @@ private static BotaoTela EditObs;
 		EditObs.X=X+160;
 		EditObs.Y=Y-100;
 		
+		resetObs.X=X+480;
+		resetObs.Y=Y-60;
 		
 		SaveObs.X=X+160;
 		SaveObs.Y=Y-60;
@@ -178,20 +192,47 @@ private static BotaoTela EditObs;
 
 
 	private void criaBotoes() {
-
+//		resetWay.X=X+320;
+//		resetWay.Y=X-60;
+//
+//		EditWay.X=X;
+//		EditWay.Y=Y-100;
+//		
+//
+//		EditObs.X=X+160;
+//		EditObs.Y=Y-100;
+//		
+//		resetObs.X=X+320;
+//		resetObs.Y=X-60;
+//		
 		SaveWay = (new BotaoTela(null,botaoSaveWay,(int)X,(int)Y-80,160,16,false));
 		SaveWay.sizeY=30;
+		
 		SaveObs = (new BotaoTela(null,botaoSaveObs,(int)X+160,(int)Y-80,160,16,false));
 		SaveObs.sizeY=30;
+		
+		resetObs = (new BotaoTela(null,botaoResetObs,(int)X+320,(int)Y-60,160,16,false));
+		resetObs.sizeY=30;
+		
+		
+		
 		
 		EditWay=new BotaoTela(null,botaoEditWay,(int)X,(int)Y-80,160,16,false);
 		EditWay.sizeY=30;
 		EditObs=new BotaoTela(null,botaoEditObs,(int)X,(int)Y-80,160,16,false);
 		EditObs.sizeY=30;
+		
+		resetWay = (new BotaoTela(null,botaoResetWay,(int)X+480,(int)Y-60,160,16,false));
+		resetWay.sizeY=30;
+		
+		
+		
 		botoes.add(EditObs);
 		botoes.add(EditWay);
 		botoes.add(SaveObs);
 		botoes.add(SaveWay);
+		botoes.add(resetObs);
+		botoes.add(resetWay);
 		
 		
 	}
@@ -382,6 +423,13 @@ private static BotaoTela EditObs;
 		}	else if (b.name.contains(botaoEditWay) ) {
 			Constantes.editarObstaculo=false;
 			Constantes.editarWay=true;
+
+
+		}else if (b.name.contains(botaoResetWay) ) {
+			Constantes.wayPoints.clear();
+
+		}else if (b.name.contains(botaoResetObs) ) {
+			GerenciadorObstaculos.obstaculos.clear();
 
 
 		}

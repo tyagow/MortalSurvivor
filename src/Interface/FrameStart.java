@@ -12,7 +12,7 @@ import GameState.GamePanel;
 public class FrameStart extends FrameBase {
 	static FrameOptions  frameOptions;
 	static FrameHelp frameHelp;
-	
+	static FrameChooseLevel frameChooseLevel;
 	
 	public final String botaoPlay = "Play";
 	public final String botaoHelp = "Help";
@@ -26,7 +26,7 @@ public class FrameStart extends FrameBase {
 		super(_x, _y, sizeX, sizeY, cor, _tempoVida);
 		frameOptions= new FrameOptions(250, 0, GamePanel.PWIDTH-250,GamePanel.PHEIGHT, Color.darkGray, -1);
 		frameHelp= new FrameHelp(250, 0, GamePanel.PWIDTH-250,GamePanel.PHEIGHT, Color.darkGray, -1);
-		
+		frameChooseLevel = new FrameChooseLevel(250, 0, GamePanel.PWIDTH-250,GamePanel.PHEIGHT, Color.darkGray, -1);
 		ativo=true;
 		criaBotoes();
 		alpha=100;
@@ -97,8 +97,15 @@ protected void trataBotao(Botao b) {
 	// TODO Auto-generated method stub
 	if (b.name.contains(botaoPlay) ) {
 		
-
-		GamePanel.canvasAtivo=(CanvasGame.instance);
+		if (!frames.contains(frameChooseLevel)) {
+			frameChooseLevel.ativo=true;
+			frames.add(frameChooseLevel);
+		}	
+		else {
+			frameChooseLevel.ativo=false;
+		}
+		
+		//GamePanel.canvasAtivo=(CanvasGame.instance);
 	
 
 		

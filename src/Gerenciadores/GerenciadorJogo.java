@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 import shop.FrameShop;
 
@@ -15,6 +16,7 @@ import Data.Imagem;
 import GameState.GamePanel;
 import Interface.FrameBase;
 import Interface.FramePause;
+import Map.MapaData;
 
 public class GerenciadorJogo extends Objeto  {
 
@@ -24,12 +26,17 @@ public class GerenciadorJogo extends Objeto  {
 		
 	public static float velocidadeJogo;
 	
+	public static ArrayList<MapaData> mapaData = new ArrayList<MapaData>();
+	
 	public GerenciadorJogo(){
 		
 		inicializaFrames();
 		
-		
-		
+		mapaData.add(new MapaData("mapaUm.map", "data/wayFaseUm.csv", "data/obstaculosFaseUm.csv",Imagem.tileSetMapaUm));
+		mapaData.add(new MapaData("mapaDois.map", "data/wayFaseDois.csv", "data/obstaculosFaseDois.csv",Imagem.tileSetMapaDois ));
+
+		carregaMapa(0);
+				
 		
 	}
 	
@@ -184,7 +191,18 @@ public class GerenciadorJogo extends Objeto  {
 		CanvasGame.base.life= Constantes.BASE_LIFE_1;
 	}
 	
-	
+	public void carregaMapa(int indiceMapa){
+		
+		CanvasGame.tela.AbreMapa(mapaData.get(indiceMapa).fileNameMap,(mapaData.get(indiceMapa).tileSet));
+		CanvasGame.largura = CanvasGame.tela.Largura*16;
+		CanvasGame.altura = CanvasGame.tela.Altura*16;
+		GerenciadorObstaculos.carregaGradeColisao();
+		GerenciadorObstaculos.loadObstaculos(mapaData.get(indiceMapa).fileNameObstaculos);
+		System.out.println(mapaData.get(indiceMapa).fileNameObstaculos);
+		GerenciadorObstaculos.loadWayPoints(mapaData.get(indiceMapa).fileNameWaypoints);
+		GerenciadorObstaculos.recarregaGrade();
+		
+	}
 	
 
 }

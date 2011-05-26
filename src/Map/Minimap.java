@@ -24,15 +24,16 @@ public class Minimap extends Objeto{
 	
 	public Minimap(){
 		
-		resizeX = (float) 70/(CanvasGame.tela.Largura);
-		resizeY = (float) 60/(CanvasGame.tela.Altura);
+		resizeX = (float) 40/(CanvasGame.tela.Largura);
+		resizeY = (float) 40/(CanvasGame.tela.Altura);
 //mapa em cima direita 
 //		X= GamePanel.PWIDTH- (int)((resizeX * CanvasGame.largura)/tamanhoMiniMap);
 //		Y=0;
 		// mapa em baixo esquerda
-		X=(0);
-		Y=(GamePanel.PHEIGHT - (int)((resizeY * CanvasGame.altura)/tamanhoMiniMap));
-//		
+		X=(GamePanel.PWIDTH - (int)((resizeX * CanvasGame.largura)/tamanhoMiniMap));
+		//Y=(GamePanel.PHEIGHT - (int)((resizeY * CanvasGame.altura)/tamanhoMiniMap));
+		Y=0;
+		
 		sizeX=((int) (resizeX * CanvasGame.largura/tamanhoMiniMap));
 		sizeY=((int) (resizeY * CanvasGame.altura/tamanhoMiniMap));
 	}
@@ -110,7 +111,6 @@ public class Minimap extends Objeto{
 		
 		
 		dbg.fillOval((int)(resizeX * CanvasGame.heroi.X/6+X), (int)(resizeY * CanvasGame.heroi.Y/6+Y), 4, 4);
-		
 		
 	}
 

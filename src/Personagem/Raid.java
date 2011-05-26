@@ -68,7 +68,8 @@ public class Raid {
 
 //					inim.setTipoAssasino(tipo);
 //					Inimigo inim2 = new Inimigo(Imagem.inimigoUm/*,(int)CanvasGame.base.getX()/16,(int)CanvasGame.base.getY()/16*/);
-					Constantes.inimigos.add(inim);
+					
+					//Constantes.inimigos.add(inim);
 				}
 			}
 		} catch (IOException e1) {

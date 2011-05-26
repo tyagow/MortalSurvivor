@@ -8,7 +8,8 @@ import Constantes.Constantes;
 public class Imagem {
 
 	public static BufferedImage miraMenu;
-	public static BufferedImage tileset;
+	public static BufferedImage tileSetMapaUm;	
+	public static BufferedImage tileSetMapaDois;
 	public static BufferedImage obstaculos;
 
 	public static BufferedImage mira1;
@@ -54,7 +55,9 @@ public class Imagem {
 			legs =Constantes.LoadImage("img/legs.png");				
 
 			
-			tileset = Constantes.LoadImage("img/Bridge.png");
+			tileSetMapaUm = Constantes.LoadImage("img/tileSetMapaUm.png");
+			tileSetMapaDois = Constantes.LoadImage("img/tileSetMapaDois.png");
+
 			mira1= Constantes.LoadImage("img/mira1.png");	
 			explosao = Constantes.LoadImage("img/explosao.png");
 			explosao2 = Constantes.LoadImage("img/explosao2.png");

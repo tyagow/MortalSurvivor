@@ -53,12 +53,12 @@ public class GerenciadorObstaculos extends Objeto  {
 		// TODO Auto-generated constructor stub
 		largura=CanvasGame.tela.Largura/2+1;
 		altura=CanvasGame.tela.Altura/2+1;
-		mapa = new int[largura][altura];
-		obstaculos.clear();
+//		mapa = new int[largura][altura];
+//		obstaculos.clear();
 		
-		carregaGradeColisao();
-		carregaObstaculos();
-		 recarregaGrade();
+		//carregaGradeColisao();
+		//carregaObstaculos();
+		 //recarregaGrade();
 		
 	}
 
@@ -178,7 +178,7 @@ public class GerenciadorObstaculos extends Objeto  {
 	}
 
 	
-	private void carregaGradeColisao() {
+	public static void carregaGradeColisao() {
 		// TODO Auto-generated method stub
 	
 		mapa=(new int [largura][altura]);
@@ -189,6 +189,12 @@ public class GerenciadorObstaculos extends Objeto  {
 
 	private static void resetaGradeColisao() {
 		// TODO Auto-generated method stub
+		
+		int xl = CanvasGame.tela.Largura/2+1;
+		int yl = CanvasGame.tela.Altura/2+1;
+		
+		mapa = new int[xl][yl];
+		
 		for (int i=0;i<largura;i++ ) {
 			for (int j=0;j<altura;j++ ) {
 				mapa[i][j]=0;
@@ -218,7 +224,7 @@ public class GerenciadorObstaculos extends Objeto  {
 	}
 		
 		
-	public void loadWayPoints(String filename) {
+	public static void loadWayPoints(String filename) {
 		
 		
 
@@ -262,7 +268,8 @@ public class GerenciadorObstaculos extends Objeto  {
 
 	
 	}
-	public void loadObstaculos(String filename){
+	public static void loadObstaculos(String filename){
+		
 		int i=0;
 		InputStream in = Data.Imagem.class.getResourceAsStream(filename);
 		

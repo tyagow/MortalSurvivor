@@ -16,9 +16,7 @@ Color corAtivo;
 	}
 	@Override
 	public  void DesenhaSeLayerDois(Graphics2D dbg, int xMundo, int yMundo) {
-		
 
-		
 		
 	}
 	public void mouseReleased(MouseEvent e) {
