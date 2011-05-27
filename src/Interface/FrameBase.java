@@ -256,6 +256,7 @@ public void mouseClicked(MouseEvent e) {
 
 
 public void mouseMoved(MouseEvent e) {
+				
 		if (frameAtivo!=null)
 			frameAtivo.mouseMoved(e);
 		

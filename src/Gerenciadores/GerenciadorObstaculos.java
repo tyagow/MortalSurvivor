@@ -51,8 +51,7 @@ public class GerenciadorObstaculos extends Objeto  {
 
 	public GerenciadorObstaculos() {
 		// TODO Auto-generated constructor stub
-		largura=CanvasGame.tela.Largura/2+1;
-		altura=CanvasGame.tela.Altura/2+1;
+
 //		mapa = new int[largura][altura];
 //		obstaculos.clear();
 		
@@ -180,7 +179,9 @@ public class GerenciadorObstaculos extends Objeto  {
 	
 	public static void carregaGradeColisao() {
 		// TODO Auto-generated method stub
-	
+		largura=CanvasGame.tela.Largura/2+1;
+		altura=CanvasGame.tela.Largura/2+1;
+
 		mapa=(new int [largura][altura]);
 		
 		resetaGradeColisao();
@@ -194,9 +195,8 @@ public class GerenciadorObstaculos extends Objeto  {
 		int yl = CanvasGame.tela.Altura/2+1;
 		
 		mapa = new int[xl][yl];
-		
-		for (int i=0;i<largura;i++ ) {
-			for (int j=0;j<altura;j++ ) {
+		for (int i=0;i<xl;i++ ) {
+			for (int j=0;j<yl;j++ ) {
 				mapa[i][j]=0;
 	
 			}
@@ -269,7 +269,7 @@ public class GerenciadorObstaculos extends Objeto  {
 	
 	}
 	public static void loadObstaculos(String filename){
-		
+		obstaculos.clear();
 		int i=0;
 		InputStream in = Data.Imagem.class.getResourceAsStream(filename);
 		
@@ -294,13 +294,13 @@ public class GerenciadorObstaculos extends Objeto  {
 					int tileSetLinha = Integer.parseInt(strs[6]);
 
 					if (codigo == -1) {
-						
+						System.out.println("cria Base");
 						GerenciadorJogo.criaBase(_x,_y);
-					}
+					}else {
 					
 					addObstaculos(_x, _y, _sizeX, _sizeY, tileSetColuna, tileSetLinha);
 					mapa[(int)_x/32][(int)_y/32] = 1;
-		
+					}
 
 					//System.out.println(i);
 					i++;
@@ -462,22 +462,26 @@ public class GerenciadorObstaculos extends Objeto  {
 						
 						if (obs.X!=CanvasGame.base.X&&obs.Y!=CanvasGame.base.Y) {
 						
-							if (i<GerenciadorObstaculos.obstaculos.size()-1)
+							//if (i<GerenciadorObstaculos.obstaculos.size()-1)
 								dataout.writeBytes(i+";"+(int)obs.X+";"+(int)obs.Y+";"+(int)obs.sizeX+";"+(int)obs.sizeY+";"+(int)obs.tileSetColuna+";"+(int)obs.tileSetLinha+""+System.getProperty("line.separator"));
-							else 
-								dataout.writeBytes(i+";"+(int)obs.X+";"+(int)obs.Y+";"+(int)obs.sizeX+";"+(int)obs.sizeY+";"+(int)obs.tileSetColuna+";"+(int)obs.tileSetLinha);
-
-						}else {
-							if (i<GerenciadorObstaculos.obstaculos.size()-1)
-								dataout.writeBytes(-1+";"+(int)obs.X+";"+(int)obs.Y+";"+(int)obs.sizeX+";"+(int)obs.sizeY+";"+(int)obs.tileSetColuna+";"+(int)obs.tileSetLinha+""+System.getProperty("line.separator"));
-							else 
-								dataout.writeBytes(-1+";"+(int)obs.X+";"+(int)obs.Y+";"+(int)obs.sizeX+";"+(int)obs.sizeY+";"+(int)obs.tileSetColuna+";"+(int)obs.tileSetLinha);
+							//else 
+							//	dataout.writeBytes(i+";"+(int)obs.X+";"+(int)obs.Y+";"+(int)obs.sizeX+";"+(int)obs.sizeY+";"+(int)obs.tileSetColuna+";"+(int)obs.tileSetLinha);
 
 						}
 						
+							
+//								if (i<GerenciadorObstaculos.obstaculos.size()-1)
+//									dataout.writeBytes(-1+";"+(int)obs.X+";"+(int)obs.Y+";"+(int)obs.sizeX+";"+(int)obs.sizeY+";"+(int)obs.tileSetColuna+";"+(int)obs.tileSetLinha+""+System.getProperty("line.separator"));
+//								else 
+//									dataout.writeBytes(-1+";"+(int)obs.X+";"+(int)obs.Y+";"+(int)obs.sizeX+";"+(int)obs.sizeY+";"+(int)obs.tileSetColuna+";"+(int)obs.tileSetLinha);
+//								
+//							System.out.println("achei a base");
+						
+
 						
 					}
-					
+					dataout.writeBytes(-1+";"+(int)CanvasGame.base.X+";"+(int)CanvasGame.base.Y+";"+(int)CanvasGame.base.sizeX+";"+(int)CanvasGame.base.sizeY+";"+0+";"+0);
+
 					dataout.close();
 					out.close();
 				} catch (IOException e1) {

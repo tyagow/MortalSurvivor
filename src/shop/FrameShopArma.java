@@ -9,52 +9,45 @@ import com.sun.accessibility.internal.resources.accessibility;
 
 import Data.Imagem;
 import Gerenciadores.GerenciadorArma;
+import Gerenciadores.GerenciadorHud;
 import Interface.Botao;
+import Interface.BotaoTela;
 import Interface.FrameBase;
+import Personagem.Heroi;
 
 
 public class FrameShopArma extends FrameBase {
 
-	ArrayList<SlotInterativo> armas = new ArrayList<SlotInterativo>();
+	public static final int PRIMARIA = 0;
+	public static final int SECUNDARIA = 1;
+	public static final int ESPECIAL = 2;
+	
+	ArrayList<Botao> armas = new ArrayList<Botao>();
 	
 	public FrameShopArma(int _x, int _y, int sizeX, int sizeY, Color cor, int _tempoVida) {
 		super(_x, _y, sizeX, sizeY, cor, _tempoVida);
 
 //		criaBotoes();
 		alpha=200;
-		for (int i=0;i<GerenciadorArma.armas.size();i++){
+		
+		for (int i=0; i < GerenciadorArma.armas.size(); i++){
 			
-			armas.add (new SlotInterativo((int)X+150,(int)Y+50,74,48,Imagem.ak47_hud));
-			
-			armas.add (new SlotInterativo((int)X+250,(int)Y+50,74,48,Imagem.m4_hud));
-			
-			
-			armas.add (new SlotInterativo((int)X+150,(int)Y+150,74,48,Imagem.deagle_hud));
-			
-			armas.add (new SlotInterativo((int)X+150,(int)Y+250,74,48,Imagem.he_hud));
-				
-			
-			armas.add (new SlotInterativo((int)X+150,(int)Y+350,74,48,Imagem.faca));
-			
-			
-			
-			
+			armas.add(new BotaoTela(Imagem.ak47_hud, "ak47", (int) X + 100, (int) Y + 50, Imagem.ak47_hud.getWidth()*2, Imagem.ak47_hud.getHeight()*2, false));
+			armas.add(new BotaoTela(Imagem.m4_hud, "m4", (int) X + 250, (int) Y + 50, Imagem.ak47_hud.getWidth()*2, Imagem.ak47_hud.getHeight()*2, false));
+			armas.add(new BotaoTela(Imagem.deagle_hud, "deagle", (int) X + 100, (int) Y + 150, Imagem.ak47_hud.getWidth()*2, Imagem.ak47_hud.getHeight()*2, false));
+			armas.add(new BotaoTela(Imagem.he_hud, "he", (int) X + 100, (int) Y + 250, Imagem.ak47_hud.getWidth()*2, Imagem.ak47_hud.getHeight()*2, false));
+			armas.add(new BotaoTela(Imagem.mp5_hud, "mp5", (int) X + 400, (int) Y + 50, Imagem.ak47_hud.getWidth()*2, Imagem.ak47_hud.getHeight()*2, false));
+
 		}
-		objetos.add(armas.get(0));
-		objetos.add(armas.get(1));
-		objetos.add(armas.get(2));
-		objetos.add(armas.get(3));
-		objetos.add(armas.get(4));
-		objetos.add(armas.get(5));
-
-
 		
-		
+		for(int i = 0; i < armas.size(); i++){
+			botoes.add(armas.get(i));
+		}
+	
 		
 	}
 	
-
-
+	
 //	@Override
 //	public void SimulaSe(int DiffTime) {
 //		// TODO Auto-generated method stub
@@ -108,36 +101,24 @@ public class FrameShopArma extends FrameBase {
 	protected void trataBotao(Botao b) {
 		// TODO Auto-generated method stub
 
-		if (b.name.contains("Armas") ) {
-//			frameAtivo=frameVideo;
-//		
-//			if (!frames.contains(frameVideo)) {
-//				frameVideo.ativo=true;
-//				frames.add(frameVideo);
-//			}	
-//				else {
-//					frameVideo.ativo=false;
-//				}
-				
-			
-	
+		if(b.name.contains("mp5")){
+			trocaArma(GerenciadorArma.MP5, PRIMARIA);
 		}
-		else if (b.name.contains("Torres") ) {
-			
-
-		}
-		else if (b.name.contains("voltar") ) {
-			
 		
-//			if (!frames.contains(frameGame)) {
-//				frameGame.ativo=true;
-//				frames.add(frameGame);
-//			}	
-//				else {
-//					frameGame.ativo=false;
-//				}
-				
-			
+		if(b.name.contains("ak47")){
+			trocaArma(GerenciadorArma.AK47, PRIMARIA);
+		}
+		
+		else if(b.name.contains("m4")){
+			trocaArma(GerenciadorArma.M4, PRIMARIA);
+		}
+		
+		else if(b.name.contains("deagle")){
+			trocaArma(GerenciadorArma.DEAGLE, SECUNDARIA);
+		}
+		
+		else if(b.name.contains("he")){
+			trocaArma(GerenciadorArma.HE, ESPECIAL);
 		}
 		
 	}
@@ -155,7 +136,43 @@ public class FrameShopArma extends FrameBase {
 		
 	}
 
+	private void trocaArma(int _arma, int _categoria){
+		
+		switch (_categoria) {
+			case 0:
+				GerenciadorArma.primariaAtiva = GerenciadorArma.armas.get(_arma);
+				Heroi.armaPrimaria = GerenciadorArma.primariaAtiva;
+				Heroi.PRIMARIA = true;
+				Heroi.SECUNDARIA = false;
+				Heroi.MELEE = false;
+				Heroi.ESPECIAL = false;
+				GerenciadorHud.hudArma[2].setSlot(Heroi.getArmaPrimaria());
 
+				break;
+			case 1:
+				GerenciadorArma.secundariaAtiva = GerenciadorArma.armas.get(_arma);
+				Heroi.armaSecundaria = GerenciadorArma.secundariaAtiva;
+				Heroi.PRIMARIA = false;
+				Heroi.SECUNDARIA = true;
+				Heroi.MELEE = false;
+				Heroi.ESPECIAL = false;
+				GerenciadorHud.hudArma[1].setSlot(Heroi.getArmaSecundaria());
+				break;
+			case 2:
+				GerenciadorArma.especialAtiva = GerenciadorArma.armas.get(_arma);
+				Heroi.armaEspecial = GerenciadorArma.especialAtiva;
+				Heroi.PRIMARIA = false;
+				Heroi.SECUNDARIA = false;
+				Heroi.MELEE = false;
+				Heroi.ESPECIAL = true;
+				GerenciadorHud.hudArma[3].setSlot(Heroi.getArmaGranada());
+				break;
+				
+			default:
+				break;
+		}			
+		
+	}
 
 
 

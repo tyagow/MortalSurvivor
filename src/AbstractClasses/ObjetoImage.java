@@ -57,7 +57,7 @@ public class ObjetoImage extends Objeto {
 		AffineTransform trans = dbg.getTransform();
 		
 //		dbg.scale(1.4, 1.4);
-		dbg.drawImage(AnimeSet,null, (int)(X +10), (int)(Y+10)  );//(int)X,(int)Y,(int)X+sizeX,(int)Y+sizeY,0,0,AnimeSet.getWidth(),AnimeSet.getHeight(),null);//
+		dbg.drawImage(AnimeSet, null, (int)getX() +getSizeX()/2-AnimeSet.getWidth()/2, (int)getY()+getSizeY()/2-AnimeSet.getHeight()/2+3 );		
 		dbg.setTransform(trans);
 		
 		DesenhaSeLayerDois(dbg,XMundo,YMundo);

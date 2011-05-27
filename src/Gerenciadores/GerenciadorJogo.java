@@ -17,6 +17,8 @@ import GameState.GamePanel;
 import Interface.FrameBase;
 import Interface.FramePause;
 import Map.MapaData;
+import Map.Minimap;
+import Personagem.Heroi;
 
 public class GerenciadorJogo extends Objeto  {
 
@@ -27,16 +29,22 @@ public class GerenciadorJogo extends Objeto  {
 	public static float velocidadeJogo;
 	
 	public static ArrayList<MapaData> mapaData = new ArrayList<MapaData>();
+	public static int mapaSelecionado=0;
+	
+	static int[] respaw; //= new int [mapaData.size()]
 	
 	public GerenciadorJogo(){
 		
 		inicializaFrames();
 		
-		mapaData.add(new MapaData("mapaUm.map", "data/wayFaseUm.csv", "data/obstaculosFaseUm.csv",Imagem.tileSetMapaUm));
-		mapaData.add(new MapaData("mapaDois.map", "data/wayFaseDois.csv", "data/obstaculosFaseDois.csv",Imagem.tileSetMapaDois ));
+		mapaData.add(new MapaData("mapaUm.map", "data/wayFaseUm.csv", "data/obstaculosFaseUm.csv","data/raid1.csv",Imagem.tileSetMapaUm));
+		mapaData.add(new MapaData("mapaDois.map", "data/wayFaseDois.csv", "data/obstaculosFaseDois.csv","data/raid2.csv",Imagem.tileSetMapaDois ));
 
-		carregaMapa(0);
-				
+		//carregaMapa(mapaSelecionado);
+		respaw = new int [mapaData.size()];	
+		
+		respaw[0] =3; //mapa um quantidade respaw inimigos
+		respaw[1] =3;//mapa dois quantidade respaw inimigos
 		
 	}
 	
@@ -196,12 +204,24 @@ public class GerenciadorJogo extends Objeto  {
 		CanvasGame.tela.AbreMapa(mapaData.get(indiceMapa).fileNameMap,(mapaData.get(indiceMapa).tileSet));
 		CanvasGame.largura = CanvasGame.tela.Largura*16;
 		CanvasGame.altura = CanvasGame.tela.Altura*16;
+
+		
+		CanvasGame.minimap = new Minimap();
+		CanvasGame.heroi = new Heroi(GamePanel.PWIDTH,GamePanel.PHEIGHT,Imagem.heroiUm);
 		GerenciadorObstaculos.carregaGradeColisao();
 		GerenciadorObstaculos.loadObstaculos(mapaData.get(indiceMapa).fileNameObstaculos);
-		System.out.println(mapaData.get(indiceMapa).fileNameObstaculos);
 		GerenciadorObstaculos.loadWayPoints(mapaData.get(indiceMapa).fileNameWaypoints);
 		GerenciadorObstaculos.recarregaGrade();
 		
+		
+		
+		
+		Constantes.quantidadeRespawInimigo=respaw[indiceMapa];
+		
+		GerenciadorDeRaids.loadInimigos(mapaData.get(indiceMapa).fileNameInimigos);
+		
+		System.out.println(mapaData.get(indiceMapa).fileNameObstaculos);
+
 	}
 	
 

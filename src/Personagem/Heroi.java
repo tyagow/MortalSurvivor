@@ -7,6 +7,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import AbstractClasses.Objeto;
 import Armas.Arma;
@@ -15,6 +16,8 @@ import Armas.He;
 import Canvas.CanvasGame;
 import Constantes.Constantes;
 import Data.Imagem;
+import Efeitos.Sangue;
+import GameState.GamePanel;
 import Gerenciadores.GerenciadorArma;
 import Gerenciadores.GerenciadorObstaculos;
 
@@ -42,21 +45,22 @@ public class Heroi extends Objeto {
 	private int maximoVida=100;
 	
 	private static Arma armaMelee=GerenciadorArma.meeleAtiva;//GerenciadorArma.armas.get(GerenciadorArma.FACA);
-	private static Arma armaPrimaria=GerenciadorArma.primariaAtiva; //armas.get(GerenciadorArma.m4);
-	private static Arma armaSecundaria=GerenciadorArma.secundariaAtiva;//armas.get(GerenciadorArma.DE);
+	public static Arma armaPrimaria=GerenciadorArma.primariaAtiva; //armas.get(GerenciadorArma.m4);
+	public static Arma armaSecundaria=GerenciadorArma.secundariaAtiva;//armas.get(GerenciadorArma.DE);
+	public static Arma armaEspecial=GerenciadorArma.especialAtiva;//armas.get(GerenciadorArma.HE);
 	private static Arma armaAtiva=armaSecundaria;
-	private static Arma armaEspecial=GerenciadorArma.especialAtiva;//armas.get(GerenciadorArma.HE);
 	
 	private static Arma ultimaArma;
 
+	ArrayList<Sangue> sangueTela = new ArrayList<Sangue>();
 	
-	public boolean HE=false;
-
-	public boolean PRIMARIA=false;
-	public boolean SECUNDARIA=true;
-	public boolean MELEE=false;
-	public boolean ARMA_ANTERIOR=false;
-	private int larguraMapa,alturaMapa;
+	public static boolean PRIMARIA = false;
+	public static boolean SECUNDARIA = true;
+	public static boolean MELEE = false;
+	public static boolean ESPECIAL = false;
+	public boolean ARMA_ANTERIOR = false;
+	
+	private int larguraMapa, alturaMapa;
 	
 	private BufferedImage imagem;
 	private BufferedImage imagemLegs;
@@ -85,6 +89,11 @@ public class Heroi extends Objeto {
 		armaSecundaria=GerenciadorArma.secundariaAtiva;
 		armaEspecial=GerenciadorArma.especialAtiva;//GerenciadorArma.armas.get(GerenciadorArma.HE);
 		
+		
+		for (int i =0;i<100;i++) {
+			sangueTela.add(new Sangue(GamePanel.rnd.nextInt(GamePanel.PWIDTH), GamePanel.rnd.nextInt(GamePanel.PWIDTH), 0,0,99999,new Color(255,0,0, GamePanel.rnd.nextInt(100)+155)));
+			
+		}
 		
 		//System.out.println(armaSecundaria.imagem);
 		
@@ -149,9 +158,15 @@ public class Heroi extends Objeto {
 
 			
 			///// VIDA TEMPORARIO ## FAZER HUD
-			dbg.drawRect((int)px-getSizeX()/2-5, (int)py-getSizeY()/2-17, 30, 10);
-			dbg.setColor(Color.green);
-			dbg.fillRect((int)px-getSizeX()/2-5+1, (int)py-16-getSizeY()/2, (int)(life*30/maximoVida)-1, 9);
+			
+			for (int i=0;i<maximoVida-life+30;i++) {
+				sangueTela.get(i).DesenhaSe(dbg, XMundo, YMundo);
+
+			}
+			
+//			dbg.drawRect((int)px-getSizeX()/2-5, (int)py-getSizeY()/2-17, 30, 10);
+//			dbg.setColor(Color.green);
+//			dbg.fillRect((int)px-getSizeX()/2-5+1, (int)py-16-getSizeY()/2, (int)(life*30/maximoVida)-1, 9);
 		}
 
 	}
@@ -296,7 +311,7 @@ public class Heroi extends Objeto {
 				
 				ARMA_ANTERIOR=false;
 			}
-		else if (HE)  {
+		else if (ESPECIAL)  {
 				if (armaAtiva!=null) {
 					
 					armaAtiva.reseta();
@@ -307,7 +322,7 @@ public class Heroi extends Objeto {
 				
 				setArma(IDX_ARMA_GRANADA);
 				
-				HE=false;
+				ESPECIAL = false;
 			}
 	}
 	private void calculaAnimacao() {
@@ -555,7 +570,7 @@ public class Heroi extends Objeto {
 			ARMA_ANTERIOR=true;
 		}
 		if(keyCode == KeyEvent.VK_F){
-			HE=true;
+			ESPECIAL=true;
 		}
 		if(keyCode == KeyEvent.VK_W){
 			UP=true;

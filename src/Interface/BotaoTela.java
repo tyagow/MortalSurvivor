@@ -16,7 +16,6 @@ public class BotaoTela extends Botao {
 	@Override
 	public void mouseMoved(MouseEvent e) {
 
-
 		if (Constantes.colideQuadrado((int)X,(int)Y,sizeX,sizeY,e.getX(),e.getY(),2,2 )) {
 			selecionado=true;
 			
@@ -25,6 +24,7 @@ public class BotaoTela extends Botao {
 			selecionado=false;
 		}
 	}
+	
 	
 	
 }

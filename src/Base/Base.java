@@ -75,6 +75,8 @@ public class Base extends Objeto {
 					
 		if (life <0)
 			setLife(0);
+		Constantes.BASE_X=(int)X;
+		Constantes.BASE_Y=(int)Y;
 	}
 	@Override
 	public void DesenhaSe(Graphics2D dbg, int XMundo, int YMundo) {

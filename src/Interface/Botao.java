@@ -88,9 +88,12 @@ public class Botao extends Objeto {
 
 
 	@Override
-	public void DesenhaSe(Graphics2D dbg, int XMundo, int YMundo) {
+	public void DesenhaSe(Graphics2D dbg, int XMundo, int YMundo){
+		
 		Font temp = dbg.getFont();
+		
 		dbg.setFont(font);
+		
 		if (imagem == null) {
 			if (isOval) { // desenha botao com imagem
 				
@@ -146,15 +149,28 @@ public class Botao extends Objeto {
 
 			}
 		} else{
-			dbg.drawImage(imagem,(int) X,(int) Y,(int) X+180, (int) Y+180, 0, 0, imagem.getWidth(), imagem.getHeight(), null);
-			if(selecionado){
-				dbg.setColor(Color.red);
-				dbg.drawRect((int)X, (int)Y, sizeX, sizeY);
+			  if(selecionado){
+				    
+				  	dbg.setColor(Color.white);
+				    
+				    dbg.fillRect((int)X-3, (int)Y-3, sizeX+6, sizeY+6);
+				   
+				   
+				   }else {
+				    
+				    dbg.setColor(new Color(50,50,50,200));
+				    
+				    dbg.fillRect((int)X, (int)Y, sizeX, sizeY);
+				    
+				   }
+				   dbg.drawImage(imagem,(int) X,(int) Y,(int) X+sizeX, (int) Y+sizeY, 0, 0, imagem.getWidth(), imagem.getHeight(), null);
+				  
+				//  
+				 }
+				  dbg.setFont(temp);
 			}
-//		
-		}
-		dbg.setFont(temp);
-	}
+
+	
 public void mouseClicked(MouseEvent e) {
 
 	if (selecionado)
@@ -173,16 +189,13 @@ public void mouseClicked(MouseEvent e) {
 		
 		oldPressed=false;
 		
-	
-	
 	}
 
 
 	public void mouseMoved(MouseEvent e) {
-		
+				
 		if (Constantes.colideQuadrado((int)X,(int)Y,getSizeX(),getSizeY(),e.getX()+Constantes.XTela,e.getY()+Constantes.YTela,2,2 )) {
 			selecionado=true;
-			
 		}
 		else {
 			selecionado=false;

@@ -19,8 +19,8 @@ public class FrameShop extends FrameBase {
 	
 	public FrameShop(int _x, int _y, int sizeX, int sizeY, Color cor, int _tempoVida) {
 		super(_x, _y, sizeX, sizeY, cor, _tempoVida);
-		frameShopArma=new  FrameShopArma(_x, _y+80, sizeX, sizeY-80, cor, _tempoVida);
-		frameShopTorre=new FrameShopTorre(_x, _y+80, sizeX, sizeY-80, cor, _tempoVida);
+		frameShopArma = new  FrameShopArma(_x, _y+80, sizeX, sizeY-80, cor, _tempoVida);
+		frameShopTorre = new FrameShopTorre(_x, _y+80, sizeX, sizeY-80, cor, _tempoVida);
 		criaBotoes();
 		alpha=100;
 	}

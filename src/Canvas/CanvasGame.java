@@ -150,7 +150,6 @@ public class CanvasGame extends GCanvas {
 
 		gerenciadorObstaculos.reset();
 		Constantes.inimigos.clear();
-		gerenciadorDeRaids.reset();
 		gerenciadorEfeitos.reset();
 		gerenciadorXP.reset();
 		
@@ -202,9 +201,12 @@ public class CanvasGame extends GCanvas {
 			proj.DesenhaSe(dbg, Constantes.XTela, Constantes.YTela);
 			
 		}	
+		heroi.DesenhaSe(dbg, Constantes.XTela, Constantes.YTela);
+
 		gerenciadorTorre.DesenhaSe(dbg,  Constantes.XTela,  Constantes.YTela);
 		
 		gerenciadorEfeitos.DesenhaLayerDois(dbg, Constantes.XTela, Constantes.YTela);
+
 		gerenciadorRespawn.DesenhaSe(dbg, Constantes.XTela, Constantes.YTela);
 		minimap.DesenhaSe(dbg, Constantes.XTela, Constantes.YTela);
 
@@ -218,7 +220,6 @@ public class CanvasGame extends GCanvas {
 		
 		if (miraAtiva!=null)
 			miraAtiva.DesenhaSe(dbg, Constantes.XTela, Constantes.YTela);
-		heroi.DesenhaSe(dbg, Constantes.XTela, Constantes.YTela);
 
 		
 	}

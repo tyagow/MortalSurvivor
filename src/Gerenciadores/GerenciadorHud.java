@@ -28,7 +28,7 @@ public class GerenciadorHud extends Objeto {
 	
 	
 	int xHudArmas,yHudArmas,sizeXHudArmas,sizeYHudArmas;
-	private SlotTorre[] hudArma;
+	public static SlotTorre[] hudArma;
 	
 	
 	
@@ -40,7 +40,7 @@ public class GerenciadorHud extends Objeto {
 		// TODO Auto-generated method stub
 		
 		
-		xHudArmas=200;
+		xHudArmas=100;
 		sizeXHudArmas=300;
 		sizeYHudArmas=70;
 		yHudArmas=GamePanel.PHEIGHT-sizeYHudArmas-1;

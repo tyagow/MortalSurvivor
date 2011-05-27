@@ -30,7 +30,7 @@ public class Inimigo extends Objeto {
 	public double vel;
 	private int tempoEntreAtaque;
 	public int maximoVida;
-	int maxVel=100;
+	public int maxVel=100;
 	public int tipoAssasino;
 	private int larguraMapa;
 	private int alturaMapa;
@@ -44,7 +44,7 @@ public class Inimigo extends Objeto {
 	int vely;
 	
 	WayPoint target  = null;
-	private int tipo;
+	public int tipo;
 	private int objSizeX;
 	private int objSizeY;
 	private boolean colidiuObstaculo;

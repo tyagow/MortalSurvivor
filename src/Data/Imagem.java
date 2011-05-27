@@ -23,6 +23,8 @@ public class Imagem {
 	public static BufferedImage explosao2;
 	
 //*********************************ARMAS ****************************************
+	public static BufferedImage mp5;
+	public static BufferedImage mp5_hud;
 	public static BufferedImage m4;
 	public static BufferedImage m4_hud;
 	public static BufferedImage ak47;
@@ -67,6 +69,9 @@ public class Imagem {
 			TORRE_TRES_ANIMESET = Constantes.LoadImage("img/torre3.png");
 
 			deagle= Constantes.LoadImage("img/deagle.png");
+			mp5=Constantes.LoadImage("img/mp5.png");
+			mp5_hud=Constantes.LoadImage("img/mp5_hud.png");
+
 			m4=Constantes.LoadImage("img/m4a.png");
 			m4_hud=Constantes.LoadImage("img/m4_hud.png");
 			ak47=Constantes.LoadImage("img/ak47.png");

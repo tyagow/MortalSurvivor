@@ -16,6 +16,9 @@ import Gerenciadores.GerenciadorJogo;
 public class FrameChooseLevel extends FrameBase {
 
 	
+	private Botao botaoMapaUm;
+	private Botao botaoMapaDois;
+
 	public FrameChooseLevel(int _x, int _y, int sizeX, int sizeY, Color cor, int _tempoVida) {
 		super(_x, _y, sizeX, sizeY, cor, _tempoVida);
 
@@ -36,6 +39,9 @@ public class FrameChooseLevel extends FrameBase {
 
 		if (b.name.contains("Mapa Um") ) {
 			
+			
+			GerenciadorJogo.carregaMapa(0);
+			
 			GamePanel.canvasAtivo=(CanvasGame.instance);
 //		
 //			if (!frames.contains(frameVideo)) {
@@ -50,7 +56,9 @@ public class FrameChooseLevel extends FrameBase {
 	
 		}
 		else if (b.name.contains("Mapa Dois") ) {
-			
+			GerenciadorJogo.mapaSelecionado=1;
+			GerenciadorJogo.carregaMapa(1);
+
 			GamePanel.canvasAtivo=(CanvasGame.instance);
 
 			
@@ -74,8 +82,14 @@ public class FrameChooseLevel extends FrameBase {
 	private void criaBotoes() {
 		// TODO Auto-generated method stubB
 //
-		botoes.add(new Botao(Imagem.fundoCidade, "Mapa Um",(int)X+165,(int)Y+80,180,18,false));
-		botoes.add(new Botao(Imagem.fundoCidade, "Mapa Dois",(int)X+165,(int)Y+330,180,18,false));
+		botaoMapaUm=new Botao(Imagem.fundoCidade, "Mapa Um",(int)X+165,(int)Y+80,120,18,false);
+		botaoMapaUm.sizeY=120;
+		botoes.add(botaoMapaUm);
+		
+		botaoMapaDois=new Botao(Imagem.fundoCidade, "Mapa Dois",(int)X+165,(int)Y+330,120,18,false);
+		botaoMapaDois.sizeY=120;
+
+		botoes.add(botaoMapaDois);
 
 //		botoes.add(new Botao(null,"Som",(int)X+130+5,(int)Y+30,90,18,false));
 //		botoes.add(new Botao(null,"Game",(int)X+230+5,(int)Y+30,90,18,false));
