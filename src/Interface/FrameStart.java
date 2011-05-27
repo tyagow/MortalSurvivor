@@ -57,7 +57,7 @@ public class FrameStart extends FrameBase {
 		while(it.hasNext()){
 
 			Botao bot= it.next();
-			
+
 			bot.DesenhaSe(dbg, XMundo, YMundo);
 
 		}

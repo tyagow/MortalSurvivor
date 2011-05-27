@@ -191,7 +191,7 @@ public class GerenciadorJogo extends Objeto  {
 		CanvasGame.base.life= Constantes.BASE_LIFE_1;
 	}
 	
-	public void carregaMapa(int indiceMapa){
+	public static void carregaMapa(int indiceMapa){
 		
 		CanvasGame.tela.AbreMapa(mapaData.get(indiceMapa).fileNameMap,(mapaData.get(indiceMapa).tileSet));
 		CanvasGame.largura = CanvasGame.tela.Largura*16;

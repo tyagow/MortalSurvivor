@@ -146,9 +146,13 @@ public class Botao extends Objeto {
 
 			}
 		} else{
-			dbg.drawImage(imagem,(int) X,(int) Y,(int) X+30, (int) Y+30, 0, 0, imagem.getWidth(), imagem.getHeight(), null);
-		}			//dbg.drawImage(imagem, -sizeX/2,-sizeX/2,sizeX/2,sizeY/2,sizeX*frameX,sizeY*frameY,sizeX*frameX+sizeX,sizeY*frameY+sizeY,null);
-
+			dbg.drawImage(imagem,(int) X,(int) Y,(int) X+180, (int) Y+180, 0, 0, imagem.getWidth(), imagem.getHeight(), null);
+			if(selecionado){
+				dbg.setColor(Color.red);
+				dbg.drawRect((int)X, (int)Y, sizeX, sizeY);
+			}
+//		
+		}
 		dbg.setFont(temp);
 	}
 public void mouseClicked(MouseEvent e) {
@@ -175,7 +179,7 @@ public void mouseClicked(MouseEvent e) {
 
 
 	public void mouseMoved(MouseEvent e) {
-
+		
 		if (Constantes.colideQuadrado((int)X,(int)Y,getSizeX(),getSizeY(),e.getX()+Constantes.XTela,e.getY()+Constantes.YTela,2,2 )) {
 			selecionado=true;
 			

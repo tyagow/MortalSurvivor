@@ -10,6 +10,7 @@ import Canvas.CanvasGame;
 import Data.Imagem;
 import Efeitos.Texto;
 import GameState.GamePanel;
+import Gerenciadores.GerenciadorJogo;
 
 
 public class FrameChooseLevel extends FrameBase {
@@ -34,7 +35,7 @@ public class FrameChooseLevel extends FrameBase {
 		// TODO Auto-generated method stub
 
 		if (b.name.contains("Mapa Um") ) {
-
+			
 			GamePanel.canvasAtivo=(CanvasGame.instance);
 //		
 //			if (!frames.contains(frameVideo)) {
@@ -48,8 +49,10 @@ public class FrameChooseLevel extends FrameBase {
 			
 	
 		}
-		else if (b.name.contains("Options") ) {
+		else if (b.name.contains("Mapa Dois") ) {
 			
+			GamePanel.canvasAtivo=(CanvasGame.instance);
+
 			
 		}
 		else if (b.name.contains("Game") ) {
@@ -71,7 +74,9 @@ public class FrameChooseLevel extends FrameBase {
 	private void criaBotoes() {
 		// TODO Auto-generated method stubB
 //
-		botoes.add(new Botao(Imagem.fundoCidade, "Mapa Um",(int)X+30,(int)Y+30,90,18,false));
+		botoes.add(new Botao(Imagem.fundoCidade, "Mapa Um",(int)X+165,(int)Y+80,180,18,false));
+		botoes.add(new Botao(Imagem.fundoCidade, "Mapa Dois",(int)X+165,(int)Y+330,180,18,false));
+
 //		botoes.add(new Botao(null,"Som",(int)X+130+5,(int)Y+30,90,18,false));
 //		botoes.add(new Botao(null,"Game",(int)X+230+5,(int)Y+30,90,18,false));
 //		getBotoes().add(new Botao(null,"",(int)getX()+10,(int)getY()+110,120,25,false));

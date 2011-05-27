@@ -85,9 +85,6 @@ public class CanvasGame extends GCanvas {
 	public static float velocidadeJogo;
 
 
-
-
-	
 	public static TileMap tela;
 	public static int altura;
 	public static int largura;
@@ -181,7 +178,7 @@ public class CanvasGame extends GCanvas {
 		dbg.drawString(""+GamePanel.FPS, 10, 10);
 		
 
-		
+
 		
 
 		for(int i = 0; i < objetos.size();i++){
@@ -207,7 +204,6 @@ public class CanvasGame extends GCanvas {
 		}	
 		gerenciadorTorre.DesenhaSe(dbg,  Constantes.XTela,  Constantes.YTela);
 		
-		heroi.DesenhaSe(dbg, Constantes.XTela, Constantes.YTela);
 		gerenciadorEfeitos.DesenhaLayerDois(dbg, Constantes.XTela, Constantes.YTela);
 		gerenciadorRespawn.DesenhaSe(dbg, Constantes.XTela, Constantes.YTela);
 		minimap.DesenhaSe(dbg, Constantes.XTela, Constantes.YTela);
@@ -217,9 +213,13 @@ public class CanvasGame extends GCanvas {
 		gerenciadorXP.DesenhaSe(dbg, Constantes.XTela, Constantes.YTela);
 
 		gameManager.DesenhaSe(dbg, Constantes.XTela, Constantes.XTela);
+		
 
+		
 		if (miraAtiva!=null)
 			miraAtiva.DesenhaSe(dbg, Constantes.XTela, Constantes.YTela);
+		heroi.DesenhaSe(dbg, Constantes.XTela, Constantes.YTela);
+
 		
 	}
 	
@@ -230,11 +230,11 @@ public class CanvasGame extends GCanvas {
 
 		verificaFimDoJogo();
 		trataMiraDoJogo();
-		
+
+
 		gameManager.SimulaSe((int)DiffTime,velocidadeJogo);
 		
 		miraAtiva.SimulaSe((int)(DiffTime));
-		heroi.SimulaSe((int)(DiffTime*velocidadeJogo));
 
 		if(!GerenciadorRespawn.isRespawn()){
 			tela.Posiciona((int)(heroi.X-(GamePanel.PWIDTH/2)), (int)heroi.Y-(GamePanel.PHEIGHT/2));
@@ -243,7 +243,6 @@ public class CanvasGame extends GCanvas {
 		if (velocidadeJogo==0) {
 			
 		}
-		
 
 		Iterator<Objeto> itO = objetos.iterator();
 		while(itO.hasNext()){
@@ -275,8 +274,9 @@ public class CanvasGame extends GCanvas {
 		gerenciadorRespawn.SimulaSe((int)(DiffTime*velocidadeJogo));
 		gerenciadorHud.SimulaSe((int)(DiffTime*velocidadeJogo));
 		gerenciadorXP.SimulaSe((int)(DiffTime*velocidadeJogo));
-		
-		
+
+		heroi.SimulaSe((int)(DiffTime*velocidadeJogo));
+
 
 	}
 	
