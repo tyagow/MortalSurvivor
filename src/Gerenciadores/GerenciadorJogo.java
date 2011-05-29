@@ -43,7 +43,7 @@ public class GerenciadorJogo extends Objeto  {
 		//carregaMapa(mapaSelecionado);
 		respaw = new int [mapaData.size()];	
 		
-		respaw[0] =3; //mapa um quantidade respaw inimigos
+		respaw[0] =2; //mapa um quantidade respaw inimigos
 		respaw[1] =3;//mapa dois quantidade respaw inimigos
 		
 	}
@@ -111,9 +111,13 @@ public class GerenciadorJogo extends Objeto  {
 		// TODO Auto-generated method stub
 		int keyCode = e.getKeyCode();
 		if(keyCode == KeyEvent.VK_ESCAPE){
-			
-			frameAtivo=framePause;
-			CanvasGame.velocidadeJogo = 0;
+			if (frameAtivo != framePause) {
+				frameAtivo=framePause;
+				CanvasGame.velocidadeJogo = 0;
+			}else {
+				CanvasGame.velocidadeJogo = 1;
+				frameAtivo=null;
+			}
 			//inicializaFramePause();
 			
 		}
@@ -212,6 +216,7 @@ public class GerenciadorJogo extends Objeto  {
 		GerenciadorObstaculos.loadObstaculos(mapaData.get(indiceMapa).fileNameObstaculos);
 		GerenciadorObstaculos.loadWayPoints(mapaData.get(indiceMapa).fileNameWaypoints);
 		GerenciadorObstaculos.recarregaGrade();
+		GerenciadorEfeitos.reset();
 		
 		
 		

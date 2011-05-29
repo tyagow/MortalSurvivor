@@ -32,7 +32,7 @@ public class Raid {
 	
 	public Raid(){
 		
-
+inimigos.clear();
 //		InputStream in = Data.Imagem.class.getResourceAsStream(filename);
 //		
 //		
@@ -101,12 +101,14 @@ public class Raid {
 	
 	public void SimulaSe(int DiffTime){
 		
-		System.out.println(inimigos.size());
-		
+		//System.out.println("inimigos"+numInimigosAdicionados);
+		//System.out.println("size"+inimigos.size());
+//		System.out.println(ativo);
+//		
 			
 			tempoEntreInimigos+=DiffTime;
 		
-			if (numInimigosAdicionados<inimigos.size()&&tempoEntreInimigos>300) {
+			if (numInimigosAdicionados<=inimigos.size()&&tempoEntreInimigos>1000) {
 				
 				Inimigo aux = inimigos.get(numInimigosAdicionados);
 						
@@ -131,7 +133,9 @@ public class Raid {
 				numInimigosAdicionados++;
 				
 				tempoEntreInimigos=0;
-			}else if (numInimigosAdicionados<inimigos.size()) {
+			}
+			
+			if (numInimigosAdicionados>=inimigos.size()) {
 				
 				ativo=false;
 				numInimigosAdicionados=0;

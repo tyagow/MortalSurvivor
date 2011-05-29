@@ -46,6 +46,11 @@ public class Imagem {
 
 	public static Imagem instance;
 	
+	// *************************************** MAPA *********************************
+	
+	public static BufferedImage mapaUm;
+	public static BufferedImage mapaDois;
+	
 	public Imagem() {
 			efeitoFaca=Constantes.LoadImage("img/efeitoFaca.png");
 			fundoCidade=Constantes.LoadImage("img/fundoCidade.png");
@@ -89,6 +94,10 @@ public class Imagem {
 			base = Constantes.LoadImage("img/base.png");
 			instance = this;
 
+			
+			mapaUm=Constantes.LoadImage("img/mapaUm.png");;
+			mapaDois=Constantes.LoadImage("img/mapaDois.png");;
+			
 	}
  
 }

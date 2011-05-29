@@ -49,13 +49,16 @@ public class FramePause extends FrameBase {
 	
 		}
 		else if (b.name.contains("recomecar") ) {
-			GamePanel.canvasAtivo=(new CanvasGame());	
+			GamePanel.canvasAtivo=(new CanvasGame());
+			GerenciadorJogo.carregaMapa(GerenciadorJogo.mapaSelecionado);
 			GerenciadorJogo.velocidadeJogo = 1;
+			CanvasGame.velocidadeJogo = 1;
 			GerenciadorJogo.frameAtivo=null;
 		}
 		else if (b.name.contains("main") ) {
 			GamePanel.canvasAtivo=GamePanel.canvasStart;
 			GerenciadorJogo.velocidadeJogo = 1;
+			CanvasGame.velocidadeJogo = 1;
 			GerenciadorJogo.frameAtivo=null;
 
 			

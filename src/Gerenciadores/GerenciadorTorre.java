@@ -16,7 +16,7 @@ import Armas.ArmaUmTorre;
 import Canvas.CanvasGame;
 import Constantes.Constantes;
 import Data.Imagem;
-import Interface.MenuTorre;
+import Interface.FrameTorre;
 import Torre.SelecionadorDeTorre;
 import Torre.Torre;
 
@@ -309,7 +309,7 @@ public class GerenciadorTorre extends Objeto {
 		}
 
 		for(int i = 0; i < torres.size(); i++){
-			MenuTorre m = torres.get(i).menuAtivo;
+			FrameTorre m = torres.get(i).menuAtivo;
 			if(m != null){
 				if (Constantes.colideQuadrado((int)m.getX(),(int) m.getY(),(int) m.getSizeX(),(int) m.getSizeY(), (int)CanvasGame.miraAtiva.getXMundo(),(int) CanvasGame.miraAtiva.getYMundo(), 1, 1)) {
 					Constantes.miraDoJogo = false;

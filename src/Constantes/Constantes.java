@@ -203,6 +203,10 @@ public class Constantes {
 
 	public static final int HE_dano_TEMPOVIDA = 2000;
 
+	public static final int GANHO_CASH_PLAYER = 10;
+
+	public static final int GANHO_CASH_TORRE = 5;
+
 	public static int BASE_X ;
 
 	public static int BASE_Y;

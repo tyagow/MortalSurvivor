@@ -16,7 +16,8 @@ import Constantes.Constantes;
 public abstract class FrameBase extends Objeto {
 
 	public boolean ativo;
-	public int tempoVida;
+	public int tempoTotalVida;
+	public int timerVida=0;
 	public Color cor;
 	public ArrayList<FrameBase>frames= new ArrayList<FrameBase>();
 
@@ -37,7 +38,7 @@ public abstract class FrameBase extends Objeto {
 		sizeY=(_sizeY);
 		cor =_cor;
 		vivo=(true);
-		tempoVida=(_tempoVida);
+		tempoTotalVida=(_tempoVida);
 		r=(cor.getRed());
 		g=(cor.getGreen());
 		b=(cor.getBlue());
@@ -174,7 +175,7 @@ public abstract class FrameBase extends Objeto {
 		}
 		
 		Constantes.miraDoJogo=false;
-		frameDeTela=false;
+		
 		
 		calculaIA(DiffTime);
 		}
@@ -182,6 +183,10 @@ public abstract class FrameBase extends Objeto {
 	
 public void calculaIA(int DiffTime) {
 		// TODO Auto-generated method stub
+		if (timerVida>=tempoTotalVida)
+			timerVida=0;
+		
+		timerVida+=DiffTime;
 		
 	}
 
@@ -262,7 +267,8 @@ public void mouseMoved(MouseEvent e) {
 		
 		if (Constantes.colideQuadrado((int)getX(),(int)getY(),getSizeX(),getSizeY(), (int)e.getX(),(int)e.getY() ,2,2 )) {
 			selecionado=true;
-			
+			timerVida=0;
+
 		}
 		else {
 			selecionado=false;

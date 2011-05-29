@@ -11,6 +11,7 @@ import Canvas.CanvasGame;
 import Constantes.Constantes;
 import Data.Imagem;
 import GameState.GamePanel;
+import Gerenciadores.GerenciadorEfeitos;
 import Gerenciadores.GerenciadorObstaculos;
 import Gerenciadores.GerenciadorRespawn;
 import Gerenciadores.GerenciadorTorre;
@@ -65,13 +66,10 @@ public class Inimigo extends Objeto {
 		X=(GamePanel.rnd.nextInt(alturaMapa));//+alturaMapa*(-2));
 		Y=(GamePanel.rnd.nextInt(larguraMapa));//+alturaMapa*(-2));
 		
-		
 		dano = 10;
 
 		vivo=(true);
 		estado=0;
-		
-		
 		
 		campoDeVisao=Constantes.INIMIGO_CAMPO_VISAO1;
 		
@@ -92,45 +90,30 @@ public class Inimigo extends Objeto {
 			default:
 				break;
 		}
-		
-		
-		
-		// TODO Auto-generated constructor stub
+
 	}
 
 public void SimulaSe(int DiffTime) {
-		// TODO Auto-generated method stub	
-//	System.out.println("-----------------");
-//	System.out.println("oldx"+oldx);
-//	System.out.println("oldy"+oldy);
 
 			oldx=(X);
 			oldy=(Y);
 			
 			velx=(int) (Math.cos(ang)*vel);
 			vely=(int) (Math.sin(ang)*vel);
-//			System.out.println("antes mover X"+X);
-//			System.out.println("antes mover Y"+Y);
+
 			X+= (velx*DiffTime/1000.0f);
 			Y+= (vely*DiffTime/1000.0f);
-//			System.out.println("antes ia X"+X);
-//			System.out.println("antes ia Y"+Y);
-		
 
-			
+
 			calculaIA(DiffTime);
 			if (GerenciadorObstaculos.largura*32>X&&X>0 && GerenciadorObstaculos.altura*32>Y&&Y>0 ) {
+				verificaSeparacao();
 				trataColisaoMapa() ;
 			}
 			
-//			System.out.println("depois ia X"+X);
-//			System.out.println("depois ia Y"+Y);
-
-	
 			if (life<0) {
 				vivo=(false);	
 			}			
-
 	}
 
 	
@@ -177,6 +160,7 @@ private void calculaIA(int DiffTime) {
 			maquinaEstados();
 			trataEstado();
 			iatimer  = 0;
+//System.out.println("estado" + estado);
 		}
 
 
@@ -190,7 +174,7 @@ private void calculaIA(int DiffTime) {
 		switch (estado) {
 		case TRATAR_COLISAO:
 			//if (!verificaColisaoObstaculo()||!verificaSeparacao()||verificaColisaoTorre())
-				if (!verificaColisao())
+//				if (!verificaColisao())
 					estado=ATRAS_BASE;
 			break;	
 			
@@ -225,8 +209,11 @@ private void trataEstado() {
 			switch (estado) {
 			case TRATAR_COLISAO:
 				
-				trataColisaoMapa() ;
-				System.out.println("tratacolisaoMapa");
+				
+				
+				//trataColisaoMapa();
+				
+			//	System.out.println("tratacolisaoMapa");
 				
 				
 				break;
@@ -270,6 +257,7 @@ private void trataEstado() {
 		if (GerenciadorObstaculos.largura*32>X&&X>0 && GerenciadorObstaculos.altura*32>Y&&Y>0 ) {
 			
 			System.out.println(GerenciadorObstaculos.mapa[by][bx]);
+			
 			System.out.println("bx " + bx);
 			System.out.println("by " + by);
 			
@@ -286,12 +274,9 @@ private void trataEstado() {
 //return aux;			
 }
 
-
 	private void estadoFollowBase() {
 
-		
 		procuraCaminho(); // trata do caminho e ainda retorna se ja pode atacar a base ou nao que eh o proximo estado
-	//	verificaColisaoBase();
 	
 	}
 
@@ -315,62 +300,6 @@ private void trataEstado() {
 
 	}
 
-/*	private void estadoDesviaObstaculo() {
-
-
-	
-				colidiuObstaculo=verificaColisaoObstaculo();
-			 		
-				if(verificaColisaoObstaculo()||verificaColisaoTorre()||verificaColisaoBase() ){
-					double tempx = X;
-					double tempy = Y;
-					X = oldx;
-					System.out.println("colidi tempx = " + tempx);
-					System.out.println("colidi X com oldx = " + X);
-					
-					System.out.println("colidi e vo em y");
-
-	
-					if(verificaColisaoObstaculo()||verificaColisaoTorre()||verificaColisaoBase()){
-						Y = oldy;
-						X = tempx;
-						System.out.println("colidi e vo em X");
-
-
-						if(verificaColisaoObstaculo()||verificaColisaoTorre()||verificaColisaoBase()){
-							X = oldx;
-							Y = oldy;
-							System.out.println("colidi e fudeu");
-
-							ang=ang+Math.PI;
-							 //vel=maxVel;
-				
-						}else{
-							 vel=maxVel;
-						}
-					}else{
-						 vel=maxVel;
-					}
-					
-				}else{
-					 vel=maxVel;
-				}
-
-		
-	
-//			
-//			if (verificaColisaoBase()) {
-//				X=oldx;
-//				Y=oldy;
-//				atacaBase();
-//			}
-			
-			
-		
-			
-		}
-
-*/
 
 	private boolean verificaColisaoBase() {
 		
@@ -385,79 +314,50 @@ private void trataEstado() {
 	
 					return false;
 		}
-	
 
-	private boolean verificaColisaoObstaculo() {
-		for (int i =0; i < GerenciadorObstaculos.obstaculos.size();i++) {
-			Obstaculo ob = GerenciadorObstaculos.obstaculos.get(i);
-			if (Constantes.colidecircular(X, Y, sizeX/2, ob.X, ob.Y, ob.sizeX/2)) {
-				return true;
-			
-			}			
-		} 
-				return false;
-	}
-	
-	private boolean verificaColisaoTorre() {
-		for (int i =0; i < GerenciadorTorre.torres.size();i++) {
-			Torre ob = GerenciadorTorre.torres.get(i);
-			if (Constantes.colidecircular(X, Y, sizeX/2, ob.X, ob.Y, ob.sizeX/2)) {
-				return true;
-			
-			}			
-		} 
-				return false;
-	}
 	private boolean verificaSeparacao() {
 		return (verificaColisaoComInimigo());
 	}
 
-	private boolean verificaGanhoAngulo() {
-
-		return false;
-	}
 
 	private boolean verificaColisaoComInimigo() {
-		if (CanvasGame.separacaoInimigos) {
+
 			for (int i =0; i < Constantes.inimigos.size();i++) {
 				Inimigo ob = Constantes.inimigos.get(i);
 				if (ob !=this) {
-	//			if (Constantes.colidecircular(X, Y, sizeX/4, ob.X, ob.Y, ob.sizeX/4)) {
-					double dx =  X-ob.X;
-					double  dy = Y-ob.Y;
-					
-					int r = sizeX/2 ;
-					double d2 = dx*dx + dy*dy;
-					
-					if (d2<r*r) {
+				if (Constantes.colidecircular(X, Y, sizeX/4, ob.X, ob.Y, ob.sizeX/4)) {
+//					double dx =  X-ob.X;
+//					double  dy = Y-ob.Y;
+
+						double aux = X;
+						X=oldx;
 						
-	//					if (GamePanel.rnd.nextBoolean())
-						 X=oldx;
-						 Y=oldy;
-							ang = Math.atan2(dy, dx)+Math.PI;//ob.ang+Math.PI/2;
-	//					else 
-	//						ang = ob.ang-Math.PI/2;
+						if (Constantes.colidecircular(X, Y, sizeX/4, ob.X, ob.Y, ob.sizeX/4)) {
 						
-						vel=maxVel*4;
-						return true;
-					}else if (d2<r*4){
+							X=aux;
+							double auxY =Y;
+							Y=oldy;
+						
+							if (Constantes.colidecircular(X, Y, sizeX/4, ob.X, ob.Y, ob.sizeX/4)) {
+								
+								//X=oldx;
+								Y=auxY;
+								if (estado !=ATRAS_HEROI&&tipo==ob.tipo) {
+								
+									ang = ob.ang-Math.PI;
+								}
+
+								return true;
+							}
+							
+							
+						}
 						vel=maxVel;
-						ang=ob.ang;
-						return true;
-					}else {
-						vel=maxVel;
-					}
 				}
-					
-	//				ang = ob.ang+Math.PI;
-	//				
-	//				X=oldx;
-	//				Y=oldy;
-	//				vel=maxVel+50;
-	//				return true;
+
 				}
-		}	
-		vel=maxVel;
+			}
+
 		return false;		
 	}
 
@@ -465,8 +365,8 @@ private void trataEstado() {
 		tipoAssasino=_tipo;
 		if (life>0)
 			
-			CanvasGame.gerenciadorEfeitos.ativaSangue(X,Y,ang,(int)dano,tipo);
-		
+			GerenciadorEfeitos.ativaSangue(X,Y,ang,(int)dano,tipo);
+			
 		if (life-dano<=0) {
 			
 			morreu(_tipo);
@@ -495,8 +395,6 @@ private void trataEstado() {
 			if (primeiraVez) {
 				carregaPrimeiroTarget();
 				primeiraVez=false;
-	
-
 				
 			}else
 				carregaTargetProximo();
@@ -526,17 +424,7 @@ private void verificaTarget() {
 	   
 	}
 private void trataColisaoTarget(WayPoint target2) {
-//	System.out.println("x t " + target.X);
-//	System.out.println("y t " + target.Y);
-//	System.out.println("x  " + objX);
-//	System.out.println("Y  " + objY);
-//	
-//	System.out.println("Y target colidida"+target2.Y);	
-//	System.out.println("X target colidida"+target2.X);	
-//
-//	System.out.println("X obj"+objX);	
-//	System.out.println("Y obj"+objY);	
-//	System.out.println("vel"+vel);
+
 	if ((int)target.X!=objX||(int)target.Y!=objY) {
 
 		int newI = target2.indexNextTarget; 
@@ -582,9 +470,7 @@ private void carregaTargetProximo() {
 				   _target =   Constantes.wayPoints.get(i);
 				   dist=_d;
 			   }
-//			System.out.println(_d + "i " + i);
 		}
-//		System.out.println(target.indexNextTarget);
 	
 			target=_target;
 		
@@ -607,9 +493,7 @@ private void carregaPrimeiroTarget() {
 				   int dy = (int)(Constantes.wayPoints.get(i).Y - Y);
 				
 				   int _d = dx*dx+dy*dy;
-//				   System.out.println(Constantes.wayPoints.get(i).X + "   "+Constantes.wayPoints.get(i).Y  );
-//				   System.out.println("x" +X);
-//				   System.out.println("y" +Y);
+
 
 				   if (_d<dist) {
 					   
@@ -645,10 +529,8 @@ private void atacaBase() {
 		X=(oldx);
 		Y=(oldy);
 		
-}
+	}
 			
-	
-
 private void irAtrasDoHeroi(){
 		double difX = CanvasGame.heroi.X - X;
 		double difY = CanvasGame.heroi.Y - Y;
@@ -666,7 +548,6 @@ private void irAtrasDoHeroi(){
 			
 			}
 		else vel=(maxVel);
-}
-
+	}
 
 }

@@ -34,10 +34,15 @@ public class GerenciadorDeRaids {
 
 
 	private static int tempQuantidadeInimigos;
+
+
+
+
+	private static int quantidadeRaids =0;
 	
 	public GerenciadorDeRaids(){
 		
-		
+		raids.clear();
 		for (int i = 0;i<50;i++) {
 			raids.add(new Raid());
 		}
@@ -61,8 +66,8 @@ public class GerenciadorDeRaids {
 	public void SimulaSe(int DiffTime){
 		tempoEntreRaids+=DiffTime;
 
-		if (tempoEntreRaids > Constantes.TEMPO_ENTRE_RAIDS&&!CanvasGame.endGame){
-			System.out.println("inicializa Raid");
+		if (tempoEntreRaids >10000&&!CanvasGame.endGame){
+		//	System.out.println("inicializa Raid");
 				trataInicializacaoRaid(numRaid);
 				tempoEntreRaids=0;
 		}		
@@ -73,8 +78,11 @@ public class GerenciadorDeRaids {
 				
 				Raid raid = raids.get(i);
 				if(raid.ativo == true){
+					//System.out.println("raid  " + i + "ativa");
 					raid.SimulaSe(DiffTime);
+					
 				}
+			
 				
 //				if(raid.ativo == false){
 //					raids.remove(i);
@@ -92,7 +100,7 @@ public class GerenciadorDeRaids {
 			
 			if(!inim.vivo){
 				Constantes.inimigos.remove(i);
-				GerenciadorXP.ganhouXp(inim.getX(), inim.getY(),inim.tipoAssasino );
+				GerenciadorReward.trataReward(inim.getX(), inim.getY(),inim.tipoAssasino );
 			}
 		
 		}
@@ -102,10 +110,15 @@ public class GerenciadorDeRaids {
 
 
 	private void trataInicializacaoRaid(int numRaid2) {
-
+		if (numRaid<quantidadeRaids) {
 		
-		
-		raids.get(numRaid2).ativo = true;
+			raids.get(numRaid2).ativo = true;
+			numRaid++;
+	
+		}else {
+			
+			CanvasGame.endGame=true;
+		}
 	}
 
 	public static void loadInimigos() {
@@ -141,10 +154,11 @@ public static  void loadInimigos(String filename) {
 						
 						
 					}else {
-						System.out.println("muda raid");
+						//System.out.println("muda raid");
 						if (str.contains("muda raid")) {
-							numRaid++;
-							 _tipo=0;
+							//numRaid++;
+							quantidadeRaids++; 
+							_tipo=0;
 							 respaw =0;
 							 tempQuantidadeInimigos=0;
 							
@@ -183,9 +197,9 @@ public static  void loadInimigos(String filename) {
 		}else {
 			System.out.println("nao carregou inimigo");
 		}
-		System.out.println(str);
-		System.out.println("raid " + _numRaid);
-		System.out.println("raid inimigos size" + raids.get(0).inimigos.size());
+//		System.out.println(str);
+//		System.out.println("raid " + _numRaid);
+//		System.out.println("raid inimigos size" + raids.get(0).inimigos.size());
 		
 	}
 
@@ -214,6 +228,13 @@ public static  void loadInimigos(String filename) {
 		
 		tempQuantidadeInimigos++;
 		return inim;
+		
+	}
+	
+	
+	public void reset() {
+		tempQuantidadeInimigos=0;
+		
 		
 	}
 }

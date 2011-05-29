@@ -12,7 +12,7 @@ import AbstractClasses.Objeto;
 import Armas.Arma;
 import Constantes.Constantes;
 import Gerenciadores.GerenciadorObstaculos;
-import Interface.MenuTorre;
+import Interface.FrameTorre;
 import Personagem.Inimigo;
 
 import com.sun.media.sound.MidiUtils.TempoCache;
@@ -37,9 +37,9 @@ public class Torre extends Objeto{
 	int pmx;
 	
 	public	Arma armaAtiva;
-	public  MenuTorre menuAtivo; //mudei para menu torre mas o certo eh menu somente ... resolver depois
+	public  FrameTorre menuAtivo; //mudei para menu torre mas o certo eh menu somente ... resolver depois
 
-	private MenuTorre menuStatusTorre;
+	private FrameTorre menuStatusTorre;
 	Color cor;
 	private boolean contruindo;
 
@@ -75,7 +75,7 @@ public class Torre extends Objeto{
 		ang=0;
 		menuAtivo=null;
 		
-		menuStatusTorre=new MenuTorre(x, y, Constantes.HUD_TORRE_SIZEX, Constantes.HUD_TORRE_SIZEY, (Color.LIGHT_GRAY), 2000, this);
+		menuStatusTorre=new FrameTorre(x, y, Constantes.HUD_TORRE_SIZEX, Constantes.HUD_TORRE_SIZEY, (Color.LIGHT_GRAY), 2000, this);
 
 		setVivo(true);
 	
@@ -276,12 +276,12 @@ public class Torre extends Objeto{
 	}
 
 
-public MenuTorre getMenuAtivo() {
+public FrameTorre getMenuAtivo() {
 	return menuAtivo;
 }
 
 
-public void setMenuAtivo(MenuTorre menuAtivo) {
+public void setMenuAtivo(FrameTorre menuAtivo) {
 	this.menuAtivo = menuAtivo;
 }
 

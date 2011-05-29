@@ -27,53 +27,32 @@ public class FrameChooseLevel extends FrameBase {
 		
 		
 	}
-	
-
-		
-
-
 
 	@Override
 	protected void trataBotao(Botao b) {
 		// TODO Auto-generated method stub
 
 		if (b.name.contains("Mapa Um") ) {
+			GerenciadorJogo.mapaSelecionado=0;
+
 			
 			
+			GamePanel.canvasAtivo=(new CanvasGame());
 			GerenciadorJogo.carregaMapa(0);
 			
-			GamePanel.canvasAtivo=(CanvasGame.instance);
-//		
-//			if (!frames.contains(frameVideo)) {
-//				frameVideo.ativo=true;
-//				frames.add(frameVideo);
-//			}	
-//				else {
-//					frameVideo.ativo=false;
-//				}
-				
+
 			
 	
 		}
 		else if (b.name.contains("Mapa Dois") ) {
 			GerenciadorJogo.mapaSelecionado=1;
+			GamePanel.canvasAtivo=(new CanvasGame());
 			GerenciadorJogo.carregaMapa(1);
-
-			GamePanel.canvasAtivo=(CanvasGame.instance);
 
 			
 		}
 		else if (b.name.contains("Game") ) {
-			
-
-//			if (!frames.contains(frameGame)) {
-//				frameGame.ativo=true;
-//				frames.add(frameGame);
-//			}	
-//				else {
-//					frameGame.ativo=false;
-//				}
-				
+					
 			
 		}
 		
@@ -82,22 +61,15 @@ public class FrameChooseLevel extends FrameBase {
 	private void criaBotoes() {
 		// TODO Auto-generated method stubB
 //
-		botaoMapaUm=new Botao(Imagem.fundoCidade, "Mapa Um",(int)X+165,(int)Y+80,120,18,false);
+		botaoMapaUm=new Botao(Imagem.mapaUm, "Mapa Um",(int)X+70,(int)Y+60,150,18,false);
 		botaoMapaUm.sizeY=120;
 		botoes.add(botaoMapaUm);
 		
-		botaoMapaDois=new Botao(Imagem.fundoCidade, "Mapa Dois",(int)X+165,(int)Y+330,120,18,false);
+		botaoMapaDois=new Botao(Imagem.mapaDois, "Mapa Dois",(int)X+70,(int)Y+250,150,18,false);
 		botaoMapaDois.sizeY=120;
 
 		botoes.add(botaoMapaDois);
 
-//		botoes.add(new Botao(null,"Som",(int)X+130+5,(int)Y+30,90,18,false));
-//		botoes.add(new Botao(null,"Game",(int)X+230+5,(int)Y+30,90,18,false));
-//		getBotoes().add(new Botao(null,"",(int)getX()+10,(int)getY()+110,120,25,false));
-//		getBotoes().add(new Botao(null,"Options",(int)getX()+10,(int)getY()+160,120,25,false));
-//		getBotoes().add(new Botao(null,"Exit",(int)getX()+10,(int)getY()+210,120,25,false));
-		
-		
 	}
 
 

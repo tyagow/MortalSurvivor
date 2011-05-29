@@ -72,9 +72,10 @@ public class Heroi extends Objeto {
 	
 	public Heroi(int _x,int _y,BufferedImage img) {
 		this.imagem= img ;
+		System.out.println(_x);
 		imagemLegs=Imagem.legs;
 		cor=Color.black;
-		X=(_x);
+		X=(_x/2);
 		Y=(_y);
 		setSizeX(imagem.getWidth()/2);
 		setSizeY(imagem.getHeight()/3);
@@ -159,11 +160,12 @@ public class Heroi extends Objeto {
 			
 			///// VIDA TEMPORARIO ## FAZER HUD
 			
-			for (int i=0;i<maximoVida-life+30;i++) {
-				sangueTela.get(i).DesenhaSe(dbg, XMundo, YMundo);
-
-			}
-			
+//			for (int i=0;i<maximoVida-life+30;i++) {
+//				if ()
+//				sangueTela.get(i).DesenhaSe(dbg, XMundo, YMundo);
+//
+//			}
+//			
 //			dbg.drawRect((int)px-getSizeX()/2-5, (int)py-getSizeY()/2-17, 30, 10);
 //			dbg.setColor(Color.green);
 //			dbg.fillRect((int)px-getSizeX()/2-5+1, (int)py-16-getSizeY()/2, (int)(life*30/maximoVida)-1, 9);

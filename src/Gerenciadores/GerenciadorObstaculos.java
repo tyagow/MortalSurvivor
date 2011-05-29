@@ -27,7 +27,7 @@ import Constantes.Constantes;
 import Data.Imagem;
 import GameState.GamePanel;
 import Interface.FrameBase;
-import Interface.MenuObstaculos;
+import Interface.frameEditorMap;
 import Interface.FrameOptions;
 import Map.Obstaculo;
 import Map.WayPoint;
@@ -46,8 +46,8 @@ public class GerenciadorObstaculos extends Objeto  {
 
 	public static int altura;
 
-	private MenuObstaculos menuObstaculos = new MenuObstaculos(400,400, Imagem.obstaculos.getWidth(), Imagem.obstaculos.getHeight(), Color.darkGray, -1, Imagem.obstaculos);
-	private MenuObstaculos menuAtivo;
+	private frameEditorMap menuObstaculos = new frameEditorMap(400,400, Imagem.obstaculos.getWidth(), Imagem.obstaculos.getHeight(), Color.darkGray, -1, Imagem.obstaculos);
+	private frameEditorMap menuAtivo;
 
 	public GerenciadorObstaculos() {
 		// TODO Auto-generated constructor stub
@@ -93,18 +93,7 @@ public class GerenciadorObstaculos extends Objeto  {
 			trataMouse();
 		}
 		
-		
-		
-/*		Iterator<Obstaculo> it = obstaculos.iterator();
-		while(it.hasNext()){
-			Obstaculo part = it.next();
-			part.SimulaSe((int)DiffTime);
-			
-			if(part.isVivo()==false) {
-				it.remove();
-				removeObstaculoGrade((int)part.getX(),(int)part.getY());
-			}
-		}	*/	
+
 		
 	}
 	private void trataMouse() {
@@ -113,22 +102,17 @@ public class GerenciadorObstaculos extends Objeto  {
 			Constantes.hitMiraMenu= true;
 			Constantes.miraDoJogo=false;
 		}
-//		else {
-////			CanvasGame.setMiraJogo();
-//			Constantes.miraDoJogo=true;
-//		}		
+	
 	}
 
 
 	@Override
 	public void DesenhaSe(Graphics2D dbg, int XMundo, int YMundo) {
-		// TODO Auto-generated method stub
-		
-		//System.out.println(obstaculos.size());
+
 
 		for (int i = 0; i<obstaculos.size();i++) {
 			obstaculos.get(i).DesenhaSe(dbg, XMundo, YMundo);
-			
+
 			
 		}
 
@@ -136,37 +120,12 @@ public class GerenciadorObstaculos extends Objeto  {
 			for (int i = 0; i<Constantes.wayPoints.size();i++) {
 				Constantes.wayPoints.get(i).DesenhaSe(dbg, XMundo, YMundo);
 				
-				//System.out.println("ola");
 			} 
 		}
 		
 		if (menuAtivo!=null) {
 			menuAtivo.DesenhaSe(dbg, XMundo, YMundo);
 		}
-//		for (int i=0;i<largura;i++) {
-//		
-//			for (int j=0;j<altura;j++) {
-//				if (mapa[i][j]==1) {
-//					dbg.setColor(Color.red);
-//					dbg.drawRect(i*16-XMundo, j*16-YMundo, 16, 16);
-//				}else {
-//					dbg.setColor(Color.blue);
-//					dbg.drawRect(i*16-XMundo, j*16-YMundo, 16, 16);
-//				}
-//				
-//			}
-//		}
-//		
-	
-//		
-//		for (int i=0;i<largura;i++)
-//			for (int j =0;j<altura;j++)
-//				if (mapa[i][j]== 1 ) {
-//					dbg.fillRect(i*32-XMundo, j*32-YMundo, 32, 32);
-//				}
-		
-	
-	
 	}
 	private void removeObstaculoGrade(int x, int y) {
 		// TODO Auto-generated method stub
@@ -226,11 +185,9 @@ public class GerenciadorObstaculos extends Objeto  {
 		
 	public static void loadWayPoints(String filename) {
 		
-		
-
+		Constantes.wayPoints.clear();
 		InputStream in = Data.Imagem.class.getResourceAsStream(filename);
-		
-		
+
 		BufferedReader bf = new BufferedReader(new InputStreamReader(in));
 		
 		String str = "";
@@ -246,10 +203,10 @@ public class GerenciadorObstaculos extends Objeto  {
 					String strs[] = str.split(";");
 					
 					int codigo = Integer.parseInt(strs[0]); 
-					int wayX = Integer.parseInt(strs[1])*16;
-					int wayY = Integer.parseInt(strs[2])*16;
-					int waySizeX = Integer.parseInt(strs[3])*16;
-					int waySizeY = Integer.parseInt(strs[4])*16;
+					int wayX = Integer.parseInt(strs[1]);
+					int wayY = Integer.parseInt(strs[2]);
+					int waySizeX = Integer.parseInt(strs[3]);
+					int waySizeY = Integer.parseInt(strs[4]);
 					int _indexNextTarget = Integer.parseInt(strs[5]);
 				
 					 aux = new WayPoint( wayX,wayY,waySizeX,waySizeY );
@@ -259,7 +216,7 @@ public class GerenciadorObstaculos extends Objeto  {
 					 Constantes.wayPoints.add (aux);
 					System.out.println(Integer.parseInt(strs[0])+";"+Integer.parseInt(strs[1])+";"+Integer.parseInt(strs[2])+";"+Integer.parseInt(strs[3])+";"+Integer.parseInt(strs[4])+";"+Integer.parseInt(strs[5])); //					addObstaculos(20*16, 10*16, 32, 32, 0, 1);
 
-				
+					System.out.println(Constantes.wayPoints.size());
 				}
 			}
 		}catch (Exception e) {
@@ -302,8 +259,7 @@ public class GerenciadorObstaculos extends Objeto  {
 					mapa[(int)_x/32][(int)_y/32] = 1;
 					}
 
-					//System.out.println(i);
-					i++;
+				
 				
 				}
 			}
@@ -462,21 +418,10 @@ public class GerenciadorObstaculos extends Objeto  {
 						
 						if (obs.X!=CanvasGame.base.X&&obs.Y!=CanvasGame.base.Y) {
 						
-							//if (i<GerenciadorObstaculos.obstaculos.size()-1)
 								dataout.writeBytes(i+";"+(int)obs.X+";"+(int)obs.Y+";"+(int)obs.sizeX+";"+(int)obs.sizeY+";"+(int)obs.tileSetColuna+";"+(int)obs.tileSetLinha+""+System.getProperty("line.separator"));
-							//else 
-							//	dataout.writeBytes(i+";"+(int)obs.X+";"+(int)obs.Y+";"+(int)obs.sizeX+";"+(int)obs.sizeY+";"+(int)obs.tileSetColuna+";"+(int)obs.tileSetLinha);
-
+		
 						}
-						
-							
-//								if (i<GerenciadorObstaculos.obstaculos.size()-1)
-//									dataout.writeBytes(-1+";"+(int)obs.X+";"+(int)obs.Y+";"+(int)obs.sizeX+";"+(int)obs.sizeY+";"+(int)obs.tileSetColuna+";"+(int)obs.tileSetLinha+""+System.getProperty("line.separator"));
-//								else 
-//									dataout.writeBytes(-1+";"+(int)obs.X+";"+(int)obs.Y+";"+(int)obs.sizeX+";"+(int)obs.sizeY+";"+(int)obs.tileSetColuna+";"+(int)obs.tileSetLinha);
-//								
-//							System.out.println("achei a base");
-						
+		
 
 						
 					}
@@ -485,7 +430,6 @@ public class GerenciadorObstaculos extends Objeto  {
 					dataout.close();
 					out.close();
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 					}
 				
@@ -499,7 +443,7 @@ public class GerenciadorObstaculos extends Objeto  {
 	public static void saveWayPointInFile() {
 		JFileChooser fc = new JFileChooser();
 	
-	    fc.setCurrentDirectory(new File("tmp.tmp"));//new File(getClass().getResource("palm.png").getFile()));
+	    fc.setCurrentDirectory(new File("tmp.tmp"));
 	
 		FileNameExtensionFilter filter = new FileNameExtensionFilter("Arquivos de Caminhos", "csv");
 		
@@ -524,7 +468,7 @@ public class GerenciadorObstaculos extends Objeto  {
 			
 				DataOutputStream dataout = new DataOutputStream(out);
 				try {		
-					dataout.writeBytes("#Codigo;wayX;wayY;wausizeX;waysizeY;_indexNextTarget"+""+System.getProperty("line.separator"));
+					dataout.writeBytes("#Codigo;wayX;wayY;wausizeX;waysizeY;_indexNextTarget"+System.getProperty("line.separator"));
 					for (int i=0;i<Constantes.wayPoints.size();i++) {
 						
 						

@@ -59,7 +59,7 @@ public class GerenciadorEfeitos extends Objeto implements Runnable {
 		
 //		startGame();
 	}
-	public void reset() {
+	public static void reset() {
 		xp=0;
 		manchasSangue= new BufferedImage(CanvasGame.tela.Largura*16, CanvasGame.tela.Altura*16, BufferedImage.TYPE_INT_ARGB);
 		manchas = manchasSangue.createGraphics();
@@ -301,7 +301,7 @@ public class GerenciadorEfeitos extends Objeto implements Runnable {
 		
 	}
 	
-	public void ativaSangue (double x, double y, double ang, int dano, int tipo) {
+	public static void ativaSangue (double x, double y, double ang, int dano, int tipo) {
 		Color cor;
 		int velx =(int) (Math.cos(ang)*800);
 		int vely=(int) (Math.sin(ang)*800);

@@ -33,7 +33,7 @@ import Gerenciadores.GerenciadorHud;
 import Gerenciadores.GerenciadorObstaculos;
 import Gerenciadores.GerenciadorRespawn;
 import Gerenciadores.GerenciadorTorre;
-import Gerenciadores.GerenciadorXP;
+import Gerenciadores.GerenciadorReward;
 import Map.Minimap;
 import Map.Obstaculo;
 import Map.TileMap;
@@ -71,7 +71,7 @@ public class CanvasGame extends GCanvas {
 	public static GerenciadorRespawn gerenciadorRespawn;
 	public static GerenciadorHud gerenciadorHud;
 	public static GerenciadorDeRaids gerenciadorDeRaids;
-	private static  GerenciadorXP gerenciadorXP;
+	private static  GerenciadorReward gerenciadorXP;
 	public static GerenciadorObstaculos gerenciadorObstaculos;
 	private static GerenciadorJogo gameManager;
 	
@@ -132,7 +132,7 @@ public class CanvasGame extends GCanvas {
 		gerenciadorEfeitos = new GerenciadorEfeitos();
 		gerenciadorRespawn= new GerenciadorRespawn();
 		gerenciadorDeRaids= new GerenciadorDeRaids();
-		gerenciadorXP=new GerenciadorXP();
+		gerenciadorXP=new GerenciadorReward();
 		miraJogo= new MiraJogo();
 		miraMenu=new CursorMenuTorre();
 		minimap=new Minimap();
@@ -147,7 +147,7 @@ public class CanvasGame extends GCanvas {
 		
 		velocidadeJogo=1.0f;
 		gerenciadorTorre.reset();
-
+		endGame=false;
 		gerenciadorObstaculos.reset();
 		Constantes.inimigos.clear();
 		gerenciadorEfeitos.reset();

@@ -14,11 +14,12 @@ import Efeitos.TextoExtraXp;
 import GameState.GamePanel;
 
 
-public class GerenciadorXP extends Objeto {
+public class GerenciadorReward extends Objeto {
 	private static int xp;
 	private float alpha;
 	private static int fastKill=0;
 	private static double timer;
+	public  static int cash=0;
 	int  larguraHudFastKill =200;
 
 	
@@ -69,35 +70,49 @@ public class GerenciadorXP extends Objeto {
 	}
 	
 	
-	public static void kill() {
+	public static void trataFastKill() {
 		fastKill++;
 		timer=0;
 	}
 
-	public static void ganhouXp(double x,double y,int tipoAssasino) {
+	public static void trataReward(double x,double y,int tipoAssasino) {
 		int _xp;
-		
-		//System.out.println("tipoAssasino" + tipoAssasino);
 		boolean extraXp=false;
+		
+		
 		if (tipoAssasino==Constantes.TIPO_ASSASINO_PLAYER) {
 			_xp=Constantes.GANHO_XP_PLAYER;
-			kill();
+			cash+=Constantes.GANHO_CASH_PLAYER;
+			trataFastKill();
+			
 		}else {
-			_xp=+Constantes.GANHO_XP_TORRE;
+			cash+=Constantes.GANHO_CASH_TORRE;
+
+			_xp=Constantes.GANHO_XP_TORRE;
 		}
 		
-			if (trataXp(_xp)==true) {
-				
-				extraXp=true;
-			}
 		
-			trataEfeito(extraXp,_xp,x,y);
+		
+		if (trataXp(_xp)==true) {
+				
+			extraXp=true;
+		}
+	
+		
+		
+		trataEfeito(extraXp,_xp,x,y);
 		
 	
 	
 		
 		
 	}
+	
+
+	private static void ganhaCash() {
+		
+	}
+
 	public void reset() {
 		xp=0;
 		fastKill=0;
@@ -125,7 +140,7 @@ public class GerenciadorXP extends Objeto {
 
 		}
 		
-		GerenciadorHud.setXpHud(xp);
+		GerenciadorHud.xpHud=(xp);
 		return fast;
 		
 	}

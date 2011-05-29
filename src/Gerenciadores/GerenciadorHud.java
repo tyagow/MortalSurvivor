@@ -21,7 +21,7 @@ public class GerenciadorHud extends Objeto {
 
 	private Font oldFont;
 	private Font fontXp = Constantes.fonteBig;
-	private static int xpHud;
+	public static int xpHud;
 	Torre torreAtivaHud;
 	
 	private static LinkedList<Botao> botoes=new LinkedList<Botao>();
@@ -179,22 +179,8 @@ public class GerenciadorHud extends Objeto {
 		
 		
 	}
-	public static void setXpHud(int _xpHud) {
-		xpHud = _xpHud;
-	}
-	public int getXpHud() {
-		return xpHud;
-	}
-	public void setHudArma(SlotTorre[] _hudArma) {
-		this.hudArma = _hudArma;
-	}
 
-	public static void setBotoes(LinkedList<Botao> botoes) {
-		GerenciadorHud.botoes = botoes;
-	}
-	public static LinkedList<Botao> getBotoes() {
-		return botoes;
-	}
+
 	public void reset() {
 		xpHud=0;
 	}

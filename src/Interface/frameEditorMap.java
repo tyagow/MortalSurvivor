@@ -19,7 +19,7 @@ import Constantes.Constantes;
 import Gerenciadores.GerenciadorObstaculos;
 
 
-public class MenuObstaculos extends FrameBase {
+public class frameEditorMap extends FrameBase {
 
 	
 BufferedImage img;
@@ -35,79 +35,73 @@ private Obstaculo obs;
 
 private Color corBotaoMove = Color.white;
 
-private String botaoSaveWay="Save wayPoint";
+private String botaoFile="file";
 
-private String botaoSaveObs="Save Obstaculos";
+private String botaoWayPoint="WayPoint";
 
-private String botaoEditWay="Edit way";
+private String botaoObstaculo="Obstaculo";
 
-private String botaoEditObs="Edit Obs";
+private double frameX;
 
-private String botaoResetWay="Reset way";
+private static BotaoTela file,wayPoint,obstaculo;
 
-private String botaoResetObs="Reset Obs";
-
-private static BotaoTela SaveWay;
-
-private static BotaoTela SaveObs;
-private static BotaoTela EditWay;
-
-private static BotaoTela EditObs;
-
-private static BotaoTela resetWay;
-
-private static BotaoTela resetObs;
+private static FrameEditorFile frameFile;
+private static FrameEditorObstaculos frameObstaculos;
+private static FrameEditorWayPoint frameWayPoint;
 
 
-
-	public MenuObstaculos(int x, int y, int sizeX, int sizeY, Color cor,int _tempoVida,BufferedImage charset) {
+	public frameEditorMap(int x, int y, int sizeX, int sizeY, Color cor,int _tempoVida,BufferedImage charset) {
 		super(x-sizeX/2-5, y-sizeY-5, sizeX, sizeY, cor, _tempoVida);
 		img = charset;
-		// TODO Auto-generated constructor 
-		tempoVida=(_tempoVida);
-//			botoes=(criaBotoesStatusTorre());
+		tempoTotalVida=(_tempoVida);
+		
 		criaBotoes();
 		
+		frameFile = new FrameEditorFile((int)X+65, (int)Y, 60, 55, Color.darkGray, 800);
+		frameFile.frameDeTela=false;
+		
+		frameObstaculos = new FrameEditorObstaculos((int)X+185, (int)Y-50, 60, 70, Color.darkGray, 800);
+		frameObstaculos.alpha=200;
+		
+		frameWayPoint = new FrameEditorWayPoint((int)X+125, (int)Y-50, 60, 70, Color.darkGray, 800);
+		frameWayPoint.alpha=200;
+
 	}
 	
 	
 	@Override
 	public void SimulaSe(int DiffTime) {
 		super.SimulaSe(DiffTime);
-		
-		SaveWay.X=X;
-		SaveWay.Y=Y-60;
-		
-		resetWay.X=X+320;
-		resetWay.Y=Y-60;
 
-		EditWay.X=X;
-		EditWay.Y=Y-100;
-		
+		file.X=X+30;
+		file.Y=Y-20;	
+		wayPoint.X=X+90;
+		wayPoint.Y=Y-20;	
+		obstaculo.X=X+150;
+		obstaculo.Y=Y-20;
 
-		EditObs.X=X+160;
-		EditObs.Y=Y-100;
-		
-		resetObs.X=X+480;
-		resetObs.Y=Y-60;
-		
-		SaveObs.X=X+160;
-		SaveObs.Y=Y-60;
 		Constantes.miraDoJogo = false;
-//		System.out.println("numero de obstaculos" + GerenciadorObstaculos.obstaculos.size());
-
 		
+		if (frameAtivo!=null) {
+
+	
+			
+			frameAtivo.X=X+frameX;
+			frameAtivo.Y=Y;
+			
+			if (frameAtivo.timerVida>=frameAtivo.tempoTotalVida) {
+				frameAtivo.timerVida=0;
+				frameAtivo=null;
+			}
+		}
+
 	}
 
 	
 
 	@Override
 	public void DesenhaSe(Graphics2D dbg, int xMundo, int yMundo) {
-		// TODO Auto-generated method stub
-		
-		//desenha menu
-	
-	
+
 		dbg.setColor(new Color(r,g,b,150));
 		
 		dbg.fillRect((int)getX()-25,(int) (getY())-25, getSizeX()+50,getSizeY()+50);
@@ -119,15 +113,9 @@ private static BotaoTela resetObs;
 			dbg.setColor(Color.white);
 			dbg.drawRect((int)X+mX*32, (int)Y+mY*32, 32, 32);
 		}
-		
-		// range
-			dbg.setColor(Color.red);
-			//dbg.drawOval((int)getX()-torrePai.getRange()/2-xMundo, (int)getY()-torrePai.getRange()/2-yMundo, torrePai.getRange(), torrePai.getRange());
 
-//		desenha botoes
-//			dbg.setColor(new Color(r,g,b,alpha));
-//			dbg.fillRect((int)X+1,(int)Y+1, sizeX-2, sizeY-2);
-		
+			dbg.setColor(Color.red);
+	
 			Iterator<Botao> it = botoes.iterator();
 			while(it.hasNext()){
 				Botao bot= it.next();
@@ -171,97 +159,61 @@ private static BotaoTela resetObs;
 			dbg.drawRect((int)((obs.X-10)/16)*16-xMundo,(int) ((obs.Y-10)/16)*16-yMundo, obs.sizeX, obs.sizeY);
 		}
 		dbg.drawString(Constantes.wayPoints.size()+"", (int)X+16, (int)Y+32);
-		
-		//dbg.drawString(torrePai., x, y)
-		
+
 	}
 	
 	private void trataColisaoMenu(MouseEvent e) {
 		
-		
-//		int auxX = (int)(e.getX()-X );
-//		int auxY = (int)(e.getY()-Y );
-		
 		mX = ((e.getX()-(int)X)/32);
 		mY = ((e.getY()-(int)Y)/32);
-		if (mY>1)
-			mY=1;
+		if (mY>img.getHeight()/32)
+			mY=img.getHeight()/32;
 		
 		
 		}
 
 
 	private void criaBotoes() {
-//		resetWay.X=X+320;
-//		resetWay.Y=X-60;
-//
-//		EditWay.X=X;
-//		EditWay.Y=Y-100;
-//		
-//
-//		EditObs.X=X+160;
-//		EditObs.Y=Y-100;
-//		
-//		resetObs.X=X+320;
-//		resetObs.Y=X-60;
-//		
-		SaveWay = (new BotaoTela(null,botaoSaveWay,(int)X,(int)Y-80,160,16,false));
-		SaveWay.sizeY=30;
+	
+		file = (new BotaoTela(null,botaoFile,(int)X+30,(int)Y+5,60,10,false));
+		file.sizeY=15;
 		
-		SaveObs = (new BotaoTela(null,botaoSaveObs,(int)X+160,(int)Y-80,160,16,false));
-		SaveObs.sizeY=30;
+		wayPoint = (new BotaoTela(null,botaoWayPoint,(int)X+110,(int)Y+5,60,10,false));
+		wayPoint.sizeY=15;
 		
-		resetObs = (new BotaoTela(null,botaoResetObs,(int)X+320,(int)Y-60,160,16,false));
-		resetObs.sizeY=30;
-		
-		
-		
-		
-		EditWay=new BotaoTela(null,botaoEditWay,(int)X,(int)Y-80,160,16,false);
-		EditWay.sizeY=30;
-		EditObs=new BotaoTela(null,botaoEditObs,(int)X,(int)Y-80,160,16,false);
-		EditObs.sizeY=30;
-		
-		resetWay = (new BotaoTela(null,botaoResetWay,(int)X+480,(int)Y-60,160,16,false));
-		resetWay.sizeY=30;
-		
-		
-		
-		botoes.add(EditObs);
-		botoes.add(EditWay);
-		botoes.add(SaveObs);
-		botoes.add(SaveWay);
-		botoes.add(resetObs);
-		botoes.add(resetWay);
-		
-		
+		obstaculo = (new BotaoTela(null,botaoObstaculo,(int)X+190,(int)Y+5,60,10,false));
+		obstaculo.sizeY=15;
+
+		botoes.add(file);
+		botoes.add(obstaculo);
+		botoes.add(wayPoint);
+
 	}
 	@Override
 	public void mouseMoved(MouseEvent e) {
 
-		
 		if (Constantes.colideQuadrado((int)getX(),(int)getY(),getSizeX()-1,getSizeY()-1,(int)e.getX(),(int) e.getY(),1,1 )) {
 			selecionado=true;
-//			trataColisaoMenu(e);
+
 		}
 		else {
 			
 			selecionado=false;
 		}
 	
+		if (frameAtivo!=null)
+			frameAtivo.mouseMoved(e);
 			
 		for (int i=0;i<botoes.size();i++) {
 			
 			botoes.get(i).mouseMoved(e);
-
-			
+	
 		
 		}
 
 	}
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
 		boolean aux =true;
 
 		for (int i=0;i<botoes.size();i++) {
@@ -277,6 +229,9 @@ private static BotaoTela resetObs;
 				tentaCriarObstaculo(e);
 			}
 		}
+		
+		if (frameAtivo!=null)
+			frameAtivo.mouseReleased(e);
 	
 	}
 
@@ -309,27 +264,26 @@ private static BotaoTela resetObs;
 		}		
 	}
 
-
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
 
-	for (int i=0;i<botoes.size();i++) {
-			
-			botoes.get(i).mouseClicked(e);
-
-			
-		
+	for (int i=0;i<botoes.size();i++) {	
+			botoes.get(i).mouseClicked(e);	
 		}
-		
+	
+	if (frameAtivo!=null)
+		frameAtivo.mouseClicked(e);
+	
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
 
 		trataMousePressed(e);
 		
+		if (frameAtivo!=null)
+			frameAtivo.mousePressed(e);
+
 	}
 
 	private void trataMousePressed(MouseEvent e) {
@@ -379,7 +333,22 @@ private static BotaoTela resetObs;
 				return true;
 			}
 			
+		}
+	
+		return	tentaApagarWay(x,y);
+	
+	}
+	
+	
+	private boolean tentaApagarWay(int x, int y) {
+
+		for (int i = 0 ;i<Constantes.wayPoints.size();i++) {
 			
+			if (Constantes.colidecircular(x+Constantes.XTela, y+Constantes.YTela, 2,(int)Constantes.wayPoints.get(i).X ,(int)Constantes.wayPoints.get(i).Y,Constantes.wayPoints.get(i).sizeX/2)) {
+				
+				Constantes.wayPoints.remove(i);
+				return true;
+			}
 			
 		}
 		return false;
@@ -395,45 +364,52 @@ private static BotaoTela resetObs;
 			Y=e.getY();
 		}
 		if (obs!=null) {
-			obs.X = e.getX()+obs.sizeX/2+Constantes.XTela;
-			obs.Y = e.getY()+obs.sizeY/2+Constantes.YTela;
+			obs.X = e.getX()+obs.sizeX/2-16+Constantes.XTela;
+			obs.Y = e.getY()+obs.sizeY/2-16+Constantes.YTela;
 		}
-			
+		if (frameAtivo!=null)
+			frameAtivo.mouseDragged(e);
 	}
 
 
 	@Override
 	protected void trataBotao(Botao b) {
 
-		if (b.name.contains(botaoSaveObs) ) {
-			GerenciadorObstaculos.saveObstaculosInFile();
-	
+		if (b.name.contains(botaoFile) ) {
+
+				if (frameAtivo!=null)
+					frameAtivo=null;
+				else {
+
+					frameAtivo=frameFile;
+					frameX=frameAtivo.X-X;
+				}
+				
+			
 		}
-		else if (b.name.contains(botaoSaveWay) ) {
-			GerenciadorObstaculos.saveWayPointInFile();
+		else if (b.name.contains(botaoWayPoint) ) {
+			if (frameAtivo!=null)
+				frameAtivo=null;
+			else {
 
+				frameAtivo=frameWayPoint;
+				frameX=frameAtivo.X-X;
+
+			}
 			
-		}	else if (b.name.contains(botaoEditObs) ) {
-			Constantes.editarObstaculo=true;
-			Constantes.editarWay=false;
-			
+		}	else if (b.name.contains(botaoObstaculo) ) {
+
+			if (frameAtivo!=null)
+				frameAtivo=null;
+			else {
+
+				frameAtivo=frameObstaculos;
+				frameX=frameAtivo.X-X;
+
+			}
 	
 			
-			
-		}	else if (b.name.contains(botaoEditWay) ) {
-			Constantes.editarObstaculo=false;
-			Constantes.editarWay=true;
-
-
-		}else if (b.name.contains(botaoResetWay) ) {
-			Constantes.wayPoints.clear();
-
-		}else if (b.name.contains(botaoResetObs) ) {
-			GerenciadorObstaculos.obstaculos.clear();
-
-
 		}
-		
 	}
 
 

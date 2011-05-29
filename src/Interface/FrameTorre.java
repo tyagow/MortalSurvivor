@@ -14,7 +14,7 @@ import Canvas.CanvasGame;
 import Constantes.Constantes;
 
 
-public class MenuTorre extends FrameBase {
+public class FrameTorre extends FrameBase {
 
 	private int timerSelecionado;
 	private Torre torrePai;
@@ -30,14 +30,14 @@ public class MenuTorre extends FrameBase {
 	public boolean ativaRange=false;
 
 	
-	public MenuTorre(int x, int y, int sizeX, int sizeY, Color cor,int _tempoVida, Torre pai) {
+	public FrameTorre(int x, int y, int sizeX, int sizeY, Color cor,int _tempoVida, Torre pai) {
 		super(x-sizeX/2-5, y-sizeY-5, sizeX, sizeY, cor, _tempoVida);
 		// TODO Auto-generated constructor 
 		evoluiRange=(false);
 		torrePai=(pai);
 		rangeAtivo=(false);
 		timerSelecionado=(0);
-		tempoVida=(_tempoVida);
+		tempoTotalVida=(_tempoVida);
 		botoes=(criaBotoesStatusTorre());
 		
 	}
@@ -53,7 +53,7 @@ public class MenuTorre extends FrameBase {
 			timerSelecionado=0;
 		}
 		
-		if (tempoVida != -1 && timerSelecionado >= tempoVida) {
+		if (tempoTotalVida != -1 && timerSelecionado >= tempoTotalVida) {
 			
 			setVivo(false);
 			timerSelecionado=(0);
