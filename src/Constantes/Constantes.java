@@ -245,6 +245,10 @@ public class Constantes {
 
 	public static int quantidadeRespawInimigo=3;
 
+	public static int TORRE_UM_VALOR=200;
+	public static int TORRE_DOIS_VALOR=400;
+	public static int TORRE_TRES_VALOR=600;
+
 
 	public static BufferedImage LoadImage(String filename){
 		BufferedImage image = null;

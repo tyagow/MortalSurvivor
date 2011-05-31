@@ -21,12 +21,14 @@ public class GerenciadorReward extends Objeto {
 	private static double timer;
 	public  static int cash=0;
 	int  larguraHudFastKill =200;
+	private int auxFastKill;
 
 	
 	@Override
 	public void SimulaSe(int DiffTime) {
 		// TODO Auto-generated method stub
 		timer+=DiffTime;
+
 		//alpha-=DiffTime;
 		alpha = (float) (1.0f-(timer/Constantes.tempoEntreKill));
 		if (timer>=Constantes.tempoEntreKill) {
@@ -36,6 +38,11 @@ public class GerenciadorReward extends Objeto {
 		if (alpha <0) {
 			alpha=0;
 		}
+		auxFastKill=fastKill;
+		if (fastKill>Constantes.QUANTIDADE_FAST_KILL) {
+			
+			auxFastKill=Constantes.QUANTIDADE_FAST_KILL;
+		}
 
 		
 	}
@@ -44,7 +51,7 @@ public class GerenciadorReward extends Objeto {
 	public void DesenhaSe(Graphics2D dbg, int XMundo, int YMundo) {
 		// TODO Auto-generated method stub
 
-		if (Constantes.QUANTIDADE_FAST_KILL> fastKill && fastKill > 0) {
+		if (fastKill > 0) {
 		    dbg.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
 
 			
@@ -52,7 +59,7 @@ public class GerenciadorReward extends Objeto {
 		    
 		    dbg.setStroke(new BasicStroke(1.5f));
 			dbg.setColor(Color.cyan);
-			dbg.fillRect(GamePanel.PWIDTH/2-larguraHudFastKill/2,GamePanel.PHEIGHT-larguraHudFastKill/2 , larguraHudFastKill*fastKill/Constantes.QUANTIDADE_FAST_KILL, 20);
+			dbg.fillRect(GamePanel.PWIDTH/2-larguraHudFastKill/2,GamePanel.PHEIGHT-larguraHudFastKill/2 , larguraHudFastKill*auxFastKill/Constantes.QUANTIDADE_FAST_KILL, 20);
 			dbg.setColor(Color.black);
 
 			dbg.drawRect(GamePanel.PWIDTH/2-larguraHudFastKill/2,GamePanel.PHEIGHT-larguraHudFastKill/2, larguraHudFastKill, 20);
@@ -141,6 +148,7 @@ public class GerenciadorReward extends Objeto {
 		}
 		
 		GerenciadorHud.xpHud=(xp);
+		
 		return fast;
 		
 	}

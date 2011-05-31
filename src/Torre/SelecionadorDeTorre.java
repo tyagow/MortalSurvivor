@@ -16,7 +16,9 @@ import Data.Imagem;
 public class SelecionadorDeTorre extends Objeto {
 
 	public static SlotTorre[] slotsTorre;
+	public static int valorSlotAtivo;
 	public Torre torreAtiva;
+	public int indexSlotAtivo;
 
 	public SelecionadorDeTorre(){
 		X=(Constantes.SELECIONADOR_DE_TORRE_X);
@@ -33,24 +35,31 @@ public class SelecionadorDeTorre extends Objeto {
 		slotsTorre[0].setX(Constantes.SLOT_UM_X);
 		slotsTorre[0].setY(Constantes.SLOT_UM_Y);
 		slotsTorre[0].setSlot(new ArmaUmTorre(Imagem.TORRE_UM_ANIMESET,Imagem.TORRE_UM_ANIMESET,null,null));
+		slotsTorre[0].valorTorre=Constantes.TORRE_UM_VALOR;
 		slotsTorre[0].ativo=(true);
 		
 		slotsTorre[1] = new SlotTorre();
 		slotsTorre[1].setX(Constantes.SLOT_DOIS_X);
 		slotsTorre[1].setY(Constantes.SLOT_DOIS_Y);
 		slotsTorre[1].setSlot( new ArmaDoisTorre(Imagem.TORRE_DOIS_ANIMESET,Imagem.TORRE_DOIS_ANIMESET,null,null));
+		slotsTorre[1].valorTorre=Constantes.TORRE_DOIS_VALOR;
+
 		slotsTorre[1].ativo=(false);
 
 		slotsTorre[2] = new SlotTorre();
 		slotsTorre[2].setX(Constantes.SLOT_TRES_X);
 		slotsTorre[2].setY(Constantes.SLOT_TRES_Y);
 		slotsTorre[2].setSlot(new ArmaTresTorre(Imagem.TORRE_TRES_ANIMESET,Imagem.TORRE_TRES_ANIMESET,null,null));
+		slotsTorre[2].valorTorre=Constantes.TORRE_TRES_VALOR;
+
 		slotsTorre[2].ativo=(false);
 
 		slotsTorre[3] = new SlotTorre();
 		slotsTorre[3].setX(Constantes.SLOT_QUATRO_X);
 		slotsTorre[3].setY(Constantes.SLOT_QUATRO_Y);
 		slotsTorre[3].setSlot( new ArmaUmTorre(Imagem.TORRE_UM_ANIMESET,Imagem.TORRE_UM_ANIMESET,null,null));
+		slotsTorre[3].valorTorre=Constantes.TORRE_UM_VALOR;
+
 		slotsTorre[3].ativo=(false);
 		
 		
@@ -114,14 +123,22 @@ public class SelecionadorDeTorre extends Objeto {
 
 
 	public void mouseClicked(MouseEvent e) {
+	
+	}
+
+	public void mouseReleased(MouseEvent e) {
+		for(int i = 0; i < 4; i++){
+			slotsTorre[i].mouseReleased(e);
+		}
+		
 		
 		for(int i = 0; i < 4; i++){
 			if (Constantes.colideQuadrado((int)slotsTorre[i].getX(), (int)slotsTorre[i].getY(), slotsTorre[i].getSizeX(), slotsTorre[i].getSizeY(), e.getX(), e.getY(), 1, 1 )) {
 				if (!slotsTorre[i].ativo) {
 							slotsTorre[i].ativo=(true);
 							//torreAtiva=new Torre(slotsTorre[i].getAnimeSet(),slotsTorre[i].getArmaAtiva(),0,0);
-						
-							
+						indexSlotAtivo=i;
+						valorSlotAtivo=slotsTorre[i].valorTorre;
 								//System.out.println(new Torre(slotsTorre[0].getAnimeSet(),slotsTorre[0].getArmaAtiva(),0,0));
 
 							//System.out.println(slotsTorre[i].getArmaAtiva());
@@ -132,7 +149,7 @@ public class SelecionadorDeTorre extends Objeto {
 							}
 					}
 				
-				slotsTorre[i].selecionado=(true);
+				//slotsTorre[i].selecionado=(true);
 			}else {
 				slotsTorre[i].selecionado=(false);
 			}
@@ -143,12 +160,6 @@ public class SelecionadorDeTorre extends Objeto {
 //		for(int i = 0; i < 4; i++){
 //			slotsTorre[i].mouseClicked(e);
 //		}
-	}
-
-	public void mouseReleased(MouseEvent e) {
-		for(int i = 0; i < 4; i++){
-			slotsTorre[i].mouseReleased(e);
-		}
 	}
 
 	public void mouseMoved(MouseEvent e) {

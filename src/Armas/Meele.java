@@ -70,13 +70,13 @@ public class Meele extends Arma {
 			dbg.setColor(Color.black);
 			
 			AffineTransform trans = dbg.getTransform();
-			dbg.translate(getX()-XMundo, getY()-YMundo);
+			dbg.translate(X-XMundo, Y-YMundo);
 			if(estado==1)
 				dbg.rotate(oldAng);
 			else 
 				dbg.rotate(angulo);
 			
-			dbg.drawImage(getImagem(), -getSizeX()/2+8, -getSizeY()/2, getSizeX()-2,getSizeY(),getSizeX(),getSizeY(),0,0,null);
+			dbg.drawImage(imagem, -sizeX/2+8, -sizeY/2, sizeX-2,sizeY,sizeX,sizeY,0,0,null);
 
 			//dbg.drawLine(0, 0, (int)alcanceAtaque/2, 0);
 			//dbg.drawOval(0/*(int)Math.cos(getAngulo())*50*/,-25/*(int) Math.sin(getAngulo())*50*/,(int) alcanceAtaque,(int)alcanceAtaque);(int)(+Math.cos(angulo)*20),(int)(Math.sin(angulo)*20)

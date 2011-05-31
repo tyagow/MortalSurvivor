@@ -29,6 +29,9 @@ public class GerenciadorEfeitos extends Objeto implements Runnable {
 	private static Graphics2D manchas;
 	private static long diffTimeParticulas;
 	
+	private static Graphics2D miniMancha;
+
+	
 	private boolean running=false;
 		private int timer=0;
 	private long DiffTime;
@@ -51,6 +54,7 @@ public class GerenciadorEfeitos extends Objeto implements Runnable {
 		diffTimeParticulas=0;
 		manchasSangue= new BufferedImage(CanvasGame.tela.Largura*16, CanvasGame.tela.Altura*16, BufferedImage.TYPE_INT_ARGB);
 		manchas = manchasSangue.createGraphics();
+		
 		Constantes.particulasSangue.clear();
 		Constantes.particulasDesenha.clear();
 		Constantes.particulasExplosao.clear();
@@ -287,9 +291,14 @@ public class GerenciadorEfeitos extends Objeto implements Runnable {
 //			alpha = 0;
 //		else alpha= part.getAlpha()-40;
 		
+		
+		
 		manchas.setColor(part.cor);
 		manchas.fillOval((int)part.X,(int) part.Y, part.sizeX, part.sizeY);
+//		manchas.  clearRect(0, 0, manchas.le, height)
+		manchas.fillOval(0,0, part.sizeX, part.sizeY);
 
+		
 		
 	}
 

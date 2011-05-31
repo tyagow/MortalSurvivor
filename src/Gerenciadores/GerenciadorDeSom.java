@@ -18,11 +18,18 @@ public class GerenciadorDeSom extends Objeto {
 
 	
 	public static ThreadSom ak;
-	public static ThreadSom m4a;
 	public static  ThreadSom de;
 	public static  ThreadSom fundo;
+	public static ThreadSom ump45;
+	public static ThreadSom m4a;
+	public static ThreadSom m4a_silenciador;
+
+	public static ThreadSom knife;
+	public static ThreadSom knifeSlash;
+	public static ThreadSom knifeSlash2;
 	
-	public static ThreadSom he;  
+
+	public static ThreadSom he[] = new ThreadSom[6];  
 
 	 static SoundList soundList;  
 	public static  AudioClip akA;
@@ -34,12 +41,27 @@ public class GerenciadorDeSom extends Objeto {
 	  static String ak_ = "ak47.wav";
 	  
 	public GerenciadorDeSom() {
-
+		
 		ak=new ThreadSom("/sound/ak47.wav");
+		m4a_silenciador= new ThreadSom("/sound/m4a_silenciador.wav");
 		m4a=new ThreadSom("/sound/m4a.wav");
 		de=new ThreadSom("/sound/de.wav");
-		he=new ThreadSom("/sound/explode6.wav");
+		ump45=new ThreadSom("/sound/ump45.wav");
 
+		knife=new ThreadSom("/sound/knife_hit.wav");
+		knifeSlash=new ThreadSom("/sound/knife_slash.wav");
+		knifeSlash2=new ThreadSom("/sound/knife_slash2.wav");
+
+		he[0]=new ThreadSom("/sound/explode1.wav");
+		he[1]=new ThreadSom("/sound/explode2.wav");
+		he[2]=new ThreadSom("/sound/explode3.wav");
+		he[3]=new ThreadSom("/sound/explode4.wav");
+		he[4]=new ThreadSom("/sound/explode5.wav");
+		he[5]=new ThreadSom("/sound/explode6.wav");
+		
+		
+		
+		
 		//fundo =new ThreadSom("mainMusic.wav");
 		
 	//	startLoadingSounds();

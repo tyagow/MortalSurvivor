@@ -51,7 +51,7 @@ public class GerenciadorHud extends Objeto {
 		hudArma[0] = new SlotTorre();
 		hudArma[0].setX(xHudArmas+40);
 		hudArma[0].setY(yHudArmas+10);
-		hudArma[0].setSlot(Heroi.getArmaMelee());
+		hudArma[0].setSlot(Heroi.armaMelee);
 		hudArma[0].ativo=(true);
 
 
@@ -59,21 +59,21 @@ public class GerenciadorHud extends Objeto {
 		hudArma[1] = new SlotTorre();
 		hudArma[1].setX(hudArma[0].getX()+5+hudArma[0].getSizeX());
 		hudArma[1].setY(yHudArmas+10);
-		hudArma[1].setSlot(Heroi.getArmaSecundaria());
+		hudArma[1].setSlot(Heroi.armaSecundaria);
 		hudArma[1].ativo=(false);
 		
 		
 		hudArma[2] = new SlotTorre();
 		hudArma[2].setX(hudArma[1].getX()+5+hudArma[1].getSizeX());
 		hudArma[2].setY(yHudArmas+10);
-		hudArma[2].setSlot(Heroi.getArmaPrimaria());
+		hudArma[2].setSlot(Heroi.armaPrimaria);
 		hudArma[2].ativo=(false);
 		
 		
 		hudArma[3] = new SlotTorre();
 		hudArma[3].setX(hudArma[2].getX()+5+hudArma[2].getSizeX());
 		hudArma[3].setY(yHudArmas+10);
-		hudArma[3].setSlot(Heroi.getArmaGranada());
+		hudArma[3].setSlot(Heroi.armaEspecial);
 		hudArma[3].ativo=(false);
 	
 
@@ -89,7 +89,7 @@ public class GerenciadorHud extends Objeto {
 	private void atualizaHudArma() {
 	// TODO Auto-generated method stub
 		
-		switch (Heroi.getArma()) {
+		switch (Heroi.arma) {
 		case Heroi.IDX_ARMA_MELEE:
 			setHudAtivo(0);
 			break;
@@ -139,23 +139,33 @@ public class GerenciadorHud extends Objeto {
 		dbg.fillRect(xHudArmas, yHudArmas, sizeXHudArmas, sizeYHudArmas);
 	    dbg.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
 	    dbg.setStroke(stk);
+	    
 		for(int i = 0; i < hudArma.length; i++){
 			hudArma[i].DesenhaSe(dbg, XTela, YTela);
 			desenhaQuantidadeTiros(dbg,hudArma[i]);
 		}
 		
-	  
+		//hud Cash
+		oldFont=dbg.getFont();
+		dbg.setFont(fontXp);
+		dbg.setColor(Color.black);
+		dbg.drawString("$: "+GerenciadorReward.cash, GamePanel.PWIDTH/2-300, 25);
+		dbg.setColor(Color.green);
+		dbg.drawString("$: "+GerenciadorReward.cash, GamePanel.PWIDTH/2-302, 25-2);
+		dbg.setFont(oldFont);
 	    
 
 		//hud XP
 		oldFont=dbg.getFont();
 		dbg.setFont(fontXp);
-		dbg.setColor(Color.red);
-		dbg.drawString("XP: "+xpHud, GamePanel.PWIDTH/2-30, 50);
 		dbg.setColor(Color.black);
+		dbg.drawString("XP: "+xpHud, GamePanel.PWIDTH/2-30, 50);
+		dbg.setColor(Color.red);
 		dbg.drawString("XP: "+xpHud, GamePanel.PWIDTH/2-32, 50-2);
 		dbg.setFont(oldFont);	
 		//LIFE
+		dbg.setColor(Color.white);
+
 		dbg.drawRect((int)GamePanel.PWIDTH/2-150, (int)5, 300, 25);
 		dbg.setColor(Color.lightGray);
 		dbg.fillRect((int)GamePanel.PWIDTH/2-149, (int)6, (int)(Constantes.baseLife*300/Constantes.BASE_LIFE_1)-2, 23);

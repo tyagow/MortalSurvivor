@@ -44,7 +44,7 @@ public class Heroi extends Objeto {
 	private boolean Atira=false;
 	private int maximoVida=100;
 	
-	private static Arma armaMelee=GerenciadorArma.meeleAtiva;//GerenciadorArma.armas.get(GerenciadorArma.FACA);
+	public static Arma armaMelee=GerenciadorArma.meeleAtiva;//GerenciadorArma.armas.get(GerenciadorArma.FACA);
 	public static Arma armaPrimaria=GerenciadorArma.primariaAtiva; //armas.get(GerenciadorArma.m4);
 	public static Arma armaSecundaria=GerenciadorArma.secundariaAtiva;//armas.get(GerenciadorArma.DE);
 	public static Arma armaEspecial=GerenciadorArma.especialAtiva;//armas.get(GerenciadorArma.HE);
@@ -67,7 +67,7 @@ public class Heroi extends Objeto {
 
 	private int frameX=1;
 	private int frameY=0;
-	private static int arma;
+	public static int arma;
 	
 	
 	public Heroi(int _x,int _y,BufferedImage img) {
@@ -143,8 +143,8 @@ public class Heroi extends Objeto {
 		if (isVivo()) {
 			armaAtiva.DesenhaSe(dbg, XMundo, YMundo);
 			dbg.setColor(cor);
-			int px =(int) (getX()-XMundo);
-			int py = (int)(getY()-YMundo);
+			int px =(int) (X-XMundo);
+			int py = (int)(Y-YMundo);
 			
 			AffineTransform trans = dbg.getTransform();
 			dbg.translate(px, py);
@@ -165,10 +165,10 @@ public class Heroi extends Objeto {
 //				sangueTela.get(i).DesenhaSe(dbg, XMundo, YMundo);
 //
 //			}
-//			
-//			dbg.drawRect((int)px-getSizeX()/2-5, (int)py-getSizeY()/2-17, 30, 10);
-//			dbg.setColor(Color.green);
-//			dbg.fillRect((int)px-getSizeX()/2-5+1, (int)py-16-getSizeY()/2, (int)(life*30/maximoVida)-1, 9);
+			
+			dbg.drawRect((int)px-getSizeX()/2-5, (int)py-getSizeY()/2-17, 30, 10);
+			dbg.setColor(Color.green);
+			dbg.fillRect((int)px-getSizeX()/2-5+1, (int)py-16-getSizeY()/2, (int)(life*30/maximoVida)-1, 9);
 		}
 
 	}
@@ -284,7 +284,7 @@ public class Heroi extends Objeto {
 			}
 			
 			ultimaArma=armaAtiva;
-			armaAtiva=getArmaSecundaria();
+			armaAtiva=armaSecundaria;
 			SECUNDARIA=false;
 			arma=(IDX_ARMA_SECUNDARIA);
 		}
@@ -297,7 +297,7 @@ public class Heroi extends Objeto {
 			ultimaArma=armaAtiva;
 			armaAtiva=armaMelee;
 			MELEE=false;
-			setArma(IDX_ARMA_MELEE);
+			arma=(IDX_ARMA_MELEE);
 		}
 		else if (ARMA_ANTERIOR)  {
 			if (armaAtiva!=null) {
@@ -309,7 +309,7 @@ public class Heroi extends Objeto {
 				armaAtiva=ultimaArma;
 				ultimaArma=temp;
 				
-				setArma(armaAtiva.tipo);
+				arma=(armaAtiva.tipo);
 				
 				ARMA_ANTERIOR=false;
 			}
@@ -322,7 +322,7 @@ public class Heroi extends Objeto {
 				ultimaArma=armaAtiva;
 				armaAtiva=armaEspecial;
 				
-				setArma(IDX_ARMA_GRANADA);
+				arma=(IDX_ARMA_GRANADA);
 				
 				ESPECIAL = false;
 			}
@@ -522,7 +522,7 @@ public class Heroi extends Objeto {
 		// TODO Auto-generated method stub
 		
 		armaPrimaria.recarrega();
-		getArmaSecundaria().recarrega();
+		armaSecundaria.recarrega();
 		armaEspecial.recarrega();
 
 		
@@ -534,37 +534,7 @@ public class Heroi extends Objeto {
 //		else Atira=true;
 //		
 	}
-	public static void setArmaSecundaria(Arma armaSecundaria) {
-		Heroi.armaSecundaria = armaSecundaria;
-	}
-	public static Arma getArmaSecundaria() {
-		return armaSecundaria;
-	}	
-	public static void setArmaMelee(Arma armaMelee) {
-		Heroi.armaMelee = armaMelee;
-	}
-	public static Arma getArmaMelee() {
-		return armaMelee;
-	}
-	public static void setArmaPrimaria(Arma armaPrimaria) {
-		Heroi.armaPrimaria = armaPrimaria;
-	}
-	public static Arma getArmaPrimaria() {
-		return armaPrimaria;
-	}
-	public static Arma getArmaGranada() {
-		// TODO Auto-generated method stub
-		return armaEspecial;
-	}
-	public void setArma(int arma) {
-		this.arma = arma;
-	}
-	public static int getArma() {
-		return arma;
-	}
-	public final static int getIdxArmaMelee() {
-		return IDX_ARMA_MELEE;
-	}
+
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
 		int keyCode = e.getKeyCode();

@@ -32,6 +32,8 @@ public class Imagem {
 	public static BufferedImage deagle;
 	public static BufferedImage deagle_hud;
 	public static BufferedImage faca;
+	public static BufferedImage machete;
+	
 	public static BufferedImage he;
 	public static BufferedImage he_hud;
 //************************************************************************************
@@ -86,6 +88,7 @@ public class Imagem {
 			he = Constantes.LoadImage("img/he.png");
 			he_hud = Constantes.LoadImage("img/he_hud.png");
 			faca =Constantes.LoadImage("img/knife.png");
+			machete =Constantes.LoadImage("img/machete.png");
 			
 			
 			heroiUm=Constantes.LoadImage("img/t1.png");

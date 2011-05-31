@@ -35,6 +35,7 @@ public class GerenciadorTorre extends Objeto {
 	private static int rangeMouse=20;
 	private static long tempoUltimaTorre=0;
 	private Color corGridTorre;
+	private static int valorTorreAtiva;
 	
 	public GerenciadorTorre() {
 		 selecionadorDeTorre = new SelecionadorDeTorre();
@@ -65,7 +66,7 @@ public class GerenciadorTorre extends Objeto {
 						torreTemp=SelecionadorDeTorre.slotsTorre[i].armaAtiva;
 						torreTemp.X=CanvasGame.miraAtiva.X+Constantes.XTela;
 						torreTemp.Y=CanvasGame.miraAtiva.Y+Constantes.YTela;
-						System.out.println(Constantes.mouseXTela);
+						valorTorreAtiva=SelecionadorDeTorre.slotsTorre[i].valorTorre;
 						break;
 						
 						
@@ -74,7 +75,7 @@ public class GerenciadorTorre extends Objeto {
 				
 			}
 			
-			if (!posicaoValida(torreTemp.X,torreTemp.Y,torreTemp.sizeX,torreTemp.sizeY)) {
+			if (!posicaoValida(torreTemp.X,torreTemp.Y,torreTemp.sizeX,torreTemp.sizeY,valorTorreAtiva)||!haveCash()) {
 				
 				corGridTorre=Color.red;
 				
@@ -134,7 +135,7 @@ public class GerenciadorTorre extends Objeto {
 	public static void adicionaTorre(int x, int y,int _sizeX,int _sizeY) {
 		// TODO Auto-generated method stub
 		
-		if (posicaoValida(x,y,_sizeY,_sizeY))
+		if (posicaoValida(x,y,_sizeY,_sizeY,valorTorreAtiva)||!haveCash())
 			if (System.currentTimeMillis()-tempoUltimaTorre >Constantes.TEMPO_ENTRE_ADD_TORRES) {
 				tempoUltimaTorre=System.currentTimeMillis();
 				
@@ -151,7 +152,7 @@ public class GerenciadorTorre extends Objeto {
 						case 0: // torre um
 							
 							torres.add(new Torre(Imagem.TORRE_UM_ANIMESET,new ArmaUmTorre(Imagem.TORRE_UM_ANIMESET, null, null, null),x,y));
-
+							
 								break;	
 						case 1: // torre dois
 									
@@ -176,11 +177,7 @@ public class GerenciadorTorre extends Objeto {
 							break;
 						}
 						
-						
-						//Torre aux =  new Torre(selecionadorDeTorre.getSlotsTorre()[i].getAnimeSet(),selecionadorDeTorre.getSlotsTorre()[i].getArmaAtiva(),x,y);
-						
-						//torres.add(aux);
-					
+			
 					}
 				}
 
@@ -225,10 +222,17 @@ public class GerenciadorTorre extends Objeto {
 			
 		}
 		
-		if (Constantes.EVENT_contruirTorre)
+		if (Constantes.EVENT_contruirTorre&&haveCash())
 			adicionaTorre((int)torreTemp.X,(int) torreTemp.Y,torreTemp.sizeY,torreTemp.sizeY);
 
 		selecionadorDeTorre.mouseReleased(e);
+	}
+
+
+	private static boolean haveCash() {
+		if (GerenciadorReward.cash >= valorTorreAtiva)
+			return true;
+				return false;
 	}
 
 
@@ -251,7 +255,7 @@ public class GerenciadorTorre extends Objeto {
 	}
 		
 		
-	private static boolean posicaoValida(double x, double y,int _sizeX,int _sizeY) {
+	private static boolean posicaoValida(double x, double y,int _sizeX,int _sizeY, int valor) {
 		// TODO Auto-generated method stub
 		boolean aux=true;
 		Iterator<Torre> it = torres.iterator();
@@ -259,15 +263,17 @@ public class GerenciadorTorre extends Objeto {
 			Torre torre = it.next();
 			
 
-			if (Constantes.colidecircular(x, y,rangeMouse/2,torre.X,torre.Y,torre.sizeY)
-				||GerenciadorObstaculos.colidiuObstaculo(x,y,(int)_sizeY,(int)_sizeY)
-					||Constantes.colidecircular(x, y,rangeMouse/2,CanvasGame.heroi.X,CanvasGame.heroi.Y,CanvasGame.heroi.sizeX)) {
+			if (Constantes.colidecircular(x, y,rangeMouse/2,torre.X,torre.Y,torre.sizeY)) {
 				aux= false;
 				}
 		
 			}
 
-		
+		if (GerenciadorObstaculos.mapa[(int)x/32][(int)y/32]==1
+					||Constantes.colidecircular(x, y,rangeMouse/2,CanvasGame.heroi.X,CanvasGame.heroi.Y,CanvasGame.heroi.sizeX)||
+					valor <=GerenciadorReward.cash) {
+			aux = false;
+		}
 	
 		
 

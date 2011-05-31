@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 
 import Canvas.CanvasGame;
 import Constantes.Constantes;
+import GameState.GamePanel;
 import Gerenciadores.GerenciadorDeSom;
 import Personagem.Inimigo;
 import Som.Sound;
@@ -113,7 +114,8 @@ public class ProjetilGranada extends Projetil {
 			if (!isVivo()) {
 				CanvasGame.gerenciadorEfeitos.explosao(X,Y,100,100);
 
-				GerenciadorDeSom.he.run();
+				int indexSom=GamePanel.rnd.nextInt(6);
+				GerenciadorDeSom.he[indexSom].run();
 			}
 			
 		

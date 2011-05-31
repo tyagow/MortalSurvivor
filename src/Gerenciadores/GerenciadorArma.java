@@ -31,6 +31,7 @@ public class GerenciadorArma extends Objeto {
 	public static final int FACA = 3;
 	public static final int HE = 4;
 	public static final int MP5 = 5;
+	public static final int FACAO = 6;
 
 
 	
@@ -41,9 +42,11 @@ public class GerenciadorArma extends Objeto {
 		armas.add(new Metralhadora(Imagem.m4, Imagem.m4_hud, GerenciadorDeSom.m4a, null));
 		armas.add(new Metralhadora(Imagem.ak47, Imagem.ak47_hud, GerenciadorDeSom.ak, null));
 		armas.add(new Pistola(Imagem.deagle, Imagem.deagle_hud, GerenciadorDeSom.de, null));
-		armas.add(new Meele(Imagem.faca, Imagem.faca, null, null));
+		armas.add(new Meele(Imagem.faca, Imagem.faca, GerenciadorDeSom.knife, GerenciadorDeSom.knifeSlash));
 		armas.add(new He(Imagem.he, Imagem.he_hud, null, null));
-		armas.add(new Metralhadora(Imagem.mp5, Imagem.mp5_hud, GerenciadorDeSom.m4a, null));
+		armas.add(new Metralhadora(Imagem.mp5, Imagem.mp5_hud, GerenciadorDeSom.ump45, null));
+		armas.add(new Meele(Imagem.machete, Imagem.machete, GerenciadorDeSom.knife, GerenciadorDeSom.knifeSlash));
+
 
 		
 		primariaAtiva = armas.get(AK47);

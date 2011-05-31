@@ -21,6 +21,7 @@ public class FrameShopArma extends FrameBase {
 	public static final int PRIMARIA = 0;
 	public static final int SECUNDARIA = 1;
 	public static final int ESPECIAL = 2;
+	private static final int MEELE = 3;
 	
 	ArrayList<Botao> armas = new ArrayList<Botao>();
 	
@@ -37,6 +38,7 @@ public class FrameShopArma extends FrameBase {
 			armas.add(new BotaoTela(Imagem.deagle_hud, "deagle", (int) X + 100, (int) Y + 150, Imagem.ak47_hud.getWidth()*2, Imagem.ak47_hud.getHeight()*2, false));
 			armas.add(new BotaoTela(Imagem.he_hud, "he", (int) X + 100, (int) Y + 250, Imagem.ak47_hud.getWidth()*2, Imagem.ak47_hud.getHeight()*2, false));
 			armas.add(new BotaoTela(Imagem.mp5_hud, "mp5", (int) X + 400, (int) Y + 50, Imagem.ak47_hud.getWidth()*2, Imagem.ak47_hud.getHeight()*2, false));
+			armas.add(new BotaoTela(Imagem.machete, "facao", (int) X + 100, (int) Y + 350, Imagem.ak47_hud.getWidth()*2, Imagem.ak47_hud.getHeight()*2, false));
 
 		}
 		
@@ -103,9 +105,7 @@ public class FrameShopArma extends FrameBase {
 
 		if(b.name.contains("mp5")){
 			trocaArma(GerenciadorArma.MP5, PRIMARIA);
-		}
-		
-		if(b.name.contains("ak47")){
+		}else if(b.name.contains("ak47")){
 			trocaArma(GerenciadorArma.AK47, PRIMARIA);
 		}
 		
@@ -119,6 +119,8 @@ public class FrameShopArma extends FrameBase {
 		
 		else if(b.name.contains("he")){
 			trocaArma(GerenciadorArma.HE, ESPECIAL);
+		}else if(b.name.contains("facao")){
+			trocaArma(GerenciadorArma.FACAO, MEELE);
 		}
 		
 	}
@@ -139,33 +141,42 @@ public class FrameShopArma extends FrameBase {
 	private void trocaArma(int _arma, int _categoria){
 		
 		switch (_categoria) {
-			case 0:
+			case PRIMARIA:
 				GerenciadorArma.primariaAtiva = GerenciadorArma.armas.get(_arma);
 				Heroi.armaPrimaria = GerenciadorArma.primariaAtiva;
 				Heroi.PRIMARIA = true;
 				Heroi.SECUNDARIA = false;
 				Heroi.MELEE = false;
 				Heroi.ESPECIAL = false;
-				GerenciadorHud.hudArma[2].setSlot(Heroi.getArmaPrimaria());
+				GerenciadorHud.hudArma[2].setSlot(Heroi.armaPrimaria);
 
 				break;
-			case 1:
+			case SECUNDARIA:
 				GerenciadorArma.secundariaAtiva = GerenciadorArma.armas.get(_arma);
 				Heroi.armaSecundaria = GerenciadorArma.secundariaAtiva;
 				Heroi.PRIMARIA = false;
 				Heroi.SECUNDARIA = true;
 				Heroi.MELEE = false;
 				Heroi.ESPECIAL = false;
-				GerenciadorHud.hudArma[1].setSlot(Heroi.getArmaSecundaria());
+				GerenciadorHud.hudArma[1].setSlot(Heroi.armaSecundaria);
 				break;
-			case 2:
+			case ESPECIAL:
 				GerenciadorArma.especialAtiva = GerenciadorArma.armas.get(_arma);
 				Heroi.armaEspecial = GerenciadorArma.especialAtiva;
 				Heroi.PRIMARIA = false;
 				Heroi.SECUNDARIA = false;
 				Heroi.MELEE = false;
 				Heroi.ESPECIAL = true;
-				GerenciadorHud.hudArma[3].setSlot(Heroi.getArmaGranada());
+				GerenciadorHud.hudArma[3].setSlot(Heroi.armaEspecial);
+				break;
+			case MEELE:
+				GerenciadorArma.meeleAtiva = GerenciadorArma.armas.get(_arma);
+				Heroi.armaMelee = GerenciadorArma.meeleAtiva;
+				Heroi.PRIMARIA = false;
+				Heroi.SECUNDARIA = false;
+				Heroi.MELEE = true;
+				Heroi.ESPECIAL = false;
+				GerenciadorHud.hudArma[0].setSlot(Heroi.armaMelee);
 				break;
 				
 			default:
